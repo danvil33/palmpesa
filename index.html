@@ -1,905 +1,783 @@
+```html
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-```
-<title>BetLive — Premium</title>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-    rel="stylesheet"
->
-
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
-
-    :root {
-        --bg: #07090c;
-        --surface: #11151a;
-        --surface-2: #171c22;
-        --border: #252c34;
-        --text: #f4f6f8;
-        --muted: #8b95a1;
-        --yellow: #f0b90b;
-        --yellow-dark: #c99700;
-        --green: #0ecb81;
-        --red: #f6465d;
-    }
-
-    body {
-        font-family: "Inter", sans-serif;
-        background: var(--bg);
-        color: var(--text);
-        min-height: 100vh;
-    }
-
-    button,
-    input {
-        font-family: inherit;
-    }
-
-    button {
-        cursor: pointer;
-    }
-
-    .hidden {
-        display: none !important;
-    }
-
-    /* ========================================================
-       TOP NAV
-    ======================================================== */
-
-    .topbar {
-        height: 68px;
-        background: rgba(17, 21, 26, .96);
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        align-items: center;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        backdrop-filter: blur(12px);
-    }
-
-    .nav-inner {
-        width: min(1100px, calc(100% - 32px));
-        margin: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .brand {
-        display: flex;
-        align-items: center;
-        gap: 11px;
-    }
-
-    .brand-logo {
-        width: 38px;
-        height: 38px;
-        border-radius: 10px;
-        background: var(--yellow);
-        color: #111;
-        display: grid;
-        place-items: center;
-        font-size: 18px;
-        font-weight: 800;
-    }
-
-    .brand-name {
-        font-size: 19px;
-        font-weight: 800;
-        letter-spacing: -.5px;
-    }
-
-    .brand-name span {
-        color: var(--yellow);
-    }
-
-    .account {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .account-email {
-        color: var(--muted);
-        font-size: 12px;
-    }
-
-    .logout {
-        border: 1px solid var(--border);
-        background: transparent;
-        color: var(--text);
-        padding: 8px 13px;
-        border-radius: 8px;
-        font-size: 12px;
-        font-weight: 600;
-    }
-
-    .logout:hover {
-        border-color: var(--red);
-        color: var(--red);
-    }
-
-    /* ========================================================
-       AUTH
-    ======================================================== */
-
-    .auth-page {
-        min-height: calc(100vh - 68px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 30px 16px;
-    }
-
-    .auth-card {
-        width: 100%;
-        max-width: 420px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 32px;
-    }
-
-    .auth-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 13px;
-        background: rgba(240, 185, 11, .12);
-        border: 1px solid rgba(240, 185, 11, .22);
-        color: var(--yellow);
-        display: grid;
-        place-items: center;
-        font-size: 23px;
-        font-weight: 800;
-        margin-bottom: 20px;
-    }
-
-    .auth-card h1 {
-        font-size: 24px;
-        margin-bottom: 7px;
-        letter-spacing: -.5px;
-    }
-
-    .auth-card > p {
-        color: var(--muted);
-        font-size: 13px;
-        line-height: 1.5;
-        margin-bottom: 25px;
-    }
-
-    .message {
-        display: none;
-        padding: 11px 12px;
-        border-radius: 8px;
-        font-size: 12px;
-        line-height: 1.45;
-        margin-bottom: 15px;
-    }
-
-    .message.show {
-        display: block;
-    }
-
-    .message.error {
-        color: #ff7181;
-        background: rgba(246, 70, 93, .08);
-        border: 1px solid rgba(246, 70, 93, .2);
-    }
-
-    .message.success {
-        color: #35d99a;
-        background: rgba(14, 203, 129, .08);
-        border: 1px solid rgba(14, 203, 129, .2);
-    }
-
-    .field {
-        margin-bottom: 15px;
-    }
-
-    .field label {
-        display: block;
-        color: #aab3bd;
-        font-size: 12px;
-        font-weight: 600;
-        margin-bottom: 7px;
-    }
-
-    .field input {
-        width: 100%;
-        height: 46px;
-        padding: 0 13px;
-        border-radius: 9px;
-        border: 1px solid var(--border);
-        background: #090c10;
-        color: var(--text);
-        outline: none;
-        font-size: 13px;
-    }
-
-    .field input:focus {
-        border-color: var(--yellow);
-    }
-
-    .primary-btn {
-        width: 100%;
-        height: 46px;
-        border: 0;
-        border-radius: 9px;
-        background: var(--yellow);
-        color: #111;
-        font-size: 13px;
-        font-weight: 800;
-        transition: .15s;
-    }
-
-    .primary-btn:hover {
-        background: #f8ca20;
-    }
-
-    .primary-btn:disabled {
-        opacity: .55;
-        cursor: not-allowed;
-    }
-
-    .auth-switch {
-        text-align: center;
-        margin-top: 19px;
-        color: var(--muted);
-        font-size: 12px;
-    }
-
-    .auth-switch button {
-        border: 0;
-        background: none;
-        color: var(--yellow);
-        font-weight: 700;
-        margin-left: 4px;
-    }
-
-    /* ========================================================
-       MAIN APP
-    ======================================================== */
-
-    .app {
-        width: min(1100px, calc(100% - 32px));
-        margin: auto;
-        padding: 34px 0 60px;
-    }
-
-    .hero {
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 26px;
-        margin-bottom: 24px;
-    }
-
-    .eyebrow {
-        color: var(--yellow);
-        font-size: 11px;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        margin-bottom: 9px;
-    }
-
-    .hero h1 {
-        font-size: clamp(27px, 4vw, 38px);
-        line-height: 1.12;
-        letter-spacing: -1.2px;
-        margin-bottom: 8px;
-    }
-
-    .hero p {
-        color: var(--muted);
-        font-size: 14px;
-        line-height: 1.6;
-        max-width: 650px;
-    }
-
-    .section-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 14px;
-    }
-
-    .section-header h2 {
-        font-size: 16px;
-    }
-
-    .section-header span {
-        color: var(--muted);
-        font-size: 11px;
-    }
-
-    /* ========================================================
-       CONTENT LIST
-    ======================================================== */
-
-    .content-list {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 15px;
-    }
-
-    .content-card {
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 13px;
-        overflow: hidden;
-        transition: border-color .15s, transform .15s;
-    }
-
-    .content-card:hover {
-        border-color: #39424d;
-        transform: translateY(-1px);
-    }
-
-    .card-body {
-        padding: 19px;
-    }
-
-    .card-top {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 14px;
-        margin-bottom: 11px;
-    }
-
-    .card-title {
-        font-size: 16px;
-        line-height: 1.35;
-        font-weight: 800;
-    }
-
-    .price {
-        flex-shrink: 0;
-        background: rgba(240, 185, 11, .1);
-        border: 1px solid rgba(240, 185, 11, .18);
-        color: var(--yellow);
-        padding: 6px 9px;
-        border-radius: 7px;
-        font-size: 11px;
-        font-weight: 800;
-    }
-
-    .description {
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.6;
-        margin-bottom: 17px;
-    }
-
-    .locked-content {
-        border: 1px solid var(--border);
-        background: #0b0e12;
-        border-radius: 10px;
-        padding: 16px;
-    }
-
-    .locked-row {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 14px;
-    }
-
-    .lock {
-        width: 35px;
-        height: 35px;
-        border-radius: 8px;
-        background: #171c22;
-        border: 1px solid var(--border);
-        display: grid;
-        place-items: center;
-        font-size: 16px;
-    }
-
-    .locked-text strong {
-        display: block;
-        font-size: 12px;
-        margin-bottom: 3px;
-    }
-
-    .locked-text span {
-        color: var(--muted);
-        font-size: 10px;
-    }
-
-    .pay-btn {
-        width: 100%;
-        height: 40px;
-        border: 0;
-        border-radius: 8px;
-        background: var(--green);
-        color: white;
-        font-size: 12px;
-        font-weight: 800;
-    }
-
-    .pay-btn:hover {
-        background: #18dc91;
-    }
-
-    .free-content {
-        border: 1px solid rgba(14, 203, 129, .25);
-        background: rgba(14, 203, 129, .04);
-        border-radius: 10px;
-        padding: 15px;
-    }
-
-    .available {
-        color: var(--green);
-        font-size: 10px;
-        font-weight: 800;
-        text-transform: uppercase;
-        margin-bottom: 9px;
-    }
-
-    .premium-text {
-        color: #dfe4e8;
-        white-space: pre-wrap;
-        font-size: 12px;
-        line-height: 1.7;
-    }
-
-    .empty {
-        grid-column: 1 / -1;
-        text-align: center;
-        padding: 70px 20px;
-        border: 1px dashed var(--border);
-        border-radius: 13px;
-        color: var(--muted);
-    }
-
-    .empty-icon {
-        font-size: 28px;
-        margin-bottom: 10px;
-        opacity: .7;
-    }
-
-    .empty h3 {
-        color: var(--text);
-        font-size: 14px;
-        margin-bottom: 5px;
-    }
-
-    .empty p {
-        font-size: 12px;
-    }
-
-    /* ========================================================
-       PAYMENT MODAL
-    ======================================================== */
-
-    .modal {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, .72);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 16px;
-        z-index: 500;
-    }
-
-    .modal-card {
-        width: 100%;
-        max-width: 430px;
-        background: var(--surface);
-        border: 1px solid var(--border);
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, .4);
-    }
-
-    .modal-header {
-        padding: 18px 20px;
-        border-bottom: 1px solid var(--border);
-        display: flex;
-        justify-content: space-between;
-        gap: 15px;
-    }
-
-    .modal-header h3 {
-        font-size: 15px;
-    }
-
-    .close-btn {
-        width: 28px;
-        height: 28px;
-        border: 0;
-        border-radius: 7px;
-        background: #20262d;
-        color: var(--muted);
-        font-size: 16px;
-    }
-
-    .modal-body {
-        padding: 20px;
-    }
-
-    .selected-title {
-        color: var(--muted);
-        font-size: 12px;
-        line-height: 1.5;
-        margin-bottom: 16px;
-    }
-
-    .amount-box {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 13px 14px;
-        border: 1px solid var(--border);
-        background: #0b0e12;
-        border-radius: 9px;
-        margin-bottom: 16px;
-    }
-
-    .amount-box span:first-child {
-        color: var(--muted);
-        font-size: 11px;
-    }
-
-    .amount-box span:last-child {
-        color: var(--yellow);
-        font-size: 16px;
-        font-weight: 800;
-    }
-
-    .phone-label {
-        display: block;
-        color: #aab3bd;
-        font-size: 11px;
-        font-weight: 700;
-        margin-bottom: 7px;
-    }
-
-    .phone-input {
-        width: 100%;
-        height: 45px;
-        background: #090c10;
-        border: 1px solid var(--border);
-        border-radius: 9px;
-        padding: 0 13px;
-        color: white;
-        outline: none;
-        margin-bottom: 13px;
-    }
-
-    .phone-input:focus {
-        border-color: var(--yellow);
-    }
-
-    .payment-note {
-        color: var(--muted);
-        font-size: 10px;
-        line-height: 1.5;
-        margin-top: 11px;
-        text-align: center;
-    }
-
-    /* ========================================================
-       LOADING
-    ======================================================== */
-
-    .loading {
-        grid-column: 1 / -1;
-        padding: 60px;
-        text-align: center;
-        color: var(--muted);
-        font-size: 12px;
-    }
-
-    .spinner {
-        width: 25px;
-        height: 25px;
-        border: 2px solid #293039;
-        border-top-color: var(--yellow);
-        border-radius: 50%;
-        animation: spin .7s linear infinite;
-        margin: 0 auto 12px;
-    }
-
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
+    <title>BetLive — Premium</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-    }
 
-    /* ========================================================
-       MOBILE
-    ======================================================== */
+        :root {
+            --bg: #0b0e11;
+            --surface: #15191f;
+            --surface2: #1b2027;
+            --border: #29313b;
+            --text: #f1f3f5;
+            --muted: #8b96a5;
+            --yellow: #f0b90b;
+            --green: #0ecb81;
+            --red: #f6465d;
+        }
 
-    @media (max-width: 700px) {
+        body {
+            font-family: Inter, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* =========================
+           TOP BAR
+        ========================= */
 
         .topbar {
-            height: 62px;
+            height: 68px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(11,14,17,.96);
+            display: flex;
+            align-items: center;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
         }
 
-        .nav-inner,
-        .app {
-            width: min(100% - 22px, 1100px);
+        .topbar-inner {
+            width: 100%;
+            max-width: 1180px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .account-email {
-            display: none;
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
         }
 
-        .app {
-            padding-top: 25px;
+        .brand-logo {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: var(--yellow);
+            color: #111;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+            font-size: 18px;
         }
-
-        .content-list {
-            grid-template-columns: 1fr;
-        }
-
-        .hero h1 {
-            font-size: 27px;
-        }
-
-        .auth-card {
-            padding: 25px 20px;
-        }
-
-    }
-
-    @media (max-width: 400px) {
 
         .brand-name {
-            font-size: 17px;
+            font-size: 19px;
+            font-weight: 800;
+            letter-spacing: -.5px;
+        }
+
+        .brand-name span {
+            color: var(--yellow);
+        }
+
+        .account {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .email {
+            color: var(--muted);
+            font-size: 12px;
         }
 
         .logout {
-            padding: 7px 10px;
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text);
+            border-radius: 8px;
+            padding: 8px 13px;
+            font-weight: 600;
+        }
+
+        .logout:hover {
+            border-color: var(--red);
+            color: var(--red);
+        }
+
+        /* =========================
+           AUTH
+        ========================= */
+
+        .auth-page {
+            min-height: calc(100vh - 68px);
+            display: grid;
+            place-items: center;
+            padding: 30px 20px;
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 410px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 32px;
+        }
+
+        .auth-card h1 {
+            font-size: 25px;
+            margin-bottom: 8px;
+        }
+
+        .auth-card > p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 7px;
+            font-weight: 600;
+        }
+
+        .field input {
+            width: 100%;
+            height: 45px;
+            padding: 0 13px;
+            border: 1px solid var(--border);
+            background: #0d1014;
+            color: var(--text);
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .field input:focus {
+            border-color: var(--yellow);
+        }
+
+        .primary {
+            width: 100%;
+            height: 45px;
+            border: 0;
+            border-radius: 8px;
+            background: var(--yellow);
+            color: #111;
+            font-weight: 800;
+        }
+
+        .primary:hover {
+            filter: brightness(1.08);
+        }
+
+        .primary:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 20px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .auth-switch button {
+            border: 0;
+            background: none;
+            color: var(--yellow);
+            font-weight: 700;
+        }
+
+        /* =========================
+           APP
+        ========================= */
+
+        .app {
+            max-width: 1180px;
+            margin: auto;
+            padding: 38px 24px 70px;
+        }
+
+        .page-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            margin-bottom: 28px;
+            gap: 20px;
+        }
+
+        .page-head h1 {
+            font-size: 30px;
+            letter-spacing: -.8px;
+        }
+
+        .page-head p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 7px;
+        }
+
+        .live-status {
+            border: 1px solid rgba(14,203,129,.25);
+            background: rgba(14,203,129,.08);
+            color: var(--green);
+            padding: 8px 11px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           CONTENT GRID
+        ========================= */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .content-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            overflow: hidden;
         }
 
         .card-body {
-            padding: 15px;
+            padding: 21px;
         }
 
-    }
-</style>
-```
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 15px;
+        }
 
+        .card-title {
+            font-size: 17px;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .price {
+            white-space: nowrap;
+            color: var(--yellow);
+            font-weight: 800;
+            font-size: 13px;
+            background: rgba(240,185,11,.09);
+            border: 1px solid rgba(240,185,11,.2);
+            padding: 7px 9px;
+            border-radius: 7px;
+        }
+
+        .description {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
+        .locked {
+            margin-top: 20px;
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+        }
+
+        .locked-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .locked-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .lock {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            background: #20262e;
+            display: grid;
+            place-items: center;
+            font-size: 15px;
+        }
+
+        .locked-info strong {
+            display: block;
+            font-size: 12px;
+        }
+
+        .locked-info span {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        .pay {
+            border: 0;
+            background: var(--green);
+            color: white;
+            border-radius: 8px;
+            padding: 10px 15px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .pay:hover {
+            filter: brightness(1.08);
+        }
+
+        .free-content {
+            margin-top: 18px;
+            padding: 16px;
+            background: #0d1014;
+            border: 1px solid rgba(14,203,129,.25);
+            border-radius: 9px;
+        }
+
+        .free-label {
+            color: var(--green);
+            font-size: 11px;
+            font-weight: 800;
+            margin-bottom: 9px;
+        }
+
+        .premium-text {
+            white-space: pre-wrap;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #dce1e7;
+        }
+
+        .empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 70px 20px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            color: var(--muted);
+        }
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,.72);
+            display: grid;
+            place-items: center;
+            padding: 20px;
+            z-index: 100;
+        }
+
+        .modal-card {
+            width: 100%;
+            max-width: 430px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 25px;
+        }
+
+        .modal-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .modal-head h2 {
+            font-size: 19px;
+        }
+
+        .modal-head p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.5;
+            margin-top: 5px;
+        }
+
+        .close {
+            width: 30px;
+            height: 30px;
+            border-radius: 7px;
+            border: 1px solid var(--border);
+            background: #0d1014;
+            color: var(--muted);
+        }
+
+        .amount-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px;
+            background: #0d1014;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .amount-box strong {
+            color: var(--yellow);
+            font-size: 14px;
+        }
+
+        .phone-input {
+            width: 100%;
+            height: 46px;
+            background: #0d1014;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0 13px;
+            color: white;
+            outline: none;
+        }
+
+        .phone-input:focus {
+            border-color: var(--yellow);
+        }
+
+        .modal-note {
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.5;
+            margin: 10px 0 15px;
+        }
+
+        .cancel {
+            width: 100%;
+            height: 43px;
+            margin-top: 9px;
+            border: 1px solid var(--border);
+            background: #20252c;
+            color: white;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+
+        /* =========================
+           MESSAGE
+        ========================= */
+
+        .message {
+            display: none;
+            padding: 10px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .message.show {
+            display: block;
+        }
+
+        .message.error {
+            color: var(--red);
+            background: rgba(246,70,93,.08);
+            border: 1px solid rgba(246,70,93,.2);
+        }
+
+        .message.success {
+            color: var(--green);
+            background: rgba(14,203,129,.08);
+            border: 1px solid rgba(14,203,129,.2);
+        }
+
+        @media(max-width:760px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                padding: 0 15px;
+            }
+
+            .email {
+                display: none;
+            }
+
+            .app {
+                padding: 28px 15px 50px;
+            }
+
+            .page-head {
+                align-items: flex-start;
+            }
+
+            .page-head h1 {
+                font-size: 25px;
+            }
+        }
+
+        @media(max-width:500px) {
+            .auth-card {
+                padding: 24px;
+            }
+
+            .card-top {
+                flex-direction: column;
+            }
+
+            .locked-row {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .pay {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<!-- ============================================================
-     NAVIGATION
-============================================================ -->
+<!-- =========================
+     HEADER
+========================= -->
 
-<nav class="topbar hidden" id="topbar">
+<header class="topbar">
 
-```
-<div class="nav-inner">
+    <div class="topbar-inner">
 
-    <div class="brand">
+        <div class="brand">
+            <div class="brand-logo">B</div>
 
-        <div class="brand-logo">
-            B
+            <div class="brand-name">
+                Bet<span>Live</span>
+            </div>
         </div>
 
-        <div class="brand-name">
-            Bet<span>Live</span>
+        <div
+            class="account hidden"
+            id="accountArea"
+        >
+            <span
+                class="email"
+                id="userEmail"
+            ></span>
+
+            <button
+                class="logout"
+                onclick="logout()"
+            >
+                Sign out
+            </button>
         </div>
 
     </div>
 
-    <div class="account">
+</header>
 
-        <span
-            class="account-email"
-            id="userEmail"
-        ></span>
 
-        <button
-            class="logout"
-            id="logoutBtn"
-        >
-            Sign out
-        </button>
+<!-- =========================
+     AUTH
+========================= -->
 
-    </div>
+<section
+    class="auth-page"
+    id="authSection"
+>
 
-</div>
-```
+    <div class="auth-card">
 
-</nav>
+        <h1 id="authTitle">
+            Welcome back
+        </h1>
 
-<!-- ============================================================
-     AUTH PAGE
-============================================================ -->
+        <p id="authSubtitle">
+            Sign in to access premium BetLive content.
+        </p>
 
-<section id="authPage" class="auth-page">
+        <div
+            class="message"
+            id="authMessage"
+        ></div>
 
-```
-<div class="auth-card">
+        <div class="field">
 
-    <div class="auth-icon">
-        B
-    </div>
+            <label>
+                Email address
+            </label>
 
-    <h1 id="authTitle">
-        Welcome back
-    </h1>
+            <input
+                type="email"
+                id="email"
+                placeholder="you@example.com"
+            >
 
-    <p id="authSubtitle">
-        Sign in to access premium BetLive content.
-    </p>
+        </div>
 
-    <div
-        id="authMessage"
-        class="message"
-    ></div>
+        <div class="field">
 
-    <div class="field">
+            <label>
+                Password
+            </label>
 
-        <label>
-            Email address
-        </label>
+            <input
+                type="password"
+                id="password"
+                placeholder="Minimum 6 characters"
+            >
 
-        <input
-            type="email"
-            id="email"
-            placeholder="you@example.com"
-            autocomplete="email"
-        >
-
-    </div>
-
-    <div class="field">
-
-        <label>
-            Password
-        </label>
-
-        <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            autocomplete="current-password"
-        >
-
-    </div>
-
-    <button
-        class="primary-btn"
-        id="authBtn"
-    >
-        Sign in
-    </button>
-
-    <div class="auth-switch">
-
-        <span id="switchLabel">
-            Don't have an account?
-        </span>
+        </div>
 
         <button
-            id="switchBtn"
+            class="primary"
+            id="authButton"
+            onclick="handleAuth()"
         >
-            Create account
+            Sign In
         </button>
 
-    </div>
+        <div class="auth-switch">
 
-</div>
-```
+            <span id="switchText">
+                Don't have an account?
+            </span>
+
+            <button
+                onclick="toggleAuthMode()"
+                id="switchButton"
+            >
+                Create account
+            </button>
+
+        </div>
+
+    </div>
 
 </section>
 
-<!-- ============================================================
+
+<!-- =========================
      MAIN APPLICATION
-============================================================ -->
+========================= -->
 
 <main
     class="app hidden"
-    id="mainApp"
+    id="appSection"
 >
 
-```
-<section class="hero">
+    <div class="page-head">
 
-    <div class="eyebrow">
-        Premium Access
-    </div>
+        <div>
 
-    <h1>
-        Get the content<br>
-        you don't want to miss.
-    </h1>
+            <h1>
+                Premium Content
+            </h1>
 
-    <p>
-        Browse the latest premium posts and unlock
-        the content you want using secure mobile payment.
-    </p>
+            <p>
+                Unlock exclusive picks and premium posts.
+            </p>
 
-</section>
+        </div>
 
-
-<div class="section-header">
-
-    <h2>
-        Premium Content
-    </h2>
-
-    <span id="contentCount">
-        Loading...
-    </span>
-
-</div>
-
-
-<div
-    class="content-list"
-    id="contentList"
->
-
-    <div class="loading">
-
-        <div class="spinner"></div>
-
-        Loading content...
+        <div class="live-status">
+            ● LIVE
+        </div>
 
     </div>
 
-</div>
-```
+    <div
+        class="content-grid"
+        id="contentList"
+    >
+
+        <div class="empty">
+            Loading premium content...
+        </div>
+
+    </div>
 
 </main>
 
-<!-- ============================================================
+
+<!-- =========================
      PAYMENT MODAL
-============================================================ -->
+========================= -->
 
 <div
     class="modal hidden"
     id="paymentModal"
 >
 
-```
-<div class="modal-card">
+    <div class="modal-card">
 
-    <div class="modal-header">
+        <div class="modal-head">
 
-        <h3>
-            Unlock premium content
-        </h3>
+            <div>
 
-        <button
-            class="close-btn"
-            id="closeModal"
-        >
-            ×
-        </button>
+                <h2>
+                    Complete Payment
+                </h2>
 
-    </div>
+                <p id="selectedTitle">
+                    Premium content
+                </p>
 
-    <div class="modal-body">
+            </div>
 
-        <div
-            class="selected-title"
-            id="selectedTitle"
-        ></div>
+            <button
+                class="close"
+                onclick="closePaymentModal()"
+            >
+                ×
+            </button>
+
+        </div>
 
         <div class="amount-box">
 
@@ -907,53 +785,65 @@
                 Amount
             </span>
 
-            <span id="paymentAmount">
+            <strong id="selectedAmount">
                 0 TZS
-            </span>
+            </strong>
 
         </div>
 
         <div
-            id="paymentMessage"
             class="message"
+            id="paymentMessage"
         ></div>
 
-        <label class="phone-label">
-            Tanzanian mobile number
+        <label
+            style="
+                display:block;
+                color:var(--muted);
+                font-size:12px;
+                margin-bottom:7px;
+                font-weight:600;
+            "
+        >
+            Tanzanian phone number
         </label>
 
         <input
-            type="tel"
             class="phone-input"
             id="paymentPhone"
+            type="tel"
             placeholder="07XXXXXXXX"
-            inputmode="numeric"
         >
+
+        <p class="modal-note">
+            Enter the number that should receive the PalmPesa payment request.
+        </p>
 
         <button
-            class="primary-btn"
-            id="payBtn"
+            class="primary"
+            id="paymentButton"
+            onclick="startPayment()"
         >
-            Pay now
+            Pay Now
         </button>
 
-        <div class="payment-note">
-            A payment request will be sent to your phone.
-            Approve it on your mobile device.
-        </div>
+        <button
+            class="cancel"
+            onclick="closePaymentModal()"
+        >
+            Cancel
+        </button>
 
     </div>
 
 </div>
-```
 
-</div>
 
 <script>
 
-    // ============================================================
-    // FIREBASE
-    // ============================================================
+    /* ============================================================
+       FIREBASE
+    ============================================================ */
 
     const firebaseConfig = {
 
@@ -973,30 +863,24 @@
             "742861205377",
 
         appId:
-            "1:742861205377:web:bbe8a42b78c90354a64280",
-
-        measurementId:
-            "G-G1KWGHLZES"
+            "1:742861205377:web:bbe8a42b78c90354a64280"
 
     };
 
 
-    firebase.initializeApp(
-        firebaseConfig
-    );
+    firebase.initializeApp(firebaseConfig);
 
 
     const auth =
         firebase.auth();
 
-
     const db =
         firebase.firestore();
 
 
-    // ============================================================
-    // STATE
-    // ============================================================
+    /* ============================================================
+       STATE
+    ============================================================ */
 
     let currentUser = null;
 
@@ -1004,165 +888,108 @@
 
     let selectedContent = null;
 
-    let contentUnsubscribe = null;
+    let unsubscribeContent = null;
 
 
-    // ============================================================
-    // DOM
-    // ============================================================
+    /* ============================================================
+       DOM
+    ============================================================ */
 
-    const authPage =
-        document.getElementById(
-            "authPage"
-        );
+    const authSection =
+        document.getElementById("authSection");
 
-    const topbar =
-        document.getElementById(
-            "topbar"
-        );
+    const appSection =
+        document.getElementById("appSection");
 
-    const mainApp =
-        document.getElementById(
-            "mainApp"
-        );
-
-    const authBtn =
-        document.getElementById(
-            "authBtn"
-        );
-
-    const authMessage =
-        document.getElementById(
-            "authMessage"
-        );
-
-    const switchBtn =
-        document.getElementById(
-            "switchBtn"
-        );
-
-    const logoutBtn =
-        document.getElementById(
-            "logoutBtn"
-        );
+    const accountArea =
+        document.getElementById("accountArea");
 
     const contentList =
-        document.getElementById(
-            "contentList"
-        );
+        document.getElementById("contentList");
 
     const paymentModal =
-        document.getElementById(
-            "paymentModal"
-        );
+        document.getElementById("paymentModal");
 
-    const payBtn =
-        document.getElementById(
-            "payBtn"
-        );
+    const authMessage =
+        document.getElementById("authMessage");
 
     const paymentMessage =
-        document.getElementById(
-            "paymentMessage"
-        );
+        document.getElementById("paymentMessage");
 
 
-    // ============================================================
-    // AUTH MODE
-    // ============================================================
+    /* ============================================================
+       AUTH MODE
+    ============================================================ */
 
-    switchBtn.addEventListener(
-        "click",
-        () => {
+    function toggleAuthMode() {
 
-            isSignUp =
-                !isSignUp;
+        isSignUp = !isSignUp;
+
+        clearMessage(authMessage);
 
 
-            clearMessage(
-                authMessage
-            );
-
+        if (isSignUp) {
 
             document.getElementById(
-                "email"
-            ).value = "";
-
+                "authTitle"
+            ).textContent =
+                "Create your account";
 
             document.getElementById(
-                "password"
-            ).value = "";
+                "authSubtitle"
+            ).textContent =
+                "Create a bettor account to access premium content.";
 
+            document.getElementById(
+                "authButton"
+            ).textContent =
+                "Create Account";
 
-            if (isSignUp) {
+            document.getElementById(
+                "switchText"
+            ).textContent =
+                "Already have an account?";
 
-                document.getElementById(
-                    "authTitle"
-                ).textContent =
-                    "Create your account";
+            document.getElementById(
+                "switchButton"
+            ).textContent =
+                "Sign in";
 
+        } else {
 
-                document.getElementById(
-                    "authSubtitle"
-                ).textContent =
-                    "Create a bettor account to access premium content.";
+            document.getElementById(
+                "authTitle"
+            ).textContent =
+                "Welcome back";
 
+            document.getElementById(
+                "authSubtitle"
+            ).textContent =
+                "Sign in to access premium BetLive content.";
 
-                authBtn.textContent =
-                    "Create account";
+            document.getElementById(
+                "authButton"
+            ).textContent =
+                "Sign In";
 
+            document.getElementById(
+                "switchText"
+            ).textContent =
+                "Don't have an account?";
 
-                document.getElementById(
-                    "switchLabel"
-                ).textContent =
-                    "Already have an account?";
-
-
-                switchBtn.textContent =
-                    "Sign in";
-
-            } else {
-
-                document.getElementById(
-                    "authTitle"
-                ).textContent =
-                    "Welcome back";
-
-
-                document.getElementById(
-                    "authSubtitle"
-                ).textContent =
-                    "Sign in to access premium BetLive content.";
-
-
-                authBtn.textContent =
-                    "Sign in";
-
-
-                document.getElementById(
-                    "switchLabel"
-                ).textContent =
-                    "Don't have an account?";
-
-
-                switchBtn.textContent =
-                    "Create account";
-
-            }
+            document.getElementById(
+                "switchButton"
+            ).textContent =
+                "Create account";
 
         }
-    );
+
+    }
 
 
-    // ============================================================
-    // AUTH
-    // ============================================================
-
-    authBtn.addEventListener(
-        "click",
-        handleAuth
-    );
-
+    /* ============================================================
+       AUTHENTICATION
+    ============================================================ */
 
     async function handleAuth() {
 
@@ -1171,16 +998,13 @@
                 "email"
             ).value.trim();
 
-
         const password =
             document.getElementById(
                 "password"
             ).value;
 
 
-        clearMessage(
-            authMessage
-        );
+        clearMessage(authMessage);
 
 
         if (!email || !password) {
@@ -1192,7 +1016,6 @@
             );
 
             return;
-
         }
 
 
@@ -1205,15 +1028,18 @@
             );
 
             return;
-
         }
 
 
-        authBtn.disabled =
-            true;
+        const button =
+            document.getElementById(
+                "authButton"
+            );
 
 
-        authBtn.textContent =
+        button.disabled = true;
+
+        button.textContent =
             "Please wait...";
 
 
@@ -1264,7 +1090,6 @@
                 error
             );
 
-
             showMessage(
                 authMessage,
                 friendlyAuthError(error),
@@ -1273,96 +1098,96 @@
 
         } finally {
 
-            authBtn.disabled =
-                false;
+            button.disabled = false;
 
-
-            authBtn.textContent =
+            button.textContent =
                 isSignUp
-                    ? "Create account"
-                    : "Sign in";
+                    ? "Create Account"
+                    : "Sign In";
 
         }
 
     }
 
 
-    function friendlyAuthError(
-        error
-    ) {
+    function friendlyAuthError(error) {
 
-        switch (error.code) {
+        const messages = {
 
-            case "auth/email-already-in-use":
-                return "That email is already registered.";
+            "auth/email-already-in-use":
+                "That email is already registered.",
 
-            case "auth/invalid-email":
-                return "Enter a valid email address.";
+            "auth/invalid-email":
+                "Enter a valid email address.",
 
-            case "auth/user-not-found":
-                return "No account was found with this email.";
+            "auth/user-not-found":
+                "No account was found with that email.",
 
-            case "auth/wrong-password":
-            case "auth/invalid-credential":
-                return "Incorrect email or password.";
+            "auth/wrong-password":
+                "Incorrect email or password.",
 
-            case "auth/too-many-requests":
-                return "Too many attempts. Try again later.";
+            "auth/invalid-credential":
+                "Incorrect email or password."
 
-            default:
-                return error.message ||
-                    "Authentication failed.";
+        };
 
-        }
+
+        return (
+            messages[error.code] ||
+            "Authentication failed."
+        );
 
     }
 
 
-    // ============================================================
-    // AUTH STATE
-    // ============================================================
+    /* ============================================================
+       LOGOUT
+    ============================================================ */
+
+    async function logout() {
+
+        await auth.signOut();
+
+    }
+
+
+    /* ============================================================
+       AUTH STATE
+    ============================================================ */
 
     auth.onAuthStateChanged(
         async user => {
 
             if (!user) {
 
-                currentUser =
-                    null;
+                currentUser = null;
 
-
-                authPage.classList.remove(
+                authSection.classList.remove(
                     "hidden"
                 );
 
-
-                topbar.classList.add(
+                appSection.classList.add(
                     "hidden"
                 );
 
-
-                mainApp.classList.add(
+                accountArea.classList.add(
                     "hidden"
                 );
 
+                if (unsubscribeContent) {
 
-                if (contentUnsubscribe) {
+                    unsubscribeContent();
 
-                    contentUnsubscribe();
-
-                    contentUnsubscribe =
-                        null;
+                    unsubscribeContent = null;
 
                 }
-
 
                 return;
 
             }
 
 
-            currentUser =
-                user;
+            currentUser = user;
 
 
             document.getElementById(
@@ -1371,17 +1196,15 @@
                 user.email;
 
 
-            authPage.classList.add(
+            authSection.classList.add(
                 "hidden"
             );
 
-
-            topbar.classList.remove(
+            appSection.classList.remove(
                 "hidden"
             );
 
-
-            mainApp.classList.remove(
+            accountArea.classList.remove(
                 "hidden"
             );
 
@@ -1394,9 +1217,9 @@
     );
 
 
-    // ============================================================
-    // ENSURE USER
-    // ============================================================
+    /* ============================================================
+       USER DOCUMENT
+    ============================================================ */
 
     async function ensureUserDocument() {
 
@@ -1432,40 +1255,25 @@
     }
 
 
-    // ============================================================
-    // LOGOUT
-    // ============================================================
-
-    logoutBtn.addEventListener(
-        "click",
-        async () => {
-
-            await auth.signOut();
-
-        }
-    );
-
-
-    // ============================================================
-    // LOAD CONTENT
-    // ============================================================
+    /* ============================================================
+       LOAD CONTENT
+    ============================================================ */
 
     function loadContent() {
 
-        if (contentUnsubscribe) {
+        if (unsubscribeContent) {
 
-            contentUnsubscribe();
+            unsubscribeContent();
 
         }
 
 
-        contentUnsubscribe =
+        unsubscribeContent =
             db
                 .collection("content")
-                .where(
-                    "active",
-                    "==",
-                    true
+                .orderBy(
+                    "createdAt",
+                    "desc"
                 )
                 .onSnapshot(
 
@@ -1473,30 +1281,16 @@
 
                         if (snapshot.empty) {
 
-                            document.getElementById(
-                                "contentCount"
-                            ).textContent =
-                                "0 posts";
-
-
                             contentList.innerHTML = `
-
                                 <div class="empty">
-
-                                    <div class="empty-icon">
-                                        ✦
-                                    </div>
-
-                                    <h3>
+                                    <h3 style="color:white;margin-bottom:7px;">
                                         No premium content yet
                                     </h3>
 
                                     <p>
-                                        New content will appear here.
+                                        Check back later for new content.
                                     </p>
-
                                 </div>
-
                             `;
 
                             return;
@@ -1504,68 +1298,21 @@
                         }
 
 
-                        const documents =
-                            [];
+                        let html = "";
 
 
-                        snapshot.forEach(
-                            doc => {
+                        snapshot.forEach(doc => {
 
-                                documents.push({
-
-                                    id:
-                                        doc.id,
-
-                                    data:
-                                        doc.data()
-
-                                });
-
-                            }
-                        );
-
-
-                        documents.sort(
-                            (a, b) => {
-
-                                const aTime =
-                                    a.data.createdAt
-                                        ?.toMillis?.() ||
-                                    0;
-
-
-                                const bTime =
-                                    b.data.createdAt
-                                        ?.toMillis?.() ||
-                                    0;
-
-
-                                return bTime - aTime;
-
-                            }
-                        );
-
-
-                        document.getElementById(
-                            "contentCount"
-                        ).textContent =
-                            documents.length +
-                            (
-                                documents.length === 1
-                                    ? " post"
-                                    : " posts"
+                            html += createContentCard(
+                                doc.id,
+                                doc.data()
                             );
+
+                        });
 
 
                         contentList.innerHTML =
-                            documents
-                                .map(item =>
-                                    createContentCard(
-                                        item.id,
-                                        item.data
-                                    )
-                                )
-                                .join("");
+                            html;
 
                     },
 
@@ -1576,27 +1323,10 @@
                             error
                         );
 
-
                         contentList.innerHTML = `
-
                             <div class="empty">
-
-                                <div class="empty-icon">
-                                    !
-                                </div>
-
-                                <h3>
-                                    Unable to load content
-                                </h3>
-
-                                <p>
-                                    ${escapeHtml(
-                                        error.message
-                                    )}
-                                </p>
-
+                                Unable to load premium content.
                             </div>
-
                         `;
 
                     }
@@ -1606,9 +1336,9 @@
     }
 
 
-    // ============================================================
-    // CONTENT CARD
-    // ============================================================
+    /* ============================================================
+       CONTENT CARD
+    ============================================================ */
 
     function createContentCard(
         id,
@@ -1625,7 +1355,7 @@
         const description =
             escapeHtml(
                 data.description ||
-                "Premium content available to unlock."
+                "Exclusive premium content."
             );
 
 
@@ -1637,14 +1367,8 @@
 
 
         const amount =
-            Number(
-                data.price || 0
-            );
+            Number(data.price || 0);
 
-
-        // --------------------------------------------------------
-        // FREE CONTENT
-        // --------------------------------------------------------
 
         if (amount <= 0) {
 
@@ -1656,24 +1380,24 @@
 
                         <div class="card-top">
 
-                            <h3 class="card-title">
+                            <h2 class="card-title">
                                 ${title}
-                            </h3>
+                            </h2>
 
-                            <span class="price">
+                            <div class="price">
                                 FREE
-                            </span>
+                            </div>
 
                         </div>
 
-                        <p class="description">
+                        <div class="description">
                             ${description}
-                        </p>
+                        </div>
 
                         <div class="free-content">
 
-                            <div class="available">
-                                ✓ Available
+                            <div class="free-label">
+                                ✓ AVAILABLE NOW
                             </div>
 
                             <div class="premium-text">
@@ -1691,10 +1415,6 @@
         }
 
 
-        // --------------------------------------------------------
-        // PREMIUM CONTENT
-        // --------------------------------------------------------
-
         return `
 
             <article class="content-card">
@@ -1703,55 +1423,56 @@
 
                     <div class="card-top">
 
-                        <h3 class="card-title">
+                        <h2 class="card-title">
                             ${title}
-                        </h3>
+                        </h2>
 
-                        <span class="price">
+                        <div class="price">
                             ${formatMoney(amount)} TZS
-                        </span>
+                        </div>
 
                     </div>
 
-                    <p class="description">
+                    <div class="description">
                         ${description}
-                    </p>
+                    </div>
 
-                    <div class="locked-content">
+                    <div class="locked">
 
                         <div class="locked-row">
 
-                            <div class="lock">
-                                🔒
+                            <div class="locked-info">
+
+                                <div class="lock">
+                                    🔒
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Premium access
+                                    </strong>
+
+                                    <span>
+                                        Payment required to unlock
+                                    </span>
+
+                                </div>
+
                             </div>
 
-                            <div class="locked-text">
-
-                                <strong>
-                                    Premium content
-                                </strong>
-
-                                <span>
-                                    Unlock this post to view the full content.
-                                </span>
-
-                            </div>
+                            <button
+                                class="pay"
+                                onclick="openPaymentModal(
+                                    '${id}',
+                                    ${amount},
+                                    '${escapeAttribute(title)}'
+                                )"
+                            >
+                                Pay ${formatMoney(amount)}
+                            </button>
 
                         </div>
-
-                        <button
-                            class="pay-btn"
-                            onclick="openPaymentModal(
-                                '${escapeAttribute(id)}',
-                                ${amount},
-                                '${escapeAttribute(
-                                    data.title ||
-                                    "Premium Content"
-                                )}'
-                            )"
-                        >
-                            Unlock for ${formatMoney(amount)} TZS
-                        </button>
 
                     </div>
 
@@ -1764,87 +1485,60 @@
     }
 
 
-    // ============================================================
-    // PAYMENT MODAL
-    // ============================================================
+    /* ============================================================
+       PAYMENT MODAL
+    ============================================================ */
 
-    window.openPaymentModal =
-        function (
-            contentId,
-            amount,
-            title
-        ) {
+    function openPaymentModal(
+        contentId,
+        amount,
+        title
+    ) {
 
-            selectedContent = {
+        selectedContent = {
 
-                id:
-                    contentId,
+            id:
+                contentId,
 
-                amount:
-                    Number(amount),
+            amount:
+                Number(amount),
 
-                title:
-                    title
-
-            };
-
-
-            document.getElementById(
-                "selectedTitle"
-            ).textContent =
-                title;
-
-
-            document.getElementById(
-                "paymentAmount"
-            ).textContent =
-                formatMoney(
-                    amount
-                ) +
-                " TZS";
-
-
-            document.getElementById(
-                "paymentPhone"
-            ).value =
-                "";
-
-
-            clearMessage(
-                paymentMessage
-            );
-
-
-            payBtn.disabled =
-                false;
-
-
-            payBtn.textContent =
-                "Pay now";
-
-
-            paymentModal.classList.remove(
-                "hidden"
-            );
-
-
-            setTimeout(
-                () => {
-
-                    document.getElementById(
-                        "paymentPhone"
-                    ).focus();
-
-                },
-                100
-            );
+            title:
+                title
 
         };
 
 
-    // ============================================================
-    // CLOSE MODAL
-    // ============================================================
+        document.getElementById(
+            "selectedTitle"
+        ).textContent =
+            title;
+
+
+        document.getElementById(
+            "selectedAmount"
+        ).textContent =
+            formatMoney(amount) +
+            " TZS";
+
+
+        document.getElementById(
+            "paymentPhone"
+        ).value =
+            "";
+
+
+        clearMessage(
+            paymentMessage
+        );
+
+
+        paymentModal.classList.remove(
+            "hidden"
+        );
+
+    }
+
 
     function closePaymentModal() {
 
@@ -1852,47 +1546,25 @@
             "hidden"
         );
 
-
-        selectedContent =
-            null;
+        selectedContent = null;
 
     }
 
 
-    document.getElementById(
-        "closeModal"
-    ).addEventListener(
-        "click",
-        closePaymentModal
-    );
+    /* ============================================================
+       START PAYMENT
+       
+       IMPORTANT:
+       This matches the working PalmPesa API structure.
 
+       Frontend sends ONLY:
+       name
+       email
+       phone
+       amount
 
-    paymentModal.addEventListener(
-        "click",
-        event => {
-
-            if (
-                event.target ===
-                paymentModal
-            ) {
-
-                closePaymentModal();
-
-            }
-
-        }
-    );
-
-
-    // ============================================================
-    // START PAYMENT
-    // ============================================================
-
-    payBtn.addEventListener(
-        "click",
-        startPayment
-    );
-
+       The API generates transaction_id.
+    ============================================================ */
 
     async function startPayment() {
 
@@ -1925,8 +1597,7 @@
         const phone =
             document.getElementById(
                 "paymentPhone"
-            ).value
-                .trim();
+            ).value.trim();
 
 
         if (!phone) {
@@ -1942,47 +1613,6 @@
         }
 
 
-        // --------------------------------------------------------
-        // Convert 0744... to 255744...
-        // --------------------------------------------------------
-
-        let cleanPhone =
-            phone
-                .replace(/\s+/g, "");
-
-
-        if (
-            cleanPhone.startsWith("0")
-        ) {
-
-            cleanPhone =
-                "255" +
-                cleanPhone.substring(1);
-
-        }
-
-
-        if (
-            !/^255(6|7)\d{8}$/.test(
-                cleanPhone
-            )
-        ) {
-
-            showMessage(
-                paymentMessage,
-                "Enter a valid Tanzanian mobile number.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        // --------------------------------------------------------
-        // EXACT ADMIN PRICE
-        // --------------------------------------------------------
-
         const amount =
             Number(
                 selectedContent.amount
@@ -1996,7 +1626,7 @@
 
             showMessage(
                 paymentMessage,
-                "Invalid content price.",
+                "Invalid payment amount.",
                 "error"
             );
 
@@ -2005,12 +1635,16 @@
         }
 
 
-        payBtn.disabled =
-            true;
+        const button =
+            document.getElementById(
+                "paymentButton"
+            );
 
 
-        payBtn.textContent =
-            "Sending payment...";
+        button.disabled = true;
+
+        button.textContent =
+            "Sending request...";
 
 
         clearMessage(
@@ -2018,34 +1652,35 @@
         );
 
 
+        /*
+         * THIS IS THE EXACT PAYLOAD
+         * EXPECTED BY THE WORKING API.
+         */
+
+        const paymentPayload = {
+
+            name:
+                currentUser.email,
+
+            email:
+                currentUser.email,
+
+            phone:
+                phone,
+
+            amount:
+                amount
+
+        };
+
+
+        console.log(
+            "Sending payment:",
+            paymentPayload
+        );
+
+
         try {
-
-            console.log(
-                "Sending payment:",
-                {
-
-                    name:
-                        currentUser.email,
-
-                    email:
-                        currentUser.email,
-
-                    phone:
-                        cleanPhone,
-
-                    amount:
-                        amount,
-
-                    contentId:
-                        selectedContent.id
-
-                }
-            );
-
-
-            // IMPORTANT:
-            // transaction_id is NOT sent.
-            // The server creates it.
 
             const response =
                 await fetch(
@@ -2058,29 +1693,17 @@
                         headers: {
 
                             "Content-Type":
+                                "application/json",
+
+                            "Accept":
                                 "application/json"
 
                         },
 
                         body:
-                            JSON.stringify({
-
-                                name:
-                                    currentUser.email,
-
-                                email:
-                                    currentUser.email,
-
-                                phone:
-                                    cleanPhone,
-
-                                amount:
-                                    amount,
-
-                                contentId:
-                                    selectedContent.id
-
-                            })
+                            JSON.stringify(
+                                paymentPayload
+                            )
 
                     }
                 );
@@ -2113,14 +1736,14 @@
             showMessage(
                 paymentMessage,
 
-                "Payment request sent. Check your phone and approve the payment.",
+                "Payment request sent. Check your phone and approve the PalmPesa prompt.",
 
                 "success"
             );
 
 
-            payBtn.textContent =
-                "Payment request sent";
+            button.textContent =
+                "Payment Sent";
 
 
         } catch (error) {
@@ -2141,31 +1764,24 @@
             );
 
 
-            payBtn.disabled =
-                false;
+            button.disabled = false;
 
-
-            payBtn.textContent =
-                "Pay now";
+            button.textContent =
+                "Pay Now";
 
         }
 
     }
 
 
-    // ============================================================
-    // HELPERS
-    // ============================================================
+    /* ============================================================
+       HELPERS
+    ============================================================ */
 
-    function formatMoney(
-        number
-    ) {
+    function formatMoney(number) {
 
-        return Number(
-            number
-        ).toLocaleString(
-            "en-TZ"
-        );
+        return Number(number)
+            .toLocaleString("en-TZ");
 
     }
 
@@ -2179,21 +1795,16 @@
         element.textContent =
             text;
 
-
         element.className =
-            "message show " +
-            type;
+            "message show " + type;
 
     }
 
 
-    function clearMessage(
-        element
-    ) {
+    function clearMessage(element) {
 
         element.textContent =
             "";
-
 
         element.className =
             "message";
@@ -2201,34 +1812,25 @@
     }
 
 
-    function escapeHtml(
-        value
-    ) {
+    function escapeHtml(value) {
 
-        return String(
-            value || ""
-        )
-
+        return String(value || "")
             .replace(
                 /&/g,
                 "&amp;"
             )
-
             .replace(
                 /</g,
                 "&lt;"
             )
-
             .replace(
                 />/g,
                 "&gt;"
             )
-
             .replace(
                 /"/g,
                 "&quot;"
             )
-
             .replace(
                 /'/g,
                 "&#039;"
@@ -2237,29 +1839,21 @@
     }
 
 
-    function escapeAttribute(
-        value
-    ) {
+    function escapeAttribute(value) {
 
-        return String(
-            value || ""
-        )
-
+        return String(value || "")
             .replace(
                 /\\/g,
                 "\\\\"
             )
-
             .replace(
                 /'/g,
                 "\\'"
             )
-
             .replace(
                 /\n/g,
                 "\\n"
             )
-
             .replace(
                 /\r/g,
                 ""
@@ -2268,21 +1862,18 @@
     }
 
 
-    // ============================================================
-    // ENTER KEY
-    // ============================================================
+    /* ============================================================
+       ENTER KEY
+    ============================================================ */
 
     document
-        .getElementById(
-            "password"
-        )
+        .getElementById("password")
         .addEventListener(
             "keydown",
             event => {
 
                 if (
-                    event.key ===
-                    "Enter"
+                    event.key === "Enter"
                 ) {
 
                     handleAuth();
@@ -2293,31 +1884,6 @@
         );
 
 
-    document
-        .getElementById(
-            "paymentPhone"
-        )
-        .addEventListener(
-            "keydown",
-            event => {
-
-                if (
-                    event.key ===
-                    "Enter"
-                ) {
-
-                    startPayment();
-
-                }
-
-            }
-        );
-
-
-    // ============================================================
-    // INITIAL
-    // ============================================================
-
     console.log(
         "BetLive bettor application initialized."
     );
@@ -2326,3 +1892,4 @@
 
 </body>
 </html>
+```
