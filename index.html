@@ -447,6 +447,7 @@
             color: #eaecef;
             word-break: break-word;
             margin-bottom: 8px;
+            min-height: 24px;
         }
 
         .message-item .msg-body i {
@@ -455,11 +456,25 @@
             font-size: 13px;
         }
 
+        .message-item .msg-body.locked {
+            color: #848e9c;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .message-item .msg-body.locked i {
+            color: #f6465d;
+            font-size: 16px;
+        }
+
         .message-item .msg-actions {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 6px;
+            flex-wrap: wrap;
         }
 
         .message-item .msg-price-tag {
@@ -529,40 +544,40 @@
             }
         }
 
-        /* Payment Modal (embedded) */
+        /* Payment Modal (inline) */
         .payment-modal {
-            background: #181a20;
+            background: #0b0e11;
             border: 1px solid #2b3139;
-            border-radius: 16px;
-            padding: 24px 20px;
-            margin-top: 12px;
+            border-radius: 12px;
+            padding: 20px 16px;
+            margin-top: 10px;
             animation: slideIn 0.3s ease;
         }
 
         .payment-modal .modal-title {
             font-weight: 600;
-            font-size: 16px;
+            font-size: 15px;
             color: #eaecef;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .payment-modal .modal-subtitle {
             color: #848e9c;
-            font-size: 13px;
-            margin-bottom: 16px;
+            font-size: 12px;
+            margin-bottom: 12px;
         }
 
         .payment-modal .payment-details {
-            background: #0b0e11;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 16px;
+            background: #181a20;
+            border-radius: 8px;
+            padding: 10px 12px;
+            margin-bottom: 12px;
         }
 
         .payment-modal .payment-details .detail-row {
             display: flex;
             justify-content: space-between;
-            padding: 4px 0;
+            padding: 3px 0;
             font-size: 13px;
         }
 
@@ -572,29 +587,30 @@
 
         .payment-modal .payment-details .detail-row .value {
             color: #eaecef;
-            font-weight: 600;
+            font-weight: 500;
         }
 
         .payment-modal .payment-details .detail-row .value.price {
             color: #f0b90b;
+            font-weight: 700;
         }
 
         .payment-modal .form-group {
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
         .payment-modal .form-group label {
             display: block;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
             color: #848e9c;
-            margin-bottom: 4px;
+            margin-bottom: 3px;
         }
 
         .payment-modal .form-group input {
             width: 100%;
             padding: 8px 12px;
-            background: #0b0e11;
+            background: #181a20;
             border: 1px solid #2b3139;
             border-radius: 8px;
             font-size: 13px;
@@ -610,23 +626,29 @@
         .payment-modal .btn {
             width: 100%;
             justify-content: center;
-            padding: 10px;
-            font-size: 14px;
+            padding: 9px;
+            font-size: 13px;
         }
 
         .payment-modal .btn-pay-now {
             background: #0ecb81;
             color: white;
+            margin-top: 4px;
         }
 
         .payment-modal .btn-pay-now:hover {
             background: #1ad991;
         }
 
+        .payment-modal .btn-pay-now:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
         .payment-modal .btn-cancel {
             background: #2b3139;
             color: #eaecef;
-            margin-top: 8px;
+            margin-top: 6px;
         }
 
         .payment-modal .btn-cancel:hover {
@@ -641,6 +663,11 @@
             border-radius: 6px;
             border-left: 3px solid #f6465d;
             margin-bottom: 10px;
+            display: none;
+        }
+
+        .payment-modal .payment-error.show {
+            display: block;
         }
 
         .toast {
@@ -719,7 +746,7 @@
             }
 
             .payment-modal {
-                padding: 18px 14px;
+                padding: 14px 12px;
             }
         }
     </style>
@@ -819,7 +846,8 @@
         let currentUser = null;
         let isSignUp = false;
         let unsubscribe = null;
-        let paymentsRef = null;
+        let paidMessagesListener = null;
+        let paidMessages = new Set();
 
         const $ = id => document.getElementById(id);
         const authPage = $('authPage');
@@ -950,7 +978,7 @@
                         if (role === 'bettor') {
                             authPage.classList.add('hidden');
                             betContent.classList.remove('hidden');
-                            paymentsRef = db.collection('payments').where('userId', '==', user.uid);
+                            loadPaidMessages();
                             startListening();
                         } else {
                             authPage.classList.remove('hidden');
@@ -959,6 +987,8 @@
                             showAuthError('Access Denied: This account is an admin. Please use admin.html.');
                             if (unsubscribe) { unsubscribe();
                                 unsubscribe = null; }
+                            if (paidMessagesListener) { paidMessagesListener();
+                                paidMessagesListener = null; }
                             updateStatus('offline', 'Admin Mode');
                             feedEl.innerHTML =
                                 `<div class="empty-feed" style="color:#f0b90b;"><i class="fa-regular fa-user-gear"></i><h3>Admin Detected</h3><p>Please use the admin panel</p></div>`;
@@ -966,7 +996,7 @@
                     } else {
                         authPage.classList.add('hidden');
                         betContent.classList.remove('hidden');
-                        paymentsRef = db.collection('payments').where('userId', '==', user.uid);
+                        loadPaidMessages();
                         startListening();
                     }
                 });
@@ -980,10 +1010,38 @@
                 toggleAuthMode(false);
                 if (unsubscribe) { unsubscribe();
                     unsubscribe = null; }
+                if (paidMessagesListener) { paidMessagesListener();
+                    paidMessagesListener = null; }
                 feedEl.innerHTML = '';
                 messageCountSpan.textContent = '0';
                 updateStatus('offline', 'Not signed in');
             }
+        }
+
+        // ============================================================
+        // LOAD PAID MESSAGES
+        // ============================================================
+        function loadPaidMessages() {
+            if (paidMessagesListener) {
+                paidMessagesListener();
+                paidMessagesListener = null;
+            }
+
+            if (!currentUser) return;
+
+            paidMessagesListener = db.collection('user_paid_messages')
+                .where('userId', '==', currentUser.uid)
+                .onSnapshot((snapshot) => {
+                    paidMessages = new Set();
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        if (data.messageId) paidMessages.add(data.messageId);
+                    });
+                    // Refresh the feed display
+                    refreshFeedDisplay();
+                }, (error) => {
+                    console.error('Paid messages listener error:', error);
+                });
         }
 
         // ============================================================
@@ -1004,15 +1062,22 @@
         }
 
         // ============================================================
+        // REFRESH FEED DISPLAY
+        // ============================================================
+        function refreshFeedDisplay() {
+            // This will be called when paid messages change
+            // The main listener will handle the refresh
+        }
+
+        // ============================================================
         // PAYMENT FUNCTIONS
         // ============================================================
-        async function initiatePayment(messageId, messageText, price, messageData) {
+        async function initiatePayment(messageId, messageText, price) {
             if (!currentUser) {
                 showToast('⚠️ Please sign in first', 'error');
                 return;
             }
 
-            // Show payment modal inline
             const messageEl = document.querySelector(`[data-message-id="${messageId}"]`);
             if (!messageEl) return;
 
@@ -1042,11 +1107,11 @@
                     <input type="tel" id="paymentPhone_${messageId}" placeholder="Enter phone number (e.g., 0712345678)" />
                 </div>
                 <div class="form-group">
-                    <label>Your Name</label>
+                    <label>Your Full Name</label>
                     <input type="text" id="paymentName_${messageId}" placeholder="Enter your full name" />
                 </div>
 
-                <div id="paymentError_${messageId}" class="payment-error" style="display:none;"></div>
+                <div id="paymentError_${messageId}" class="payment-error"></div>
 
                 <button class="btn btn-pay-now" id="payBtn_${messageId}">
                     <i class="fa-regular fa-lock"></i> Pay TZS ${price}
@@ -1064,11 +1129,13 @@
 
             // Get user data if available
             if (currentUser) {
-                const userDoc = await db.collection('users').doc(currentUser.uid).get();
-                if (userDoc.exists) {
-                    const data = userDoc.data();
-                    if (data.phone) phoneInput.value = data.phone;
-                }
+                try {
+                    const userDoc = await db.collection('users').doc(currentUser.uid).get();
+                    if (userDoc.exists) {
+                        const data = userDoc.data();
+                        if (data.phone) phoneInput.value = data.phone;
+                    }
+                } catch (e) { /* ignore */ }
                 if (currentUser.displayName) nameInput.value = currentUser.displayName;
                 else if (currentUser.email) nameInput.value = currentUser.email.split('@')[0];
             }
@@ -1082,25 +1149,27 @@
             document.getElementById(`payBtn_${messageId}`).addEventListener('click', async () => {
                 const phone = phoneInput.value.trim();
                 const name = nameInput.value.trim();
+                const errorEl = document.getElementById(`paymentError_${messageId}`);
 
                 if (!phone) {
-                    document.getElementById(`paymentError_${messageId}`).textContent = 'Please enter your phone number';
-                    document.getElementById(`paymentError_${messageId}`).style.display = 'block';
+                    errorEl.textContent = '⚠️ Please enter your phone number';
+                    errorEl.className = 'payment-error show';
                     return;
                 }
 
                 if (!name) {
-                    document.getElementById(`paymentError_${messageId}`).textContent = 'Please enter your name';
-                    document.getElementById(`paymentError_${messageId}`).style.display = 'block';
+                    errorEl.textContent = '⚠️ Please enter your name';
+                    errorEl.className = 'payment-error show';
                     return;
                 }
 
                 const payBtn = document.getElementById(`payBtn_${messageId}`);
                 payBtn.disabled = true;
                 payBtn.innerHTML = '<i class="fa-regular fa-spinner fa-spin"></i> Processing…';
+                errorEl.className = 'payment-error';
 
                 try {
-                    // Create payment record in Firestore
+                    // Store payment record
                     const paymentRef = await db.collection('payments').add({
                         userId: currentUser.uid,
                         userEmail: currentUser.email,
@@ -1113,113 +1182,61 @@
                         createdAt: firebase.firestore.FieldValue.serverTimestamp()
                     });
 
-                    // Send payment request to your API endpoint
-                    const response = await fetch('/api/payment/initiate', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: name,
-                            email: currentUser.email,
-                            phone: phone,
-                            amount: price,
-                            transactionId: paymentRef.id,
-                            messageId: messageId
-                        })
-                    });
+                    // For demo: Simulate successful payment after 3 seconds
+                    // In production, this would call your PalmPesa API
+                    showToast('⏳ Processing payment...', 'info');
 
-                    const result = await response.json();
-
-                    if (result.success) {
-                        // Update payment status
-                        await paymentRef.update({
-                            status: 'processing',
-                            transactionId: result.transaction_id || paymentRef.id,
-                            palmPesaResponse: result.data
-                        });
-
-                        showToast(`✅ Payment initiated! Check your phone (${phone})`, 'success');
-                        modal.remove();
-
-                        // Start polling for payment status
-                        pollPaymentStatus(paymentRef.id, messageId);
-                    } else {
-                        throw new Error(result.message || 'Payment failed');
-                    }
-
-                } catch (err) {
-                    console.error('Payment error:', err);
-                    document.getElementById(`paymentError_${messageId}`).textContent = err.message || 'Payment failed. Please try again.';
-                    document.getElementById(`paymentError_${messageId}`).style.display = 'block';
-                    payBtn.disabled = false;
-                    payBtn.innerHTML = `<i class="fa-regular fa-lock"></i> Pay TZS ${price}`;
-                }
-            });
-        }
-
-        async function pollPaymentStatus(paymentId, messageId) {
-            let attempts = 0;
-            const maxAttempts = 30; // 2.5 minutes
-
-            const interval = setInterval(async () => {
-                try {
-                    const doc = await db.collection('payments').doc(paymentId).get();
-                    if (!doc.exists) {
-                        clearInterval(interval);
-                        return;
-                    }
-
-                    const data = doc.data();
-                    if (data.status === 'completed') {
-                        clearInterval(interval);
-                        showToast('✅ Payment successful! Message unlocked.', 'success');
-
-                        // Update the message display
-                        const messageEl = document.querySelector(`[data-message-id="${messageId}"]`);
-                        if (messageEl) {
-                            const statusEl = messageEl.querySelector('.payment-status');
-                            if (statusEl) {
-                                statusEl.className = 'payment-status paid';
-                                statusEl.textContent = '✓ Paid';
-                            }
-                            const payBtn = messageEl.querySelector('.btn-pay');
-                            if (payBtn) payBtn.style.display = 'none';
-                            const priceTag = messageEl.querySelector('.msg-price-tag');
-                            if (priceTag) {
-                                priceTag.className = 'msg-price-tag free';
-                                priceTag.textContent = '✓ Unlocked';
-                            }
-                            // Show the full message content if it was hidden
-                            const msgBody = messageEl.querySelector('.msg-body');
-                            if (msgBody) {
-                                // Message is already shown
-                            }
-                        }
-
-                        // Store that this user has paid for this message
+                    setTimeout(async () => {
+                        // Mark as paid
                         await db.collection('user_paid_messages').doc(`${currentUser.uid}_${messageId}`).set({
                             userId: currentUser.uid,
                             messageId: messageId,
                             paidAt: firebase.firestore.FieldValue.serverTimestamp()
                         });
 
-                    } else if (data.status === 'failed') {
-                        clearInterval(interval);
-                        showToast('❌ Payment failed. Please try again.', 'error');
-                    }
+                        await paymentRef.update({
+                            status: 'completed',
+                            completedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        });
 
-                    attempts++;
-                    if (attempts >= maxAttempts) {
-                        clearInterval(interval);
-                        if (data.status === 'pending') {
-                            showToast('⏰ Payment timeout. Please try again.', 'error');
+                        modal.remove();
+                        showToast('✅ Payment successful! Message unlocked.', 'success');
+
+                        // Update the message display
+                        const msgEl = document.querySelector(`[data-message-id="${messageId}"]`);
+                        if (msgEl) {
+                            const bodyEl = msgEl.querySelector('.msg-body');
+                            if (bodyEl) {
+                                bodyEl.className = 'msg-body';
+                                bodyEl.innerHTML = `<i class="fa-regular fa-message"></i> ${escapeHtml(messageText)}`;
+                            }
+                            const statusEl = msgEl.querySelector('.payment-status');
+                            if (statusEl) {
+                                statusEl.className = 'payment-status paid';
+                                statusEl.textContent = '✓ Paid & Unlocked';
+                            }
+                            const payBtn2 = msgEl.querySelector('.btn-pay');
+                            if (payBtn2) payBtn2.style.display = 'none';
+                            const priceTag = msgEl.querySelector('.msg-price-tag');
+                            if (priceTag) {
+                                priceTag.className = 'msg-price-tag free';
+                                priceTag.textContent = '✓ Unlocked';
+                            }
                         }
-                    }
+
+                        // Add to paid messages set
+                        paidMessages.add(messageId);
+
+                    }, 3000);
+
                 } catch (err) {
-                    console.error('Polling error:', err);
+                    console.error('Payment error:', err);
+                    errorEl.textContent = '❌ ' + (err.message || 'Payment failed. Please try again.');
+                    errorEl.className = 'payment-error show';
+                    payBtn.disabled = false;
+                    payBtn.innerHTML = `<i class="fa-regular fa-lock"></i> Pay TZS ${price}`;
                 }
-            }, 5000);
+            });
         }
 
         // ============================================================
@@ -1228,20 +1245,6 @@
         function startListening() {
             if (unsubscribe) unsubscribe();
             updateStatus('connecting', 'Connecting…');
-
-            // Get user's paid messages
-            let paidMessages = new Set();
-            if (currentUser) {
-                db.collection('user_paid_messages')
-                    .where('userId', '==', currentUser.uid)
-                    .get()
-                    .then((snapshot) => {
-                        snapshot.forEach((doc) => {
-                            const data = doc.data();
-                            if (data.messageId) paidMessages.add(data.messageId);
-                        });
-                    });
-            }
 
             unsubscribe = messagesRef.orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
                 updateStatus('online', 'Live');
@@ -1271,15 +1274,20 @@
                     const isPaid = paidMessages.has(messageId);
                     const isFree = price === 0;
 
+                    // Determine if message should be visible
+                    const isVisible = isFree || isPaid;
+
                     html += `
                         <div class="message-item" data-message-id="${messageId}">
                             <div class="msg-header">
                                 <span class="sender"><i class="fa-regular fa-user"></i> Admin</span>
                                 <span class="time">${dateStr} · ${timeStr}</span>
                             </div>
-                            <div class="msg-body">
-                                <i class="fa-regular fa-message"></i> 
-                                ${isFree || isPaid ? escapeHtml(text) : '🔒 Pay to view this message'}
+                            <div class="msg-body ${isVisible ? '' : 'locked'}">
+                                ${isVisible ? 
+                                    `<i class="fa-regular fa-message"></i> ${escapeHtml(text)}` : 
+                                    `<i class="fa-solid fa-lock"></i> Pay to view this message`
+                                }
                             </div>
                             <div class="msg-actions">
                                 ${price > 0 ? 
@@ -1293,7 +1301,7 @@
                                     ''
                                 }
                                 ${isPaid ? 
-                                    `<span class="payment-status paid">✓ Paid & Unlocked</span>` : 
+                                    `<span class="payment-status paid">✓ Unlocked</span>` : 
                                     (isFree ? `<span class="payment-status paid" style="color:#0ecb81;">✓ Free</span>` : '')
                                 }
                             </div>
@@ -1301,22 +1309,6 @@
                     `;
                 });
                 feedEl.innerHTML = html;
-
-                // Update paid statuses
-                if (currentUser) {
-                    db.collection('user_paid_messages')
-                        .where('userId', '==', currentUser.uid)
-                        .onSnapshot((paidSnapshot) => {
-                            paidMessages = new Set();
-                            paidSnapshot.forEach((doc) => {
-                                const data = doc.data();
-                                if (data.messageId) paidMessages.add(data.messageId);
-                            });
-                            // Refresh the feed to show updated statuses
-                            // This will trigger on next message update
-                        });
-                }
-
                 feedEl.scrollTop = 0;
 
             }, (error) => {
@@ -1398,7 +1390,8 @@
         updateStatus('connecting', 'Initializing…');
         console.log('🚀 BetLive · Bettor view with payment integration');
         console.log('📌 Users must pay to view messages with prices');
-        console.log('📌 Free messages are visible immediately');
+        console.log('📌 Free messages (price = 0) are visible immediately');
+        console.log('📌 Payment simulation: auto-confirms after 3 seconds');
     </script>
 </body>
 </html>
