@@ -1,18 +1,399 @@
-const response = await fetch("/api/payment", {
-  method: "POST",
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  headers: {
-    "Content-Type": "application/json"
-  },
+  <title>PalmPesa Pay via Mobile</title>
 
-  body: JSON.stringify({
-    name: name,
-    email: email,
-    phone: phone,
-    amount: amount
-  })
-});
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-const result = await response.json();
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f3f6f8;
+      font-family: Arial, sans-serif;
+    }
 
-console.log(result);
+    .container {
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+      color: #087a4b;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 16px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 15px;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #087a4b;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #087a4b;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    button:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 20px;
+      padding: 14px;
+      border-radius: 8px;
+      display: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .success {
+      display: block !important;
+      background: #e9f8ef;
+      color: #087a4b;
+    }
+
+    .error {
+      display: block !important;
+      background: #fdecec;
+      color: #b42318;
+    }
+
+    .loading {
+      display: block !important;
+      background: #eef5ff;
+      color: #1756a9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="card">
+
+      <h1>PalmPesa</h1>
+
+      <p class="subtitle">
+        Pay via Mobile
+      </p>
+
+
+      <form id="paymentForm">
+
+        <label for="name">
+          Full Name
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          placeholder="David Julius"
+          required
+        >
+
+
+        <label for="email">
+          Email
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          placeholder="example@gmail.com"
+          required
+        >
+
+
+        <label for="phone">
+          Phone Number
+        </label>
+
+        <input
+          id="phone"
+          type="tel"
+          placeholder="07XXXXXXXX"
+          required
+        >
+
+
+        <label for="amount">
+          Amount (TZS)
+        </label>
+
+        <input
+          id="amount"
+          type="number"
+          min="200"
+          value="200"
+          required
+        >
+
+
+        <button
+          id="payButton"
+          type="submit"
+        >
+          Pay Now
+        </button>
+
+      </form>
+
+
+      <div id="status"></div>
+
+    </div>
+
+  </div>
+
+
+  <!-- IMPORTANT:
+       JavaScript MUST be inside this script tag.
+  -->
+
+  <script>
+
+    const form =
+      document.getElementById("paymentForm");
+
+    const button =
+      document.getElementById("payButton");
+
+    const status =
+      document.getElementById("status");
+
+
+    form.addEventListener(
+      "submit",
+      async function (event) {
+
+        event.preventDefault();
+
+
+        const name =
+          document.getElementById("name")
+            .value
+            .trim();
+
+        const email =
+          document.getElementById("email")
+            .value
+            .trim();
+
+        const phone =
+          document.getElementById("phone")
+            .value
+            .trim();
+
+        const amount =
+          Number(
+            document.getElementById("amount")
+              .value
+          );
+
+
+        if (
+          !name ||
+          !email ||
+          !phone ||
+          !amount
+        ) {
+
+          showStatus(
+            "Please fill in all fields.",
+            "error"
+          );
+
+          return;
+
+        }
+
+
+        button.disabled = true;
+
+        button.textContent =
+          "Processing...";
+
+
+        showStatus(
+          "Sending payment request...",
+          "loading"
+        );
+
+
+        try {
+
+          /*
+           * IMPORTANT:
+           * We call our Vercel function.
+           *
+           * We DO NOT call PalmPesa directly
+           * from the browser.
+           */
+
+          const response =
+            await fetch(
+              "/api/payment",
+              {
+
+                method: "POST",
+
+                headers: {
+
+                  "Content-Type":
+                    "application/json"
+
+                },
+
+                body:
+                  JSON.stringify({
+
+                    name:
+                      name,
+
+                    email:
+                      email,
+
+                    phone:
+                      phone,
+
+                    amount:
+                      amount
+
+                  })
+
+              }
+            );
+
+
+          const result =
+            await response.json();
+
+
+          console.log(
+            "Payment result:",
+            result
+          );
+
+
+          if (!response.ok) {
+
+            throw new Error(
+
+              result?.data?.message ||
+
+              result?.message ||
+
+              `Payment failed (${response.status})`
+
+            );
+
+          }
+
+
+          showStatus(
+
+            result?.data?.message ||
+
+            "Payment request sent. Check your phone.",
+
+            "success"
+
+          );
+
+
+        } catch (error) {
+
+          console.error(
+            "Payment error:",
+            error
+          );
+
+
+          showStatus(
+            error.message,
+            "error"
+          );
+
+
+        } finally {
+
+          button.disabled =
+            false;
+
+          button.textContent =
+            "Pay Now";
+
+        }
+
+      }
+    );
+
+
+    function showStatus(
+      message,
+      type
+    ) {
+
+      status.textContent =
+        message;
+
+      status.className =
+        type;
+
+    }
+
+  </script>
+
+</body>
+</html>
