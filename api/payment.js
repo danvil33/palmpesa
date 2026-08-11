@@ -1,14 +1,20 @@
+```javascript
 export default async function handler(req, res) {
 
-    // ============================================================
-    // ONLY ALLOW POST
-    // ============================================================
+    /*
+     * ============================================================
+     * ONLY ALLOW POST
+     * ============================================================
+     */
 
     if (req.method !== "POST") {
 
         return res.status(405).json({
+
             success: false,
+
             message: "Method not allowed"
+
         });
 
     }
@@ -16,22 +22,34 @@ export default async function handler(req, res) {
 
     try {
 
-        // ========================================================
-        // GET DATA FROM FRONTEND
-        // ========================================================
+        /*
+         * ========================================================
+         * GET DATA FROM BETTOR APP
+         *
+         * The frontend sends ONLY:
+         *
+         * name
+         * email
+         * phone
+         * amount
+         *
+         * transaction_id is created HERE.
+         * ========================================================
+         */
 
         const {
             name,
             email,
             phone,
-            amount,
-            contentId
+            amount
         } = req.body || {};
 
 
-        // ========================================================
-        // VALIDATE REQUIRED FIELDS
-        // ========================================================
+        /*
+         * ========================================================
+         * VALIDATE REQUIRED FIELDS
+         * ========================================================
+         */
 
         if (
             !name ||
@@ -41,16 +59,30 @@ export default async function handler(req, res) {
         ) {
 
             return res.status(400).json({
+
                 success: false,
-                message: "All fields are required"
+
+                message:
+                    "All fields are required"
+
             });
 
         }
 
 
-        // ========================================================
-        // CLEAN PHONE NUMBER
-        // ========================================================
+        /*
+         * ========================================================
+         * CLEAN PHONE
+         * ========================================================
+         *
+         * 0744000000
+         * becomes
+         * 255744000000
+         *
+         * 255744000000
+         * stays unchanged.
+         * ========================================================
+         */
 
         let cleanPhone =
             String(phone)
@@ -58,11 +90,9 @@ export default async function handler(req, res) {
                 .replace(/\s+/g, "");
 
 
-        // 0744000000
-        // becomes
-        // 255744000000
-
-        if (cleanPhone.startsWith("0")) {
+        if (
+            cleanPhone.startsWith("0")
+        ) {
 
             cleanPhone =
                 "255" +
@@ -71,11 +101,17 @@ export default async function handler(req, res) {
         }
 
 
-        // ========================================================
-        // VALIDATE TANZANIAN PHONE
-        // ========================================================
+        /*
+         * ========================================================
+         * VALIDATE TANZANIAN PHONE
+         * ========================================================
+         */
 
-        if (!/^255(6|7)\d{8}$/.test(cleanPhone)) {
+        if (
+            !/^255(6|7)\d{8}$/.test(
+                cleanPhone
+            )
+        ) {
 
             return res.status(400).json({
 
@@ -89,9 +125,11 @@ export default async function handler(req, res) {
         }
 
 
-        // ========================================================
-        // VALIDATE AMOUNT
-        // ========================================================
+        /*
+         * ========================================================
+         * VALIDATE AMOUNT
+         * ========================================================
+         */
 
         const paymentAmount =
             Number(amount);
@@ -114,11 +152,15 @@ export default async function handler(req, res) {
         }
 
 
-        // ========================================================
-        // PALMPESA TOKEN
-        // ========================================================
+        /*
+         * ========================================================
+         * CHECK PALMPESA TOKEN
+         * ========================================================
+         */
 
-        if (!process.env.PALMPESA_TOKEN) {
+        if (
+            !process.env.PALMPESA_TOKEN
+        ) {
 
             console.error(
                 "PALMPESA_TOKEN is missing"
@@ -137,26 +179,35 @@ export default async function handler(req, res) {
         }
 
 
-        // ========================================================
-        // CREATE TRANSACTION ID
-        // ========================================================
+        /*
+         * ========================================================
+         * CREATE UNIQUE TRANSACTION ID
+         * ========================================================
+         */
 
         const transactionId =
             "TXN-" +
             Date.now();
 
 
-        // ========================================================
-        // PALMPESA PAYMENT DATA
-        // ========================================================
+        /*
+         * ========================================================
+         * PALMPESA PAYMENT DATA
+         *
+         * KEEP THIS STRUCTURE.
+         *
+         * This is the structure from the version
+         * you confirmed was working.
+         * ========================================================
+         */
 
         const paymentData = {
 
             name:
-                name,
+                String(name),
 
             email:
-                email,
+                String(email),
 
             phone:
                 cleanPhone,
@@ -182,9 +233,11 @@ export default async function handler(req, res) {
         );
 
 
-        // ========================================================
-        // SEND PAYMENT REQUEST
-        // ========================================================
+        /*
+         * ========================================================
+         * SEND PAYMENT REQUEST TO PALMPESA
+         * ========================================================
+         */
 
         const response =
             await fetch(
@@ -193,7 +246,8 @@ export default async function handler(req, res) {
 
                 {
 
-                    method: "POST",
+                    method:
+                        "POST",
 
                     headers: {
 
@@ -218,9 +272,14 @@ export default async function handler(req, res) {
             );
 
 
-        // ========================================================
-        // READ PALMPESA RESPONSE
-        // ========================================================
+        /*
+         * ========================================================
+         * READ RESPONSE AS TEXT
+         *
+         * This is important because PalmPesa may return
+         * JSON or a non-JSON response.
+         * ========================================================
+         */
 
         const rawResponse =
             await response.text();
@@ -238,9 +297,11 @@ export default async function handler(req, res) {
         );
 
 
-        // ========================================================
-        // PARSE RESPONSE
-        // ========================================================
+        /*
+         * ========================================================
+         * PARSE JSON IF POSSIBLE
+         * ========================================================
+         */
 
         let data;
 
@@ -264,58 +325,28 @@ export default async function handler(req, res) {
         }
 
 
-        // ========================================================
-        // PALMPESA FAILED
-        // ========================================================
+        /*
+         * ========================================================
+         * RETURN PALMPESA RESULT
+         *
+         * IMPORTANT:
+         * We return PalmPesa's actual HTTP status.
+         * This makes debugging much easier.
+         * ========================================================
+         */
 
-        if (!response.ok) {
+        return res.status(
+            response.status
+        ).json({
 
-            return res.status(
-                response.status
-            ).json({
+            success:
+                response.ok,
 
-                success: false,
-
-                message:
-                    data?.message ||
-                    "Payment failed",
-
-                palmPesaStatus:
-                    response.status,
-
-                transaction_id:
-                    transactionId,
-
-                data:
-                    data
-
-            });
-
-        }
-
-
-        // ========================================================
-        // SUCCESS
-        // ========================================================
-
-        return res.status(200).json({
-
-            success: true,
-
-            message:
-                "Payment request sent successfully",
+            palmPesaStatus:
+                response.status,
 
             transaction_id:
                 transactionId,
-
-            phone:
-                cleanPhone,
-
-            amount:
-                paymentAmount,
-
-            contentId:
-                contentId || null,
 
             data:
                 data
@@ -325,12 +356,14 @@ export default async function handler(req, res) {
 
     } catch (error) {
 
-        // ========================================================
-        // SERVER ERROR
-        // ========================================================
+        /*
+         * ========================================================
+         * SERVER ERROR
+         * ========================================================
+         */
 
         console.error(
-            "Server error:",
+            "Payment server error:",
             error
         );
 
@@ -350,3 +383,4 @@ export default async function handler(req, res) {
     }
 
 }
+```
