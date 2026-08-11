@@ -1,479 +1,969 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Admin · BetLive</title>
+```
+<title>BetLive Admin</title>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+>
 
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    >
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+>
 
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --bg: #0b0e11;
+        --surface: #15191e;
+        --surface-2: #1b2026;
+        --border: #2b3139;
+        --text: #f1f3f5;
+        --muted: #8b949e;
+        --yellow: #f0b90b;
+        --yellow-hover: #f8d33a;
+        --green: #0ecb81;
+        --red: #f6465d;
+    }
+
+    body {
+        font-family: "Inter", sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+    }
+
+    button,
+    input,
+    textarea {
+        font-family: inherit;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    /* =========================
+       APP
+    ========================= */
+
+    .app {
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* =========================
+       TOP NAV
+    ========================= */
+
+    .topbar {
+        height: 70px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 32px;
+        position: sticky;
+        top: 0;
+        z-index: 50;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .brand-logo {
+        width: 38px;
+        height: 38px;
+        border-radius: 9px;
+        background: var(--yellow);
+        color: #181a20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 800;
+    }
+
+    .brand-name {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--yellow);
+    }
+
+    .brand-name span {
+        color: var(--text);
+        font-weight: 500;
+    }
+
+    .admin-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .admin-avatar {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background: var(--yellow);
+        color: #181a20;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 13px;
+    }
+
+    .admin-email {
+        font-size: 13px;
+        color: var(--muted);
+    }
+
+    .logout-btn {
+        border: 1px solid var(--border);
+        background: transparent;
+        color: var(--text);
+        padding: 9px 13px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .logout-btn:hover {
+        border-color: var(--red);
+        color: var(--red);
+    }
+
+    /* =========================
+       LOGIN
+    ========================= */
+
+    .login-page {
+        min-height: calc(100vh - 70px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 30px 20px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 410px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 32px;
+    }
+
+    .login-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        background: rgba(240, 185, 11, 0.12);
+        color: var(--yellow);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+
+    .login-card h1 {
+        font-size: 24px;
+        margin-bottom: 7px;
+    }
+
+    .login-card > p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+        margin-bottom: 25px;
+    }
+
+    .field {
+        margin-bottom: 17px;
+    }
+
+    .field label {
+        display: block;
+        color: #aeb4bd;
+        font-size: 12px;
+        font-weight: 600;
+        margin-bottom: 7px;
+    }
+
+    .input-wrap {
+        position: relative;
+    }
+
+    .input-wrap i {
+        position: absolute;
+        left: 13px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #69727d;
+        font-size: 13px;
+    }
+
+    .input-wrap input {
+        padding-left: 38px;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        border: 1px solid var(--border);
+        background: #0b0e11;
+        color: var(--text);
+        border-radius: 8px;
+        outline: none;
+        font-size: 14px;
+    }
+
+    input {
+        height: 45px;
+        padding: 0 13px;
+    }
+
+    textarea {
+        padding: 13px;
+        min-height: 180px;
+        resize: vertical;
+        line-height: 1.6;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: var(--yellow);
+    }
+
+    .login-btn {
+        width: 100%;
+        height: 45px;
+        border: none;
+        border-radius: 8px;
+        background: var(--yellow);
+        color: #181a20;
+        font-weight: 800;
+        font-size: 14px;
+    }
+
+    .login-btn:hover {
+        background: var(--yellow-hover);
+    }
+
+    .login-btn:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+
+    .error-message {
+        background: rgba(246, 70, 93, .08);
+        border: 1px solid rgba(246, 70, 93, .2);
+        color: var(--red);
+        padding: 11px 12px;
+        border-radius: 8px;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    /* =========================
+       DASHBOARD
+    ========================= */
+
+    .dashboard {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 32px;
+    }
+
+    .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 28px;
+    }
+
+    .page-header h1 {
+        font-size: 26px;
+        margin-bottom: 5px;
+    }
+
+    .page-header p {
+        color: var(--muted);
+        font-size: 13px;
+    }
+
+    .admin-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        background: rgba(240, 185, 11, .1);
+        border: 1px solid rgba(240, 185, 11, .2);
+        color: var(--yellow);
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    /* =========================
+       GRID
+    ========================= */
+
+    .dashboard-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 1.2fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+    .panel {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .panel-header {
+        padding: 18px 20px;
+        border-bottom: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .panel-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        font-size: 15px;
+        font-weight: 700;
+    }
+
+    .panel-title i {
+        color: var(--yellow);
+    }
+
+    .panel-body {
+        padding: 20px;
+    }
+
+    /* =========================
+       PUBLISH FORM
+    ========================= */
+
+    .form-description {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
+
+    .price-input {
+        display: flex;
+        align-items: stretch;
+    }
+
+    .price-input input {
+        border-radius: 8px 0 0 8px;
+        border-right: none;
+    }
+
+    .currency {
+        min-width: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--surface-2);
+        border: 1px solid var(--border);
+        border-radius: 0 8px 8px 0;
+        color: var(--yellow);
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .publish-btn {
+        width: 100%;
+        height: 45px;
+        border: none;
+        border-radius: 8px;
+        background: var(--green);
+        color: white;
+        font-weight: 800;
+        font-size: 13px;
+        margin-top: 3px;
+    }
+
+    .publish-btn:hover {
+        filter: brightness(1.08);
+    }
+
+    .publish-btn:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+
+    /* =========================
+       CONTENT LIST
+    ========================= */
+
+    .content-count {
+        color: var(--muted);
+        font-size: 11px;
+    }
+
+    .content-list {
+        padding: 14px;
+    }
+
+    .content-card {
+        border: 1px solid var(--border);
+        background: #101419;
+        border-radius: 9px;
+        padding: 15px;
+        margin-bottom: 10px;
+    }
+
+    .content-card:last-child {
+        margin-bottom: 0;
+    }
+
+    .content-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 15px;
+    }
+
+    .content-title {
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.4;
+    }
+
+    .content-price {
+        color: var(--yellow);
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+    }
+
+    .content-preview {
+        margin-top: 9px;
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.6;
+        white-space: pre-wrap;
+    }
+
+    .content-bottom {
+        margin-top: 13px;
+        padding-top: 11px;
+        border-top: 1px solid #222830;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .content-date {
+        color: #68717d;
+        font-size: 10px;
+    }
+
+    .delete-btn {
+        border: 1px solid rgba(246, 70, 93, .2);
+        background: rgba(246, 70, 93, .07);
+        color: var(--red);
+        padding: 7px 10px;
+        border-radius: 7px;
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+    .delete-btn:hover {
+        background: rgba(246, 70, 93, .15);
+    }
+
+    .empty-state,
+    .loading-state {
+        padding: 50px 20px;
+        text-align: center;
+        color: var(--muted);
+    }
+
+    .empty-state i,
+    .loading-state i {
+        font-size: 25px;
+        margin-bottom: 12px;
+        opacity: .6;
+    }
+
+    .empty-state p,
+    .loading-state p {
+        font-size: 12px;
+    }
+
+    /* =========================
+       TOAST
+    ========================= */
+
+    .toast {
+        position: fixed;
+        right: 25px;
+        bottom: 25px;
+        max-width: 360px;
+        background: #1c2228;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 13px 16px;
+        border-radius: 9px;
+        box-shadow: 0 10px 30px rgba(0,0,0,.35);
+        z-index: 9999;
+        font-size: 12px;
+    }
+
+    .toast.success {
+        border-color: rgba(14,203,129,.3);
+    }
+
+    .toast.error {
+        border-color: rgba(246,70,93,.3);
+    }
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 850px) {
+
+        .dashboard-grid {
+            grid-template-columns: 1fr;
         }
 
-        body {
-            font-family: Inter, sans-serif;
-            background: #0b0e11;
-            color: #eaecef;
-            min-height: 100vh;
-            padding: 20px;
-        }
+    }
 
-        .app {
-            max-width: 900px;
-            margin: auto;
-        }
+    @media (max-width: 600px) {
 
-        header {
-            background: #181a20;
-            border: 1px solid #2b3139;
-            border-radius: 18px;
-            padding: 18px 22px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: #f0b90b;
-            color: #181a20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
-        }
-
-        .brand h1 {
-            color: #f0b90b;
-            font-size: 20px;
-        }
-
-        .brand span {
-            color: #eaecef;
-            font-weight: 400;
-        }
-
-        .user {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #f0b90b;
-            color: #181a20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-
-        button {
-            border: none;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .btn {
-            padding: 10px 16px;
-            border-radius: 9px;
-            font-weight: 600;
-        }
-
-        .primary {
-            background: #f0b90b;
-            color: #181a20;
-        }
-
-        .danger {
-            background: #f6465d;
-            color: white;
-        }
-
-        .success {
-            background: #0ecb81;
-            color: white;
-        }
-
-        .panel {
-            background: #181a20;
-            border: 1px solid #2b3139;
-            border-radius: 18px;
-            padding: 22px;
-            margin-bottom: 20px;
-        }
-
-        .panel h2 {
-            font-size: 18px;
-            margin-bottom: 18px;
-        }
-
-        .field {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            color: #848e9c;
-            font-size: 13px;
-            margin-bottom: 7px;
-        }
-
-        input,
-        textarea {
-            width: 100%;
-            background: #0b0e11;
-            color: #eaecef;
-            border: 1px solid #2b3139;
-            border-radius: 10px;
-            padding: 12px 14px;
-            font-family: inherit;
-            outline: none;
-        }
-
-        input:focus,
-        textarea:focus {
-            border-color: #f0b90b;
-        }
-
-        textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .price-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        .price-row input {
-            flex: 1;
-        }
-
-        .currency {
-            background: #2b3139;
+        .topbar {
+            height: auto;
+            min-height: 65px;
             padding: 12px 15px;
-            border-radius: 10px;
-            font-weight: 600;
-            color: #f0b90b;
         }
 
-        .auth {
-            max-width: 420px;
-            margin: 70px auto;
+        .admin-email {
+            display: none;
         }
 
-        .auth h2 {
-            text-align: center;
-            color: #f0b90b;
-            margin-bottom: 8px;
+        .dashboard {
+            padding: 20px 12px;
         }
 
-        .auth p {
-            text-align: center;
-            color: #848e9c;
-            margin-bottom: 25px;
-        }
-
-        .auth .btn {
-            width: 100%;
-        }
-
-        .error {
-            background: rgba(246,70,93,.1);
-            color: #f6465d;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 13px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .content-card {
-            background: #0b0e11;
-            border: 1px solid #2b3139;
-            border-radius: 14px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            gap: 10px;
+        .page-header {
             align-items: flex-start;
+            gap: 12px;
         }
 
-        .content-title {
-            font-weight: 700;
-            font-size: 15px;
+        .page-header h1 {
+            font-size: 22px;
         }
 
-        .price {
-            color: #0ecb81;
-            font-weight: 700;
-            white-space: nowrap;
+        .admin-badge {
+            display: none;
         }
 
-        .content-preview {
-            color: #848e9c;
-            margin-top: 8px;
-            line-height: 1.5;
-            font-size: 13px;
-            white-space: pre-wrap;
+        .login-card {
+            padding: 24px;
         }
 
-        .content-footer {
-            margin-top: 12px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
+        .content-top {
+            flex-direction: column;
+            gap: 7px;
         }
 
-        .date {
-            color: #5e6673;
-            font-size: 11px;
-        }
-
-        .empty {
-            text-align: center;
-            color: #848e9c;
-            padding: 35px;
+        .content-price {
+            align-self: flex-start;
         }
 
         .toast {
-            position: fixed;
-            bottom: 25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e2329;
-            border: 1px solid #2b3139;
-            padding: 12px 20px;
-            border-radius: 12px;
-            z-index: 9999;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            max-width: none;
         }
+    }
+</style>
+```
 
-        @media(max-width:600px) {
-            body {
-                padding: 10px;
-            }
-
-            header {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .price-row {
-                flex-direction: column;
-            }
-        }
-    </style>
 </head>
 
 <body>
 
 <div class="app">
 
-    <!-- HEADER -->
-    <header id="header">
+```
+<!-- =========================
+     TOP BAR
+========================= -->
 
-        <div class="brand">
-            <div class="logo">B</div>
-            <h1>Bet<span>Live Admin</span></h1>
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            B
         </div>
 
-        <div class="user hidden" id="userArea">
-            <div class="avatar" id="avatar">A</div>
-
-            <span id="userEmail"></span>
-
-            <button
-                class="btn danger"
-                id="logoutBtn"
-            >
-                Logout
-            </button>
+        <div class="brand-name">
+            Bet<span>Live</span>
         </div>
 
-    </header>
+    </div>
 
 
-    <!-- LOGIN -->
-    <div class="panel auth" id="loginPanel">
-
-        <h2>Admin Login</h2>
-
-        <p>Sign in to manage premium content</p>
+    <div
+        class="admin-area hidden"
+        id="adminArea"
+    >
 
         <div
-            class="error hidden"
+            class="admin-avatar"
+            id="adminAvatar"
+        >
+            A
+        </div>
+
+        <div
+            class="admin-email"
+            id="adminEmail"
+        ></div>
+
+        <button
+            class="logout-btn"
+            id="logoutBtn"
+        >
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     LOGIN PAGE
+========================= -->
+
+<section
+    class="login-page"
+    id="loginPage"
+>
+
+    <div class="login-card">
+
+        <div class="login-icon">
+            <i class="fa-solid fa-shield-halved"></i>
+        </div>
+
+        <h1>
+            Admin Login
+        </h1>
+
+        <p>
+            Sign in to manage and publish BetLive premium content.
+        </p>
+
+
+        <div
+            class="error-message hidden"
             id="loginError"
         ></div>
 
-        <div class="field">
-
-            <label>Email</label>
-
-            <input
-                type="email"
-                id="email"
-                placeholder="admin@email.com"
-            >
-
-        </div>
 
         <div class="field">
 
-            <label>Password</label>
+            <label>
+                Email address
+            </label>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Password"
-            >
+            <div class="input-wrap">
+
+                <i class="fa-solid fa-envelope"></i>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="admin@email.com"
+                    autocomplete="email"
+                >
+
+            </div>
 
         </div>
+
+
+        <div class="field">
+
+            <label>
+                Password
+            </label>
+
+            <div class="input-wrap">
+
+                <i class="fa-solid fa-lock"></i>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                >
+
+            </div>
+
+        </div>
+
 
         <button
-            class="btn primary"
+            class="login-btn"
             id="loginBtn"
         >
-            <i class="fa-solid fa-right-to-bracket"></i>
             Sign In
         </button>
 
     </div>
 
-
-    <!-- ADMIN DASHBOARD -->
-    <div
-        id="dashboard"
-        class="hidden"
-    >
-
-        <!-- CREATE CONTENT -->
-        <div class="panel">
-
-            <h2>
-                <i class="fa-solid fa-plus"></i>
-                Publish Premium Content
-            </h2>
-
-            <div class="field">
-
-                <label>Content Title</label>
-
-                <input
-                    type="text"
-                    id="title"
-                    placeholder="Example: Today's VIP Bet"
-                >
-
-            </div>
+</section>
 
 
-            <div class="field">
+<!-- =========================
+     DASHBOARD
+========================= -->
 
-                <label>Premium Content</label>
+<main
+    class="dashboard hidden"
+    id="dashboard"
+>
 
-                <textarea
-                    id="content"
-                    placeholder="Write the content that customers will unlock after payment..."
-                ></textarea>
+    <div class="page-header">
 
-            </div>
+        <div>
 
+            <h1>
+                Dashboard
+            </h1>
 
-            <div class="field">
-
-                <label>Price</label>
-
-                <div class="price-row">
-
-                    <input
-                        type="number"
-                        id="price"
-                        min="1"
-                        placeholder="500"
-                    >
-
-                    <div class="currency">
-                        TZS
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <button
-                class="btn success"
-                id="publishBtn"
-            >
-                <i class="fa-solid fa-paper-plane"></i>
-                Publish Content
-            </button>
+            <p>
+                Manage the premium content shown to bettors.
+            </p>
 
         </div>
 
 
-        <!-- CONTENT LIST -->
-        <div class="panel">
+        <div class="admin-badge">
 
-            <h2>
-                <i class="fa-solid fa-list"></i>
-                Published Content
-            </h2>
+            <i class="fa-solid fa-circle-check"></i>
 
-            <div id="contentList">
-
-                <div class="empty">
-                    Loading content...
-                </div>
-
-            </div>
+            ADMIN ACCOUNT
 
         </div>
 
     </div>
 
-</div>
 
+    <div class="dashboard-grid">
+
+        <!-- =====================
+             PUBLISH
+        ====================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+
+                    <i class="fa-solid fa-pen-to-square"></i>
+
+                    Publish Content
+
+                </div>
+
+            </div>
+
+
+            <div class="panel-body">
+
+                <p class="form-description">
+                    Create a premium post. Bettors will see the title,
+                    description and price, then pay to unlock the content.
+                </p>
+
+
+                <div class="field">
+
+                    <label>
+                        Content title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Example: Today's VIP Prediction"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Short description
+                    </label>
+
+                    <input
+                        type="text"
+                        id="description"
+                        placeholder="What will the bettor receive?"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Premium content
+                    </label>
+
+                    <textarea
+                        id="content"
+                        placeholder="Write the premium content that will be revealed after successful payment..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Price
+                    </label>
+
+                    <div class="price-input">
+
+                        <input
+                            type="number"
+                            id="price"
+                            min="1"
+                            step="1"
+                            placeholder="200"
+                        >
+
+                        <div class="currency">
+                            TZS
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="publish-btn"
+                    id="publishBtn"
+                >
+
+                    <i class="fa-solid fa-paper-plane"></i>
+
+                    Publish Content
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================
+             CONTENT
+        ====================== -->
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div class="panel-title">
+
+                    <i class="fa-solid fa-layer-group"></i>
+
+                    Published Content
+
+                </div>
+
+                <span
+                    class="content-count"
+                    id="contentCount"
+                >
+                    0 posts
+                </span>
+
+            </div>
+
+
+            <div
+                class="content-list"
+                id="contentList"
+            >
+
+                <div class="loading-state">
+
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+
+                    <p>
+                        Loading content...
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</main>
+```
+
+</div>
 
 <script>
 
@@ -483,137 +973,234 @@
 
     const firebaseConfig = {
 
-        apiKey: "AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow",
+        apiKey:
+            "AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow",
 
-        authDomain: "volcanobxpl.firebaseapp.com",
+        authDomain:
+            "volcanobxpl.firebaseapp.com",
 
-        projectId: "volcanobxpl",
+        projectId:
+            "volcanobxpl",
 
-        storageBucket: "volcanobxpl.firebasestorage.app",
+        storageBucket:
+            "volcanobxpl.firebasestorage.app",
 
-        messagingSenderId: "742861205377",
+        messagingSenderId:
+            "742861205377",
 
-        appId: "1:742861205377:web:bbe8a42b78c90354a64280",
+        appId:
+            "1:742861205377:web:bbe8a42b78c90354a64280",
 
-        measurementId: "G-G1KWGHLZES"
+        measurementId:
+            "G-G1KWGHLZES"
 
     };
 
 
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(
+        firebaseConfig
+    );
 
 
-    const auth = firebase.auth();
+    const auth =
+        firebase.auth();
 
-    const db = firebase.firestore();
+
+    const db =
+        firebase.firestore();
 
 
     // ============================================================
     // DOM
     // ============================================================
 
-    const loginPanel =
-        document.getElementById("loginPanel");
+    const loginPage =
+        document.getElementById(
+            "loginPage"
+        );
+
 
     const dashboard =
-        document.getElementById("dashboard");
+        document.getElementById(
+            "dashboard"
+        );
+
+
+    const adminArea =
+        document.getElementById(
+            "adminArea"
+        );
+
+
+    const adminEmail =
+        document.getElementById(
+            "adminEmail"
+        );
+
+
+    const adminAvatar =
+        document.getElementById(
+            "adminAvatar"
+        );
+
 
     const loginBtn =
-        document.getElementById("loginBtn");
+        document.getElementById(
+            "loginBtn"
+        );
+
 
     const logoutBtn =
-        document.getElementById("logoutBtn");
+        document.getElementById(
+            "logoutBtn"
+        );
+
 
     const loginError =
-        document.getElementById("loginError");
+        document.getElementById(
+            "loginError"
+        );
 
-    const userArea =
-        document.getElementById("userArea");
-
-    const userEmail =
-        document.getElementById("userEmail");
-
-    const avatar =
-        document.getElementById("avatar");
 
     const titleInput =
-        document.getElementById("title");
+        document.getElementById(
+            "title"
+        );
+
+
+    const descriptionInput =
+        document.getElementById(
+            "description"
+        );
+
 
     const contentInput =
-        document.getElementById("content");
+        document.getElementById(
+            "content"
+        );
+
 
     const priceInput =
-        document.getElementById("price");
+        document.getElementById(
+            "price"
+        );
+
 
     const publishBtn =
-        document.getElementById("publishBtn");
+        document.getElementById(
+            "publishBtn"
+        );
+
 
     const contentList =
-        document.getElementById("contentList");
+        document.getElementById(
+            "contentList"
+        );
+
+
+    const contentCount =
+        document.getElementById(
+            "contentCount"
+        );
 
 
     // ============================================================
-    // AUTH
+    // LOGIN
     // ============================================================
 
     loginBtn.addEventListener(
         "click",
-        async () => {
+        login
+    );
 
-            const email =
-                document.getElementById("email")
-                    .value
-                    .trim();
 
-            const password =
-                document.getElementById("password")
-                    .value;
+    async function login() {
 
-            loginError.classList.add("hidden");
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim();
 
-            if (!email || !password) {
 
-                loginError.textContent =
-                    "Enter email and password.";
+        const password =
+            document
+                .getElementById("password")
+                .value;
 
-                loginError.classList.remove("hidden");
 
-                return;
-            }
+        hideLoginError();
 
-            loginBtn.disabled = true;
 
-            loginBtn.textContent = "Signing in...";
+        if (!email || !password) {
 
-            try {
+            showLoginError(
+                "Enter your email and password."
+            );
 
-                await auth.signInWithEmailAndPassword(
-                    email,
-                    password
-                );
-
-            } catch (error) {
-
-                console.error(error);
-
-                loginError.textContent =
-                    error.message;
-
-                loginError.classList.remove(
-                    "hidden"
-                );
-
-            } finally {
-
-                loginBtn.disabled = false;
-
-                loginBtn.innerHTML =
-                    '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
-
-            }
+            return;
 
         }
-    );
+
+
+        loginBtn.disabled = true;
+
+        loginBtn.textContent =
+            "Signing in...";
+
+
+        try {
+
+            await auth.signInWithEmailAndPassword(
+                email,
+                password
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            showLoginError(
+                friendlyAuthError(error)
+            );
+
+
+        } finally {
+
+            loginBtn.disabled = false;
+
+            loginBtn.textContent =
+                "Sign In";
+
+        }
+
+    }
+
+
+    // ============================================================
+    // ENTER KEY LOGIN
+    // ============================================================
+
+    document
+        .getElementById("password")
+        .addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "Enter"
+                ) {
+
+                    login();
+
+                }
+
+            }
+        );
 
 
     // ============================================================
@@ -621,87 +1208,149 @@
     // ============================================================
 
     auth.onAuthStateChanged(
-        async (user) => {
+        async user => {
 
             if (!user) {
 
-                loginPanel.classList.remove(
-                    "hidden"
-                );
-
-                dashboard.classList.add(
-                    "hidden"
-                );
-
-                userArea.classList.add(
-                    "hidden"
-                );
+                showLogin();
 
                 return;
+
             }
 
 
             try {
 
-                const userDoc =
-                    await db
+                const userRef =
+                    db
                         .collection("users")
-                        .doc(user.uid)
-                        .get();
+                        .doc(user.uid);
+
+
+                const userSnapshot =
+                    await userRef.get();
 
 
                 if (
-                    !userDoc.exists ||
-                    userDoc.data().role !== "admin"
+                    !userSnapshot.exists
                 ) {
 
                     await auth.signOut();
 
-                    loginError.textContent =
-                        "Access denied. This account is not an admin.";
-
-                    loginError.classList.remove(
-                        "hidden"
+                    showLoginError(
+                        "Access denied. Admin account not found."
                     );
 
+                    showLogin();
+
                     return;
+
                 }
 
 
-                loginPanel.classList.add(
-                    "hidden"
+                const userData =
+                    userSnapshot.data();
+
+
+                if (
+                    userData.role !== "admin"
+                ) {
+
+                    await auth.signOut();
+
+                    showLoginError(
+                        "Access denied. This account is not an admin."
+                    );
+
+                    showLogin();
+
+                    return;
+
+                }
+
+
+                showDashboard(
+                    user
                 );
 
-                dashboard.classList.remove(
-                    "hidden"
-                );
-
-                userArea.classList.remove(
-                    "hidden"
-                );
-
-                userEmail.textContent =
-                    user.email;
-
-                avatar.textContent =
-                    user.email
-                        .charAt(0)
-                        .toUpperCase();
-
-
-                loadContent();
 
             } catch (error) {
 
                 console.error(
-                    "Authentication error:",
+                    "Admin verification error:",
                     error
                 );
+
+
+                showLoginError(
+                    "Unable to verify admin account."
+                );
+
+                showLogin();
 
             }
 
         }
     );
+
+
+    // ============================================================
+    // SHOW LOGIN
+    // ============================================================
+
+    function showLogin() {
+
+        loginPage.classList.remove(
+            "hidden"
+        );
+
+
+        dashboard.classList.add(
+            "hidden"
+        );
+
+
+        adminArea.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    // ============================================================
+    // SHOW DASHBOARD
+    // ============================================================
+
+    function showDashboard(user) {
+
+        loginPage.classList.add(
+            "hidden"
+        );
+
+
+        dashboard.classList.remove(
+            "hidden"
+        );
+
+
+        adminArea.classList.remove(
+            "hidden"
+        );
+
+
+        adminEmail.textContent =
+            user.email;
+
+
+        adminAvatar.textContent =
+            user.email
+                .charAt(0)
+                .toUpperCase();
+
+
+        loadContent();
+
+    }
 
 
     // ============================================================
@@ -710,12 +1359,16 @@
 
     logoutBtn.addEventListener(
         "click",
-        () => auth.signOut()
+        async () => {
+
+            await auth.signOut();
+
+        }
     );
 
 
     // ============================================================
-    // PUBLISH CONTENT
+    // PUBLISH
     // ============================================================
 
     publishBtn.addEventListener(
@@ -729,30 +1382,54 @@
         const title =
             titleInput.value.trim();
 
+
+        const description =
+            descriptionInput.value.trim();
+
+
         const content =
             contentInput.value.trim();
 
+
         const price =
-            Number(priceInput.value);
+            Number(
+                priceInput.value
+            );
 
 
         if (!title) {
 
             showToast(
-                "Enter a content title."
+                "Enter a content title.",
+                "error"
             );
 
             return;
+
+        }
+
+
+        if (!description) {
+
+            showToast(
+                "Enter a short description.",
+                "error"
+            );
+
+            return;
+
         }
 
 
         if (!content) {
 
             showToast(
-                "Enter the premium content."
+                "Enter the premium content.",
+                "error"
             );
 
             return;
+
         }
 
 
@@ -762,17 +1439,19 @@
         ) {
 
             showToast(
-                "Enter a valid price."
+                "Enter a valid price.",
+                "error"
             );
 
             return;
+
         }
 
 
         publishBtn.disabled = true;
 
-        publishBtn.textContent =
-            "Publishing...";
+        publishBtn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
 
 
         try {
@@ -781,27 +1460,41 @@
                 .collection("content")
                 .add({
 
-                    title: title,
+                    title:
+                        title,
 
-                    content: content,
+                    description:
+                        description,
 
-                    price: price,
+                    content:
+                        content,
 
-                    currency: "TZS",
+                    price:
+                        Math.round(price),
+
+                    currency:
+                        "TZS",
 
                     createdBy:
                         auth.currentUser.email,
 
+                    createdByUid:
+                        auth.currentUser.uid,
+
                     createdAt:
-                        firebase.firestore.FieldValue
+                        firebase.firestore
+                            .FieldValue
                             .serverTimestamp(),
 
-                    active: true
+                    active:
+                        true
 
                 });
 
 
             titleInput.value = "";
+
+            descriptionInput.value = "";
 
             contentInput.value = "";
 
@@ -809,7 +1502,8 @@
 
 
             showToast(
-                "Content published successfully!"
+                "Content published successfully.",
+                "success"
             );
 
 
@@ -820,8 +1514,11 @@
                 error
             );
 
+
             showToast(
-                "Failed: " + error.message
+                "Failed to publish: " +
+                error.message,
+                "error"
             );
 
         } finally {
@@ -840,153 +1537,232 @@
     // LOAD CONTENT
     // ============================================================
 
+    let contentUnsubscribe = null;
+
+
     function loadContent() {
 
-        db.collection("content")
-            .orderBy(
-                "createdAt",
-                "desc"
-            )
-            .onSnapshot(
+        if (
+            contentUnsubscribe
+        ) {
 
-                (snapshot) => {
+            contentUnsubscribe();
 
-                    if (snapshot.empty) {
-
-                        contentList.innerHTML =
-                            `
-                            <div class="empty">
-                                No content published yet.
-                            </div>
-                            `;
-
-                        return;
-                    }
+        }
 
 
-                    let html = "";
+        contentUnsubscribe =
+            db
+                .collection("content")
+                .orderBy(
+                    "createdAt",
+                    "desc"
+                )
+                .onSnapshot(
+
+                    snapshot => {
+
+                        contentCount.textContent =
+                            `${snapshot.size} ${
+                                snapshot.size === 1
+                                    ? "post"
+                                    : "posts"
+                            }`;
 
 
-                    snapshot.forEach(
-                        (doc) => {
+                        if (
+                            snapshot.empty
+                        ) {
 
-                            const data =
-                                doc.data();
+                            contentList.innerHTML = `
 
+                                <div class="empty-state">
 
-                            const createdAt =
-                                data.createdAt
-                                    ? data.createdAt
-                                        .toDate()
-                                        .toLocaleString()
-                                    : "Just now";
+                                    <i class="fa-regular fa-folder-open"></i>
 
-
-                            const preview =
-                                data.content
-                                    .length > 150
-                                    ? data.content.substring(
-                                        0,
-                                        150
-                                    ) + "..."
-                                    : data.content;
-
-
-                            html += `
-
-                                <div
-                                    class="content-card"
-                                >
-
-                                    <div
-                                        class="content-header"
-                                    >
-
-                                        <div
-                                            class="content-title"
-                                        >
-                                            ${escapeHtml(
-                                                data.title
-                                            )}
-                                        </div>
-
-                                        <div
-                                            class="price"
-                                        >
-                                            ${Number(
-                                                data.price
-                                            ).toLocaleString()}
-                                            TZS
-                                        </div>
-
-                                    </div>
-
-
-                                    <div
-                                        class="content-preview"
-                                    >
-                                        ${escapeHtml(
-                                            preview
-                                        )}
-                                    </div>
-
-
-                                    <div
-                                        class="content-footer"
-                                    >
-
-                                        <span
-                                            class="date"
-                                        >
-                                            ${createdAt}
-                                        </span>
-
-
-                                        <button
-                                            class="btn danger"
-                                            onclick="deleteContent('${doc.id}')"
-                                        >
-                                            <i
-                                                class="fa-solid fa-trash"
-                                            ></i>
-                                            Delete
-                                        </button>
-
-                                    </div>
+                                    <p>
+                                        No premium content published yet.
+                                    </p>
 
                                 </div>
 
                             `;
 
+                            return;
+
                         }
-                    );
 
 
-                    contentList.innerHTML =
-                        html;
+                        let html = "";
 
-                },
 
-                (error) => {
+                        snapshot.forEach(
+                            doc => {
 
-                    console.error(
-                        "Load content error:",
-                        error
-                    );
+                                const data =
+                                    doc.data();
 
-                    contentList.innerHTML =
-                        `
-                        <div class="empty">
-                            Error loading content:
-                            ${escapeHtml(
-                                error.message
-                            )}
-                        </div>
+
+                                const title =
+                                    escapeHtml(
+                                        data.title ||
+                                        "Untitled"
+                                    );
+
+
+                                const description =
+                                    escapeHtml(
+                                        data.description ||
+                                        ""
+                                    );
+
+
+                                const content =
+                                    escapeHtml(
+                                        data.content ||
+                                        ""
+                                    );
+
+
+                                const price =
+                                    Number(
+                                        data.price ||
+                                        0
+                                    );
+
+
+                                const preview =
+                                    content.length > 180
+                                        ? content.substring(
+                                            0,
+                                            180
+                                        ) + "..."
+                                        : content;
+
+
+                                const date =
+                                    data.createdAt
+                                        ? data.createdAt
+                                            .toDate()
+                                            .toLocaleString(
+                                                "en-TZ"
+                                            )
+                                        : "Just now";
+
+
+                                html += `
+
+                                    <article
+                                        class="content-card"
+                                    >
+
+                                        <div
+                                            class="content-top"
+                                        >
+
+                                            <div>
+
+                                                <div
+                                                    class="content-title"
+                                                >
+                                                    ${title}
+                                                </div>
+
+                                            </div>
+
+                                            <div
+                                                class="content-price"
+                                            >
+                                                ${formatMoney(price)}
+                                                TZS
+                                            </div>
+
+                                        </div>
+
+
+                                        ${
+                                            description
+                                                ? `
+                                                    <div
+                                                        class="content-preview"
+                                                    >
+                                                        ${description}
+                                                    </div>
+                                                `
+                                                : ""
+                                        }
+
+
+                                        <div
+                                            class="content-preview"
+                                        >
+                                            ${preview}
+                                        </div>
+
+
+                                        <div
+                                            class="content-bottom"
+                                        >
+
+                                            <span
+                                                class="content-date"
+                                            >
+                                                ${date}
+                                            </span>
+
+
+                                            <button
+                                                class="delete-btn"
+                                                onclick="deleteContent('${doc.id}')"
+                                            >
+
+                                                <i class="fa-solid fa-trash"></i>
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </article>
+
+                                `;
+
+                            }
+                        );
+
+
+                        contentList.innerHTML =
+                            html;
+
+                    },
+
+
+                    error => {
+
+                        console.error(
+                            "Content loading error:",
+                            error
+                        );
+
+
+                        contentList.innerHTML = `
+
+                            <div class="empty-state">
+
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                                <p>
+                                    Unable to load content.
+                                </p>
+
+                            </div>
+
                         `;
 
-                }
+                    }
 
-            );
+                );
 
     }
 
@@ -1000,11 +1776,15 @@
 
             const confirmed =
                 confirm(
-                    "Delete this premium content?"
+                    "Are you sure you want to delete this premium content?"
                 );
 
 
-            if (!confirmed) return;
+            if (!confirmed) {
+
+                return;
+
+            }
 
 
             try {
@@ -1016,16 +1796,23 @@
 
 
                 showToast(
-                    "Content deleted."
+                    "Content deleted.",
+                    "success"
                 );
+
 
             } catch (error) {
 
-                console.error(error);
+                console.error(
+                    "Delete error:",
+                    error
+                );
+
 
                 showToast(
                     "Delete failed: " +
-                    error.message
+                    error.message,
+                    "error"
                 );
 
             }
@@ -1034,39 +1821,122 @@
 
 
     // ============================================================
+    // MONEY
+    // ============================================================
+
+    function formatMoney(value) {
+
+        return Number(
+            value || 0
+        ).toLocaleString(
+            "en-TZ"
+        );
+
+    }
+
+
+    // ============================================================
     // ESCAPE HTML
     // ============================================================
 
     function escapeHtml(value) {
 
-        if (!value) return "";
+        return String(
+            value || ""
+        )
 
-        return String(value)
+        .replace(
+            /&/g,
+            "&amp;"
+        )
 
-            .replace(
-                /&/g,
-                "&amp;"
-            )
+        .replace(
+            /</g,
+            "&lt;"
+        )
 
-            .replace(
-                /</g,
-                "&lt;"
-            )
+        .replace(
+            />/g,
+            "&gt;"
+        )
 
-            .replace(
-                />/g,
-                "&gt;"
-            )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
 
-            .replace(
-                /"/g,
-                "&quot;"
-            )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
 
-            .replace(
-                /'/g,
-                "&#039;"
-            );
+    }
+
+
+    // ============================================================
+    // LOGIN ERROR
+    // ============================================================
+
+    function showLoginError(message) {
+
+        loginError.textContent =
+            message;
+
+
+        loginError.classList.remove(
+            "hidden"
+        );
+
+    }
+
+
+    function hideLoginError() {
+
+        loginError.textContent =
+            "";
+
+
+        loginError.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    // ============================================================
+    // AUTH ERRORS
+    // ============================================================
+
+    function friendlyAuthError(error) {
+
+        switch (error.code) {
+
+            case "auth/invalid-email":
+
+                return "Please enter a valid email address.";
+
+            case "auth/user-not-found":
+
+                return "No account was found with this email.";
+
+            case "auth/wrong-password":
+
+            case "auth/invalid-credential":
+
+                return "Incorrect email or password.";
+
+            case "auth/too-many-requests":
+
+                return "Too many attempts. Try again later.";
+
+            default:
+
+                return (
+                    error.message ||
+                    "Unable to sign in."
+                );
+
+        }
 
     }
 
@@ -1075,14 +1945,22 @@
     // TOAST
     // ============================================================
 
-    function showToast(message) {
+    function showToast(
+        message,
+        type = ""
+    ) {
 
-        const old =
+        const oldToast =
             document.querySelector(
                 ".toast"
             );
 
-        if (old) old.remove();
+
+        if (oldToast) {
+
+            oldToast.remove();
+
+        }
 
 
         const toast =
@@ -1090,8 +1968,10 @@
                 "div"
             );
 
+
         toast.className =
-            "toast";
+            "toast " + type;
+
 
         toast.textContent =
             message;
@@ -1103,7 +1983,11 @@
 
 
         setTimeout(
-            () => toast.remove(),
+            () => {
+
+                toast.remove();
+
+            },
             3500
         );
 
