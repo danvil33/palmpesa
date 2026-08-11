@@ -1,5 +1,4 @@
 export default async function handler(req, res) {
-
   if (req.method !== "POST") {
     return res.status(405).json({
       success: false,
@@ -8,13 +7,7 @@ export default async function handler(req, res) {
   }
 
   try {
-
-    const {
-      name,
-      email,
-      phone,
-      amount
-    } = req.body;
+    const { name, email, phone, amount } = req.body;
 
     if (!name || !email || !phone || !amount) {
       return res.status(400).json({
@@ -23,132 +16,59 @@ export default async function handler(req, res) {
       });
     }
 
-    const transactionId =
-      "TXN-" + Date.now();
+    const transactionId = "TXN-" + Date.now();
 
     const paymentData = {
-
-      user_id:
-        process.env.PALMPESA_USER_ID,
-
       name,
-
       email,
-
       phone,
-
       amount: Number(amount),
-
-      transaction_id:
-        transactionId,
-
-      address:
-        "Geita",
-
-      postcode:
-        "30100",
-
-      buyer_uuid:
-        process.env.PALMPESA_BUYER_UUID
-
+      transaction_id: transactionId,
+      address: "Geita",
+      postcode: "30100"
     };
-
-
-    console.log(
-      "Sending Pay via Mobile:",
-      paymentData
-    );
-
 
     const response = await fetch(
       "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
       {
-
         method: "POST",
 
         headers: {
-
-          "Authorization":
-            `Bearer ${process.env.PALMPESA_TOKEN}`,
-
-          "Content-Type":
-            "application/json",
-
-          "Accept":
-            "application/json"
-
+          "Authorization": `Bearer ${process.env.PALMPESA_TOKEN}`,
+          "Content-Type": "application/json",
+          "Accept": "application/json"
         },
 
-        body:
-          JSON.stringify(paymentData)
-
+        body: JSON.stringify(paymentData)
       }
     );
 
+    const raw = await response.text();
 
-    const raw =
-      await response.text();
-
-
-    console.log(
-      "PalmPesa status:",
-      response.status
-    );
-
-    console.log(
-      "PalmPesa response:",
-      raw
-    );
-
+    console.log("PalmPesa status:", response.status);
+    console.log("PalmPesa response:", raw);
 
     let data;
 
     try {
-
-      data =
-        JSON.parse(raw);
-
+      data = JSON.parse(raw);
     } catch {
-
-      data = {
-        raw_response: raw
-      };
-
+      data = { raw_response: raw };
     }
 
-
     return res.status(response.status).json({
-
-      success:
-        response.ok,
-
-      palmPesaStatus:
-        response.status,
-
-      transaction_id:
-        transactionId,
-
+      success: response.ok,
+      palmPesaStatus: response.status,
+      transaction_id: transactionId,
       data
-
     });
 
-
   } catch (error) {
-
     console.error(error);
 
     return res.status(500).json({
-
       success: false,
-
-      message:
-        "Server error",
-
-      error:
-        error.message
-
+      message: error.message
     });
-
   }
-
 }
