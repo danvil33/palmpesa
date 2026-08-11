@@ -1,13 +1,11 @@
 export default async function handler(req, res) {
 
   if (req.method !== "POST") {
-
     return res.status(405).json({
+      success: false,
       message: "Method not allowed"
     });
-
   }
-
 
   try {
 
@@ -18,101 +16,114 @@ export default async function handler(req, res) {
       amount
     } = req.body;
 
-
-    if (
-      !name ||
-      !email ||
-      !phone ||
-      !amount
-    ) {
-
+    if (!name || !email || !phone || !amount) {
       return res.status(400).json({
+        success: false,
         message: "All fields are required"
       });
-
     }
 
-
     const transactionId =
-      "TEST-" + Date.now();
+      "TXN-" + Date.now();
 
+    const paymentData = {
 
-    const palmPesaResponse =
-      await fetch(
-        "https://palmpesa.drmlelwa.co.tz/api/palmpesa/initiate",
-        {
+      user_id:
+        process.env.PALMPESA_USER_ID,
 
-          method: "POST",
+      name,
 
-          headers: {
+      email,
 
-            "Authorization":
-              `Bearer ${process.env.PALMPESA_TOKEN}`,
+      phone,
 
-            "Content-Type":
-              "application/json",
+      amount: Number(amount),
 
-            "Accept":
-              "application/json"
+      transaction_id:
+        transactionId,
 
-          },
+      address:
+        "Geita",
 
-          body:
-            JSON.stringify({
+      postcode:
+        "30100",
 
-              name,
+      buyer_uuid:
+        process.env.PALMPESA_BUYER_UUID
 
-              email,
-
-              phone,
-
-              amount: Number(amount),
-
-              transaction_id:
-                transactionId,
-
-              address:
-                "Geita",
-
-              postcode:
-                "30100"
-
-            })
-
-        }
-      );
-
-
-    const data =
-      await palmPesaResponse.json();
+    };
 
 
     console.log(
-      "PalmPesa:",
-      data
+      "Sending Pay via Mobile:",
+      paymentData
     );
 
 
-    if (!palmPesaResponse.ok) {
+    const response = await fetch(
+      "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
+      {
 
-      return res
-        .status(palmPesaResponse.status)
-        .json({
+        method: "POST",
 
-          message:
-            "PalmPesa rejected the request",
+        headers: {
 
-          data
+          "Authorization":
+            `Bearer ${process.env.PALMPESA_TOKEN}`,
 
-        });
+          "Content-Type":
+            "application/json",
+
+          "Accept":
+            "application/json"
+
+        },
+
+        body:
+          JSON.stringify(paymentData)
+
+      }
+    );
+
+
+    const raw =
+      await response.text();
+
+
+    console.log(
+      "PalmPesa status:",
+      response.status
+    );
+
+    console.log(
+      "PalmPesa response:",
+      raw
+    );
+
+
+    let data;
+
+    try {
+
+      data =
+        JSON.parse(raw);
+
+    } catch {
+
+      data = {
+        raw_response: raw
+      };
 
     }
 
 
-    return res.status(200).json({
+    return res.status(response.status).json({
 
-      message:
-        "Payment initiated. Check your phone.",
+      success:
+        response.ok,
+
+      palmPesaStatus:
+        response.status,
 
       transaction_id:
         transactionId,
@@ -128,8 +139,10 @@ export default async function handler(req, res) {
 
     return res.status(500).json({
 
+      success: false,
+
       message:
-        "Could not connect to PalmPesa",
+        "Server error",
 
       error:
         error.message
