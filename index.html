@@ -24,15 +24,16 @@
         }
 
         :root {
-            --bg: #0b0e11;
-            --surface: #15191f;
-            --surface2: #1b2027;
-            --border: #29313b;
-            --text: #f1f3f5;
-            --muted: #8b96a5;
-            --yellow: #f0b90b;
-            --green: #0ecb81;
-            --red: #f6465d;
+            --bg: #07090d;
+            --surface: #10141b;
+            --surface-2: #151a22;
+            --border: #242b35;
+            --text: #f5f7fa;
+            --muted: #8c96a5;
+            --gold: #f0b90b;
+            --gold-light: #ffd84d;
+            --green: #16c784;
+            --red: #f04455;
         }
 
         body {
@@ -56,29 +57,29 @@
             display: none !important;
         }
 
-        /* =========================
-           TOP BAR
-        ========================= */
+        /* ================================
+           APP
+        ================================= */
 
-        .topbar {
-            height: 68px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(11,14,17,.96);
-            display: flex;
-            align-items: center;
-            padding: 0 28px;
-            position: sticky;
-            top: 0;
-            z-index: 50;
+        .app {
+            min-height: 100vh;
         }
 
-        .topbar-inner {
-            width: 100%;
-            max-width: 1180px;
-            margin: auto;
+        /* ================================
+           HEADER
+        ================================= */
+
+        .header {
+            height: 68px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(7, 9, 13, .96);
             display: flex;
             align-items: center;
             justify-content: space-between;
+            padding: 0 28px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .brand {
@@ -88,81 +89,98 @@
         }
 
         .brand-logo {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: var(--yellow);
-            color: #111;
-            display: grid;
-            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            background: var(--gold);
+            color: #101010;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-weight: 800;
-            font-size: 18px;
+            font-size: 17px;
         }
 
         .brand-name {
             font-size: 19px;
             font-weight: 800;
-            letter-spacing: -.5px;
+            letter-spacing: -.4px;
         }
 
         .brand-name span {
-            color: var(--yellow);
+            color: var(--gold);
         }
 
-        .account {
+        .header-right {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .email {
+        .user-email {
             color: var(--muted);
             font-size: 12px;
         }
 
-        .logout {
+        .logout-btn {
             border: 1px solid var(--border);
             background: var(--surface);
             color: var(--text);
-            border-radius: 8px;
             padding: 8px 13px;
+            border-radius: 8px;
+            font-size: 12px;
             font-weight: 600;
         }
 
-        .logout:hover {
-            border-color: var(--red);
-            color: var(--red);
+        .logout-btn:hover {
+            border-color: var(--gold);
+            color: var(--gold);
         }
 
-        /* =========================
+        /* ================================
            AUTH
-        ========================= */
+        ================================= */
 
-        .auth-page {
+        .auth-screen {
             min-height: calc(100vh - 68px);
-            display: grid;
-            place-items: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 30px 20px;
         }
 
         .auth-card {
             width: 100%;
-            max-width: 410px;
+            max-width: 400px;
             background: var(--surface);
             border: 1px solid var(--border);
             border-radius: 14px;
-            padding: 32px;
+            padding: 30px;
+        }
+
+        .auth-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 11px;
+            background: rgba(240,185,11,.12);
+            border: 1px solid rgba(240,185,11,.25);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            margin-bottom: 20px;
         }
 
         .auth-card h1 {
-            font-size: 25px;
-            margin-bottom: 8px;
+            font-size: 24px;
+            margin-bottom: 7px;
         }
 
         .auth-card > p {
             color: var(--muted);
             font-size: 13px;
-            line-height: 1.6;
+            line-height: 1.5;
             margin-bottom: 25px;
         }
 
@@ -172,107 +190,96 @@
 
         .field label {
             display: block;
+            color: #aeb7c5;
             font-size: 12px;
-            color: var(--muted);
-            margin-bottom: 7px;
             font-weight: 600;
+            margin-bottom: 7px;
         }
 
         .field input {
             width: 100%;
-            height: 45px;
-            padding: 0 13px;
-            border: 1px solid var(--border);
-            background: #0d1014;
-            color: var(--text);
+            height: 44px;
             border-radius: 8px;
+            border: 1px solid var(--border);
+            background: #090c10;
+            color: var(--text);
+            padding: 0 13px;
             outline: none;
+            font-size: 13px;
         }
 
         .field input:focus {
-            border-color: var(--yellow);
+            border-color: var(--gold);
         }
 
-        .primary {
+        .primary-btn {
             width: 100%;
-            height: 45px;
+            height: 44px;
             border: 0;
             border-radius: 8px;
-            background: var(--yellow);
+            background: var(--gold);
             color: #111;
+            font-size: 13px;
             font-weight: 800;
         }
 
-        .primary:hover {
-            filter: brightness(1.08);
+        .primary-btn:hover {
+            background: var(--gold-light);
         }
 
-        .primary:disabled {
-            opacity: .55;
+        .primary-btn:disabled {
+            opacity: .6;
             cursor: not-allowed;
         }
 
-        .auth-switch {
+        .switch-auth {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 18px;
             color: var(--muted);
-            font-size: 13px;
+            font-size: 12px;
         }
 
-        .auth-switch button {
+        .switch-auth button {
             border: 0;
-            background: none;
-            color: var(--yellow);
+            background: transparent;
+            color: var(--gold);
             font-weight: 700;
+            margin-left: 4px;
         }
 
-        /* =========================
-           APP
-        ========================= */
+        /* ================================
+           MAIN
+        ================================= */
 
-        .app {
-            max-width: 1180px;
+        .main {
+            max-width: 1050px;
             margin: auto;
-            padding: 38px 24px 70px;
+            padding: 38px 22px 60px;
         }
 
-        .page-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            margin-bottom: 28px;
-            gap: 20px;
+        .page-header {
+            margin-bottom: 26px;
         }
 
-        .page-head h1 {
-            font-size: 30px;
-            letter-spacing: -.8px;
+        .page-header h1 {
+            font-size: 27px;
+            letter-spacing: -.6px;
+            margin-bottom: 6px;
         }
 
-        .page-head p {
+        .page-header p {
             color: var(--muted);
             font-size: 13px;
-            margin-top: 7px;
         }
 
-        .live-status {
-            border: 1px solid rgba(14,203,129,.25);
-            background: rgba(14,203,129,.08);
-            color: var(--green);
-            padding: 8px 11px;
-            border-radius: 8px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        /* =========================
+        /* ================================
            CONTENT GRID
-        ========================= */
+        ================================= */
 
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 18px;
+            gap: 16px;
         }
 
         .content-card {
@@ -280,180 +287,170 @@
             border: 1px solid var(--border);
             border-radius: 13px;
             overflow: hidden;
+            transition: border-color .2s ease;
         }
 
-        .card-body {
-            padding: 21px;
+        .content-card:hover {
+            border-color: #39424f;
         }
 
-        .card-top {
+        .content-main {
+            padding: 20px;
+        }
+
+        .content-top {
             display: flex;
-            align-items: flex-start;
             justify-content: space-between;
+            align-items: flex-start;
             gap: 15px;
+            margin-bottom: 11px;
         }
 
-        .card-title {
-            font-size: 17px;
-            font-weight: 800;
+        .content-title {
+            font-size: 16px;
+            font-weight: 700;
             line-height: 1.4;
         }
 
         .price {
-            white-space: nowrap;
-            color: var(--yellow);
+            flex-shrink: 0;
+            color: var(--gold);
+            font-size: 12px;
             font-weight: 800;
-            font-size: 13px;
             background: rgba(240,185,11,.09);
             border: 1px solid rgba(240,185,11,.2);
-            padding: 7px 9px;
-            border-radius: 7px;
+            border-radius: 6px;
+            padding: 5px 8px;
         }
 
         .description {
             color: var(--muted);
-            font-size: 13px;
+            font-size: 12px;
             line-height: 1.6;
-            margin-top: 12px;
+            margin-bottom: 18px;
         }
 
         .locked {
-            margin-top: 20px;
-            border-top: 1px solid var(--border);
-            padding-top: 18px;
+            border: 1px solid var(--border);
+            background: #0a0d11;
+            border-radius: 9px;
+            padding: 18px;
         }
 
-        .locked-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .locked-info {
+        .locked-header {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 9px;
+            margin-bottom: 7px;
         }
 
         .lock {
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            background: #20262e;
-            display: grid;
-            place-items: center;
-            font-size: 15px;
+            width: 27px;
+            height: 27px;
+            border-radius: 7px;
+            background: rgba(240,185,11,.1);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
         }
 
-        .locked-info strong {
-            display: block;
+        .locked-title {
             font-size: 12px;
+            font-weight: 700;
         }
 
-        .locked-info span {
-            display: block;
+        .locked-text {
             color: var(--muted);
             font-size: 11px;
-            margin-top: 3px;
+            line-height: 1.5;
+            margin-bottom: 14px;
         }
 
-        .pay {
+        .pay-btn {
+            width: 100%;
+            height: 40px;
             border: 0;
+            border-radius: 7px;
             background: var(--green);
             color: white;
-            border-radius: 8px;
-            padding: 10px 15px;
             font-size: 12px;
             font-weight: 800;
-            white-space: nowrap;
         }
 
-        .pay:hover {
+        .pay-btn:hover {
             filter: brightness(1.08);
         }
 
         .free-content {
-            margin-top: 18px;
-            padding: 16px;
-            background: #0d1014;
-            border: 1px solid rgba(14,203,129,.25);
+            border: 1px solid rgba(22,199,132,.25);
+            background: rgba(22,199,132,.04);
             border-radius: 9px;
+            padding: 16px;
         }
 
-        .free-label {
+        .available {
             color: var(--green);
-            font-size: 11px;
+            font-size: 10px;
             font-weight: 800;
-            margin-bottom: 9px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
         }
 
         .premium-text {
             white-space: pre-wrap;
-            font-size: 13px;
+            color: #dfe4ea;
+            font-size: 12px;
             line-height: 1.7;
-            color: #dce1e7;
         }
 
+        .loading,
         .empty {
             grid-column: 1 / -1;
-            text-align: center;
-            padding: 70px 20px;
-            background: var(--surface);
             border: 1px solid var(--border);
+            background: var(--surface);
             border-radius: 13px;
+            padding: 50px 20px;
+            text-align: center;
             color: var(--muted);
+            font-size: 13px;
         }
 
-        /* =========================
+        /* ================================
            MODAL
-        ========================= */
+        ================================= */
 
         .modal {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,.72);
-            display: grid;
-            place-items: center;
+            background: rgba(0,0,0,.78);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
-            z-index: 100;
+            z-index: 500;
         }
 
         .modal-card {
             width: 100%;
-            max-width: 430px;
+            max-width: 410px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 25px;
+            border-radius: 13px;
+            padding: 24px;
         }
 
-        .modal-head {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            gap: 15px;
-            margin-bottom: 20px;
+        .modal-card h2 {
+            font-size: 18px;
+            margin-bottom: 6px;
         }
 
-        .modal-head h2 {
-            font-size: 19px;
-        }
-
-        .modal-head p {
+        .modal-subtitle {
             color: var(--muted);
             font-size: 12px;
             line-height: 1.5;
-            margin-top: 5px;
-        }
-
-        .close {
-            width: 30px;
-            height: 30px;
-            border-radius: 7px;
-            border: 1px solid var(--border);
-            background: #0d1014;
-            color: var(--muted);
+            margin-bottom: 18px;
         }
 
         .amount-box {
@@ -461,62 +458,68 @@
             justify-content: space-between;
             align-items: center;
             padding: 13px;
-            background: #0d1014;
+            background: #090c10;
             border: 1px solid var(--border);
             border-radius: 8px;
             margin-bottom: 15px;
+        }
+
+        .amount-box span:first-child {
+            color: var(--muted);
             font-size: 12px;
         }
 
-        .amount-box strong {
-            color: var(--yellow);
+        .amount-box span:last-child {
+            color: var(--gold);
+            font-weight: 800;
             font-size: 14px;
         }
 
         .phone-input {
             width: 100%;
-            height: 46px;
-            background: #0d1014;
+            height: 44px;
             border: 1px solid var(--border);
+            background: #090c10;
+            color: var(--text);
             border-radius: 8px;
             padding: 0 13px;
-            color: white;
             outline: none;
+            font-size: 13px;
+            margin-bottom: 10px;
         }
 
         .phone-input:focus {
-            border-color: var(--yellow);
+            border-color: var(--gold);
         }
 
-        .modal-note {
-            color: var(--muted);
-            font-size: 11px;
-            line-height: 1.5;
-            margin: 10px 0 15px;
-        }
-
-        .cancel {
+        .cancel-btn {
             width: 100%;
-            height: 43px;
-            margin-top: 9px;
+            height: 42px;
+            margin-top: 8px;
             border: 1px solid var(--border);
-            background: #20252c;
-            color: white;
+            background: transparent;
+            color: var(--muted);
             border-radius: 8px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
         }
 
-        /* =========================
-           MESSAGE
-        ========================= */
+        .cancel-btn:hover {
+            color: var(--text);
+            border-color: #39424f;
+        }
+
+        /* ================================
+           MESSAGES
+        ================================= */
 
         .message {
             display: none;
             padding: 10px 12px;
-            border-radius: 8px;
-            font-size: 12px;
+            border-radius: 7px;
+            margin-bottom: 13px;
+            font-size: 11px;
             line-height: 1.5;
-            margin-bottom: 14px;
         }
 
         .message.show {
@@ -525,58 +528,40 @@
 
         .message.error {
             color: var(--red);
-            background: rgba(246,70,93,.08);
-            border: 1px solid rgba(246,70,93,.2);
+            background: rgba(240,68,85,.08);
+            border: 1px solid rgba(240,68,85,.2);
         }
 
         .message.success {
             color: var(--green);
-            background: rgba(14,203,129,.08);
-            border: 1px solid rgba(14,203,129,.2);
+            background: rgba(22,199,132,.08);
+            border: 1px solid rgba(22,199,132,.2);
         }
 
-        @media(max-width:760px) {
+        /* ================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 700px) {
+
+            .header {
+                padding: 0 16px;
+            }
+
+            .user-email {
+                display: none;
+            }
+
+            .main {
+                padding: 28px 14px 50px;
+            }
+
             .content-grid {
                 grid-template-columns: 1fr;
             }
 
-            .topbar {
-                padding: 0 15px;
-            }
-
-            .email {
-                display: none;
-            }
-
-            .app {
-                padding: 28px 15px 50px;
-            }
-
-            .page-head {
-                align-items: flex-start;
-            }
-
-            .page-head h1 {
-                font-size: 25px;
-            }
-        }
-
-        @media(max-width:500px) {
-            .auth-card {
-                padding: 24px;
-            }
-
-            .card-top {
-                flex-direction: column;
-            }
-
-            .locked-row {
-                align-items: stretch;
-                flex-direction: column;
-            }
-
-            .pay {
-                width: 100%;
+            .page-header h1 {
+                font-size: 23px;
             }
         }
     </style>
@@ -584,170 +569,159 @@
 
 <body>
 
-<!-- =========================
-     HEADER
-========================= -->
+<div class="app">
 
-<header class="topbar">
+    <!-- HEADER -->
 
-    <div class="topbar-inner">
+    <header class="header hidden" id="header">
 
         <div class="brand">
-            <div class="brand-logo">B</div>
+
+            <div class="brand-logo">
+                B
+            </div>
 
             <div class="brand-name">
                 Bet<span>Live</span>
             </div>
+
         </div>
 
-        <div
-            class="account hidden"
-            id="accountArea"
-        >
+        <div class="header-right">
+
             <span
-                class="email"
+                class="user-email"
                 id="userEmail"
             ></span>
 
             <button
-                class="logout"
-                onclick="logout()"
+                class="logout-btn"
+                id="logoutBtn"
             >
                 Sign out
             </button>
-        </div>
-
-    </div>
-
-</header>
-
-
-<!-- =========================
-     AUTH
-========================= -->
-
-<section
-    class="auth-page"
-    id="authSection"
->
-
-    <div class="auth-card">
-
-        <h1 id="authTitle">
-            Welcome back
-        </h1>
-
-        <p id="authSubtitle">
-            Sign in to access premium BetLive content.
-        </p>
-
-        <div
-            class="message"
-            id="authMessage"
-        ></div>
-
-        <div class="field">
-
-            <label>
-                Email address
-            </label>
-
-            <input
-                type="email"
-                id="email"
-                placeholder="you@example.com"
-            >
 
         </div>
 
-        <div class="field">
+    </header>
 
-            <label>
-                Password
-            </label>
 
-            <input
-                type="password"
-                id="password"
-                placeholder="Minimum 6 characters"
-            >
+    <!-- AUTH -->
 
-        </div>
+    <section
+        class="auth-screen"
+        id="authScreen"
+    >
 
-        <button
-            class="primary"
-            id="authButton"
-            onclick="handleAuth()"
-        >
-            Sign In
-        </button>
+        <div class="auth-card">
 
-        <div class="auth-switch">
+            <div class="auth-icon">
+                B
+            </div>
 
-            <span id="switchText">
-                Don't have an account?
-            </span>
+            <h1 id="authTitle">
+                Welcome to BetLive
+            </h1>
+
+            <p id="authSubtitle">
+                Sign in to access premium betting content.
+            </p>
+
+            <div
+                class="message"
+                id="authMessage"
+            ></div>
+
+            <div class="field">
+
+                <label>
+                    Email address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="you@example.com"
+                    autocomplete="email"
+                >
+
+            </div>
+
+            <div class="field">
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                >
+
+            </div>
 
             <button
-                onclick="toggleAuthMode()"
-                id="switchButton"
+                class="primary-btn"
+                id="authButton"
             >
-                Create account
+                Sign in
             </button>
+
+            <div class="switch-auth">
+
+                <span id="switchText">
+                    Don't have an account?
+                </span>
+
+                <button id="switchButton">
+                    Create account
+                </button>
+
+            </div>
 
         </div>
 
-    </div>
-
-</section>
+    </section>
 
 
-<!-- =========================
-     MAIN APPLICATION
-========================= -->
+    <!-- MAIN -->
 
-<main
-    class="app hidden"
-    id="appSection"
->
+    <main
+        class="main hidden"
+        id="main"
+    >
 
-    <div class="page-head">
-
-        <div>
+        <div class="page-header">
 
             <h1>
                 Premium Content
             </h1>
 
             <p>
-                Unlock exclusive picks and premium posts.
+                Unlock exclusive betting content with mobile payment.
             </p>
 
         </div>
 
-        <div class="live-status">
-            ● LIVE
+        <div
+            class="content-grid"
+            id="contentList"
+        >
+
+            <div class="loading">
+                Loading premium content...
+            </div>
+
         </div>
 
-    </div>
+    </main>
 
-    <div
-        class="content-grid"
-        id="contentList"
-    >
-
-        <div class="empty">
-            Loading premium content...
-        </div>
-
-    </div>
-
-</main>
+</div>
 
 
-<!-- =========================
-     PAYMENT MODAL
-========================= -->
+<!-- PAYMENT MODAL -->
 
 <div
     class="modal hidden"
@@ -756,28 +730,14 @@
 
     <div class="modal-card">
 
-        <div class="modal-head">
+        <h2>
+            Unlock Content
+        </h2>
 
-            <div>
-
-                <h2>
-                    Complete Payment
-                </h2>
-
-                <p id="selectedTitle">
-                    Premium content
-                </p>
-
-            </div>
-
-            <button
-                class="close"
-                onclick="closePaymentModal()"
-            >
-                ×
-            </button>
-
-        </div>
+        <p
+            class="modal-subtitle"
+            id="paymentTitle"
+        ></p>
 
         <div class="amount-box">
 
@@ -785,9 +745,9 @@
                 Amount
             </span>
 
-            <strong id="selectedAmount">
+            <span id="paymentAmount">
                 0 TZS
-            </strong>
+            </span>
 
         </div>
 
@@ -796,40 +756,24 @@
             id="paymentMessage"
         ></div>
 
-        <label
-            style="
-                display:block;
-                color:var(--muted);
-                font-size:12px;
-                margin-bottom:7px;
-                font-weight:600;
-            "
-        >
-            Tanzanian phone number
-        </label>
-
         <input
             class="phone-input"
-            id="paymentPhone"
             type="tel"
+            id="paymentPhone"
             placeholder="07XXXXXXXX"
+            autocomplete="tel"
         >
-
-        <p class="modal-note">
-            Enter the number that should receive the PalmPesa payment request.
-        </p>
 
         <button
-            class="primary"
+            class="primary-btn"
             id="paymentButton"
-            onclick="startPayment()"
         >
-            Pay Now
+            Pay now
         </button>
 
         <button
-            class="cancel"
-            onclick="closePaymentModal()"
+            class="cancel-btn"
+            id="cancelPayment"
         >
             Cancel
         </button>
@@ -863,19 +807,19 @@
             "742861205377",
 
         appId:
-            "1:742861205377:web:bbe8a42b78c90354a64280"
+            "1:742861205377:web:bbe8a42b78c90354a64280",
+
+        measurementId:
+            "G-G1KWGHLZES"
 
     };
 
 
     firebase.initializeApp(firebaseConfig);
 
+    const auth = firebase.auth();
 
-    const auth =
-        firebase.auth();
-
-    const db =
-        firebase.firestore();
+    const db = firebase.firestore();
 
 
     /* ============================================================
@@ -884,7 +828,7 @@
 
     let currentUser = null;
 
-    let isSignUp = false;
+    let signUpMode = false;
 
     let selectedContent = null;
 
@@ -895,113 +839,136 @@
        DOM
     ============================================================ */
 
-    const authSection =
-        document.getElementById("authSection");
+    const authScreen =
+        document.getElementById("authScreen");
 
-    const appSection =
-        document.getElementById("appSection");
+    const main =
+        document.getElementById("main");
 
-    const accountArea =
-        document.getElementById("accountArea");
+    const header =
+        document.getElementById("header");
 
-    const contentList =
-        document.getElementById("contentList");
+    const authTitle =
+        document.getElementById("authTitle");
 
-    const paymentModal =
-        document.getElementById("paymentModal");
+    const authSubtitle =
+        document.getElementById("authSubtitle");
+
+    const authButton =
+        document.getElementById("authButton");
+
+    const switchText =
+        document.getElementById("switchText");
+
+    const switchButton =
+        document.getElementById("switchButton");
 
     const authMessage =
         document.getElementById("authMessage");
 
+    const contentList =
+        document.getElementById("contentList");
+
+    const userEmail =
+        document.getElementById("userEmail");
+
+    const logoutBtn =
+        document.getElementById("logoutBtn");
+
+    const paymentModal =
+        document.getElementById("paymentModal");
+
+    const paymentTitle =
+        document.getElementById("paymentTitle");
+
+    const paymentAmount =
+        document.getElementById("paymentAmount");
+
+    const paymentPhone =
+        document.getElementById("paymentPhone");
+
+    const paymentButton =
+        document.getElementById("paymentButton");
+
     const paymentMessage =
         document.getElementById("paymentMessage");
+
+    const cancelPayment =
+        document.getElementById("cancelPayment");
 
 
     /* ============================================================
        AUTH MODE
     ============================================================ */
 
-    function toggleAuthMode() {
+    switchButton.addEventListener(
+        "click",
+        () => {
 
-        isSignUp = !isSignUp;
+            signUpMode = !signUpMode;
 
-        clearMessage(authMessage);
+            clearMessage(authMessage);
 
+            if (signUpMode) {
 
-        if (isSignUp) {
+                authTitle.textContent =
+                    "Create your account";
 
-            document.getElementById(
-                "authTitle"
-            ).textContent =
-                "Create your account";
+                authSubtitle.textContent =
+                    "Create a bettor account to access premium content.";
 
-            document.getElementById(
-                "authSubtitle"
-            ).textContent =
-                "Create a bettor account to access premium content.";
+                authButton.textContent =
+                    "Create account";
 
-            document.getElementById(
-                "authButton"
-            ).textContent =
-                "Create Account";
+                switchText.textContent =
+                    "Already have an account?";
 
-            document.getElementById(
-                "switchText"
-            ).textContent =
-                "Already have an account?";
+                switchButton.textContent =
+                    "Sign in";
 
-            document.getElementById(
-                "switchButton"
-            ).textContent =
-                "Sign in";
+            } else {
 
-        } else {
+                authTitle.textContent =
+                    "Welcome to BetLive";
 
-            document.getElementById(
-                "authTitle"
-            ).textContent =
-                "Welcome back";
+                authSubtitle.textContent =
+                    "Sign in to access premium betting content.";
 
-            document.getElementById(
-                "authSubtitle"
-            ).textContent =
-                "Sign in to access premium BetLive content.";
+                authButton.textContent =
+                    "Sign in";
 
-            document.getElementById(
-                "authButton"
-            ).textContent =
-                "Sign In";
+                switchText.textContent =
+                    "Don't have an account?";
 
-            document.getElementById(
-                "switchText"
-            ).textContent =
-                "Don't have an account?";
+                switchButton.textContent =
+                    "Create account";
 
-            document.getElementById(
-                "switchButton"
-            ).textContent =
-                "Create account";
+            }
 
         }
-
-    }
+    );
 
 
     /* ============================================================
-       AUTHENTICATION
+       AUTH
     ============================================================ */
+
+    authButton.addEventListener(
+        "click",
+        handleAuth
+    );
+
 
     async function handleAuth() {
 
         const email =
-            document.getElementById(
-                "email"
-            ).value.trim();
+            document.getElementById("email")
+                .value
+                .trim();
 
         const password =
-            document.getElementById(
-                "password"
-            ).value;
+            document.getElementById("password")
+                .value;
 
 
         clearMessage(authMessage);
@@ -1016,6 +983,7 @@
             );
 
             return;
+
         }
 
 
@@ -1028,24 +996,19 @@
             );
 
             return;
+
         }
 
 
-        const button =
-            document.getElementById(
-                "authButton"
-            );
+        authButton.disabled = true;
 
-
-        button.disabled = true;
-
-        button.textContent =
+        authButton.textContent =
             "Please wait...";
 
 
         try {
 
-            if (isSignUp) {
+            if (signUpMode) {
 
                 const result =
                     await auth
@@ -1098,12 +1061,12 @@
 
         } finally {
 
-            button.disabled = false;
+            authButton.disabled = false;
 
-            button.textContent =
-                isSignUp
-                    ? "Create Account"
-                    : "Sign In";
+            authButton.textContent =
+                signUpMode
+                    ? "Create account"
+                    : "Sign in";
 
         }
 
@@ -1118,24 +1081,26 @@
                 "That email is already registered.",
 
             "auth/invalid-email":
-                "Enter a valid email address.",
+                "Please enter a valid email address.",
 
             "auth/user-not-found":
-                "No account was found with that email.",
+                "No account was found with this email.",
 
             "auth/wrong-password":
                 "Incorrect email or password.",
 
             "auth/invalid-credential":
-                "Incorrect email or password."
+                "Incorrect email or password.",
+
+            "auth/weak-password":
+                "Password must contain at least 6 characters."
 
         };
 
 
-        return (
-            messages[error.code] ||
-            "Authentication failed."
-        );
+        return messages[error.code] ||
+            error.message ||
+            "Authentication failed.";
 
     }
 
@@ -1144,11 +1109,14 @@
        LOGOUT
     ============================================================ */
 
-    async function logout() {
+    logoutBtn.addEventListener(
+        "click",
+        async () => {
 
-        await auth.signOut();
+            await auth.signOut();
 
-    }
+        }
+    );
 
 
     /* ============================================================
@@ -1162,25 +1130,17 @@
 
                 currentUser = null;
 
-                authSection.classList.remove(
+                authScreen.classList.remove(
                     "hidden"
                 );
 
-                appSection.classList.add(
+                main.classList.add(
                     "hidden"
                 );
 
-                accountArea.classList.add(
+                header.classList.add(
                     "hidden"
                 );
-
-                if (unsubscribeContent) {
-
-                    unsubscribeContent();
-
-                    unsubscribeContent = null;
-
-                }
 
                 return;
 
@@ -1189,22 +1149,19 @@
 
             currentUser = user;
 
-
-            document.getElementById(
-                "userEmail"
-            ).textContent =
+            userEmail.textContent =
                 user.email;
 
 
-            authSection.classList.add(
+            authScreen.classList.add(
                 "hidden"
             );
 
-            appSection.classList.remove(
+            main.classList.remove(
                 "hidden"
             );
 
-            accountArea.classList.remove(
+            header.classList.remove(
                 "hidden"
             );
 
@@ -1283,13 +1240,7 @@
 
                             contentList.innerHTML = `
                                 <div class="empty">
-                                    <h3 style="color:white;margin-bottom:7px;">
-                                        No premium content yet
-                                    </h3>
-
-                                    <p>
-                                        Check back later for new content.
-                                    </p>
+                                    No premium content available yet.
                                 </div>
                             `;
 
@@ -1301,14 +1252,21 @@
                         let html = "";
 
 
-                        snapshot.forEach(doc => {
+                        snapshot.forEach(
+                            doc => {
 
-                            html += createContentCard(
-                                doc.id,
-                                doc.data()
-                            );
+                                const data =
+                                    doc.data();
 
-                        });
+
+                                html +=
+                                    createContentCard(
+                                        doc.id,
+                                        data
+                                    );
+
+                            }
+                        );
 
 
                         contentList.innerHTML =
@@ -1325,7 +1283,7 @@
 
                         contentList.innerHTML = `
                             <div class="empty">
-                                Unable to load premium content.
+                                Unable to load content.
                             </div>
                         `;
 
@@ -1355,8 +1313,12 @@
         const description =
             escapeHtml(
                 data.description ||
-                "Exclusive premium content."
+                "Exclusive BetLive premium content."
             );
+
+
+        const amount =
+            Number(data.price || 0);
 
 
         const content =
@@ -1366,21 +1328,17 @@
             );
 
 
-        const amount =
-            Number(data.price || 0);
-
-
         if (amount <= 0) {
 
             return `
 
                 <article class="content-card">
 
-                    <div class="card-body">
+                    <div class="content-main">
 
-                        <div class="card-top">
+                        <div class="content-top">
 
-                            <h2 class="card-title">
+                            <h2 class="content-title">
                                 ${title}
                             </h2>
 
@@ -1396,8 +1354,8 @@
 
                         <div class="free-content">
 
-                            <div class="free-label">
-                                ✓ AVAILABLE NOW
+                            <div class="available">
+                                Available
                             </div>
 
                             <div class="premium-text">
@@ -1419,11 +1377,11 @@
 
             <article class="content-card">
 
-                <div class="card-body">
+                <div class="content-main">
 
-                    <div class="card-top">
+                    <div class="content-top">
 
-                        <h2 class="card-title">
+                        <h2 class="content-title">
                             ${title}
                         </h2>
 
@@ -1439,40 +1397,32 @@
 
                     <div class="locked">
 
-                        <div class="locked-row">
+                        <div class="locked-header">
 
-                            <div class="locked-info">
-
-                                <div class="lock">
-                                    🔒
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Premium access
-                                    </strong>
-
-                                    <span>
-                                        Payment required to unlock
-                                    </span>
-
-                                </div>
-
+                            <div class="lock">
+                                🔒
                             </div>
 
-                            <button
-                                class="pay"
-                                onclick="openPaymentModal(
-                                    '${id}',
-                                    ${amount},
-                                    '${escapeAttribute(title)}'
-                                )"
-                            >
-                                Pay ${formatMoney(amount)}
-                            </button>
+                            <div class="locked-title">
+                                Premium content locked
+                            </div>
 
                         </div>
+
+                        <div class="locked-text">
+                            Make a mobile payment to unlock this premium content.
+                        </div>
+
+                        <button
+                            class="pay-btn"
+                            onclick="openPayment(
+                                '${id}',
+                                ${amount},
+                                '${escapeAttribute(title)}'
+                            )"
+                        >
+                            Unlock for ${formatMoney(amount)} TZS
+                        </button>
 
                     </div>
 
@@ -1489,7 +1439,7 @@
        PAYMENT MODAL
     ============================================================ */
 
-    function openPaymentModal(
+    function openPayment(
         contentId,
         amount,
         title
@@ -1501,7 +1451,7 @@
                 contentId,
 
             amount:
-                Number(amount),
+                amount,
 
             title:
                 title
@@ -1509,28 +1459,29 @@
         };
 
 
-        document.getElementById(
-            "selectedTitle"
-        ).textContent =
+        paymentTitle.textContent =
             title;
 
 
-        document.getElementById(
-            "selectedAmount"
-        ).textContent =
+        paymentAmount.textContent =
             formatMoney(amount) +
             " TZS";
 
 
-        document.getElementById(
-            "paymentPhone"
-        ).value =
+        paymentPhone.value =
             "";
 
 
         clearMessage(
             paymentMessage
         );
+
+
+        paymentButton.disabled =
+            false;
+
+        paymentButton.textContent =
+            "Pay now";
 
 
         paymentModal.classList.remove(
@@ -1540,31 +1491,65 @@
     }
 
 
-    function closePaymentModal() {
+    window.openPayment =
+        openPayment;
+
+
+    function closePayment() {
 
         paymentModal.classList.add(
             "hidden"
         );
 
-        selectedContent = null;
+        selectedContent =
+            null;
 
     }
+
+
+    cancelPayment.addEventListener(
+        "click",
+        closePayment
+    );
+
+
+    paymentModal.addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                paymentModal
+            ) {
+
+                closePayment();
+
+            }
+
+        }
+    );
 
 
     /* ============================================================
        START PAYMENT
        
        IMPORTANT:
-       This matches the working PalmPesa API structure.
-
-       Frontend sends ONLY:
+       This sends ONLY the fields required by the
+       proven PalmPesa endpoint:
+       
        name
        email
        phone
        amount
-
-       The API generates transaction_id.
+       
+       The backend creates transaction_id.
     ============================================================ */
+
+    paymentButton.addEventListener(
+        "click",
+        startPayment
+    );
+
 
     async function startPayment() {
 
@@ -1595,9 +1580,9 @@
 
 
         const phone =
-            document.getElementById(
-                "paymentPhone"
-            ).value.trim();
+            paymentPhone.value
+                .trim()
+                .replace(/\s+/g, "");
 
 
         if (!phone) {
@@ -1605,6 +1590,47 @@
             showMessage(
                 paymentMessage,
                 "Enter your Tanzanian phone number.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /*
+         * Accept:
+         *
+         * 07XXXXXXXX
+         * 06XXXXXXXX
+         * 2557XXXXXXXX
+         * 2556XXXXXXXX
+         */
+
+        let cleanPhone =
+            phone;
+
+
+        if (
+            cleanPhone.startsWith("0")
+        ) {
+
+            cleanPhone =
+                "255" +
+                cleanPhone.substring(1);
+
+        }
+
+
+        if (
+            !/^255(6|7)\d{8}$/.test(
+                cleanPhone
+            )
+        ) {
+
+            showMessage(
+                paymentMessage,
+                "Enter a valid Tanzanian mobile number.",
                 "error"
             );
 
@@ -1635,15 +1661,10 @@
         }
 
 
-        const button =
-            document.getElementById(
-                "paymentButton"
-            );
+        paymentButton.disabled =
+            true;
 
-
-        button.disabled = true;
-
-        button.textContent =
+        paymentButton.textContent =
             "Sending request...";
 
 
@@ -1653,11 +1674,17 @@
 
 
         /*
-         * THIS IS THE EXACT PAYLOAD
-         * EXPECTED BY THE WORKING API.
+         * THIS IS THE IMPORTANT PART.
+         *
+         * Do NOT send transaction_id.
+         * Do NOT send contentId.
+         * Do NOT send buyer_uuid.
+         * Do NOT send user_id.
+         *
+         * Your proven backend creates transaction_id itself.
          */
 
-        const paymentPayload = {
+        const paymentData = {
 
             name:
                 currentUser.email,
@@ -1666,7 +1693,7 @@
                 currentUser.email,
 
             phone:
-                phone,
+                cleanPhone,
 
             amount:
                 amount
@@ -1676,7 +1703,7 @@
 
         console.log(
             "Sending payment:",
-            paymentPayload
+            paymentData
         );
 
 
@@ -1702,15 +1729,49 @@
 
                         body:
                             JSON.stringify(
-                                paymentPayload
+                                paymentData
                             )
 
                     }
                 );
 
 
-            const result =
-                await response.json();
+            const raw =
+                await response.text();
+
+
+            console.log(
+                "Payment HTTP status:",
+                response.status
+            );
+
+            console.log(
+                "Payment raw response:",
+                raw
+            );
+
+
+            let result;
+
+            try {
+
+                result =
+                    JSON.parse(raw);
+
+            } catch {
+
+                result = {
+
+                    success:
+                        false,
+
+                    message:
+                        raw ||
+                        "Payment server returned an invalid response."
+
+                };
+
+            }
 
 
             console.log(
@@ -1721,13 +1782,24 @@
 
             if (
                 !response.ok ||
-                !result.success
+                result.success !== true
             ) {
 
-                throw new Error(
+                /*
+                 * Show the REAL backend/PalmPesa
+                 * error instead of hiding it.
+                 */
+
+                let errorMessage =
                     result.message ||
+                    result.error ||
                     result.data?.message ||
-                    "Payment failed"
+                    result.data?.error ||
+                    result.data?.raw_response ||
+                    "Payment failed.";
+
+                throw new Error(
+                    errorMessage
                 );
 
             }
@@ -1735,16 +1807,23 @@
 
             showMessage(
                 paymentMessage,
-
-                "Payment request sent. Check your phone and approve the PalmPesa prompt.",
-
+                "Payment request sent. Check your phone and approve the payment.",
                 "success"
             );
 
 
-            button.textContent =
-                "Payment Sent";
+            paymentButton.textContent =
+                "Payment request sent";
 
+
+            /*
+             * We intentionally do not unlock content
+             * merely because PalmPesa accepted the
+             * payment request.
+             *
+             * Final unlocking should happen after
+             * confirmed payment.
+             */
 
         } catch (error) {
 
@@ -1756,18 +1835,17 @@
 
             showMessage(
                 paymentMessage,
-
                 error.message ||
                 "Unable to start payment.",
-
                 "error"
             );
 
 
-            button.disabled = false;
+            paymentButton.disabled =
+                false;
 
-            button.textContent =
-                "Pay Now";
+            paymentButton.textContent =
+                "Pay now";
 
         }
 
@@ -1796,7 +1874,8 @@
             text;
 
         element.className =
-            "message show " + type;
+            "message show " +
+            type;
 
     }
 
@@ -1814,7 +1893,9 @@
 
     function escapeHtml(value) {
 
-        return String(value || "")
+        return String(
+            value || ""
+        )
             .replace(
                 /&/g,
                 "&amp;"
@@ -1841,7 +1922,9 @@
 
     function escapeAttribute(value) {
 
-        return String(value || "")
+        return String(
+            value || ""
+        )
             .replace(
                 /\\/g,
                 "\\\\"
@@ -1873,7 +1956,8 @@
             event => {
 
                 if (
-                    event.key === "Enter"
+                    event.key ===
+                    "Enter"
                 ) {
 
                     handleAuth();
@@ -1883,6 +1967,10 @@
             }
         );
 
+
+    /* ============================================================
+       INITIAL
+    ============================================================ */
 
     console.log(
         "BetLive bettor application initialized."
