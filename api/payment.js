@@ -1,243 +1,210 @@
 export default async function handler(req, res) {
+    // ============================================================
+    // ONLY ALLOW POST
+    // ============================================================
 
-  /*
-   * Only allow POST requests
-   */
-
-  if (req.method !== "POST") {
-
-    return res.status(405).json({
-
-      success: false,
-
-      message:
-        "Method not allowed"
-
-    });
-
-  }
-
-
-  try {
-
-    /*
-     * Get payment information
-     * from the frontend.
-     */
-
-    const {
-      name,
-      email,
-      phone,
-      amount
-    } = req.body;
-
-
-    /*
-     * Validate input
-     */
-
-    if (
-      !name ||
-      !email ||
-      !phone ||
-      !amount
-    ) {
-
-      return res.status(400).json({
-
-        success: false,
-
-        message:
-          "All fields are required"
-
-      });
-
+    if (req.method !== "POST") {
+        return res.status(405).json({
+            success: false,
+            message: "Method not allowed"
+        });
     }
-
-
-    /*
-     * Create unique transaction ID
-     */
-
-    const transactionId =
-      "TXN-" +
-      Date.now();
-
-
-    /*
-     * PalmPesa PAY VIA MOBILE
-     *
-     * According to the API documentation
-     * you provided.
-     */
-
-    const paymentData = {
-
-      name:
-        name,
-
-      email:
-        email,
-
-      phone:
-        phone,
-
-      amount:
-        Number(amount),
-
-      transaction_id:
-        transactionId,
-
-      address:
-        "Geita",
-
-      postcode:
-        "30100"
-
-    };
-
-
-    console.log(
-      "Sending to PalmPesa:",
-      paymentData
-    );
-
-
-    /*
-     * Send request to PalmPesa.
-     *
-     * The API token stays on Vercel.
-     */
-
-    const response =
-      await fetch(
-
-        "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
-
-        {
-
-          method: "POST",
-
-          headers: {
-
-            "Authorization":
-              `Bearer ${process.env.PALMPESA_TOKEN}`,
-
-            "Content-Type":
-              "application/json",
-
-            "Accept":
-              "application/json"
-
-          },
-
-          body:
-            JSON.stringify(
-              paymentData
-            )
-
-        }
-
-      );
-
-
-    /*
-     * Read the response as text first.
-     *
-     * This helps us see both JSON
-     * and non-JSON errors.
-     */
-
-    const rawResponse =
-      await response.text();
-
-
-    console.log(
-      "PalmPesa HTTP status:",
-      response.status
-    );
-
-
-    console.log(
-      "PalmPesa response:",
-      rawResponse
-    );
-
-
-    /*
-     * Try to convert response to JSON.
-     */
-
-    let data;
 
     try {
+        // ========================================================
+        // GET DATA FROM FRONTEND
+        // ========================================================
 
-      data =
-        JSON.parse(
-          rawResponse
+        const {
+            name,
+            email,
+            phone,
+            amount,
+            transaction_id
+        } = req.body || {};
+
+        // ========================================================
+        // VALIDATE REQUIRED FIELDS
+        // ========================================================
+
+        if (!name || !email || !phone || !amount || !transaction_id) {
+            return res.status(400).json({
+                success: false,
+                message: "Missing required payment information"
+            });
+        }
+
+        // ========================================================
+        // CLEAN PHONE NUMBER
+        // ========================================================
+
+        let cleanPhone = String(phone).trim().replace(/\s+/g, "");
+
+        // Example:
+        // 0744000000 -> 255744000000
+        // 255744000000 -> stays 255744000000
+
+        if (cleanPhone.startsWith("0")) {
+            cleanPhone = "255" + cleanPhone.substring(1);
+        }
+
+        // ========================================================
+        // VALIDATE TANZANIAN PHONE
+        // ========================================================
+
+        if (!/^255(6|7)\d{8}$/.test(cleanPhone)) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid Tanzanian phone number"
+            });
+        }
+
+        // ========================================================
+        // VALIDATE AMOUNT
+        // ========================================================
+
+        const paymentAmount = Number(amount);
+
+        if (
+            !Number.isFinite(paymentAmount) ||
+            paymentAmount <= 0
+        ) {
+            return res.status(400).json({
+                success: false,
+                message: "Invalid payment amount"
+            });
+        }
+
+        // ========================================================
+        // CHECK PALMPESA TOKEN
+        // ========================================================
+
+        if (!process.env.PALMPESA_TOKEN) {
+            console.error("PALMPESA_TOKEN is missing");
+
+            return res.status(500).json({
+                success: false,
+                message: "PalmPesa configuration is missing"
+            });
+        }
+
+        // ========================================================
+        // SEND PAYMENT REQUEST TO PALMPESA
+        // ========================================================
+
+        const palmPesaResponse = await fetch(
+            "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
+            {
+                method: "POST",
+
+                headers: {
+                    "Authorization":
+                        `Bearer ${process.env.PALMPESA_TOKEN}`,
+
+                    "Content-Type": "application/json",
+
+                    "Accept": "application/json"
+                },
+
+                body: JSON.stringify({
+                    user_id: "2",
+
+                    name: name,
+
+                    email: email,
+
+                    phone: cleanPhone,
+
+                    amount: paymentAmount,
+
+                    transaction_id: transaction_id,
+
+                    address: "Tanzania",
+
+                    postcode: "00000",
+
+                    buyer_uuid: 0
+                })
+            }
         );
 
-    } catch {
+        // ========================================================
+        // READ PALMPESA RESPONSE
+        // ========================================================
 
-      data = {
+        const responseText = await palmPesaResponse.text();
 
-        raw_response:
-          rawResponse
+        let palmPesaData;
 
-      };
+        try {
+            palmPesaData = JSON.parse(responseText);
+        } catch {
+            palmPesaData = {
+                raw: responseText
+            };
+        }
 
+        console.log(
+            "PalmPesa HTTP status:",
+            palmPesaResponse.status
+        );
+
+        console.log(
+            "PalmPesa response:",
+            palmPesaData
+        );
+
+        // ========================================================
+        // PALMPESA REJECTED REQUEST
+        // ========================================================
+
+        if (!palmPesaResponse.ok) {
+            return res.status(500).json({
+                success: false,
+
+                message:
+                    palmPesaData?.message ||
+                    "PalmPesa rejected the payment",
+
+                palmPesa: palmPesaData
+            });
+        }
+
+        // ========================================================
+        // SUCCESS
+        // ========================================================
+
+        return res.status(200).json({
+            success: true,
+
+            message: "Payment request sent successfully",
+
+            transaction_id: transaction_id,
+
+            phone: cleanPhone,
+
+            amount: paymentAmount,
+
+            data: palmPesaData
+        });
+
+    } catch (error) {
+
+        // ========================================================
+        // SERVER ERROR
+        // ========================================================
+
+        console.error(
+            "Payment server error:",
+            error
+        );
+
+        return res.status(500).json({
+            success: false,
+
+            message: "Payment server error",
+
+            error: error.message
+        });
     }
-
-
-    /*
-     * Return PalmPesa's response
-     * to our frontend.
-     */
-
-    return res.status(
-      response.status
-    ).json({
-
-      success:
-        response.ok,
-
-      palmPesaStatus:
-        response.status,
-
-      transaction_id:
-        transactionId,
-
-      data:
-        data
-
-    });
-
-
-  } catch (error) {
-
-    /*
-     * Server-side error
-     */
-
-    console.error(
-      "Server error:",
-      error
-    );
-
-
-    return res.status(500).json({
-
-      success: false,
-
-      message:
-        "Server error while contacting PalmPesa",
-
-      error:
-        error.message
-
-    });
-
-  }
-
 }
