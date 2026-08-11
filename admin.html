@@ -723,9 +723,9 @@
                     <div class="payment-settings">
                         <div class="setting-row">
                             <label><i class="fa-regular fa-coins"></i> Price per message:</label>
-                            <input type="number" id="messagePriceInput" value="100" min="1" step="1" />
+                            <input type="number" id="messagePriceInput" value="100" min="0" step="1" />
                             <span class="currency">TZS</span>
-                            <span style="font-size:11px; color:#848e9c;">Bettors must pay this amount to view</span>
+                            <span style="font-size:11px; color:#848e9c;">0 = Free</span>
                         </div>
                     </div>
 
@@ -1136,7 +1136,7 @@
         toggleAuthMode(false);
         updateStatus('connecting', 'Initializing…');
         console.log('🚀 Admin panel ready with payment settings');
-        console.log('📌 Admins can set prices per message');
+        console.log('📌 Admins can set prices per message (0 = free)');
     </script>
 </body>
 </html>
