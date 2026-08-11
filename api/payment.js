@@ -1,236 +1,302 @@
 export default async function handler(req, res) {
+
+    // ============================================================
+    // ONLY ALLOW POST
+    // ============================================================
+
     if (req.method !== "POST") {
+
         return res.status(405).json({
             success: false,
             message: "Method not allowed"
         });
+
     }
 
-    try {
-        console.log("========== PAYMENT START ==========");
 
-        console.log("Request body:", req.body);
+    try {
+
+        // ========================================================
+        // GET DATA FROM FRONTEND
+        // ========================================================
 
         const {
             name,
             email,
             phone,
             amount,
-            transaction_id
+            contentId
         } = req.body || {};
 
-        // ---------------------------------------------------------
-        // VALIDATION
-        // ---------------------------------------------------------
 
-        if (!name || !email || !phone || !amount) {
-            console.log("Missing fields:", {
-                name: !!name,
-                email: !!email,
-                phone: !!phone,
-                amount: !!amount
-            });
+        // ========================================================
+        // VALIDATE REQUIRED FIELDS
+        // ========================================================
+
+        if (
+            !name ||
+            !email ||
+            !phone ||
+            !amount
+        ) {
 
             return res.status(400).json({
                 success: false,
-                message: "Missing required payment information",
-                received: {
-                    name: !!name,
-                    email: !!email,
-                    phone: !!phone,
-                    amount: amount
-                }
+                message: "All fields are required"
             });
+
         }
 
-        // ---------------------------------------------------------
-        // PHONE
-        // ---------------------------------------------------------
 
-        let cleanPhone = String(phone)
-            .trim()
-            .replace(/\s+/g, "");
+        // ========================================================
+        // CLEAN PHONE NUMBER
+        // ========================================================
+
+        let cleanPhone =
+            String(phone)
+                .trim()
+                .replace(/\s+/g, "");
+
+
+        // 0744000000
+        // becomes
+        // 255744000000
 
         if (cleanPhone.startsWith("0")) {
+
             cleanPhone =
-                "255" + cleanPhone.substring(1);
+                "255" +
+                cleanPhone.substring(1);
+
         }
+
+
+        // ========================================================
+        // VALIDATE TANZANIAN PHONE
+        // ========================================================
 
         if (!/^255(6|7)\d{8}$/.test(cleanPhone)) {
+
             return res.status(400).json({
+
                 success: false,
-                message: "Invalid Tanzanian phone number",
-                phone: cleanPhone
+
+                message:
+                    "Invalid Tanzanian phone number"
+
             });
+
         }
 
-        // ---------------------------------------------------------
-        // AMOUNT
-        // ---------------------------------------------------------
 
-        const paymentAmount = Number(amount);
+        // ========================================================
+        // VALIDATE AMOUNT
+        // ========================================================
 
-        console.log("Payment amount:", paymentAmount);
+        const paymentAmount =
+            Number(amount);
+
 
         if (
             !Number.isFinite(paymentAmount) ||
             paymentAmount <= 0
         ) {
+
             return res.status(400).json({
+
                 success: false,
-                message: "Invalid payment amount",
-                amount
+
+                message:
+                    "Invalid payment amount"
+
             });
+
         }
 
-        // ---------------------------------------------------------
-        // TOKEN
-        // ---------------------------------------------------------
+
+        // ========================================================
+        // PALMPESA TOKEN
+        // ========================================================
 
         if (!process.env.PALMPESA_TOKEN) {
+
             console.error(
-                "PALMPESA_TOKEN DOES NOT EXIST"
+                "PALMPESA_TOKEN is missing"
             );
 
+
             return res.status(500).json({
+
                 success: false,
+
                 message:
-                    "PALMPESA_TOKEN is missing from server environment"
+                    "PalmPesa configuration is missing"
+
             });
+
         }
 
-        console.log(
-            "PALMPESA_TOKEN exists:",
-            true
-        );
 
-        // ---------------------------------------------------------
-        // TRANSACTION ID
-        // ---------------------------------------------------------
+        // ========================================================
+        // CREATE TRANSACTION ID
+        // ========================================================
 
         const transactionId =
-            transaction_id ||
-            `BETLIVE-${Date.now()}-${Math.random()
-                .toString(36)
-                .substring(2, 8)
-                .toUpperCase()}`;
+            "TXN-" +
+            Date.now();
 
-        console.log(
-            "Transaction ID:",
-            transactionId
-        );
 
-        // ---------------------------------------------------------
-        // PALMPESA REQUEST
-        // ---------------------------------------------------------
+        // ========================================================
+        // PALMPESA PAYMENT DATA
+        // ========================================================
 
-        const payload = {
-            user_id: "2",
+        const paymentData = {
 
-            name: name,
+            name:
+                name,
 
-            email: email,
+            email:
+                email,
 
-            phone: cleanPhone,
+            phone:
+                cleanPhone,
 
-            amount: paymentAmount,
+            amount:
+                paymentAmount,
 
-            transaction_id: transactionId,
+            transaction_id:
+                transactionId,
 
-            address: "Tanzania",
+            address:
+                "Geita",
 
-            postcode: "00000",
+            postcode:
+                "30100"
 
-            buyer_uuid: 0
         };
 
+
         console.log(
-            "Sending PalmPesa payload:",
-            payload
+            "Sending to PalmPesa:",
+            paymentData
         );
 
-        const palmPesaResponse = await fetch(
-            "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
-            {
-                method: "POST",
 
-                headers: {
-                    "Authorization":
-                        `Bearer ${process.env.PALMPESA_TOKEN}`,
+        // ========================================================
+        // SEND PAYMENT REQUEST
+        // ========================================================
 
-                    "Content-Type":
-                        "application/json",
+        const response =
+            await fetch(
 
-                    "Accept":
-                        "application/json"
-                },
+                "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
 
-                body: JSON.stringify(payload)
-            }
-        );
+                {
 
-        // ---------------------------------------------------------
-        // READ RESPONSE
-        // ---------------------------------------------------------
+                    method: "POST",
 
-        const responseText =
-            await palmPesaResponse.text();
+                    headers: {
+
+                        "Authorization":
+                            `Bearer ${process.env.PALMPESA_TOKEN}`,
+
+                        "Content-Type":
+                            "application/json",
+
+                        "Accept":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            paymentData
+                        )
+
+                }
+
+            );
+
+
+        // ========================================================
+        // READ PALMPESA RESPONSE
+        // ========================================================
+
+        const rawResponse =
+            await response.text();
+
 
         console.log(
             "PalmPesa HTTP status:",
-            palmPesaResponse.status
+            response.status
         );
+
 
         console.log(
-            "PalmPesa raw response:",
-            responseText
+            "PalmPesa response:",
+            rawResponse
         );
 
-        let palmPesaData;
+
+        // ========================================================
+        // PARSE RESPONSE
+        // ========================================================
+
+        let data;
+
 
         try {
-            palmPesaData =
-                JSON.parse(responseText);
+
+            data =
+                JSON.parse(
+                    rawResponse
+                );
+
         } catch {
-            palmPesaData = {
-                raw: responseText
+
+            data = {
+
+                raw_response:
+                    rawResponse
+
             };
+
         }
 
-        console.log(
-            "PalmPesa parsed response:",
-            palmPesaData
-        );
 
-        // ---------------------------------------------------------
-        // PALMPESA ERROR
-        // ---------------------------------------------------------
+        // ========================================================
+        // PALMPESA FAILED
+        // ========================================================
 
-        if (!palmPesaResponse.ok) {
+        if (!response.ok) {
 
-            return res.status(502).json({
+            return res.status(
+                response.status
+            ).json({
+
                 success: false,
 
                 message:
-                    palmPesaData?.message ||
-                    palmPesaData?.error ||
-                    `PalmPesa returned HTTP ${palmPesaResponse.status}`,
+                    data?.message ||
+                    "Payment failed",
 
                 palmPesaStatus:
-                    palmPesaResponse.status,
+                    response.status,
 
-                palmPesa:
-                    palmPesaData
+                transaction_id:
+                    transactionId,
+
+                data:
+                    data
+
             });
+
         }
 
-        // ---------------------------------------------------------
-        // SUCCESS
-        // ---------------------------------------------------------
 
-        console.log(
-            "========== PAYMENT SUCCESS =========="
-        );
+        // ========================================================
+        // SUCCESS
+        // ========================================================
 
         return res.status(200).json({
 
@@ -248,32 +314,39 @@ export default async function handler(req, res) {
             amount:
                 paymentAmount,
 
+            contentId:
+                contentId || null,
+
             data:
-                palmPesaData
+                data
+
         });
+
 
     } catch (error) {
 
-        console.error(
-            "========== PAYMENT SERVER ERROR =========="
-        );
+        // ========================================================
+        // SERVER ERROR
+        // ========================================================
 
         console.error(
-            "Error:",
+            "Server error:",
             error
         );
+
 
         return res.status(500).json({
 
             success: false,
 
             message:
-                error.message ||
-                "Payment server error",
+                "Server error while contacting PalmPesa",
 
             error:
-                error.stack ||
-                String(error)
+                error.message
+
         });
+
     }
+
 }
