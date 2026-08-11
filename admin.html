@@ -1,13 +1,20 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Admin · BetLive</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
 
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -15,54 +22,47 @@
 
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: Inter, sans-serif;
             background: #0b0e11;
             color: #eaecef;
             min-height: 100vh;
-            padding: 30px 16px;
+            padding: 20px;
         }
 
-        .app-container {
-            width: 100%;
+        .app {
             max-width: 900px;
             margin: auto;
-            background: #1e2329;
-            border-radius: 24px;
-            border: 1px solid #2b3139;
-            box-shadow: 0 24px 80px rgba(0,0,0,.6);
-            overflow: hidden;
         }
 
-        /* HEADER */
-
-        .app-header {
-            padding: 18px 24px;
+        header {
             background: #181a20;
-            border-bottom: 1px solid #2b3139;
+            border: 1px solid #2b3139;
+            border-radius: 18px;
+            padding: 18px 22px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
-        .app-brand {
+        .brand {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .logo-icon {
+        .logo {
             width: 38px;
             height: 38px;
             border-radius: 10px;
-            background: linear-gradient(135deg,#f0b90b,#f8d33a);
+            background: #f0b90b;
             color: #181a20;
             display: flex;
             align-items: center;
@@ -71,35 +71,25 @@
             font-size: 18px;
         }
 
-        .app-brand h1 {
+        .brand h1 {
             color: #f0b90b;
             font-size: 20px;
         }
 
-        .app-brand h1 span {
+        .brand span {
             color: #eaecef;
             font-weight: 400;
         }
 
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-profile {
+        .user {
             display: flex;
             align-items: center;
             gap: 8px;
-            background: #2b3139;
-            padding: 4px 14px 4px 8px;
-            border-radius: 40px;
-            font-size: 12px;
         }
 
         .avatar {
-            width: 28px;
-            height: 28px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             background: #f0b90b;
             color: #181a20;
@@ -109,242 +99,77 @@
             font-weight: 700;
         }
 
-        /* BUTTONS */
-
-        .btn {
+        button {
             border: none;
-            padding: 9px 16px;
-            border-radius: 9px;
-            font-weight: 600;
-            font-size: 12px;
-            font-family: inherit;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 7px;
-            transition: .2s;
+            font-family: inherit;
         }
 
-        .btn-primary {
+        .btn {
+            padding: 10px 16px;
+            border-radius: 9px;
+            font-weight: 600;
+        }
+
+        .primary {
             background: #f0b90b;
             color: #181a20;
         }
 
-        .btn-primary:hover {
-            background: #f8d33a;
-        }
-
-        .btn-success {
-            background: #0ecb81;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #1ad991;
-        }
-
-        .btn-danger {
+        .danger {
             background: #f6465d;
             color: white;
         }
 
-        .btn-danger:hover {
-            background: #ff6b7f;
-        }
-
-        .btn-secondary {
-            background: #2b3139;
-            color: #eaecef;
-        }
-
-        .btn-secondary:hover {
-            background: #3b424b;
-        }
-
-        .btn-sm {
-            padding: 6px 10px;
-            font-size: 11px;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        /* MAIN */
-
-        .main-content {
-            padding: 20px 24px;
-        }
-
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 9px 14px;
-            background: #181a20;
-            border: 1px solid #2b3139;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            font-size: 12px;
-            color: #848e9c;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-        .status-dot.online {
+        .success {
             background: #0ecb81;
-            box-shadow: 0 0 10px rgba(14,203,129,.4);
+            color: white;
         }
 
-        .status-dot.offline {
-            background: #f6465d;
-        }
-
-        .status-dot.connecting {
-            background: #f0b90b;
-        }
-
-        /* AUTH */
-
-        .auth-page {
-            max-width: 430px;
-            margin: auto;
-            padding: 40px 30px;
+        .panel {
             background: #181a20;
             border: 1px solid #2b3139;
-            border-radius: 16px;
+            border-radius: 18px;
+            padding: 22px;
+            margin-bottom: 20px;
         }
 
-        .auth-header {
-            text-align: center;
-            margin-bottom: 25px;
+        .panel h2 {
+            font-size: 18px;
+            margin-bottom: 18px;
         }
 
-        .lock-icon {
-            font-size: 45px;
-            color: #f0b90b;
-            margin-bottom: 12px;
-        }
-
-        .auth-header h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
-        }
-
-        .auth-header p {
-            color: #848e9c;
-            font-size: 13px;
-        }
-
-        .form-group {
+        .field {
             margin-bottom: 15px;
         }
 
-        .form-group label {
+        label {
             display: block;
-            font-size: 12px;
             color: #848e9c;
-            margin-bottom: 6px;
+            font-size: 13px;
+            margin-bottom: 7px;
         }
 
         input,
-        textarea,
-        select {
+        textarea {
             width: 100%;
             background: #0b0e11;
+            color: #eaecef;
             border: 1px solid #2b3139;
             border-radius: 10px;
-            color: #eaecef;
-            padding: 11px 13px;
+            padding: 12px 14px;
             font-family: inherit;
             outline: none;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #f0b90b;
         }
 
         textarea {
             min-height: 150px;
             resize: vertical;
-            line-height: 1.5;
-        }
-
-        input:focus,
-        textarea:focus,
-        select:focus {
-            border-color: #f0b90b;
-            box-shadow: 0 0 0 3px rgba(240,185,11,.1);
-        }
-
-        .role-badge {
-            background: #2b3139;
-            border: 1px solid #3b424b;
-            padding: 9px 13px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            font-size: 12px;
-        }
-
-        .role-badge i {
-            color: #f0b90b;
-            margin-right: 5px;
-        }
-
-        .role-badge strong {
-            color: #f0b90b;
-        }
-
-        .auth-page .btn {
-            width: 100%;
-        }
-
-        .auth-toggle {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 12px;
-            color: #848e9c;
-        }
-
-        .auth-toggle a {
-            color: #f0b90b;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .auth-error {
-            background: rgba(246,70,93,.1);
-            border-left: 3px solid #f6465d;
-            color: #f6465d;
-            padding: 9px 12px;
-            border-radius: 8px;
-            font-size: 12px;
-            margin-bottom: 12px;
-        }
-
-        /* ADMIN */
-
-        .admin-panel {
-            background: #181a20;
-            border: 1px solid #2b3139;
-            border-radius: 16px;
-            padding: 20px;
-        }
-
-        .panel-title {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .panel-title i {
-            color: #f0b90b;
         }
 
         .price-row {
@@ -352,153 +177,129 @@
             gap: 10px;
         }
 
-        .price-row > div {
+        .price-row input {
             flex: 1;
         }
 
-        .publish-area {
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #2b3139;
-        }
-
-        /* CONTENT LIST */
-
-        .list-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 12px;
-        }
-
-        .list-header h3 {
-            font-size: 14px;
+        .currency {
+            background: #2b3139;
+            padding: 12px 15px;
+            border-radius: 10px;
             font-weight: 600;
+            color: #f0b90b;
         }
 
-        .content-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            max-height: 500px;
-            overflow-y: auto;
+        .auth {
+            max-width: 420px;
+            margin: 70px auto;
+        }
+
+        .auth h2 {
+            text-align: center;
+            color: #f0b90b;
+            margin-bottom: 8px;
+        }
+
+        .auth p {
+            text-align: center;
+            color: #848e9c;
+            margin-bottom: 25px;
+        }
+
+        .auth .btn {
+            width: 100%;
+        }
+
+        .error {
+            background: rgba(246,70,93,.1);
+            color: #f6465d;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 13px;
+        }
+
+        .hidden {
+            display: none !important;
         }
 
         .content-card {
             background: #0b0e11;
             border: 1px solid #2b3139;
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 14px;
+            padding: 16px;
+            margin-bottom: 12px;
         }
 
-        .content-card-header {
+        .content-header {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
             gap: 10px;
+            align-items: flex-start;
         }
 
         .content-title {
+            font-weight: 700;
             font-size: 15px;
-            font-weight: 600;
-            color: #f0b90b;
-            margin-bottom: 7px;
+        }
+
+        .price {
+            color: #0ecb81;
+            font-weight: 700;
+            white-space: nowrap;
         }
 
         .content-preview {
-            color: #c7cbd1;
-            font-size: 13px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        .content-price {
-            display: inline-flex;
-            margin-top: 12px;
-            background: rgba(240,185,11,.12);
-            border: 1px solid rgba(240,185,11,.25);
-            color: #f0b90b;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .content-meta {
-            margin-top: 10px;
             color: #848e9c;
-            font-size: 10px;
+            margin-top: 8px;
+            line-height: 1.5;
+            font-size: 13px;
+            white-space: pre-wrap;
         }
 
-        .content-actions {
+        .content-footer {
+            margin-top: 12px;
             display: flex;
-            gap: 6px;
-            flex-shrink: 0;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
         }
 
-        .empty-content {
+        .date {
+            color: #5e6673;
+            font-size: 11px;
+        }
+
+        .empty {
             text-align: center;
             color: #848e9c;
-            padding: 40px 10px;
-            font-size: 13px;
+            padding: 35px;
         }
-
-        /* TOAST */
 
         .toast {
             position: fixed;
+            bottom: 25px;
             left: 50%;
-            bottom: 30px;
             transform: translateX(-50%);
             background: #1e2329;
             border: 1px solid #2b3139;
             padding: 12px 20px;
-            border-radius: 14px;
-            box-shadow: 0 8px 32px rgba(0,0,0,.4);
-            font-size: 13px;
+            border-radius: 12px;
             z-index: 9999;
         }
 
-        .toast.success {
-            border-color: #0ecb81;
-        }
-
-        .toast.error {
-            border-color: #f6465d;
-        }
-
-        .toast.info {
-            border-color: #f0b90b;
-        }
-
-        @media(max-width:640px) {
-            .main-content {
-                padding: 15px;
+        @media(max-width:600px) {
+            body {
+                padding: 10px;
             }
 
-            .app-header {
-                padding: 14px 16px;
-            }
-
-            .auth-page {
-                padding: 28px 18px;
+            header {
+                flex-direction: column;
+                align-items: stretch;
             }
 
             .price-row {
                 flex-direction: column;
-            }
-
-            .content-card-header {
-                flex-direction: column;
-            }
-
-            .content-actions {
-                width: 100%;
-            }
-
-            .content-actions .btn {
-                flex: 1;
             }
         }
     </style>
@@ -506,238 +307,170 @@
 
 <body>
 
-<div class="app-container">
+<div class="app">
 
     <!-- HEADER -->
-    <header class="app-header">
+    <header id="header">
 
-        <div class="app-brand">
-            <div class="logo-icon">B</div>
-            <h1>Bet<span>Live</span></h1>
+        <div class="brand">
+            <div class="logo">B</div>
+            <h1>Bet<span>Live Admin</span></h1>
         </div>
 
-        <div class="header-actions">
+        <div class="user hidden" id="userArea">
+            <div class="avatar" id="avatar">A</div>
 
-            <div class="user-profile">
-                <div class="avatar" id="userAvatar">G</div>
-                <span id="userNameDisplay">Guest</span>
-            </div>
+            <span id="userEmail"></span>
 
-            <button class="btn btn-danger hidden" id="signOutBtn">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Sign Out
+            <button
+                class="btn danger"
+                id="logoutBtn"
+            >
+                Logout
             </button>
-
         </div>
 
     </header>
 
 
-    <!-- MAIN -->
-    <main class="main-content">
+    <!-- LOGIN -->
+    <div class="panel auth" id="loginPanel">
 
-        <!-- STATUS -->
-        <div class="status-bar">
+        <h2>Admin Login</h2>
 
-            <div>
-                <span class="status-dot connecting" id="statusDot"></span>
-                <span id="statusText">Initializing...</span>
-            </div>
+        <p>Sign in to manage premium content</p>
 
-            <div>
-                Content:
-                <strong id="contentCount">0</strong>
-            </div>
+        <div
+            class="error hidden"
+            id="loginError"
+        ></div>
+
+        <div class="field">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="admin@email.com"
+            >
 
         </div>
 
+        <div class="field">
 
-        <!-- AUTH -->
-        <div id="authPage" class="auth-page">
+            <label>Password</label>
 
-            <div class="auth-header">
-                <i class="fa-solid fa-lock lock-icon"></i>
+            <input
+                type="password"
+                id="password"
+                placeholder="Password"
+            >
 
-                <h3 id="authTitle">Admin Sign In</h3>
+        </div>
 
-                <p id="authSubtitle">
-                    Sign in to manage premium content
-                </p>
-            </div>
+        <button
+            class="btn primary"
+            id="loginBtn"
+        >
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Sign In
+        </button>
 
-            <div id="authError" class="auth-error hidden"></div>
+    </div>
 
-            <div class="form-group">
-                <label>Email Address</label>
+
+    <!-- ADMIN DASHBOARD -->
+    <div
+        id="dashboard"
+        class="hidden"
+    >
+
+        <!-- CREATE CONTENT -->
+        <div class="panel">
+
+            <h2>
+                <i class="fa-solid fa-plus"></i>
+                Publish Premium Content
+            </h2>
+
+            <div class="field">
+
+                <label>Content Title</label>
 
                 <input
-                    type="email"
-                    id="authEmail"
-                    placeholder="Enter your email"
-                />
+                    type="text"
+                    id="title"
+                    placeholder="Example: Today's VIP Bet"
+                >
+
             </div>
 
-            <div class="form-group">
-                <label>Password</label>
 
-                <input
-                    type="password"
-                    id="authPassword"
-                    placeholder="Enter your password"
-                />
+            <div class="field">
+
+                <label>Premium Content</label>
+
+                <textarea
+                    id="content"
+                    placeholder="Write the content that customers will unlock after payment..."
+                ></textarea>
+
             </div>
 
-            <div class="role-badge">
-                <i class="fa-solid fa-shield-halved"></i>
-                You are accessing the
-                <strong>Admin Panel</strong>
+
+            <div class="field">
+
+                <label>Price</label>
+
+                <div class="price-row">
+
+                    <input
+                        type="number"
+                        id="price"
+                        min="1"
+                        placeholder="500"
+                    >
+
+                    <div class="currency">
+                        TZS
+                    </div>
+
+                </div>
+
             </div>
 
-            <button class="btn btn-primary" id="authSubmitBtn">
-                <i class="fa-solid fa-right-to-bracket"></i>
-                Sign In
+
+            <button
+                class="btn success"
+                id="publishBtn"
+            >
+                <i class="fa-solid fa-paper-plane"></i>
+                Publish Content
             </button>
 
-            <div class="auth-toggle">
-                <span id="authToggleText">
-                    Don't have an admin account?
-                </span>
-
-                <a id="authToggleLink">
-                    Create one
-                </a>
-            </div>
-
         </div>
 
 
-        <!-- ADMIN CONTENT -->
-        <div id="adminContent" class="hidden">
+        <!-- CONTENT LIST -->
+        <div class="panel">
 
-            <div class="admin-panel">
+            <h2>
+                <i class="fa-solid fa-list"></i>
+                Published Content
+            </h2>
 
-                <!-- PUBLISH -->
-                <div class="publish-area">
+            <div id="contentList">
 
-                    <div class="panel-title">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                        Publish Premium Content
-                    </div>
-
-                    <div class="form-group">
-
-                        <label>Content Title</label>
-
-                        <input
-                            type="text"
-                            id="contentTitle"
-                            placeholder="Example: Today's Premium Bet"
-                        />
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>Premium Content</label>
-
-                        <textarea
-                            id="contentText"
-                            placeholder="Write the content that customers will receive after payment..."
-                        ></textarea>
-
-                    </div>
-
-
-                    <div class="price-row">
-
-                        <div class="form-group">
-
-                            <label>Price (TZS)</label>
-
-                            <input
-                                type="number"
-                                id="contentPrice"
-                                min="1"
-                                step="1"
-                                placeholder="500"
-                            />
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label>Status</label>
-
-                            <select id="contentActive">
-
-                                <option value="true">
-                                    Active — Visible
-                                </option>
-
-                                <option value="false">
-                                    Inactive — Hidden
-                                </option>
-
-                            </select>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        class="btn btn-success"
-                        id="publishBtn"
-                        style="width:100%;"
-                    >
-                        <i class="fa-solid fa-paper-plane"></i>
-                        Publish Premium Content
-                    </button>
-
-                </div>
-
-
-                <!-- CONTENT LIST -->
-                <div>
-
-                    <div class="list-header">
-
-                        <h3>
-                            <i class="fa-solid fa-list"></i>
-                            Published Content
-                        </h3>
-
-                        <button
-                            class="btn btn-danger btn-sm"
-                            id="clearAllBtn"
-                        >
-                            <i class="fa-solid fa-trash"></i>
-                            Clear All
-                        </button>
-
-                    </div>
-
-
-                    <div
-                        id="contentList"
-                        class="content-list"
-                    >
-
-                        <div class="empty-content">
-                            No premium content yet.
-                        </div>
-
-                    </div>
-
+                <div class="empty">
+                    Loading content...
                 </div>
 
             </div>
 
         </div>
 
-    </main>
+    </div>
 
 </div>
 
@@ -776,619 +509,247 @@
 
 
     // ============================================================
-    // STATE
-    // ============================================================
-
-    let currentUser = null;
-
-    let isSignUp = false;
-
-    let unsubscribe = null;
-
-
-    // ============================================================
     // DOM
     // ============================================================
 
-    const $ = id => document.getElementById(id);
+    const loginPanel =
+        document.getElementById("loginPanel");
 
+    const dashboard =
+        document.getElementById("dashboard");
 
-    const authPage = $("authPage");
+    const loginBtn =
+        document.getElementById("loginBtn");
 
-    const adminContent = $("adminContent");
+    const logoutBtn =
+        document.getElementById("logoutBtn");
 
-    const authEmail = $("authEmail");
+    const loginError =
+        document.getElementById("loginError");
 
-    const authPassword = $("authPassword");
+    const userArea =
+        document.getElementById("userArea");
 
-    const authSubmitBtn = $("authSubmitBtn");
+    const userEmail =
+        document.getElementById("userEmail");
 
-    const authToggleLink = $("authToggleLink");
+    const avatar =
+        document.getElementById("avatar");
 
-    const authToggleText = $("authToggleText");
+    const titleInput =
+        document.getElementById("title");
 
-    const authTitle = $("authTitle");
+    const contentInput =
+        document.getElementById("content");
 
-    const authSubtitle = $("authSubtitle");
+    const priceInput =
+        document.getElementById("price");
 
-    const authError = $("authError");
+    const publishBtn =
+        document.getElementById("publishBtn");
 
-    const signOutBtn = $("signOutBtn");
-
-    const userAvatar = $("userAvatar");
-
-    const userNameDisplay = $("userNameDisplay");
-
-    const statusDot = $("statusDot");
-
-    const statusText = $("statusText");
-
-    const contentCount = $("contentCount");
-
-    const contentTitle = $("contentTitle");
-
-    const contentText = $("contentText");
-
-    const contentPrice = $("contentPrice");
-
-    const contentActive = $("contentActive");
-
-    const publishBtn = $("publishBtn");
-
-    const clearAllBtn = $("clearAllBtn");
-
-    const contentList = $("contentList");
+    const contentList =
+        document.getElementById("contentList");
 
 
     // ============================================================
-    // FIRESTORE COLLECTION
+    // AUTH
     // ============================================================
 
-    const premiumContentRef =
-        db.collection("premiumContent");
+    loginBtn.addEventListener(
+        "click",
+        async () => {
 
+            const email =
+                document.getElementById("email")
+                    .value
+                    .trim();
 
-    // ============================================================
-    // AUTH MODE
-    // ============================================================
+            const password =
+                document.getElementById("password")
+                    .value;
 
-    function toggleAuthMode(signUp = false) {
+            loginError.classList.add("hidden");
 
-        isSignUp = signUp;
+            if (!email || !password) {
 
-        authError.classList.add("hidden");
+                loginError.textContent =
+                    "Enter email and password.";
 
-        authError.textContent = "";
+                loginError.classList.remove("hidden");
 
-        authEmail.value = "";
+                return;
+            }
 
-        authPassword.value = "";
+            loginBtn.disabled = true;
 
+            loginBtn.textContent = "Signing in...";
 
-        if (signUp) {
-
-            authTitle.textContent =
-                "Create Admin Account";
-
-            authSubtitle.textContent =
-                "Register as an administrator";
-
-            authSubmitBtn.innerHTML =
-                '<i class="fa-solid fa-user-plus"></i> Register as Admin';
-
-            authToggleText.textContent =
-                "Already have an account?";
-
-            authToggleLink.textContent =
-                "Sign In";
-
-        } else {
-
-            authTitle.textContent =
-                "Admin Sign In";
-
-            authSubtitle.textContent =
-                "Sign in to manage premium content";
-
-            authSubmitBtn.innerHTML =
-                '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
-
-            authToggleText.textContent =
-                "Don't have an admin account?";
-
-            authToggleLink.textContent =
-                "Create one";
-        }
-
-    }
-
-
-    // ============================================================
-    // AUTH ERROR
-    // ============================================================
-
-    function showAuthError(message) {
-
-        authError.textContent = message;
-
-        authError.classList.remove("hidden");
-
-    }
-
-
-    // ============================================================
-    // AUTH SUBMIT
-    // ============================================================
-
-    async function handleAuthSubmit() {
-
-        const email =
-            authEmail.value.trim();
-
-        const password =
-            authPassword.value.trim();
-
-
-        if (!email || !password) {
-
-            showAuthError(
-                "Please fill in all fields."
-            );
-
-            return;
-        }
-
-
-        if (password.length < 6) {
-
-            showAuthError(
-                "Password must be at least 6 characters."
-            );
-
-            return;
-        }
-
-
-        authSubmitBtn.disabled = true;
-
-
-        try {
-
-            if (isSignUp) {
-
-                const result =
-                    await auth.createUserWithEmailAndPassword(
-                        email,
-                        password
-                    );
-
-
-                const user =
-                    result.user;
-
-
-                await db
-                    .collection("users")
-                    .doc(user.uid)
-                    .set({
-
-                        email: user.email,
-
-                        role: "admin",
-
-                        createdAt:
-                            firebase.firestore.FieldValue.serverTimestamp()
-
-                    });
-
-
-                showToast(
-                    "Admin account created.",
-                    "success"
-                );
-
-            } else {
+            try {
 
                 await auth.signInWithEmailAndPassword(
                     email,
                     password
                 );
 
+            } catch (error) {
 
-                showToast(
-                    "Signed in successfully.",
-                    "success"
-                );
+                console.error(error);
 
-            }
+                loginError.textContent =
+                    error.message;
 
-        } catch (error) {
-
-            console.error(error);
-
-            showAuthError(
-                error.message
-            );
-
-        } finally {
-
-            authSubmitBtn.disabled = false;
-
-            toggleAuthMode(isSignUp);
-
-        }
-
-    }
-
-
-    // ============================================================
-    // USER UI
-    // ============================================================
-
-    async function updateUI(user) {
-
-        if (!user) {
-
-            currentUser = null;
-
-            userAvatar.textContent = "G";
-
-            userNameDisplay.textContent = "Guest";
-
-            signOutBtn.classList.add("hidden");
-
-            authPage.classList.remove("hidden");
-
-            adminContent.classList.add("hidden");
-
-            updateStatus(
-                "offline",
-                "Not signed in"
-            );
-
-            if (unsubscribe) {
-
-                unsubscribe();
-
-                unsubscribe = null;
-
-            }
-
-            return;
-        }
-
-
-        currentUser = user;
-
-        userAvatar.textContent =
-            (user.email || "A")
-                .charAt(0)
-                .toUpperCase();
-
-        userNameDisplay.textContent =
-            user.email || "Admin";
-
-        signOutBtn.classList.remove(
-            "hidden"
-        );
-
-
-        try {
-
-            const userDoc =
-                await db
-                    .collection("users")
-                    .doc(user.uid)
-                    .get();
-
-
-            if (
-                !userDoc.exists ||
-                userDoc.data().role !== "admin"
-            ) {
-
-                authPage.classList.remove(
+                loginError.classList.remove(
                     "hidden"
                 );
 
-                adminContent.classList.add(
+            } finally {
+
+                loginBtn.disabled = false;
+
+                loginBtn.innerHTML =
+                    '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+
+            }
+
+        }
+    );
+
+
+    // ============================================================
+    // AUTH STATE
+    // ============================================================
+
+    auth.onAuthStateChanged(
+        async (user) => {
+
+            if (!user) {
+
+                loginPanel.classList.remove(
                     "hidden"
                 );
 
-                showAuthError(
-                    "Access denied. This account is not an admin."
+                dashboard.classList.add(
+                    "hidden"
                 );
 
-                updateStatus(
-                    "offline",
-                    "Access denied"
+                userArea.classList.add(
+                    "hidden"
                 );
 
                 return;
             }
 
 
-            authPage.classList.add("hidden");
+            try {
 
-            adminContent.classList.remove(
-                "hidden"
-            );
+                const userDoc =
+                    await db
+                        .collection("users")
+                        .doc(user.uid)
+                        .get();
 
-            startListening();
 
+                if (
+                    !userDoc.exists ||
+                    userDoc.data().role !== "admin"
+                ) {
 
-        } catch (error) {
+                    await auth.signOut();
 
-            console.error(error);
+                    loginError.textContent =
+                        "Access denied. This account is not an admin.";
 
-            showAuthError(
-                "Unable to verify admin account."
-            );
+                    loginError.classList.remove(
+                        "hidden"
+                    );
 
-        }
+                    return;
+                }
 
-    }
 
-
-    // ============================================================
-    // STATUS
-    // ============================================================
-
-    function updateStatus(state, text) {
-
-        statusDot.className =
-            "status-dot " + state;
-
-        statusText.textContent =
-            text;
-
-    }
-
-
-    // ============================================================
-    // LISTEN FOR CONTENT
-    // ============================================================
-
-    function startListening() {
-
-        if (unsubscribe) {
-
-            unsubscribe();
-
-        }
-
-
-        updateStatus(
-            "connecting",
-            "Loading content..."
-        );
-
-
-        unsubscribe =
-            premiumContentRef
-                .orderBy("timestamp", "desc")
-                .onSnapshot(
-
-                    snapshot => {
-
-                        updateStatus(
-                            "online",
-                            "Live"
-                        );
-
-
-                        contentCount.textContent =
-                            snapshot.size;
-
-
-                        if (snapshot.empty) {
-
-                            contentList.innerHTML =
-                                `
-                                <div class="empty-content">
-                                    No premium content yet.
-                                </div>
-                                `;
-
-                            return;
-                        }
-
-
-                        let html = "";
-
-
-                        snapshot.forEach(doc => {
-
-                            const data =
-                                doc.data();
-
-
-                            const title =
-                                data.title ||
-                                "Untitled";
-
-
-                            const text =
-                                data.text ||
-                                "";
-
-
-                            const price =
-                                Number(
-                                    data.price || 0
-                                );
-
-
-                            const active =
-                                data.active !== false;
-
-
-                            const time =
-                                data.timestamp
-                                    ? data.timestamp.toDate()
-                                    : new Date();
-
-
-                            const date =
-                                time.toLocaleDateString(
-                                    [],
-                                    {
-                                        month: "short",
-                                        day: "numeric"
-                                    }
-                                );
-
-
-                            const timeString =
-                                time.toLocaleTimeString(
-                                    [],
-                                    {
-                                        hour: "2-digit",
-                                        minute: "2-digit"
-                                    }
-                                );
-
-
-                            html += `
-
-                                <div
-                                    class="content-card"
-                                    data-id="${doc.id}"
-                                >
-
-                                    <div class="content-card-header">
-
-                                        <div style="flex:1;">
-
-                                            <div class="content-title">
-                                                ${escapeHtml(title)}
-                                            </div>
-
-                                            <div class="content-preview">
-                                                ${escapeHtml(text)}
-                                            </div>
-
-                                            <div class="content-price">
-                                                TZS ${price.toLocaleString()}
-                                            </div>
-
-                                            <div class="content-meta">
-
-                                                ${active ? "🟢 Active" : "🔴 Inactive"}
-                                                ·
-                                                ${date} ${timeString}
-
-                                            </div>
-
-                                        </div>
-
-
-                                        <div class="content-actions">
-
-                                            <button
-                                                class="btn btn-danger btn-sm delete-content"
-                                                data-id="${doc.id}"
-                                            >
-
-                                                <i class="fa-solid fa-trash"></i>
-
-                                                Delete
-
-                                            </button>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            `;
-
-                        });
-
-
-                        contentList.innerHTML =
-                            html;
-
-
-                        document
-                            .querySelectorAll(
-                                ".delete-content"
-                            )
-                            .forEach(button => {
-
-                                button.addEventListener(
-                                    "click",
-                                    () => {
-
-                                        deleteContent(
-                                            button.dataset.id
-                                        );
-
-                                    }
-                                );
-
-                            });
-
-                    },
-
-                    error => {
-
-                        console.error(error);
-
-                        updateStatus(
-                            "offline",
-                            "Database error"
-                        );
-
-                        contentList.innerHTML =
-                            `
-                            <div class="empty-content">
-                                Unable to load content.
-                            </div>
-                            `;
-
-                    }
+                loginPanel.classList.add(
+                    "hidden"
                 );
 
-    }
+                dashboard.classList.remove(
+                    "hidden"
+                );
+
+                userArea.classList.remove(
+                    "hidden"
+                );
+
+                userEmail.textContent =
+                    user.email;
+
+                avatar.textContent =
+                    user.email
+                        .charAt(0)
+                        .toUpperCase();
+
+
+                loadContent();
+
+            } catch (error) {
+
+                console.error(
+                    "Authentication error:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+
+    // ============================================================
+    // LOGOUT
+    // ============================================================
+
+    logoutBtn.addEventListener(
+        "click",
+        () => auth.signOut()
+    );
 
 
     // ============================================================
     // PUBLISH CONTENT
     // ============================================================
 
+    publishBtn.addEventListener(
+        "click",
+        publishContent
+    );
+
+
     async function publishContent() {
 
         const title =
-            contentTitle.value.trim();
+            titleInput.value.trim();
 
-        const text =
-            contentText.value.trim();
+        const content =
+            contentInput.value.trim();
 
         const price =
-            Number(contentPrice.value);
-
-        const active =
-            contentActive.value === "true";
+            Number(priceInput.value);
 
 
         if (!title) {
 
             showToast(
-                "Please enter a title.",
-                "info"
+                "Enter a content title."
             );
 
             return;
         }
 
 
-        if (!text) {
+        if (!content) {
 
             showToast(
-                "Please enter the premium content.",
-                "info"
+                "Enter the premium content."
             );
 
             return;
@@ -1401,8 +762,7 @@
         ) {
 
             showToast(
-                "Please enter a valid price.",
-                "info"
+                "Enter a valid price."
             );
 
             return;
@@ -1411,47 +771,45 @@
 
         publishBtn.disabled = true;
 
-        publishBtn.innerHTML =
-            '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
+        publishBtn.textContent =
+            "Publishing...";
 
 
         try {
 
-            await premiumContentRef.add({
+            await db
+                .collection("content")
+                .add({
 
-                title: title,
+                    title: title,
 
-                text: text,
+                    content: content,
 
-                price: price,
+                    price: price,
 
-                currency: "TZS",
+                    currency: "TZS",
 
-                active: active,
+                    createdBy:
+                        auth.currentUser.email,
 
-                from:
-                    currentUser?.email ||
-                    "admin",
+                    createdAt:
+                        firebase.firestore.FieldValue
+                            .serverTimestamp(),
 
-                timestamp:
-                    firebase.firestore.FieldValue
-                        .serverTimestamp()
+                    active: true
 
-            });
+                });
 
 
-            contentTitle.value = "";
+            titleInput.value = "";
 
-            contentText.value = "";
+            contentInput.value = "";
 
-            contentPrice.value = "";
-
-            contentActive.value = "true";
+            priceInput.value = "";
 
 
             showToast(
-                "Premium content published!",
-                "success"
+                "Content published successfully!"
             );
 
 
@@ -1463,9 +821,7 @@
             );
 
             showToast(
-                "Failed to publish: " +
-                error.message,
-                "error"
+                "Failed: " + error.message
             );
 
         } finally {
@@ -1473,7 +829,7 @@
             publishBtn.disabled = false;
 
             publishBtn.innerHTML =
-                '<i class="fa-solid fa-paper-plane"></i> Publish Premium Content';
+                '<i class="fa-solid fa-paper-plane"></i> Publish Content';
 
         }
 
@@ -1481,132 +837,200 @@
 
 
     // ============================================================
-    // DELETE
+    // LOAD CONTENT
     // ============================================================
 
-    async function deleteContent(id) {
+    function loadContent() {
 
-        if (
-            !confirm(
-                "Delete this premium content?"
+        db.collection("content")
+            .orderBy(
+                "createdAt",
+                "desc"
             )
-        ) {
+            .onSnapshot(
 
-            return;
+                (snapshot) => {
 
-        }
+                    if (snapshot.empty) {
+
+                        contentList.innerHTML =
+                            `
+                            <div class="empty">
+                                No content published yet.
+                            </div>
+                            `;
+
+                        return;
+                    }
 
 
-        try {
-
-            await premiumContentRef
-                .doc(id)
-                .delete();
+                    let html = "";
 
 
-            showToast(
-                "Content deleted.",
-                "success"
+                    snapshot.forEach(
+                        (doc) => {
+
+                            const data =
+                                doc.data();
+
+
+                            const createdAt =
+                                data.createdAt
+                                    ? data.createdAt
+                                        .toDate()
+                                        .toLocaleString()
+                                    : "Just now";
+
+
+                            const preview =
+                                data.content
+                                    .length > 150
+                                    ? data.content.substring(
+                                        0,
+                                        150
+                                    ) + "..."
+                                    : data.content;
+
+
+                            html += `
+
+                                <div
+                                    class="content-card"
+                                >
+
+                                    <div
+                                        class="content-header"
+                                    >
+
+                                        <div
+                                            class="content-title"
+                                        >
+                                            ${escapeHtml(
+                                                data.title
+                                            )}
+                                        </div>
+
+                                        <div
+                                            class="price"
+                                        >
+                                            ${Number(
+                                                data.price
+                                            ).toLocaleString()}
+                                            TZS
+                                        </div>
+
+                                    </div>
+
+
+                                    <div
+                                        class="content-preview"
+                                    >
+                                        ${escapeHtml(
+                                            preview
+                                        )}
+                                    </div>
+
+
+                                    <div
+                                        class="content-footer"
+                                    >
+
+                                        <span
+                                            class="date"
+                                        >
+                                            ${createdAt}
+                                        </span>
+
+
+                                        <button
+                                            class="btn danger"
+                                            onclick="deleteContent('${doc.id}')"
+                                        >
+                                            <i
+                                                class="fa-solid fa-trash"
+                                            ></i>
+                                            Delete
+                                        </button>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        }
+                    );
+
+
+                    contentList.innerHTML =
+                        html;
+
+                },
+
+                (error) => {
+
+                    console.error(
+                        "Load content error:",
+                        error
+                    );
+
+                    contentList.innerHTML =
+                        `
+                        <div class="empty">
+                            Error loading content:
+                            ${escapeHtml(
+                                error.message
+                            )}
+                        </div>
+                        `;
+
+                }
+
             );
-
-        } catch (error) {
-
-            console.error(error);
-
-            showToast(
-                "Delete failed: " +
-                error.message,
-                "error"
-            );
-
-        }
 
     }
 
 
     // ============================================================
-    // CLEAR ALL
+    // DELETE CONTENT
     // ============================================================
 
-    async function clearAllContent() {
+    window.deleteContent =
+        async function(id) {
 
-        if (
-            !confirm(
-                "DELETE ALL PREMIUM CONTENT?\n\nThis cannot be undone."
-            )
-        ) {
-
-            return;
-
-        }
-
-
-        try {
-
-            const snapshot =
-                await premiumContentRef.get();
-
-
-            if (snapshot.empty) {
-
-                showToast(
-                    "No content to delete.",
-                    "info"
+            const confirmed =
+                confirm(
+                    "Delete this premium content?"
                 );
 
-                return;
+
+            if (!confirmed) return;
+
+
+            try {
+
+                await db
+                    .collection("content")
+                    .doc(id)
+                    .delete();
+
+
+                showToast(
+                    "Content deleted."
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+                showToast(
+                    "Delete failed: " +
+                    error.message
+                );
+
             }
 
-
-            const batch =
-                db.batch();
-
-
-            snapshot.forEach(doc => {
-
-                batch.delete(doc.ref);
-
-            });
-
-
-            await batch.commit();
-
-
-            showToast(
-                "All content deleted.",
-                "success"
-            );
-
-
-        } catch (error) {
-
-            console.error(error);
-
-            showToast(
-                "Failed: " +
-                error.message,
-                "error"
-            );
-
-        }
-
-    }
-
-
-    // ============================================================
-    // SIGN OUT
-    // ============================================================
-
-    async function signOut() {
-
-        await auth.signOut();
-
-        showToast(
-            "Signed out.",
-            "info"
-        );
-
-    }
+        };
 
 
     // ============================================================
@@ -1618,11 +1042,31 @@
         if (!value) return "";
 
         return String(value)
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+
+            .replace(
+                /</g,
+                "&lt;"
+            )
+
+            .replace(
+                />/g,
+                "&gt;"
+            )
+
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+
+            .replace(
+                /'/g,
+                "&#039;"
+            );
 
     }
 
@@ -1631,16 +1075,12 @@
     // TOAST
     // ============================================================
 
-    function showToast(
-        message,
-        type = "info"
-    ) {
+    function showToast(message) {
 
         const old =
             document.querySelector(
                 ".toast"
             );
-
 
         if (old) old.remove();
 
@@ -1650,10 +1090,8 @@
                 "div"
             );
 
-
         toast.className =
-            `toast ${type}`;
-
+            "toast";
 
         toast.textContent =
             message;
@@ -1664,124 +1102,14 @@
         );
 
 
-        setTimeout(() => {
-
-            toast.remove();
-
-        }, 3500);
+        setTimeout(
+            () => toast.remove(),
+            3500
+        );
 
     }
-
-
-    // ============================================================
-    // EVENTS
-    // ============================================================
-
-    authSubmitBtn.addEventListener(
-        "click",
-        handleAuthSubmit
-    );
-
-
-    authPassword.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                handleAuthSubmit();
-
-            }
-
-        }
-    );
-
-
-    authEmail.addEventListener(
-        "keydown",
-        event => {
-
-            if (
-                event.key === "Enter"
-            ) {
-
-                handleAuthSubmit();
-
-            }
-
-        }
-    );
-
-
-    authToggleLink.addEventListener(
-        "click",
-        event => {
-
-            event.preventDefault();
-
-            toggleAuthMode(
-                !isSignUp
-            );
-
-        }
-    );
-
-
-    signOutBtn.addEventListener(
-        "click",
-        signOut
-    );
-
-
-    publishBtn.addEventListener(
-        "click",
-        publishContent
-    );
-
-
-    clearAllBtn.addEventListener(
-        "click",
-        clearAllContent
-    );
-
-
-    // ============================================================
-    // AUTH STATE
-    // ============================================================
-
-    auth.onAuthStateChanged(
-        user => {
-
-            updateUI(user);
-
-        }
-    );
-
-
-    // ============================================================
-    // INIT
-    // ============================================================
-
-    toggleAuthMode(false);
-
-    updateStatus(
-        "connecting",
-        "Initializing..."
-    );
-
-
-    console.log(
-        "🚀 BetLive Premium Admin ready"
-    );
-
-    console.log(
-        "📌 Firestore collection: premiumContent"
-    );
 
 </script>
 
 </body>
 </html>
-```
