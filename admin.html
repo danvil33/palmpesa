@@ -1,0 +1,1787 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin · BetLive</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0e11;
+            color: #eaecef;
+            min-height: 100vh;
+            padding: 30px 16px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+            margin: auto;
+            background: #1e2329;
+            border-radius: 24px;
+            border: 1px solid #2b3139;
+            box-shadow: 0 24px 80px rgba(0,0,0,.6);
+            overflow: hidden;
+        }
+
+        /* HEADER */
+
+        .app-header {
+            padding: 18px 24px;
+            background: #181a20;
+            border-bottom: 1px solid #2b3139;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .app-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: linear-gradient(135deg,#f0b90b,#f8d33a);
+            color: #181a20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .app-brand h1 {
+            color: #f0b90b;
+            font-size: 20px;
+        }
+
+        .app-brand h1 span {
+            color: #eaecef;
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #2b3139;
+            padding: 4px 14px 4px 8px;
+            border-radius: 40px;
+            font-size: 12px;
+        }
+
+        .avatar {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f0b90b;
+            color: #181a20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* BUTTONS */
+
+        .btn {
+            border: none;
+            padding: 9px 16px;
+            border-radius: 9px;
+            font-weight: 600;
+            font-size: 12px;
+            font-family: inherit;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+            transition: .2s;
+        }
+
+        .btn-primary {
+            background: #f0b90b;
+            color: #181a20;
+        }
+
+        .btn-primary:hover {
+            background: #f8d33a;
+        }
+
+        .btn-success {
+            background: #0ecb81;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #1ad991;
+        }
+
+        .btn-danger {
+            background: #f6465d;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #ff6b7f;
+        }
+
+        .btn-secondary {
+            background: #2b3139;
+            color: #eaecef;
+        }
+
+        .btn-secondary:hover {
+            background: #3b424b;
+        }
+
+        .btn-sm {
+            padding: 6px 10px;
+            font-size: 11px;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* MAIN */
+
+        .main-content {
+            padding: 20px 24px;
+        }
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 9px 14px;
+            background: #181a20;
+            border: 1px solid #2b3139;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            color: #848e9c;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-dot.online {
+            background: #0ecb81;
+            box-shadow: 0 0 10px rgba(14,203,129,.4);
+        }
+
+        .status-dot.offline {
+            background: #f6465d;
+        }
+
+        .status-dot.connecting {
+            background: #f0b90b;
+        }
+
+        /* AUTH */
+
+        .auth-page {
+            max-width: 430px;
+            margin: auto;
+            padding: 40px 30px;
+            background: #181a20;
+            border: 1px solid #2b3139;
+            border-radius: 16px;
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .lock-icon {
+            font-size: 45px;
+            color: #f0b90b;
+            margin-bottom: 12px;
+        }
+
+        .auth-header h3 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .auth-header p {
+            color: #848e9c;
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: #848e9c;
+            margin-bottom: 6px;
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            background: #0b0e11;
+            border: 1px solid #2b3139;
+            border-radius: 10px;
+            color: #eaecef;
+            padding: 11px 13px;
+            font-family: inherit;
+            outline: none;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.5;
+        }
+
+        input:focus,
+        textarea:focus,
+        select:focus {
+            border-color: #f0b90b;
+            box-shadow: 0 0 0 3px rgba(240,185,11,.1);
+        }
+
+        .role-badge {
+            background: #2b3139;
+            border: 1px solid #3b424b;
+            padding: 9px 13px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            font-size: 12px;
+        }
+
+        .role-badge i {
+            color: #f0b90b;
+            margin-right: 5px;
+        }
+
+        .role-badge strong {
+            color: #f0b90b;
+        }
+
+        .auth-page .btn {
+            width: 100%;
+        }
+
+        .auth-toggle {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #848e9c;
+        }
+
+        .auth-toggle a {
+            color: #f0b90b;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .auth-error {
+            background: rgba(246,70,93,.1);
+            border-left: 3px solid #f6465d;
+            color: #f6465d;
+            padding: 9px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        /* ADMIN */
+
+        .admin-panel {
+            background: #181a20;
+            border: 1px solid #2b3139;
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .panel-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .panel-title i {
+            color: #f0b90b;
+        }
+
+        .price-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .price-row > div {
+            flex: 1;
+        }
+
+        .publish-area {
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #2b3139;
+        }
+
+        /* CONTENT LIST */
+
+        .list-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .list-header h3 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .content-card {
+            background: #0b0e11;
+            border: 1px solid #2b3139;
+            border-radius: 12px;
+            padding: 15px;
+        }
+
+        .content-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .content-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #f0b90b;
+            margin-bottom: 7px;
+        }
+
+        .content-preview {
+            color: #c7cbd1;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .content-price {
+            display: inline-flex;
+            margin-top: 12px;
+            background: rgba(240,185,11,.12);
+            border: 1px solid rgba(240,185,11,.25);
+            color: #f0b90b;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .content-meta {
+            margin-top: 10px;
+            color: #848e9c;
+            font-size: 10px;
+        }
+
+        .content-actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+
+        .empty-content {
+            text-align: center;
+            color: #848e9c;
+            padding: 40px 10px;
+            font-size: 13px;
+        }
+
+        /* TOAST */
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: 30px;
+            transform: translateX(-50%);
+            background: #1e2329;
+            border: 1px solid #2b3139;
+            padding: 12px 20px;
+            border-radius: 14px;
+            box-shadow: 0 8px 32px rgba(0,0,0,.4);
+            font-size: 13px;
+            z-index: 9999;
+        }
+
+        .toast.success {
+            border-color: #0ecb81;
+        }
+
+        .toast.error {
+            border-color: #f6465d;
+        }
+
+        .toast.info {
+            border-color: #f0b90b;
+        }
+
+        @media(max-width:640px) {
+            .main-content {
+                padding: 15px;
+            }
+
+            .app-header {
+                padding: 14px 16px;
+            }
+
+            .auth-page {
+                padding: 28px 18px;
+            }
+
+            .price-row {
+                flex-direction: column;
+            }
+
+            .content-card-header {
+                flex-direction: column;
+            }
+
+            .content-actions {
+                width: 100%;
+            }
+
+            .content-actions .btn {
+                flex: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- HEADER -->
+    <header class="app-header">
+
+        <div class="app-brand">
+            <div class="logo-icon">B</div>
+            <h1>Bet<span>Live</span></h1>
+        </div>
+
+        <div class="header-actions">
+
+            <div class="user-profile">
+                <div class="avatar" id="userAvatar">G</div>
+                <span id="userNameDisplay">Guest</span>
+            </div>
+
+            <button class="btn btn-danger hidden" id="signOutBtn">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Sign Out
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+        <!-- STATUS -->
+        <div class="status-bar">
+
+            <div>
+                <span class="status-dot connecting" id="statusDot"></span>
+                <span id="statusText">Initializing...</span>
+            </div>
+
+            <div>
+                Content:
+                <strong id="contentCount">0</strong>
+            </div>
+
+        </div>
+
+
+        <!-- AUTH -->
+        <div id="authPage" class="auth-page">
+
+            <div class="auth-header">
+                <i class="fa-solid fa-lock lock-icon"></i>
+
+                <h3 id="authTitle">Admin Sign In</h3>
+
+                <p id="authSubtitle">
+                    Sign in to manage premium content
+                </p>
+            </div>
+
+            <div id="authError" class="auth-error hidden"></div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+
+                <input
+                    type="email"
+                    id="authEmail"
+                    placeholder="Enter your email"
+                />
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+
+                <input
+                    type="password"
+                    id="authPassword"
+                    placeholder="Enter your password"
+                />
+            </div>
+
+            <div class="role-badge">
+                <i class="fa-solid fa-shield-halved"></i>
+                You are accessing the
+                <strong>Admin Panel</strong>
+            </div>
+
+            <button class="btn btn-primary" id="authSubmitBtn">
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Sign In
+            </button>
+
+            <div class="auth-toggle">
+                <span id="authToggleText">
+                    Don't have an admin account?
+                </span>
+
+                <a id="authToggleLink">
+                    Create one
+                </a>
+            </div>
+
+        </div>
+
+
+        <!-- ADMIN CONTENT -->
+        <div id="adminContent" class="hidden">
+
+            <div class="admin-panel">
+
+                <!-- PUBLISH -->
+                <div class="publish-area">
+
+                    <div class="panel-title">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Publish Premium Content
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Content Title</label>
+
+                        <input
+                            type="text"
+                            id="contentTitle"
+                            placeholder="Example: Today's Premium Bet"
+                        />
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Premium Content</label>
+
+                        <textarea
+                            id="contentText"
+                            placeholder="Write the content that customers will receive after payment..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="price-row">
+
+                        <div class="form-group">
+
+                            <label>Price (TZS)</label>
+
+                            <input
+                                type="number"
+                                id="contentPrice"
+                                min="1"
+                                step="1"
+                                placeholder="500"
+                            />
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label>Status</label>
+
+                            <select id="contentActive">
+
+                                <option value="true">
+                                    Active — Visible
+                                </option>
+
+                                <option value="false">
+                                    Inactive — Hidden
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="btn btn-success"
+                        id="publishBtn"
+                        style="width:100%;"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Publish Premium Content
+                    </button>
+
+                </div>
+
+
+                <!-- CONTENT LIST -->
+                <div>
+
+                    <div class="list-header">
+
+                        <h3>
+                            <i class="fa-solid fa-list"></i>
+                            Published Content
+                        </h3>
+
+                        <button
+                            class="btn btn-danger btn-sm"
+                            id="clearAllBtn"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+                            Clear All
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="contentList"
+                        class="content-list"
+                    >
+
+                        <div class="empty-content">
+                            No premium content yet.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<script>
+
+    // ============================================================
+    // FIREBASE
+    // ============================================================
+
+    const firebaseConfig = {
+
+        apiKey: "AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow",
+
+        authDomain: "volcanobxpl.firebaseapp.com",
+
+        projectId: "volcanobxpl",
+
+        storageBucket: "volcanobxpl.firebasestorage.app",
+
+        messagingSenderId: "742861205377",
+
+        appId: "1:742861205377:web:bbe8a42b78c90354a64280",
+
+        measurementId: "G-G1KWGHLZES"
+
+    };
+
+
+    firebase.initializeApp(firebaseConfig);
+
+
+    const auth = firebase.auth();
+
+    const db = firebase.firestore();
+
+
+    // ============================================================
+    // STATE
+    // ============================================================
+
+    let currentUser = null;
+
+    let isSignUp = false;
+
+    let unsubscribe = null;
+
+
+    // ============================================================
+    // DOM
+    // ============================================================
+
+    const $ = id => document.getElementById(id);
+
+
+    const authPage = $("authPage");
+
+    const adminContent = $("adminContent");
+
+    const authEmail = $("authEmail");
+
+    const authPassword = $("authPassword");
+
+    const authSubmitBtn = $("authSubmitBtn");
+
+    const authToggleLink = $("authToggleLink");
+
+    const authToggleText = $("authToggleText");
+
+    const authTitle = $("authTitle");
+
+    const authSubtitle = $("authSubtitle");
+
+    const authError = $("authError");
+
+    const signOutBtn = $("signOutBtn");
+
+    const userAvatar = $("userAvatar");
+
+    const userNameDisplay = $("userNameDisplay");
+
+    const statusDot = $("statusDot");
+
+    const statusText = $("statusText");
+
+    const contentCount = $("contentCount");
+
+    const contentTitle = $("contentTitle");
+
+    const contentText = $("contentText");
+
+    const contentPrice = $("contentPrice");
+
+    const contentActive = $("contentActive");
+
+    const publishBtn = $("publishBtn");
+
+    const clearAllBtn = $("clearAllBtn");
+
+    const contentList = $("contentList");
+
+
+    // ============================================================
+    // FIRESTORE COLLECTION
+    // ============================================================
+
+    const premiumContentRef =
+        db.collection("premiumContent");
+
+
+    // ============================================================
+    // AUTH MODE
+    // ============================================================
+
+    function toggleAuthMode(signUp = false) {
+
+        isSignUp = signUp;
+
+        authError.classList.add("hidden");
+
+        authError.textContent = "";
+
+        authEmail.value = "";
+
+        authPassword.value = "";
+
+
+        if (signUp) {
+
+            authTitle.textContent =
+                "Create Admin Account";
+
+            authSubtitle.textContent =
+                "Register as an administrator";
+
+            authSubmitBtn.innerHTML =
+                '<i class="fa-solid fa-user-plus"></i> Register as Admin';
+
+            authToggleText.textContent =
+                "Already have an account?";
+
+            authToggleLink.textContent =
+                "Sign In";
+
+        } else {
+
+            authTitle.textContent =
+                "Admin Sign In";
+
+            authSubtitle.textContent =
+                "Sign in to manage premium content";
+
+            authSubmitBtn.innerHTML =
+                '<i class="fa-solid fa-right-to-bracket"></i> Sign In';
+
+            authToggleText.textContent =
+                "Don't have an admin account?";
+
+            authToggleLink.textContent =
+                "Create one";
+        }
+
+    }
+
+
+    // ============================================================
+    // AUTH ERROR
+    // ============================================================
+
+    function showAuthError(message) {
+
+        authError.textContent = message;
+
+        authError.classList.remove("hidden");
+
+    }
+
+
+    // ============================================================
+    // AUTH SUBMIT
+    // ============================================================
+
+    async function handleAuthSubmit() {
+
+        const email =
+            authEmail.value.trim();
+
+        const password =
+            authPassword.value.trim();
+
+
+        if (!email || !password) {
+
+            showAuthError(
+                "Please fill in all fields."
+            );
+
+            return;
+        }
+
+
+        if (password.length < 6) {
+
+            showAuthError(
+                "Password must be at least 6 characters."
+            );
+
+            return;
+        }
+
+
+        authSubmitBtn.disabled = true;
+
+
+        try {
+
+            if (isSignUp) {
+
+                const result =
+                    await auth.createUserWithEmailAndPassword(
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    result.user;
+
+
+                await db
+                    .collection("users")
+                    .doc(user.uid)
+                    .set({
+
+                        email: user.email,
+
+                        role: "admin",
+
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp()
+
+                    });
+
+
+                showToast(
+                    "Admin account created.",
+                    "success"
+                );
+
+            } else {
+
+                await auth.signInWithEmailAndPassword(
+                    email,
+                    password
+                );
+
+
+                showToast(
+                    "Signed in successfully.",
+                    "success"
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAuthError(
+                error.message
+            );
+
+        } finally {
+
+            authSubmitBtn.disabled = false;
+
+            toggleAuthMode(isSignUp);
+
+        }
+
+    }
+
+
+    // ============================================================
+    // USER UI
+    // ============================================================
+
+    async function updateUI(user) {
+
+        if (!user) {
+
+            currentUser = null;
+
+            userAvatar.textContent = "G";
+
+            userNameDisplay.textContent = "Guest";
+
+            signOutBtn.classList.add("hidden");
+
+            authPage.classList.remove("hidden");
+
+            adminContent.classList.add("hidden");
+
+            updateStatus(
+                "offline",
+                "Not signed in"
+            );
+
+            if (unsubscribe) {
+
+                unsubscribe();
+
+                unsubscribe = null;
+
+            }
+
+            return;
+        }
+
+
+        currentUser = user;
+
+        userAvatar.textContent =
+            (user.email || "A")
+                .charAt(0)
+                .toUpperCase();
+
+        userNameDisplay.textContent =
+            user.email || "Admin";
+
+        signOutBtn.classList.remove(
+            "hidden"
+        );
+
+
+        try {
+
+            const userDoc =
+                await db
+                    .collection("users")
+                    .doc(user.uid)
+                    .get();
+
+
+            if (
+                !userDoc.exists ||
+                userDoc.data().role !== "admin"
+            ) {
+
+                authPage.classList.remove(
+                    "hidden"
+                );
+
+                adminContent.classList.add(
+                    "hidden"
+                );
+
+                showAuthError(
+                    "Access denied. This account is not an admin."
+                );
+
+                updateStatus(
+                    "offline",
+                    "Access denied"
+                );
+
+                return;
+            }
+
+
+            authPage.classList.add("hidden");
+
+            adminContent.classList.remove(
+                "hidden"
+            );
+
+            startListening();
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAuthError(
+                "Unable to verify admin account."
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // STATUS
+    // ============================================================
+
+    function updateStatus(state, text) {
+
+        statusDot.className =
+            "status-dot " + state;
+
+        statusText.textContent =
+            text;
+
+    }
+
+
+    // ============================================================
+    // LISTEN FOR CONTENT
+    // ============================================================
+
+    function startListening() {
+
+        if (unsubscribe) {
+
+            unsubscribe();
+
+        }
+
+
+        updateStatus(
+            "connecting",
+            "Loading content..."
+        );
+
+
+        unsubscribe =
+            premiumContentRef
+                .orderBy("timestamp", "desc")
+                .onSnapshot(
+
+                    snapshot => {
+
+                        updateStatus(
+                            "online",
+                            "Live"
+                        );
+
+
+                        contentCount.textContent =
+                            snapshot.size;
+
+
+                        if (snapshot.empty) {
+
+                            contentList.innerHTML =
+                                `
+                                <div class="empty-content">
+                                    No premium content yet.
+                                </div>
+                                `;
+
+                            return;
+                        }
+
+
+                        let html = "";
+
+
+                        snapshot.forEach(doc => {
+
+                            const data =
+                                doc.data();
+
+
+                            const title =
+                                data.title ||
+                                "Untitled";
+
+
+                            const text =
+                                data.text ||
+                                "";
+
+
+                            const price =
+                                Number(
+                                    data.price || 0
+                                );
+
+
+                            const active =
+                                data.active !== false;
+
+
+                            const time =
+                                data.timestamp
+                                    ? data.timestamp.toDate()
+                                    : new Date();
+
+
+                            const date =
+                                time.toLocaleDateString(
+                                    [],
+                                    {
+                                        month: "short",
+                                        day: "numeric"
+                                    }
+                                );
+
+
+                            const timeString =
+                                time.toLocaleTimeString(
+                                    [],
+                                    {
+                                        hour: "2-digit",
+                                        minute: "2-digit"
+                                    }
+                                );
+
+
+                            html += `
+
+                                <div
+                                    class="content-card"
+                                    data-id="${doc.id}"
+                                >
+
+                                    <div class="content-card-header">
+
+                                        <div style="flex:1;">
+
+                                            <div class="content-title">
+                                                ${escapeHtml(title)}
+                                            </div>
+
+                                            <div class="content-preview">
+                                                ${escapeHtml(text)}
+                                            </div>
+
+                                            <div class="content-price">
+                                                TZS ${price.toLocaleString()}
+                                            </div>
+
+                                            <div class="content-meta">
+
+                                                ${active ? "🟢 Active" : "🔴 Inactive"}
+                                                ·
+                                                ${date} ${timeString}
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <div class="content-actions">
+
+                                            <button
+                                                class="btn btn-danger btn-sm delete-content"
+                                                data-id="${doc.id}"
+                                            >
+
+                                                <i class="fa-solid fa-trash"></i>
+
+                                                Delete
+
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            `;
+
+                        });
+
+
+                        contentList.innerHTML =
+                            html;
+
+
+                        document
+                            .querySelectorAll(
+                                ".delete-content"
+                            )
+                            .forEach(button => {
+
+                                button.addEventListener(
+                                    "click",
+                                    () => {
+
+                                        deleteContent(
+                                            button.dataset.id
+                                        );
+
+                                    }
+                                );
+
+                            });
+
+                    },
+
+                    error => {
+
+                        console.error(error);
+
+                        updateStatus(
+                            "offline",
+                            "Database error"
+                        );
+
+                        contentList.innerHTML =
+                            `
+                            <div class="empty-content">
+                                Unable to load content.
+                            </div>
+                            `;
+
+                    }
+                );
+
+    }
+
+
+    // ============================================================
+    // PUBLISH CONTENT
+    // ============================================================
+
+    async function publishContent() {
+
+        const title =
+            contentTitle.value.trim();
+
+        const text =
+            contentText.value.trim();
+
+        const price =
+            Number(contentPrice.value);
+
+        const active =
+            contentActive.value === "true";
+
+
+        if (!title) {
+
+            showToast(
+                "Please enter a title.",
+                "info"
+            );
+
+            return;
+        }
+
+
+        if (!text) {
+
+            showToast(
+                "Please enter the premium content.",
+                "info"
+            );
+
+            return;
+        }
+
+
+        if (
+            !Number.isFinite(price) ||
+            price <= 0
+        ) {
+
+            showToast(
+                "Please enter a valid price.",
+                "info"
+            );
+
+            return;
+        }
+
+
+        publishBtn.disabled = true;
+
+        publishBtn.innerHTML =
+            '<i class="fa-solid fa-spinner fa-spin"></i> Publishing...';
+
+
+        try {
+
+            await premiumContentRef.add({
+
+                title: title,
+
+                text: text,
+
+                price: price,
+
+                currency: "TZS",
+
+                active: active,
+
+                from:
+                    currentUser?.email ||
+                    "admin",
+
+                timestamp:
+                    firebase.firestore.FieldValue
+                        .serverTimestamp()
+
+            });
+
+
+            contentTitle.value = "";
+
+            contentText.value = "";
+
+            contentPrice.value = "";
+
+            contentActive.value = "true";
+
+
+            showToast(
+                "Premium content published!",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Publish error:",
+                error
+            );
+
+            showToast(
+                "Failed to publish: " +
+                error.message,
+                "error"
+            );
+
+        } finally {
+
+            publishBtn.disabled = false;
+
+            publishBtn.innerHTML =
+                '<i class="fa-solid fa-paper-plane"></i> Publish Premium Content';
+
+        }
+
+    }
+
+
+    // ============================================================
+    // DELETE
+    // ============================================================
+
+    async function deleteContent(id) {
+
+        if (
+            !confirm(
+                "Delete this premium content?"
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            await premiumContentRef
+                .doc(id)
+                .delete();
+
+
+            showToast(
+                "Content deleted.",
+                "success"
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            showToast(
+                "Delete failed: " +
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // CLEAR ALL
+    // ============================================================
+
+    async function clearAllContent() {
+
+        if (
+            !confirm(
+                "DELETE ALL PREMIUM CONTENT?\n\nThis cannot be undone."
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        try {
+
+            const snapshot =
+                await premiumContentRef.get();
+
+
+            if (snapshot.empty) {
+
+                showToast(
+                    "No content to delete.",
+                    "info"
+                );
+
+                return;
+            }
+
+
+            const batch =
+                db.batch();
+
+
+            snapshot.forEach(doc => {
+
+                batch.delete(doc.ref);
+
+            });
+
+
+            await batch.commit();
+
+
+            showToast(
+                "All content deleted.",
+                "success"
+            );
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            showToast(
+                "Failed: " +
+                error.message,
+                "error"
+            );
+
+        }
+
+    }
+
+
+    // ============================================================
+    // SIGN OUT
+    // ============================================================
+
+    async function signOut() {
+
+        await auth.signOut();
+
+        showToast(
+            "Signed out.",
+            "info"
+        );
+
+    }
+
+
+    // ============================================================
+    // ESCAPE HTML
+    // ============================================================
+
+    function escapeHtml(value) {
+
+        if (!value) return "";
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+
+    }
+
+
+    // ============================================================
+    // TOAST
+    // ============================================================
+
+    function showToast(
+        message,
+        type = "info"
+    ) {
+
+        const old =
+            document.querySelector(
+                ".toast"
+            );
+
+
+        if (old) old.remove();
+
+
+        const toast =
+            document.createElement(
+                "div"
+            );
+
+
+        toast.className =
+            `toast ${type}`;
+
+
+        toast.textContent =
+            message;
+
+
+        document.body.appendChild(
+            toast
+        );
+
+
+        setTimeout(() => {
+
+            toast.remove();
+
+        }, 3500);
+
+    }
+
+
+    // ============================================================
+    // EVENTS
+    // ============================================================
+
+    authSubmitBtn.addEventListener(
+        "click",
+        handleAuthSubmit
+    );
+
+
+    authPassword.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                handleAuthSubmit();
+
+            }
+
+        }
+    );
+
+
+    authEmail.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                handleAuthSubmit();
+
+            }
+
+        }
+    );
+
+
+    authToggleLink.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+
+            toggleAuthMode(
+                !isSignUp
+            );
+
+        }
+    );
+
+
+    signOutBtn.addEventListener(
+        "click",
+        signOut
+    );
+
+
+    publishBtn.addEventListener(
+        "click",
+        publishContent
+    );
+
+
+    clearAllBtn.addEventListener(
+        "click",
+        clearAllContent
+    );
+
+
+    // ============================================================
+    // AUTH STATE
+    // ============================================================
+
+    auth.onAuthStateChanged(
+        user => {
+
+            updateUI(user);
+
+        }
+    );
+
+
+    // ============================================================
+    // INIT
+    // ============================================================
+
+    toggleAuthMode(false);
+
+    updateStatus(
+        "connecting",
+        "Initializing..."
+    );
+
+
+    console.log(
+        "🚀 BetLive Premium Admin ready"
+    );
+
+    console.log(
+        "📌 Firestore collection: premiumContent"
+    );
+
+</script>
+
+</body>
+</html>
+```
