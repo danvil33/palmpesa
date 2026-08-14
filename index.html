@@ -11,36 +11,73 @@ html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
 body{background:#f4f4f4}
 
 .loader{
-position:fixed;inset:0;background:#ff6a00;color:#fff;
-display:grid;place-items:center;z-index:99;
+position:fixed;
+inset:0;
+background:#ff6a00;
+color:#fff;
+display:grid;
+place-items:center;
+z-index:99;
 animation:out .5s 1.5s forwards
 }
-.loader b{font-size:25vw;letter-spacing:-.12em}
 
-.home,.auth,.app{position:absolute;inset:0}
+.loader b{
+font-size:25vw;
+letter-spacing:-.12em
+}
 
-.home{display:flex;background:#fff}
+.home,.auth,.app{
+position:absolute;
+inset:0
+}
+
+.home{
+display:flex;
+background:#fff
+}
 
 .brand{
-width:42%;background:#ff6a00;color:#fff;
-display:grid;place-items:center;
-font-size:20vw;font-weight:900;
+width:42%;
+background:#ff6a00;
+color:#fff;
+display:grid;
+place-items:center;
+font-size:20vw;
+font-weight:900;
 letter-spacing:-.13em
 }
 
 .intro{
-flex:1;display:flex;align-items:center;padding:8vw
+flex:1;
+display:flex;
+align-items:center;
+padding:8vw
 }
 
-.intro h1{font-size:7vw;margin:0}
-.intro p{color:#777;text-transform:uppercase;letter-spacing:.15em}
+.intro h1{
+font-size:7vw;
+margin:0
+}
+
+.intro p{
+color:#777;
+text-transform:uppercase;
+letter-spacing:.15em
+}
 
 .view,.submit{
-background:#ff6a00;color:#fff;border:0;
-padding:16px 28px;font-weight:800;cursor:pointer
+background:#ff6a00;
+color:#fff;
+border:0;
+padding:16px 28px;
+font-weight:800;
+cursor:pointer
 }
 
-.view:hover,.submit:hover{background:#df5c00}
+.view:hover,
+.submit:hover{
+background:#df5c00
+}
 
 .auth{
 display:none;
@@ -57,7 +94,9 @@ box-shadow:0 25px 70px #0002
 }
 
 .aside{
-background:#ff6a00;color:#fff;padding:50px
+background:#ff6a00;
+color:white;
+padding:50px
 }
 
 .aside b{
@@ -65,10 +104,17 @@ font-size:10vw;
 letter-spacing:-.13em
 }
 
-.main{padding:55px}
-.main h1{font-size:42px}
+.main{
+padding:55px
+}
 
-.field{margin:15px 0}
+.main h1{
+font-size:42px
+}
+
+.field{
+margin:15px 0
+}
 
 .field label{
 display:block;
@@ -89,7 +135,9 @@ font:inherit
 resize:vertical
 }
 
-.submit{width:100%}
+.submit{
+width:100%
+}
 
 .link{
 border:0;
@@ -147,6 +195,10 @@ font-weight:bold;
 cursor:pointer
 }
 
+.logout:hover{
+background:#df5c00
+}
+
 .content{
 width:min(1050px,92vw);
 padding:110px 0 50px;
@@ -158,8 +210,13 @@ font-size:clamp(42px,7vw,78px);
 margin:0
 }
 
-.hero h1 span{color:#ff6a00}
-.hero p{color:#777}
+.hero h1 span{
+color:#ff6a00
+}
+
+.hero p{
+color:#777
+}
 
 .admin-panel{
 border:1px solid #eee;
@@ -169,8 +226,13 @@ background:#fff;
 box-shadow:0 12px 35px #0000000d
 }
 
-.admin-panel h2{margin:0 0 8px}
-.admin-panel p{color:#777}
+.admin-panel h2{
+margin:0 0 8px
+}
+
+.admin-panel p{
+color:#777
+}
 
 .section-head{
 display:flex;
@@ -181,8 +243,10 @@ margin-bottom:20px
 
 .posts{
 display:grid;
-grid-template-columns:
-repeat(auto-fit,minmax(260px,1fr));
+grid-template-columns:repeat(
+auto-fit,
+minmax(260px,1fr)
+);
 gap:18px
 }
 
@@ -193,7 +257,7 @@ padding:24px;
 box-shadow:0 10px 30px #0000000a;
 display:flex;
 flex-direction:column;
-min-height:250px
+min-height:260px
 }
 
 .post-card h3{
@@ -210,11 +274,7 @@ margin-bottom:14px
 .preview{
 color:#666;
 line-height:1.5;
-flex:1;
-display:-webkit-box;
--webkit-line-clamp:4;
--webkit-box-orient:vertical;
-overflow:hidden
+flex:1
 }
 
 .price{
@@ -233,9 +293,25 @@ font-weight:800;
 cursor:pointer
 }
 
-.view-content:hover{background:#df5c00}
+.view-content:hover{
+background:#df5c00
+}
 
-.empty{color:#888}
+.empty{
+color:#888
+}
+
+.lock{
+font-size:38px;
+text-align:center;
+margin-bottom:8px
+}
+
+.premium-preview{
+color:#777;
+line-height:1.6;
+padding:15px 0
+}
 
 .modal{
 position:fixed;
@@ -288,12 +364,6 @@ margin:15px 0 25px
 .submit:disabled{
 opacity:.6;
 cursor:not-allowed
-}
-
-.lock{
-font-size:40px;
-text-align:center;
-margin-bottom:10px
 }
 
 @keyframes out{
@@ -398,7 +468,6 @@ VIEW NOW
 <h2>Welcome to KB.</h2>
 
 </aside>
-
 
 <main class="main">
 
@@ -528,7 +597,7 @@ Your content library
 </div>
 
 
-<!-- ADMIN -->
+<!-- ADMIN PANEL -->
 
 <section
 id="adminPanel"
@@ -698,7 +767,6 @@ id="closePayment"
 Unlock Content
 </h2>
 
-
 <p>
 This content requires payment before it can be viewed.
 </p>
@@ -806,7 +874,7 @@ from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
 
-const firebaseConfig={
+const firebaseConfig = {
 
 apiKey:
 'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
@@ -842,11 +910,12 @@ const db =
 getFirestore(firebaseApp);
 
 
-let signup=false;
-let currentUser=null;
-let stopPosts=null;
-let selectedPost=null;
-let selectedPostId=null;
+let signup = false;
+let currentUser = null;
+let stopPosts = null;
+
+let selectedPost = null;
+let selectedPostId = null;
 
 
 const $ =
@@ -855,51 +924,71 @@ id => document.getElementById(id);
 
 const msg =
 text => {
-$('msg').textContent=text;
+$('msg').textContent = text;
 };
 
 
-/* HOME */
+/* =========================
+   HOME
+========================= */
 
-$('view').onclick=()=>{
+$('view').onclick = () => {
 
-$('home').style.display='none';
+$('home').style.display = 'none';
 
-$('auth').style.display='flex';
+$('auth').style.display = 'flex';
 
 };
 
 
-/* LOGIN / SIGNUP */
+/* =========================
+   SWITCH LOGIN / SIGNUP
+========================= */
 
-$('switch').onclick=()=>{
+$('switch').onclick = () => {
 
-signup=!signup;
+signup = !signup;
+
 
 $('title').textContent =
 signup
-?'Create your account.'
-:'Welcome back.';
+?
+'Create your account.'
+:
+'Welcome back.';
+
 
 $('sub').textContent =
 signup
-?'Join KB today.'
-:'Sign in to continue.';
+?
+'Join KB today.'
+:
+'Sign in to continue.';
+
 
 $('nameBox').style.display =
 signup
-?'block'
-:'none';
+?
+'block'
+:
+'none';
+
 
 $('forgot').style.display =
 signup
-?'none'
-:'inline-block';
+?
+'none'
+:
+'inline-block';
+
 
 $('submit').textContent =
 signup
-?'CREATE ACCOUNT'
-:'SIGN IN';
+?
+'CREATE ACCOUNT'
+:
+'SIGN IN';
+
 
 $('switch').innerHTML =
 signup
@@ -911,24 +1000,26 @@ signup
 };
 
 
-/* AUTH */
+/* =========================
+   AUTH
+========================= */
 
-$('submit').onclick=async()=>{
+$('submit').onclick = async () => {
 
-const e =
+const email =
 $('email').value.trim();
 
-const p =
+const password =
 $('password').value;
 
-const n =
+const name =
 $('name').value.trim();
 
 
 if(
-!e ||
-!p ||
-(signup && !n)
+!email ||
+!password ||
+(signup && !name)
 ){
 
 msg(
@@ -940,25 +1031,25 @@ return;
 }
 
 
-$('submit').disabled=true;
+$('submit').disabled = true;
 
 
 try{
 
 if(signup){
 
-const c =
+const credential =
 await createUserWithEmailAndPassword(
 auth,
-e,
-p
+email,
+password
 );
 
 
 await updateProfile(
-c.user,
+credential.user,
 {
-displayName:n
+displayName:name
 }
 );
 
@@ -966,13 +1057,13 @@ displayName:n
 try{
 
 await sendEmailVerification(
-c.user
+credential.user
 );
 
 }catch(error){
 
 console.log(
-'Verification email:',
+'Verification email error:',
 error
 );
 
@@ -980,12 +1071,16 @@ error
 
 
 await setDoc(
-doc(db,'people',c.user.uid),
+doc(
+db,
+'people',
+credential.user.uid
+),
 {
 
-name:n,
+name:name,
 
-email:e,
+email:email,
 
 role:'user',
 
@@ -996,28 +1091,33 @@ serverTimestamp()
 );
 
 
-openApp(c.user);
+openApp(
+credential.user
+);
 
 
 }else{
 
-const c =
+const credential =
 await signInWithEmailAndPassword(
 auth,
-e,
-p
+email,
+password
 );
 
-openApp(c.user);
+
+openApp(
+credential.user
+);
 
 }
 
 
-}catch(x){
+}catch(error){
 
 msg(
 
-x.code ===
+error.code ===
 'auth/invalid-credential'
 
 ?
@@ -1026,7 +1126,7 @@ x.code ===
 
 :
 
-x.code ===
+error.code ===
 'auth/email-already-in-use'
 
 ?
@@ -1035,28 +1135,30 @@ x.code ===
 
 :
 
-x.message
+error.message
 
 );
 
 }finally{
 
-$('submit').disabled=false;
+$('submit').disabled = false;
 
 }
 
 };
 
 
-/* FORGOT */
+/* =========================
+   PASSWORD RESET
+========================= */
 
-$('forgot').onclick=async()=>{
+$('forgot').onclick = async () => {
 
-const e =
+const email =
 $('email').value.trim();
 
 
-if(!e){
+if(!email){
 
 msg(
 'Enter your email first.'
@@ -1071,60 +1173,71 @@ try{
 
 await sendPasswordResetEmail(
 auth,
-e
+email
 );
 
 msg(
 'Password reset email sent.'
 );
 
-}catch(x){
+}catch(error){
 
-msg(x.message);
+msg(
+error.message
+);
 
 }
 
 };
 
 
-/* OPEN APP */
+/* =========================
+   OPEN APP
+========================= */
 
-async function openApp(u){
+async function openApp(user){
 
-currentUser=u;
+currentUser = user;
 
-$('auth').style.display='none';
 
-$('home').style.display='none';
+$('auth').style.display = 'none';
 
-$('app').style.display='block';
+$('home').style.display = 'none';
+
+$('app').style.display = 'block';
 
 
 $('userName').textContent =
-u.displayName ||
-u.email;
+user.displayName ||
+user.email;
 
 
-const snap =
+const userSnap =
 await getDoc(
-doc(db,'people',u.uid)
+doc(
+db,
+'people',
+user.uid
+)
 );
 
 
-const data =
-snap.exists()
+const userData =
+userSnap.exists()
 ?
-snap.data()
+userSnap.data()
 :
-{role:'user'};
+{
+role:'user'
+};
 
 
-const admin =
-data.role === 'admin';
+const isAdmin =
+userData.role === 'admin';
 
 
 $('adminPanel').style.display =
-admin
+isAdmin
 ?
 'block'
 :
@@ -1132,7 +1245,7 @@ admin
 
 
 $('roleText').textContent =
-admin
+isAdmin
 ?
 'Administrator — publish content below.'
 :
@@ -1144,52 +1257,64 @@ listenPosts();
 }
 
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
-$('logout').onclick=async()=>{
+$('logout').onclick = async () => {
 
 await signOut(auth);
+
 
 if(stopPosts){
 
 stopPosts();
 
-stopPosts=null;
+stopPosts = null;
 
 }
 
-currentUser=null;
 
-$('app').style.display='none';
+currentUser = null;
 
-$('home').style.display='flex';
+
+$('app').style.display = 'none';
+
+$('home').style.display = 'flex';
 
 };
 
 
-/* ADMIN PUBLISH */
+/* =========================
+   ADMIN PUBLISH
+========================= */
 
-$('publish').onclick=async()=>{
+$('publish').onclick = async () => {
 
-if(!currentUser)return;
+if(!currentUser)
+return;
 
 
-$('publish').disabled=true;
+$('publish').disabled = true;
 
-$('postMsg').textContent='';
+$('postMsg').textContent = '';
 
 
 try{
 
-const u =
+const userSnap =
 await getDoc(
-doc(db,'people',currentUser.uid)
+doc(
+db,
+'people',
+currentUser.uid
+)
 );
 
 
 if(
-!u.exists() ||
-u.data().role !== 'admin'
+!userSnap.exists() ||
+userSnap.data().role !== 'admin'
 ){
 
 throw new Error(
@@ -1200,16 +1325,21 @@ throw new Error(
 
 
 const title =
-$('postTitle').value.trim();
+$('postTitle')
+.value
+.trim();
 
 
 const content =
-$('postContent').value.trim();
+$('postContent')
+.value
+.trim();
 
 
 const price =
 Number(
-$('postPrice').value || 0
+$('postPrice')
+.value || 0
 );
 
 
@@ -1269,11 +1399,11 @@ serverTimestamp()
 );
 
 
-$('postTitle').value='';
+$('postTitle').value = '';
 
-$('postContent').value='';
+$('postContent').value = '';
 
-$('postPrice').value='';
+$('postPrice').value = '';
 
 
 $('postMsg').textContent =
@@ -1287,22 +1417,27 @@ error.message;
 
 }finally{
 
-$('publish').disabled=false;
+$('publish').disabled = false;
 
 }
 
 };
 
 
-/* LOAD POSTS */
+/* =========================
+   LOAD POSTS
+========================= */
 
 function listenPosts(){
 
-if(stopPosts)
+if(stopPosts){
+
 stopPosts();
 
+}
 
-const q =
+
+const postsQuery =
 query(
 collection(db,'posts'),
 orderBy('createdAt','desc')
@@ -1311,15 +1446,15 @@ orderBy('createdAt','desc')
 
 stopPosts =
 onSnapshot(
-q,
+postsQuery,
 
-snap=>{
+snapshot => {
 
 const box =
 $('posts');
 
 
-if(snap.empty){
+if(snapshot.empty){
 
 box.innerHTML =
 '<p class="empty">No content has been published yet.</p>';
@@ -1329,38 +1464,65 @@ return;
 }
 
 
+/*
+IMPORTANT:
+
+For paid posts we DO NOT
+render p.content here.
+
+Only free posts show content.
+*/
+
 box.innerHTML =
-snap.docs
+
+snapshot.docs
 
 .filter(
-d =>
-d.data().published !== false
+docSnap =>
+docSnap.data().published !== false
 )
 
-.map(d=>{
+.map(docSnap => {
 
-const p=d.data();
+const post =
+docSnap.data();
 
 
 const date =
-p.createdAt?.toDate
+post.createdAt?.toDate
+
 ?
-p.createdAt.toDate()
+
+post.createdAt
+.toDate()
 .toLocaleString()
+
 :
+
 'Just now';
 
 
 const price =
-Number(p.price || 0);
+Number(
+post.price || 0
+);
 
+
+/* =========================
+   FREE CONTENT
+========================= */
+
+if(price <= 0){
 
 return `
 
 <article class="post-card">
 
 <h3>
-${esc(p.title || 'Untitled')}
+${esc(
+post.title ||
+'Untitled'
+)}
 </h3>
 
 <div class="date">
@@ -1368,34 +1530,80 @@ ${esc(date)}
 </div>
 
 <div class="preview">
-${esc(p.content || '')}
+${esc(
+post.content ||
+''
+)}
+</div>
+
+<div class="price">
+FREE
+</div>
+
+<button
+class="view-content"
+data-id="${docSnap.id}"
+>
+VIEW CONTENT
+</button>
+
+</article>
+
+`;
+
+}
+
+
+/* =========================
+   PAID CONTENT
+========================= */
+
+return `
+
+<article class="post-card">
+
+<div class="lock">
+🔒
+</div>
+
+<h3>
+${esc(
+post.title ||
+'Untitled'
+)}
+</h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+<div class="premium-preview">
+
+<strong>
+Premium Content
+</strong>
+
+<br><br>
+
+🔒 This content is locked.
+
+<br>
+
+Pay to unlock and view the full content.
+
 </div>
 
 <div class="price">
 
-${
-price > 0
-?
-price.toLocaleString()+' TSh'
-:
-'FREE'
-}
+${price.toLocaleString()} TSh
 
 </div>
 
 <button
 class="view-content"
-data-id="${d.id}"
+data-id="${docSnap.id}"
 >
-
-${
-price > 0
-?
-'PAY & VIEW CONTENT'
-:
-'VIEW CONTENT'
-}
-
+PAY & VIEW CONTENT
 </button>
 
 </article>
@@ -1407,52 +1615,70 @@ price > 0
 .join('');
 
 
+/* =========================
+   BUTTON EVENTS
+========================= */
+
 box
-.querySelectorAll('.view-content')
-.forEach(button=>{
+.querySelectorAll(
+'.view-content'
+)
+.forEach(button => {
 
-button.onclick=()=>{
+button.onclick = () => {
 
-const d =
-snap.docs.find(
-x =>
-x.id ===
+const selectedDoc =
+snapshot.docs.find(
+docSnap =>
+docSnap.id ===
 button.dataset.id
 );
 
 
-if(!d)return;
+if(!selectedDoc)
+return;
 
 
 const post =
-d.data();
+selectedDoc.data();
 
 
 const price =
-Number(post.price || 0);
+Number(
+post.price || 0
+);
 
+
+/* FREE */
 
 if(price <= 0){
 
 showContent(post);
 
-}else{
-
-openPaymentModal(
-d.id,
-post
-);
+return;
 
 }
+
+
+/* PAID */
+
+openPaymentModal(
+selectedDoc.id,
+post
+);
 
 };
 
 });
 
-
 },
 
-error=>{
+error => {
+
+console.error(
+'Firestore error:',
+error
+);
 
 $('posts').innerHTML =
 '<p class="empty">Unable to load content.</p>';
@@ -1464,16 +1690,20 @@ $('posts').innerHTML =
 }
 
 
-/* PAYMENT MODAL */
+/* =========================
+   PAYMENT MODAL
+========================= */
 
 function openPaymentModal(
 postId,
 post
 ){
 
-selectedPostId=postId;
+selectedPostId =
+postId;
 
-selectedPost=post;
+selectedPost =
+post;
 
 
 $('paymentTitle').textContent =
@@ -1482,9 +1712,11 @@ post.title ||
 
 
 $('paymentPrice').textContent =
+
 Number(
 post.price || 0
-).toLocaleString() +
+)
+.toLocaleString() +
 ' TSh';
 
 
@@ -1498,80 +1730,98 @@ currentUser?.email ||
 '';
 
 
-$('payPhone').value='';
+$('payPhone').value = '';
 
 
-$('paymentMsg').textContent='';
+$('paymentMsg').textContent = '';
 
 
-$('paymentModal').style.display='flex';
+$('paymentModal').style.display =
+'flex';
 
 }
 
 
-/* CLOSE PAYMENT */
+/* =========================
+   CLOSE PAYMENT
+========================= */
 
-$('closePayment').onclick=()=>{
+$('closePayment').onclick = () => {
 
-$('paymentModal').style.display='none';
-
-};
-
-
-/* CLOSE CONTENT */
-
-$('closeModal').onclick=()=>{
-
-$('contentModal').style.display='none';
+$('paymentModal').style.display =
+'none';
 
 };
 
 
-$('contentModal').onclick=e=>{
+/* =========================
+   CLOSE CONTENT
+========================= */
+
+$('closeModal').onclick = () => {
+
+$('contentModal').style.display =
+'none';
+
+};
+
+
+$('contentModal').onclick = event => {
 
 if(
-e.target ===
+event.target ===
 $('contentModal')
 ){
 
-$('contentModal').style.display='none';
+$('contentModal').style.display =
+'none';
 
 }
 
 };
 
 
-$('paymentModal').onclick=e=>{
+$('paymentModal').onclick = event => {
 
 if(
-e.target ===
+event.target ===
 $('paymentModal')
 ){
 
-$('paymentModal').style.display='none';
+$('paymentModal').style.display =
+'none';
 
 }
 
 };
 
 
-/* PAYMENT */
+/* =========================
+   PAYMENT
+========================= */
 
-$('payButton').onclick=async()=>{
+$('payButton').onclick = async () => {
 
-if(!currentUser)return;
+if(!currentUser)
+return;
 
 
 const name =
-$('payName').value.trim();
+$('payName')
+.value
+.trim();
 
 
 const email =
-$('payEmail').value.trim();
+$('payEmail')
+.value
+.trim();
 
 
 const phone =
-$('payPhone').value.trim();
+$('payPhone')
+.value
+.trim();
 
 
 const amount =
@@ -1580,7 +1830,11 @@ selectedPost?.price || 0
 );
 
 
-if(!name || !email || !phone){
+if(
+!name ||
+!email ||
+!phone
+){
 
 $('paymentMsg').textContent =
 'Please complete all fields.';
@@ -1590,7 +1844,10 @@ return;
 }
 
 
-if(!amount || amount<=0){
+if(
+!amount ||
+amount <= 0
+){
 
 $('paymentMsg').textContent =
 'Invalid payment amount.';
@@ -1600,7 +1857,7 @@ return;
 }
 
 
-$('payButton').disabled=true;
+$('payButton').disabled = true;
 
 $('paymentMsg').textContent =
 'Starting payment...';
@@ -1620,7 +1877,8 @@ headers:{
 'application/json'
 },
 
-body:JSON.stringify({
+body:
+JSON.stringify({
 
 name:name,
 
@@ -1657,11 +1915,14 @@ result.message ||
 }
 
 
-$('paymentMsg').innerHTML =
-`
-Payment request sent successfully.<br><br>
+$('paymentMsg').innerHTML = `
+
+Payment request sent successfully.
+
+<br><br>
 
 Transaction ID:
+
 <strong>
 ${esc(
 result.transaction_id ||
@@ -1672,109 +1933,136 @@ result.transaction_id ||
 <br><br>
 
 Complete the payment on your phone.
+
+<br><br>
+
+<strong>
+Do not close this window until you finish the payment.
+</strong>
+
 `;
 
 
 /*
 IMPORTANT:
 
-For now we don't automatically
-unlock the content.
+We are NOT unlocking the
+content yet.
 
-We are only starting the payment.
+This version only starts
+the PalmPesa payment.
 
-Once you check PalmPesa's API,
-we can add payment verification.
+Once payment verification
+is added, successful users
+can automatically unlock
+the content.
 */
 
 
 }catch(error){
+
+console.error(
+'Payment error:',
+error
+);
 
 $('paymentMsg').textContent =
 error.message;
 
 }finally{
 
-$('payButton').disabled=false;
+$('payButton').disabled = false;
 
 }
 
 };
 
 
-/* SHOW CONTENT */
+/* =========================
+   SHOW CONTENT
+========================= */
 
-function showContent(p){
+function showContent(post){
 
 $('modalTitle').textContent =
-p.title ||
+post.title ||
 'Untitled';
 
 
 $('modalDate').textContent =
-p.createdAt?.toDate
+
+post.createdAt?.toDate
+
 ?
-p.createdAt.toDate()
+
+post.createdAt
+.toDate()
 .toLocaleString()
+
 :
+
 'Just now';
 
 
 $('modalContent').textContent =
-p.content ||
+post.content ||
 '';
 
 
-$('contentModal').style.display='flex';
+$('contentModal').style.display =
+'flex';
 
 }
 
 
-/* REFRESH */
+/* =========================
+   REFRESH
+========================= */
 
-$('refreshPosts').onclick=()=>{
+$('refreshPosts').onclick = () => {
 
 listenPosts();
 
 };
 
 
-/* ESCAPE HTML */
+/* =========================
+   ESCAPE HTML
+========================= */
 
-function esc(v){
+function esc(value){
 
-return String(v)
+return String(value)
+
 .replace(
 /[&<>"']/g,
 
-c=>({
+character => ({
 
 '&':'&amp;',
-
 '<':'&lt;',
-
 '>':'&gt;',
-
 '"':'&quot;',
-
 "'":'&#039;'
 
-}[c])
+}[character])
 
 );
 
 }
 
 
-/* AUTH STATE */
+/* =========================
+   AUTH STATE
+========================= */
 
 onAuthStateChanged(
 auth,
-u=>{
+user => {
 
-if(u){
+if(user){
 
-openApp(u);
+openApp(user);
 
 }
 
