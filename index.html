@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MIKEKA BOOM</title>
 
+<!-- FONT AWESOME -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+>
+
 <style>
 *{box-sizing:border-box}
 
@@ -309,7 +315,14 @@ color:#fff;
 padding:10px 16px;
 border-radius:8px;
 font-size:12px;
-font-weight:900
+font-weight:900;
+display:flex;
+align-items:center;
+gap:8px
+}
+
+.logout:hover{
+background:#333
 }
 
 /* CONTENT */
@@ -350,7 +363,8 @@ border-radius:25px;
 background:#fff0e7;
 color:#ff6a00;
 display:grid;
-place-items:center
+place-items:center;
+font-size:32px
 }
 
 /* ADMIN */
@@ -381,7 +395,7 @@ background:#fff0e7;
 color:#ff6a00;
 display:grid;
 place-items:center;
-font-size:22px
+font-size:18px
 }
 
 .admin-title h2{
@@ -449,7 +463,15 @@ background:#fff;
 padding:9px 14px;
 border-radius:8px;
 font-size:12px;
-font-weight:900
+font-weight:900;
+display:flex;
+align-items:center;
+gap:8px
+}
+
+.refresh:hover{
+border-color:#ff6a00;
+color:#ff6a00
 }
 
 /* POSTS */
@@ -495,7 +517,7 @@ background:#fff0e7;
 color:#ff6a00;
 display:grid;
 place-items:center;
-font-size:20px
+font-size:18px
 }
 
 .badge{
@@ -504,7 +526,10 @@ border-radius:20px;
 background:#f1f1f1;
 color:#777;
 font-size:10px;
-font-weight:900
+font-weight:900;
+display:flex;
+align-items:center;
+gap:6px
 }
 
 .badge.premium{
@@ -551,7 +576,7 @@ background:#fff0e7;
 color:#ff6a00;
 display:grid;
 place-items:center;
-font-size:25px;
+font-size:21px;
 margin-bottom:14px
 }
 
@@ -580,7 +605,11 @@ border-radius:9px;
 padding:13px;
 background:#ff6a00;
 color:#fff;
-font-weight:900
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:9px
 }
 
 .pay-button:hover{
@@ -600,7 +629,10 @@ border:1px solid #ffe0cc
 color:#188038;
 font-size:12px;
 font-weight:900;
-margin-bottom:14px
+margin-bottom:14px;
+display:flex;
+align-items:center;
+gap:7px
 }
 
 .content-text{
@@ -658,7 +690,14 @@ height:35px;
 border:0;
 border-radius:50%;
 background:#f5f5f5;
-font-size:24px
+font-size:17px;
+display:grid;
+place-items:center
+}
+
+.close-modal:hover{
+background:#eee;
+color:#ff6a00
 }
 
 .payment-icon{
@@ -669,7 +708,7 @@ background:#fff0e7;
 color:#ff6a00;
 display:grid;
 place-items:center;
-font-size:28px;
+font-size:25px;
 margin-bottom:18px
 }
 
@@ -712,7 +751,9 @@ margin:0 auto 16px
 }
 
 @keyframes spin{
-to{transform:rotate(360deg)}
+to{
+transform:rotate(360deg)
+}
 }
 
 .payment-status strong{
@@ -833,10 +874,13 @@ padding:25px
 
 <body>
 
+<!-- LOADER -->
 <div class="loader">
 <b>MB</b>
 </div>
 
+
+<!-- HOME -->
 <section class="home" id="home">
 
 <div class="brand">
@@ -864,7 +908,8 @@ pay securely and unlock it instantly.
 </p>
 
 <button class="primary-btn" id="view">
-GET STARTED →
+GET STARTED
+<i class="fa-solid fa-arrow-right"></i>
 </button>
 
 </div>
@@ -874,6 +919,7 @@ GET STARTED →
 </section>
 
 
+<!-- AUTH -->
 <section class="auth" id="auth">
 
 <div class="auth-card">
@@ -914,7 +960,10 @@ Sign in to continue.
 
 <label>FULL NAME</label>
 
-<input id="name" autocomplete="name" placeholder="Your name">
+<input
+id="name"
+autocomplete="name"
+placeholder="Your name">
 
 </div>
 
@@ -922,7 +971,11 @@ Sign in to continue.
 
 <label>EMAIL</label>
 
-<input id="email" type="email" autocomplete="email" placeholder="you@example.com">
+<input
+id="email"
+type="email"
+autocomplete="email"
+placeholder="you@example.com">
 
 </div>
 
@@ -930,7 +983,11 @@ Sign in to continue.
 
 <label>PASSWORD</label>
 
-<input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+placeholder="••••••••">
 
 </div>
 
@@ -956,6 +1013,7 @@ Don't have an account?
 </section>
 
 
+<!-- APP -->
 <section class="app" id="app">
 
 <header class="topbar">
@@ -969,6 +1027,7 @@ MIKEKA BOOM
 <span class="user-name" id="userName"></span>
 
 <button class="logout" id="logout">
+<i class="fa-solid fa-right-from-bracket"></i>
 SIGN OUT
 </button>
 
@@ -999,12 +1058,13 @@ Your content library.
 </div>
 
 <div class="hero-icon">
-📚
+<i class="fa-solid fa-book-open"></i>
 </div>
 
 </div>
 
 
+<!-- ADMIN -->
 <section id="adminPanel" class="admin-panel" style="display:none">
 
 <div class="admin-header">
@@ -1012,7 +1072,7 @@ Your content library.
 <div class="admin-title">
 
 <div class="admin-icon">
-＋
+<i class="fa-solid fa-plus"></i>
 </div>
 
 <div>
@@ -1081,6 +1141,8 @@ placeholder="Write your content here..."></textarea>
 
 
 <button class="submit" id="publish">
+<i class="fa-solid fa-cloud-arrow-up"></i>
+&nbsp;
 PUBLISH CONTENT
 </button>
 
@@ -1089,6 +1151,7 @@ PUBLISH CONTENT
 </section>
 
 
+<!-- CONTENT HEADER -->
 <div class="section-header">
 
 <div class="section-title">
@@ -1104,12 +1167,14 @@ Premium library
 </div>
 
 <button class="refresh" id="refreshPosts">
-↻ REFRESH
+<i class="fa-solid fa-rotate"></i>
+REFRESH
 </button>
 
 </div>
 
 
+<!-- POSTS -->
 <div id="posts" class="posts">
 
 <div class="empty">
@@ -1123,17 +1188,20 @@ Loading content...
 </section>
 
 
+<!-- PAYMENT MODAL -->
 <div class="modal" id="paymentModal">
 
 <div class="modal-box">
 
 <button class="close-modal" id="closePayment">
-×
+<i class="fa-solid fa-xmark"></i>
 </button>
 
+
 <div class="payment-icon">
-💳
+<i class="fa-solid fa-credit-card"></i>
 </div>
+
 
 <h2 id="paymentTitle">
 Unlock Content
@@ -1154,7 +1222,9 @@ your payment, the content will automatically unlock.
 
 <label>NAME</label>
 
-<input id="payName" placeholder="Your full name">
+<input
+id="payName"
+placeholder="Your full name">
 
 </div>
 
@@ -1162,7 +1232,10 @@ your payment, the content will automatically unlock.
 
 <label>EMAIL</label>
 
-<input id="payEmail" type="email" placeholder="you@example.com">
+<input
+id="payEmail"
+type="email"
+placeholder="you@example.com">
 
 </div>
 
@@ -1170,17 +1243,23 @@ your payment, the content will automatically unlock.
 
 <label>PHONE NUMBER</label>
 
-<input id="payPhone" type="tel" placeholder="07XXXXXXXX">
+<input
+id="payPhone"
+type="tel"
+placeholder="07XXXXXXXX">
 
 </div>
 
 <button class="submit" id="payButton">
+<i class="fa-solid fa-lock-open"></i>
+&nbsp;
 PAY NOW
 </button>
 
 </div>
 
 
+<!-- PAYMENT WAITING -->
 <div class="payment-status" id="paymentStatus">
 
 <div class="spinner"></div>
@@ -1200,17 +1279,35 @@ Checking payment status...
 </div>
 
 
+<!-- SUCCESS -->
 <div class="success-box" id="successBox">
-PAYMENT COMPLETED
+
+<i class="fa-solid fa-circle-check"></i>
+
 <br><br>
+
+PAYMENT COMPLETED
+
+<br><br>
+
 Unlocking your content...
+
 </div>
 
 
+<!-- FAILED -->
 <div class="failed-box" id="failedBox">
-PAYMENT FAILED
+
+<i class="fa-solid fa-circle-xmark"></i>
+
 <br><br>
+
+PAYMENT FAILED
+
+<br><br>
+
 Please try again.
+
 </div>
 
 
@@ -1329,9 +1426,7 @@ character=>({
 }
 
 
-/*
- LOAD PURCHASES FOR CURRENT USER
-*/
+/* LOAD PURCHASES */
 async function loadPurchases(){
 
 paidPosts=new Set();
@@ -1357,9 +1452,7 @@ snapshot.forEach(item=>{
 
 const data=item.data();
 
-if(
-data.status==='COMPLETED'
-){
+if(data.status==='COMPLETED'){
 
 paidPosts.add(item.id);
 
@@ -1379,9 +1472,7 @@ error
 }
 
 
-/*
- HOME
-*/
+/* HOME */
 $('view').onclick=()=>{
 
 $('home').style.display='none';
@@ -1391,9 +1482,7 @@ $('auth').style.display='flex';
 };
 
 
-/*
- AUTH SWITCH
-*/
+/* AUTH SWITCH */
 $('switch').onclick=()=>{
 
 signup=!signup;
@@ -1431,9 +1520,7 @@ signup
 };
 
 
-/*
- AUTH SUBMIT
-*/
+/* AUTH */
 $('submit').onclick=async()=>{
 
 const email=$('email').value.trim();
@@ -1541,9 +1628,7 @@ $('submit').disabled=false;
 };
 
 
-/*
- FORGOT
-*/
+/* FORGOT PASSWORD */
 $('forgot').onclick=async()=>{
 
 const email=$('email').value.trim();
@@ -1574,9 +1659,7 @@ msg(error.message);
 };
 
 
-/*
- OPEN APP
-*/
+/* OPEN APP */
 async function openApp(user){
 
 currentUser=user;
@@ -1629,9 +1712,7 @@ listenPosts();
 }
 
 
-/*
- LOGOUT
-*/
+/* LOGOUT */
 $('logout').onclick=async()=>{
 
 paymentPolling=false;
@@ -1657,9 +1738,7 @@ $('home').style.display='flex';
 };
 
 
-/*
- ADMIN PUBLISH
-*/
+/* ADMIN PUBLISH */
 $('publish').onclick=async()=>{
 
 if(!currentUser){
@@ -1704,15 +1783,30 @@ $('postPrice').value||0
 );
 
 if(!title){
-throw new Error('Enter a title.');
+
+throw new Error(
+'Enter a title.'
+);
+
 }
 
 if(!content){
-throw new Error('Enter content.');
+
+throw new Error(
+'Enter content.'
+);
+
 }
 
-if(!Number.isFinite(price)||price<0){
-throw new Error('Enter a valid price.');
+if(
+!Number.isFinite(price)||
+price<0
+){
+
+throw new Error(
+'Enter a valid price.'
+);
+
 }
 
 await addDoc(
@@ -1723,8 +1817,11 @@ content,
 price,
 published:true,
 authorId:currentUser.uid,
-authorName:currentUser.displayName||currentUser.email,
-createdAt:serverTimestamp()
+authorName:
+currentUser.displayName||
+currentUser.email,
+createdAt:
+serverTimestamp()
 }
 );
 
@@ -1751,13 +1848,13 @@ $('publish').disabled=false;
 };
 
 
-/*
- LIST POSTS
-*/
+/* POSTS */
 function listenPosts(){
 
 if(stopPosts){
+
 stopPosts();
+
 }
 
 const q=
@@ -1776,7 +1873,7 @@ const box=$('posts');
 if(snapshot.empty){
 
 box.innerHTML=
-'<div class="empty">No content has been published yet.</div>';
+'<div class="empty"><i class="fa-regular fa-folder-open"></i><br><br>No content has been published yet.</div>';
 
 return;
 
@@ -1803,9 +1900,7 @@ post.createdAt.toDate().toLocaleString()
 'Just now';
 
 
-/*
- FREE CONTENT
-*/
+/* FREE */
 if(price<=0){
 
 return `
@@ -1814,15 +1909,24 @@ return `
 
 <div class="card-top">
 
-<div class="category-icon">📄</div>
+<div class="category-icon">
+<i class="fa-regular fa-file-lines"></i>
+</div>
 
-<div class="badge free">FREE</div>
+<div class="badge free">
+<i class="fa-solid fa-unlock"></i>
+FREE
+</div>
 
 </div>
 
-<h3>${esc(post.title||'Untitled')}</h3>
+<h3>
+${esc(post.title||'Untitled')}
+</h3>
 
-<div class="date">${esc(date)}</div>
+<div class="date">
+${esc(date)}
+</div>
 
 <div class="free-content">
 
@@ -1839,9 +1943,7 @@ ${esc(post.content||'')}
 }
 
 
-/*
- ALREADY PAID
-*/
+/* PAID */
 if(paidPosts.has(item.id)){
 
 return `
@@ -1852,20 +1954,30 @@ id="post-${item.id}">
 
 <div class="card-top">
 
-<div class="category-icon">🔓</div>
+<div class="category-icon">
+<i class="fa-solid fa-lock-open"></i>
+</div>
 
-<div class="badge free">UNLOCKED</div>
+<div class="badge free">
+<i class="fa-solid fa-circle-check"></i>
+UNLOCKED
+</div>
 
 </div>
 
-<h3>${esc(post.title||'Untitled')}</h3>
+<h3>
+${esc(post.title||'Untitled')}
+</h3>
 
-<div class="date">${esc(date)}</div>
+<div class="date">
+${esc(date)}
+</div>
 
 <div class="unlocked-content">
 
 <div class="unlocked-header">
-✓ PAYMENT COMPLETED — CONTENT UNLOCKED
+<i class="fa-solid fa-circle-check"></i>
+PAYMENT COMPLETED — CONTENT UNLOCKED
 </div>
 
 <div class="content-text">
@@ -1881,9 +1993,7 @@ ${esc(post.content||'')}
 }
 
 
-/*
- LOCKED
-*/
+/* LOCKED */
 return `
 
 <article
@@ -1892,20 +2002,29 @@ id="post-${item.id}">
 
 <div class="card-top">
 
-<div class="category-icon">🔒</div>
+<div class="category-icon">
+<i class="fa-solid fa-lock"></i>
+</div>
 
-<div class="badge premium">PREMIUM</div>
+<div class="badge premium">
+<i class="fa-solid fa-crown"></i>
+PREMIUM
+</div>
 
 </div>
 
-<h3>${esc(post.title||'Untitled')}</h3>
+<h3>
+${esc(post.title||'Untitled')}
+</h3>
 
-<div class="date">${esc(date)}</div>
+<div class="date">
+${esc(date)}
+</div>
 
 <div class="locked-area">
 
 <div class="lock-circle">
-🔒
+<i class="fa-solid fa-lock"></i>
 </div>
 
 <strong>
@@ -1926,6 +2045,7 @@ ${price.toLocaleString()} TSh
 class="pay-button"
 data-id="${item.id}">
 
+<i class="fa-solid fa-credit-card"></i>
 PAY & UNLOCK
 
 </button>
@@ -1945,16 +2065,19 @@ button.onclick=()=>{
 
 const postDoc=
 snapshot.docs.find(
-item=>item.id===button.dataset.id
+item=>item.id===
+button.dataset.id
 );
 
 if(!postDoc){
 return;
 }
 
-selectedPostId=postDoc.id;
+selectedPostId=
+postDoc.id;
 
-selectedPost=postDoc.data();
+selectedPost=
+postDoc.data();
 
 openPaymentModal(
 postDoc.id,
@@ -1971,7 +2094,7 @@ error=>{
 console.error(error);
 
 $('posts').innerHTML=
-'<div class="empty">Unable to load content.</div>';
+'<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><br><br>Unable to load content.</div>';
 
 }
 );
@@ -1979,9 +2102,7 @@ $('posts').innerHTML=
 }
 
 
-/*
- PAYMENT MODAL
-*/
+/* PAYMENT MODAL */
 function openPaymentModal(postId,post){
 
 paymentPolling=false;
@@ -1994,7 +2115,8 @@ $('paymentTitle').textContent=
 post.title||'Unlock Content';
 
 $('paymentPrice').textContent=
-Number(post.price||0).toLocaleString()+
+Number(post.price||0)
+.toLocaleString()+
 ' TSh';
 
 $('payName').value=
@@ -2022,9 +2144,7 @@ $('paymentModal').style.display='flex';
 }
 
 
-/*
- CLOSE
-*/
+/* CLOSE PAYMENT */
 $('closePayment').onclick=()=>{
 
 if(paymentPolling){
@@ -2036,9 +2156,7 @@ $('paymentModal').style.display='none';
 };
 
 
-/*
- PAY
-*/
+/* PAY */
 $('payButton').onclick=async()=>{
 
 if(
@@ -2063,7 +2181,11 @@ $('payPhone').value.trim();
 const amount=
 Number(selectedPost.price||0);
 
-if(!name||!email||!phone){
+if(
+!name||
+!email||
+!phone
+){
 
 $('paymentMsg').textContent=
 'Please complete all fields.';
@@ -2072,7 +2194,10 @@ return;
 
 }
 
-if(!amount||amount<=0){
+if(
+!amount||
+amount<=0
+){
 
 $('paymentMsg').textContent=
 'Invalid payment amount.';
@@ -2094,7 +2219,8 @@ await fetch(
 {
 method:'POST',
 headers:{
-'Content-Type':'application/json'
+'Content-Type':
+'application/json'
 },
 body:JSON.stringify({
 
@@ -2103,9 +2229,11 @@ email,
 phone,
 amount,
 
-postId:selectedPostId,
+postId:
+selectedPostId,
 
-userId:currentUser.uid
+userId:
+currentUser.uid
 
 })
 }
@@ -2115,7 +2243,8 @@ let result;
 
 try{
 
-result=await response.json();
+result=
+await response.json();
 
 }catch{
 
@@ -2136,7 +2265,6 @@ result.message||
 );
 
 }
-
 
 const orderId=
 result.order_id||
@@ -2167,9 +2295,7 @@ $('statusText').textContent=
 
 paymentPolling=true;
 
-pollPaymentStatus(
-orderId
-);
+pollPaymentStatus(orderId);
 
 }catch(error){
 
@@ -2185,9 +2311,7 @@ $('payButton').disabled=false;
 };
 
 
-/*
- POLL STATUS
-*/
+/* POLL PAYMENT */
 async function pollPaymentStatus(orderId){
 
 let delay=2000;
@@ -2214,10 +2338,12 @@ await fetch(
 {
 method:'POST',
 headers:{
-'Content-Type':'application/json'
+'Content-Type':
+'application/json'
 },
 body:JSON.stringify({
-order_id:orderId
+order_id:
+orderId
 })
 }
 );
@@ -2230,7 +2356,6 @@ console.log(
 result
 );
 
-
 if(!response.ok){
 
 throw new Error(
@@ -2239,7 +2364,6 @@ result.message||
 );
 
 }
-
 
 const status=
 String(
@@ -2254,7 +2378,8 @@ result.data?.data?.payment_status||
 
 ''
 
-).toUpperCase();
+)
+.toUpperCase();
 
 
 if(status==='COMPLETED'){
@@ -2266,9 +2391,6 @@ $('paymentStatus').style.display='none';
 $('successBox').style.display='block';
 
 
-/*
- SAVE PURCHASE
-*/
 try{
 
 await setDoc(
@@ -2281,26 +2403,32 @@ selectedPostId
 ),
 {
 
-postId:selectedPostId,
+postId:
+selectedPostId,
 
-orderId:orderId,
+orderId:
+orderId,
 
-title:selectedPost.title||'',
+title:
+selectedPost.title||'',
 
-amount:Number(selectedPost.price||0),
+amount:
+Number(
+selectedPost.price||0
+),
 
-status:'COMPLETED',
+status:
+'COMPLETED',
 
-paidAt:serverTimestamp()
+paidAt:
+serverTimestamp()
 
 }
 );
 
-
 paidPosts.add(
 selectedPostId
 );
-
 
 }catch(saveError){
 
@@ -2309,10 +2437,6 @@ console.error(
 saveError
 );
 
-/*
- Even if Firestore rules reject the write,
-the content is unlocked for this session.
-*/
 paidPosts.add(
 selectedPostId
 );
@@ -2364,7 +2488,8 @@ $('statusText').textContent=
 
 await sleep(delay);
 
-delay=Math.min(
+delay=
+Math.min(
 delay*2,
 maxDelay
 );
@@ -2381,7 +2506,8 @@ $('statusText').textContent=
 
 await sleep(delay);
 
-delay=Math.min(
+delay=
+Math.min(
 delay*2,
 maxDelay
 );
@@ -2405,9 +2531,7 @@ $('paymentMsg').textContent=
 }
 
 
-/*
- UNLOCK CURRENT CARD
-*/
+/* UNLOCK CARD */
 function unlockCard(postId,post){
 
 const card=
@@ -2416,8 +2540,11 @@ document.getElementById(
 );
 
 if(!card){
+
 listenPosts();
+
 return;
+
 }
 
 card.classList.add('unlocked');
@@ -2432,11 +2559,17 @@ locked.outerHTML=`
 <div class="unlocked-content">
 
 <div class="unlocked-header">
-✓ PAYMENT COMPLETED — CONTENT UNLOCKED
+
+<i class="fa-solid fa-circle-check"></i>
+
+PAYMENT COMPLETED — CONTENT UNLOCKED
+
 </div>
 
 <div class="content-text">
+
 ${esc(post.content||'')}
+
 </div>
 
 </div>
@@ -2464,9 +2597,11 @@ card.querySelector('.badge');
 
 if(badge){
 
-badge.className='badge free';
+badge.className=
+'badge free';
 
-badge.textContent='UNLOCKED';
+badge.innerHTML=
+'<i class="fa-solid fa-circle-check"></i> UNLOCKED';
 
 }
 
@@ -2474,27 +2609,41 @@ const icon=
 card.querySelector('.category-icon');
 
 if(icon){
-icon.textContent='🔓';
-}
+
+icon.innerHTML=
+'<i class="fa-solid fa-lock-open"></i>';
 
 }
 
+}
 
-/*
- REFRESH
-*/
+
+/* REFRESH */
 $('refreshPosts').onclick=async()=>{
+
+const refreshIcon=
+$('refreshPosts').querySelector('i');
+
+refreshIcon.classList.add(
+'fa-spin'
+);
 
 await loadPurchases();
 
 listenPosts();
 
+setTimeout(()=>{
+
+refreshIcon.classList.remove(
+'fa-spin'
+);
+
+},500);
+
 };
 
 
-/*
- AUTH STATE
-*/
+/* AUTH STATE */
 onAuthStateChanged(
 auth,
 user=>{
