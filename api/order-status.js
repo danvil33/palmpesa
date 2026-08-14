@@ -1,143 +1,166 @@
 export default async function handler(req, res) {
 
-  // Only POST
   if (req.method !== "POST") {
+
     return res.status(405).json({
+
       success: false,
-      message: "Method not allowed"
+
+      message:
+        "Method not allowed"
+
     });
+
   }
+
 
   try {
 
-    const { order_id } = req.body || {};
+    const {
+      order_id
+    } = req.body || {};
 
-    // Validate order ID
+
     if (!order_id) {
+
       return res.status(400).json({
+
         success: false,
-        message: "order_id is required"
+
+        message:
+          "order_id is required"
+
       });
+
     }
 
-    // Make sure token exists
-    if (!process.env.PALMPESA_TOKEN) {
-      console.error("PALMPESA_TOKEN is missing.");
-
-      return res.status(500).json({
-        success: false,
-        message: "Payment server is not configured."
-      });
-    }
 
     console.log(
       "Checking PalmPesa order:",
       order_id
     );
 
-    // Ask PalmPesa for the order status
-    const response = await fetch(
-      "https://palmpesa.drmlelwa.co.tz/api/order-status",
-      {
-        method: "POST",
 
-        headers: {
-          "Authorization":
-            `Bearer ${process.env.PALMPESA_TOKEN}`,
+    const response =
+      await fetch(
+        "https://palmpesa.drmlelwa.co.tz/api/order-status",
+        {
 
-          "Content-Type":
-            "application/json",
+          method: "POST",
 
-          "Accept":
-            "application/json"
-        },
+          headers: {
 
-        body: JSON.stringify({
-          order_id: order_id
-        })
-      }
-    );
+            "Authorization":
+              `Bearer ${process.env.PALMPESA_TOKEN}`,
 
-    // Read response
+            "Content-Type":
+              "application/json",
+
+            "Accept":
+              "application/json"
+
+          },
+
+          body:
+            JSON.stringify({
+
+              order_id:
+                order_id
+
+            })
+
+        }
+      );
+
+
     const rawResponse =
       await response.text();
+
 
     console.log(
       "PalmPesa status HTTP:",
       response.status
     );
 
+
     console.log(
       "PalmPesa status response:",
       rawResponse
     );
 
-    // Parse JSON
+
     let data;
 
     try {
 
-      data = JSON.parse(
-        rawResponse
-      );
+      data =
+        JSON.parse(
+          rawResponse
+        );
 
     } catch {
 
-      return res.status(502).json({
-        success: false,
-        message:
-          "PalmPesa returned an invalid response.",
+      data = {
+
         raw_response:
           rawResponse
-      });
+
+      };
 
     }
+
 
     /*
      * PalmPesa response:
      *
      * data: [
      *   {
-     *     order_id: "...",
-     *     payment_status: "COMPLETED"
+     *     payment_status:
+     *       COMPLETED / PENDING / FAILED
      *   }
      * ]
      */
 
-    const order =
+    const payment =
       Array.isArray(data?.data)
-        ? data.data.find(
-            item =>
-              String(item?.order_id) ===
-              String(order_id)
-          ) || data.data[0]
-        : null;
+        ?
+          data.data[0]
+        :
+          Array.isArray(data?.data?.data)
+            ?
+              data.data.data[0]
+            :
+              null;
 
-
-    /*
-     * Get actual payment status.
-     */
 
     const paymentStatus =
       String(
-        order?.payment_status || ""
+
+        payment?.payment_status ||
+
+        data?.payment_status ||
+
+        data?.data?.payment_status ||
+
+        ""
+
       )
       .trim()
       .toUpperCase();
 
 
     /*
-     * Only allow these three statuses.
+     * Only accept known statuses.
      */
 
-    let finalStatus;
+    let status;
 
     if (
       paymentStatus ===
       "COMPLETED"
     ) {
 
-      finalStatus =
+      status =
         "COMPLETED";
 
     } else if (
@@ -145,76 +168,58 @@ export default async function handler(req, res) {
       "FAILED"
     ) {
 
-      finalStatus =
+      status =
         "FAILED";
 
     } else {
 
-      finalStatus =
+      status =
         "PENDING";
 
     }
 
 
-    console.log(
-      "Order:",
-      order_id,
-      "Status:",
-      finalStatus
-    );
+    return res.status(
+      response.ok
+        ? 200
+        : response.status
+    ).json({
 
-
-    /*
-     * Return a simple response
-     * to index.html.
-     *
-     * IMPORTANT:
-     * We do NOT unlock anything here.
-     */
-    return res.status(200).json({
-
-      success: true,
+      success:
+        response.ok,
 
       order_id:
         order_id,
 
       payment_status:
-        finalStatus,
+        status,
 
       reference:
+        payment?.reference ||
         data?.reference ||
-        order?.reference ||
         null,
 
-      resultcode:
-        data?.resultcode ||
+      transid:
+        payment?.transid ||
         null,
 
-      result:
-        data?.result ||
+      amount:
+        payment?.amount ||
+        null,
+
+      channel:
+        payment?.channel ||
         null,
 
       message:
         data?.message ||
         null,
 
-      transid:
-        order?.transid ||
-        null,
-
-      channel:
-        order?.channel ||
-        null,
-
-      msisdn:
-        order?.msisdn ||
-        null,
-
-      amount:
-        order?.amount ||
-        null
+      data:
+        data
 
     });
+
 
   } catch (error) {
 
@@ -223,12 +228,13 @@ export default async function handler(req, res) {
       error
     );
 
+
     return res.status(500).json({
 
       success: false,
 
       message:
-        "Unable to check PalmPesa payment status.",
+        "Server error while checking payment status.",
 
       error:
         error.message
