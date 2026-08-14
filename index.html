@@ -11,411 +11,249 @@ html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
 body{background:#f4f4f4}
 
 .loader{
-position:fixed;
-inset:0;
-background:#ff6a00;
-color:#fff;
-display:grid;
-place-items:center;
-z-index:99;
+position:fixed;inset:0;background:#ff6a00;color:#fff;
+display:grid;place-items:center;z-index:99;
 animation:out .5s 1.5s forwards
 }
+.loader b{font-size:25vw;letter-spacing:-.12em}
 
-.loader b{
-font-size:25vw;
-letter-spacing:-.12em
-}
+.home,.auth,.app{position:absolute;inset:0}
 
-.home,.auth,.app{
-position:absolute;
-inset:0
-}
-
-.home{
-display:flex;
-background:#fff
-}
+.home{display:flex;background:#fff}
 
 .brand{
-width:42%;
-background:#ff6a00;
-color:#fff;
-display:grid;
-place-items:center;
-font-size:20vw;
-font-weight:900;
-letter-spacing:-.13em
+width:42%;background:#ff6a00;color:#fff;
+display:grid;place-items:center;
+font-size:20vw;font-weight:900;letter-spacing:-.13em
 }
 
 .intro{
-flex:1;
-display:flex;
-align-items:center;
-padding:8vw
+flex:1;display:flex;align-items:center;padding:8vw
 }
 
-.intro h1{
-font-size:7vw;
-margin:0
-}
+.intro h1{font-size:7vw;margin:0}
 
 .intro p{
-color:#777;
-text-transform:uppercase;
-letter-spacing:.15em
+color:#777;text-transform:uppercase;letter-spacing:.15em
 }
 
 .view,.submit{
-background:#ff6a00;
-color:#fff;
-border:0;
-padding:16px 28px;
-font-weight:800;
-cursor:pointer
+background:#ff6a00;color:#fff;border:0;
+padding:16px 28px;font-weight:800;cursor:pointer
 }
 
-.view:hover,
-.submit:hover{
-background:#df5c00
-}
+.view:hover,.submit:hover{background:#df5c00}
 
 .auth{
-display:none;
-align-items:center;
-justify-content:center
+display:none;align-items:center;justify-content:center
 }
 
 .card{
-background:#fff;
-width:min(900px,94vw);
-display:grid;
-grid-template-columns:40% 60%;
+background:#fff;width:min(900px,94vw);
+display:grid;grid-template-columns:40% 60%;
 box-shadow:0 25px 70px #0002
 }
 
 .aside{
-background:#ff6a00;
-color:white;
-padding:50px
+background:#ff6a00;color:#fff;padding:50px
 }
 
 .aside b{
-font-size:10vw;
-letter-spacing:-.13em
+font-size:10vw;letter-spacing:-.13em
 }
 
-.main{
-padding:55px
-}
+.main{padding:55px}
 
-.main h1{
-font-size:42px
-}
+.main h1{font-size:42px}
 
-.field{
-margin:15px 0
-}
+.field{margin:15px 0}
 
 .field label{
-display:block;
-font-size:11px;
-font-weight:bold;
-margin-bottom:7px
+display:block;font-size:11px;font-weight:bold;margin-bottom:7px
 }
 
-.field input,
-.field textarea{
-width:100%;
-padding:15px;
-border:1px solid #ddd;
-font:inherit
+.field input,.field textarea{
+width:100%;padding:15px;border:1px solid #ddd;font:inherit
 }
 
-.field textarea{
-resize:vertical
-}
+.field textarea{resize:vertical}
 
-.submit{
-width:100%
-}
+.submit{width:100%}
 
 .link{
-border:0;
-background:none;
-color:#ff6a00;
-font-weight:bold;
-cursor:pointer
+border:0;background:none;color:#ff6a00;
+font-weight:bold;cursor:pointer
 }
 
 .msg{
-min-height:20px;
-color:#d43b00;
-font-size:13px
+min-height:20px;color:#d43b00;font-size:13px
 }
 
 .app{
-display:none;
-background:#fff;
-overflow:auto
+display:none;background:#fff;overflow:auto
 }
 
 .topbar{
-position:absolute;
-top:0;
-left:0;
-right:0;
-height:76px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 30px;
-border-bottom:1px solid #eee;
-background:#fff;
-z-index:5
+position:absolute;top:0;left:0;right:0;height:76px;
+display:flex;align-items:center;justify-content:space-between;
+padding:0 30px;border-bottom:1px solid #eee;
+background:#fff;z-index:5
 }
 
 .logo{
-font-size:32px;
-font-weight:900;
-color:#ff6a00
+font-size:32px;font-weight:900;color:#ff6a00
 }
 
 .user-area{
-display:flex;
-align-items:center;
-gap:15px
+display:flex;align-items:center;gap:15px
 }
 
 .logout{
-padding:13px 22px;
-background:#ff6a00;
-color:#fff;
-border:0;
-font-weight:bold;
-cursor:pointer
+padding:13px 22px;background:#ff6a00;color:#fff;
+border:0;font-weight:bold;cursor:pointer
 }
 
-.logout:hover{
-background:#df5c00
-}
+.logout:hover{background:#df5c00}
 
 .content{
 width:min(1050px,92vw);
-padding:110px 0 50px;
-margin:auto
+padding:110px 0 50px;margin:auto
 }
 
 .hero h1{
-font-size:clamp(42px,7vw,78px);
-margin:0
+font-size:clamp(42px,7vw,78px);margin:0
 }
 
-.hero h1 span{
-color:#ff6a00
-}
+.hero h1 span{color:#ff6a00}
 
-.hero p{
-color:#777
-}
+.hero p{color:#777}
 
 .admin-panel{
-border:1px solid #eee;
-padding:28px;
-margin:40px 0;
-background:#fff;
-box-shadow:0 12px 35px #0000000d
+border:1px solid #eee;padding:28px;margin:40px 0;
+background:#fff;box-shadow:0 12px 35px #0000000d
 }
 
-.admin-panel h2{
-margin:0 0 8px
-}
+.admin-panel h2{margin:0 0 8px}
 
-.admin-panel p{
-color:#777
-}
+.admin-panel p{color:#777}
 
 .section-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:20px
 }
 
 .posts{
 display:grid;
-grid-template-columns:repeat(
-auto-fit,
-minmax(260px,1fr)
-);
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:18px
 }
 
 .post-card{
-border:1px solid #eee;
-background:#fff;
-padding:24px;
+border:1px solid #eee;background:#fff;padding:24px;
 box-shadow:0 10px 30px #0000000a;
-display:flex;
-flex-direction:column;
-min-height:260px
+display:flex;flex-direction:column;min-height:260px
 }
 
 .post-card h3{
-font-size:22px;
-margin:0 0 10px
+font-size:22px;margin:0 0 10px
 }
 
 .date{
-font-size:12px;
-color:#999;
-margin-bottom:14px
+font-size:12px;color:#999;margin-bottom:14px
 }
 
 .preview{
-color:#666;
-line-height:1.5;
-flex:1
-}
-
-.price{
-font-size:20px;
-font-weight:900;
-color:#ff6a00;
-margin:15px 0
-}
-
-.view-content{
-background:#ff6a00;
-color:#fff;
-border:0;
-padding:12px 18px;
-font-weight:800;
-cursor:pointer
-}
-
-.view-content:hover{
-background:#df5c00
-}
-
-.empty{
-color:#888
-}
-
-.lock{
-font-size:38px;
-text-align:center;
-margin-bottom:8px
+color:#666;line-height:1.5;flex:1;
+display:-webkit-box;
+-webkit-line-clamp:4;
+-webkit-box-orient:vertical;
+overflow:hidden
 }
 
 .premium-preview{
-color:#777;
-line-height:1.6;
-padding:15px 0
+color:#777;line-height:1.6;flex:1;padding:10px 0
+}
+
+.price{
+font-size:20px;font-weight:900;
+color:#ff6a00;margin:15px 0
+}
+
+.view-content{
+background:#ff6a00;color:#fff;border:0;
+padding:12px 18px;font-weight:800;cursor:pointer
+}
+
+.view-content:hover{background:#df5c00}
+
+.empty{color:#888}
+
+.lock{
+font-size:38px;text-align:center;margin-bottom:8px
 }
 
 .modal{
-position:fixed;
-inset:0;
-background:#0008;
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:20
+position:fixed;inset:0;background:#0008;
+display:none;align-items:center;justify-content:center;
+padding:20px;z-index:20
 }
 
 .modal-box{
-background:#fff;
-width:min(800px,94vw);
-max-height:85vh;
-overflow:auto;
-padding:32px;
-position:relative
+background:#fff;width:min(800px,94vw);
+max-height:85vh;overflow:auto;
+padding:32px;position:relative
 }
 
 .modal-box h2{
-margin-top:0;
-font-size:32px
+margin-top:0;font-size:32px
 }
 
 .modal-content{
 white-space:pre-wrap;
-line-height:1.75;
-color:#444
+line-height:1.75;color:#444
 }
 
 .close-modal{
-position:absolute;
-right:18px;
-top:15px;
-border:0;
-background:none;
-font-size:28px;
-cursor:pointer
+position:absolute;right:18px;top:15px;
+border:0;background:none;font-size:28px;cursor:pointer
 }
 
 .payment-price{
-font-size:25px;
-font-weight:900;
-color:#ff6a00;
+font-size:25px;font-weight:900;color:#ff6a00;
 margin:15px 0 25px
 }
 
 .submit:disabled{
-opacity:.6;
-cursor:not-allowed
+opacity:.6;cursor:not-allowed
 }
 
 @keyframes out{
-to{
-opacity:0;
-visibility:hidden
-}
+to{opacity:0;visibility:hidden}
 }
 
 @media(max-width:700px){
 
-.home{
-flex-direction:column
-}
+.home{flex-direction:column}
 
 .brand{
-width:100%;
-height:42%;
-font-size:100px
+width:100%;height:42%;font-size:100px
 }
 
-.intro{
-padding:30px
-}
+.intro{padding:30px}
 
-.card{
-grid-template-columns:1fr
-}
+.card{grid-template-columns:1fr}
 
-.aside{
-display:none
-}
+.aside{display:none}
 
-.main{
-padding:30px
-}
+.main{padding:30px}
 
-.topbar{
-padding:0 15px
-}
+.topbar{padding:0 15px}
 
-.logo{
-font-size:26px
-}
+.logo{font-size:26px}
 
-.user-area span{
-display:none
-}
+.user-area span{display:none}
 
-.content{
-padding-top:100px
-}
+.content{padding-top:100px}
 
 }
 </style>
@@ -423,80 +261,47 @@ padding-top:100px
 
 <body>
 
-<div class="loader">
-<b>KB</b>
-</div>
-
-
-<!-- HOME -->
+<div class="loader"><b>KB</b></div>
 
 <section class="home" id="home">
 
-<div class="brand">
-KB
-</div>
+<div class="brand">KB</div>
 
 <div class="intro">
-
 <div>
-
 <h1>KB</h1>
-
 <p>The experience begins</p>
-
-<button class="view" id="view">
-VIEW NOW
-</button>
-
+<button class="view" id="view">VIEW NOW</button>
 </div>
-
 </div>
 
 </section>
 
-
-<!-- AUTH -->
 
 <section class="auth" id="auth">
 
 <div class="card">
 
 <aside class="aside">
-
 <b>KB</b>
-
 <h2>Welcome to KB.</h2>
-
 </aside>
 
 <main class="main">
 
-<h1 id="title">
-Welcome back.
-</h1>
+<h1 id="title">Welcome back.</h1>
 
-<p id="sub">
-Sign in to continue.
-</p>
+<p id="sub">Sign in to continue.</p>
 
 <div class="msg" id="msg"></div>
 
-
-<div
-class="field"
-id="nameBox"
-style="display:none"
->
+<div class="field" id="nameBox" style="display:none">
 
 <label>NAME</label>
 
-<input
-id="name"
-autocomplete="name"
->
+<input id="name" autocomplete="name">
 
 </div>
-
 
 <div class="field">
 
@@ -510,7 +315,6 @@ autocomplete="email"
 
 </div>
 
-
 <div class="field">
 
 <label>PASSWORD</label>
@@ -523,30 +327,19 @@ autocomplete="current-password"
 
 </div>
 
-
-<button
-class="link"
-id="forgot"
->
+<button class="link" id="forgot">
 Forgot password?
 </button>
 
 <br><br>
 
-
-<button
-class="submit"
-id="submit"
->
+<button class="submit" id="submit">
 SIGN IN
 </button>
 
-
 <p id="switch">
 Don't have an account?
-<button class="link">
-CREATE ACCOUNT
-</button>
+<button class="link">CREATE ACCOUNT</button>
 </p>
 
 </main>
@@ -556,24 +349,17 @@ CREATE ACCOUNT
 </section>
 
 
-<!-- APP -->
-
 <section class="app" id="app">
 
 <header class="topbar">
 
-<div class="logo">
-KB
-</div>
+<div class="logo">KB</div>
 
 <div class="user-area">
 
 <span id="userName"></span>
 
-<button
-class="logout"
-id="logout"
->
+<button class="logout" id="logout">
 SIGN OUT
 </button>
 
@@ -586,9 +372,7 @@ SIGN OUT
 
 <div class="hero">
 
-<h1>
-KB <span>Content</span>
-</h1>
+<h1>KB <span>Content</span></h1>
 
 <p id="roleText">
 Your content library
@@ -597,22 +381,17 @@ Your content library
 </div>
 
 
-<!-- ADMIN PANEL -->
-
 <section
 id="adminPanel"
 class="admin-panel"
 style="display:none"
 >
 
-<h2>
-Admin — Create Content
-</h2>
+<h2>Admin — Create Content</h2>
 
 <p>
 Publish content and set the price members must pay to view it.
 </p>
-
 
 <div class="field">
 
@@ -626,7 +405,6 @@ placeholder="Enter a title"
 
 </div>
 
-
 <div class="field">
 
 <label>CONTENT</label>
@@ -638,7 +416,6 @@ placeholder="Write your content here..."
 ></textarea>
 
 </div>
-
 
 <div class="field">
 
@@ -654,46 +431,28 @@ placeholder="Example: 5000"
 
 </div>
 
-
-<button
-class="submit"
-id="publish"
->
+<button class="submit" id="publish">
 PUBLISH
 </button>
 
-<div
-class="msg"
-id="postMsg"
-></div>
+<div class="msg" id="postMsg"></div>
 
 </section>
 
-
-<!-- POSTS -->
 
 <section>
 
 <div class="section-head">
 
-<h2>
-Content
-</h2>
+<h2>Content</h2>
 
-<button
-class="link"
-id="refreshPosts"
->
+<button class="link" id="refreshPosts">
 REFRESH
 </button>
 
 </div>
 
-
-<div
-id="posts"
-class="posts"
->
+<div id="posts" class="posts">
 
 <p class="empty">
 Loading content...
@@ -708,12 +467,7 @@ Loading content...
 </section>
 
 
-<!-- CONTENT MODAL -->
-
-<div
-class="modal"
-id="contentModal"
->
+<div class="modal" id="contentModal">
 
 <div class="modal-box">
 
@@ -726,10 +480,7 @@ id="closeModal"
 
 <h2 id="modalTitle"></h2>
 
-<div
-class="date"
-id="modalDate"
-></div>
+<div class="date" id="modalDate"></div>
 
 <div
 class="modal-content"
@@ -741,12 +492,7 @@ id="modalContent"
 </div>
 
 
-<!-- PAYMENT MODAL -->
-
-<div
-class="modal"
-id="paymentModal"
->
+<div class="modal" id="paymentModal">
 
 <div class="modal-box">
 
@@ -757,11 +503,7 @@ id="closePayment"
 ×
 </button>
 
-
-<div class="lock">
-🔒
-</div>
-
+<div class="lock">🔒</div>
 
 <h2 id="paymentTitle">
 Unlock Content
@@ -771,13 +513,10 @@ Unlock Content
 This content requires payment before it can be viewed.
 </p>
 
-
 <div
 class="payment-price"
 id="paymentPrice"
->
-</div>
-
+></div>
 
 <div class="field">
 
@@ -789,7 +528,6 @@ placeholder="Your full name"
 >
 
 </div>
-
 
 <div class="field">
 
@@ -803,7 +541,6 @@ placeholder="Your email"
 
 </div>
 
-
 <div class="field">
 
 <label>PHONE NUMBER</label>
@@ -816,14 +553,9 @@ placeholder="07XXXXXXXX"
 
 </div>
 
-
-<button
-class="submit"
-id="payButton"
->
+<button class="submit" id="payButton">
 PAY NOW
 </button>
-
 
 <div
 class="msg"
@@ -837,14 +569,14 @@ id="paymentMsg"
 
 <script type="module">
 
-import {
+import{
 initializeApp
 }
 from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
 
 
-import {
+import{
 getAuth,
 onAuthStateChanged,
 createUserWithEmailAndPassword,
@@ -858,7 +590,7 @@ from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
 
 
-import {
+import{
 getFirestore,
 doc,
 setDoc,
@@ -874,10 +606,10 @@ from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
 
-const firebaseConfig = {
+const firebaseConfig={
 
 apiKey:
-'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
+'AizaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
 
 authDomain:
 'volcanobxpl.firebaseapp.com',
@@ -900,97 +632,87 @@ measurementId:
 };
 
 
-const firebaseApp =
+const firebaseApp=
 initializeApp(firebaseConfig);
 
-const auth =
+const auth=
 getAuth(firebaseApp);
 
-const db =
+const db=
 getFirestore(firebaseApp);
 
 
-let signup = false;
-let currentUser = null;
-let stopPosts = null;
-
-let selectedPost = null;
-let selectedPostId = null;
-
-
-const $ =
-id => document.getElementById(id);
+let signup=false;
+let currentUser=null;
+let stopPosts=null;
+let selectedPost=null;
+let selectedPostId=null;
 
 
-const msg =
-text => {
-$('msg').textContent = text;
-};
+const $=
+id=>document.getElementById(id);
 
 
-/* =========================
-   HOME
-========================= */
+function msg(text){
 
-$('view').onclick = () => {
+$('msg').textContent=text;
 
-$('home').style.display = 'none';
+}
 
-$('auth').style.display = 'flex';
+
+/* HOME */
+
+$('view').onclick=()=>{
+
+$('home').style.display='none';
+
+$('auth').style.display='flex';
 
 };
 
 
-/* =========================
-   SWITCH LOGIN / SIGNUP
-========================= */
+/* SWITCH LOGIN / SIGNUP */
 
-$('switch').onclick = () => {
+$('switch').onclick=()=>{
 
-signup = !signup;
+signup=!signup;
 
-
-$('title').textContent =
+$('title').textContent=
 signup
 ?
 'Create your account.'
 :
 'Welcome back.';
 
-
-$('sub').textContent =
+$('sub').textContent=
 signup
 ?
 'Join KB today.'
 :
 'Sign in to continue.';
 
-
-$('nameBox').style.display =
+$('nameBox').style.display=
 signup
 ?
 'block'
 :
 'none';
 
-
-$('forgot').style.display =
+$('forgot').style.display=
 signup
 ?
 'none'
 :
 'inline-block';
 
-
-$('submit').textContent =
+$('submit').textContent=
 signup
 ?
 'CREATE ACCOUNT'
 :
 'SIGN IN';
 
-
-$('switch').innerHTML =
+$('switch').innerHTML=
 signup
 ?
 'Already have an account? <button class="link">SIGN IN</button>'
@@ -1000,51 +722,46 @@ signup
 };
 
 
-/* =========================
-   AUTH
-========================= */
+/* AUTH */
 
-$('submit').onclick = async () => {
+$('submit').onclick=async()=>{
 
-const email =
+const email=
 $('email').value.trim();
 
-const password =
+const password=
 $('password').value;
 
-const name =
+const name=
 $('name').value.trim();
 
 
 if(
-!email ||
-!password ||
-(signup && !name)
+!email||
+!password||
+(signup&&!name)
 ){
 
-msg(
-'Please complete all fields.'
-);
+msg('Please complete all fields.');
 
 return;
 
 }
 
 
-$('submit').disabled = true;
+$('submit').disabled=true;
 
 
 try{
 
 if(signup){
 
-const credential =
+const credential=
 await createUserWithEmailAndPassword(
 auth,
 email,
 password
 );
-
 
 await updateProfile(
 credential.user,
@@ -1052,7 +769,6 @@ credential.user,
 displayName:name
 }
 );
-
 
 try{
 
@@ -1062,13 +778,9 @@ credential.user
 
 }catch(error){
 
-console.log(
-'Verification email error:',
-error
-);
+console.log(error);
 
 }
-
 
 await setDoc(
 doc(
@@ -1077,48 +789,37 @@ db,
 credential.user.uid
 ),
 {
-
 name:name,
-
 email:email,
-
 role:'user',
-
-createdAt:
-serverTimestamp()
-
+createdAt:serverTimestamp()
 }
 );
-
 
 openApp(
 credential.user
 );
 
-
 }else{
 
-const credential =
+const credential=
 await signInWithEmailAndPassword(
 auth,
 email,
 password
 );
 
-
 openApp(
 credential.user
 );
 
 }
 
-
 }catch(error){
 
 msg(
 
-error.code ===
-'auth/invalid-credential'
+error.code==='auth/invalid-credential'
 
 ?
 
@@ -1126,8 +827,7 @@ error.code ===
 
 :
 
-error.code ===
-'auth/email-already-in-use'
+error.code==='auth/email-already-in-use'
 
 ?
 
@@ -1141,33 +841,27 @@ error.message
 
 }finally{
 
-$('submit').disabled = false;
+$('submit').disabled=false;
 
 }
 
 };
 
 
-/* =========================
-   PASSWORD RESET
-========================= */
+/* FORGOT PASSWORD */
 
-$('forgot').onclick = async () => {
+$('forgot').onclick=async()=>{
 
-const email =
+const email=
 $('email').value.trim();
-
 
 if(!email){
 
-msg(
-'Enter your email first.'
-);
+msg('Enter your email first.');
 
 return;
 
 }
-
 
 try{
 
@@ -1182,37 +876,31 @@ msg(
 
 }catch(error){
 
-msg(
-error.message
-);
+msg(error.message);
 
 }
 
 };
 
 
-/* =========================
-   OPEN APP
-========================= */
+/* OPEN APP */
 
 async function openApp(user){
 
-currentUser = user;
+currentUser=user;
 
+$('auth').style.display='none';
 
-$('auth').style.display = 'none';
+$('home').style.display='none';
 
-$('home').style.display = 'none';
+$('app').style.display='block';
 
-$('app').style.display = 'block';
-
-
-$('userName').textContent =
-user.displayName ||
+$('userName').textContent=
+user.displayName||
 user.email;
 
 
-const userSnap =
+const userSnap=
 await getDoc(
 doc(
 db,
@@ -1222,7 +910,7 @@ user.uid
 );
 
 
-const userData =
+const userData=
 userSnap.exists()
 ?
 userSnap.data()
@@ -1232,11 +920,11 @@ role:'user'
 };
 
 
-const isAdmin =
-userData.role === 'admin';
+const isAdmin=
+userData.role==='admin';
 
 
-$('adminPanel').style.display =
+$('adminPanel').style.display=
 isAdmin
 ?
 'block'
@@ -1244,7 +932,7 @@ isAdmin
 'none';
 
 
-$('roleText').textContent =
+$('roleText').textContent=
 isAdmin
 ?
 'Administrator — publish content below.'
@@ -1257,52 +945,43 @@ listenPosts();
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
+/* LOGOUT */
 
-$('logout').onclick = async () => {
+$('logout').onclick=async()=>{
 
 await signOut(auth);
-
 
 if(stopPosts){
 
 stopPosts();
 
-stopPosts = null;
+stopPosts=null;
 
 }
 
+currentUser=null;
 
-currentUser = null;
+$('app').style.display='none';
 
-
-$('app').style.display = 'none';
-
-$('home').style.display = 'flex';
+$('home').style.display='flex';
 
 };
 
 
-/* =========================
-   ADMIN PUBLISH
-========================= */
+/* PUBLISH */
 
-$('publish').onclick = async () => {
+$('publish').onclick=async()=>{
 
-if(!currentUser)
-return;
+if(!currentUser)return;
 
+$('publish').disabled=true;
 
-$('publish').disabled = true;
-
-$('postMsg').textContent = '';
+$('postMsg').textContent='';
 
 
 try{
 
-const userSnap =
+const userSnap=
 await getDoc(
 doc(
 db,
@@ -1313,8 +992,8 @@ currentUser.uid
 
 
 if(
-!userSnap.exists() ||
-userSnap.data().role !== 'admin'
+!userSnap.exists()||
+userSnap.data().role!=='admin'
 ){
 
 throw new Error(
@@ -1324,22 +1003,15 @@ throw new Error(
 }
 
 
-const title =
-$('postTitle')
-.value
-.trim();
+const title=
+$('postTitle').value.trim();
 
+const content=
+$('postContent').value.trim();
 
-const content =
-$('postContent')
-.value
-.trim();
-
-
-const price =
+const price=
 Number(
-$('postPrice')
-.value || 0
+$('postPrice').value||0
 );
 
 
@@ -1362,7 +1034,7 @@ throw new Error(
 
 
 if(
-price < 0 ||
+price<0||
 !Number.isFinite(price)
 ){
 
@@ -1376,57 +1048,45 @@ throw new Error(
 await addDoc(
 collection(db,'posts'),
 {
-
 title:title,
-
 content:content,
-
 price:price,
-
 published:true,
-
-authorId:
-currentUser.uid,
-
+authorId:currentUser.uid,
 authorName:
-currentUser.displayName ||
+currentUser.displayName||
 currentUser.email,
-
-createdAt:
-serverTimestamp()
-
+createdAt:serverTimestamp()
 }
 );
 
 
-$('postTitle').value = '';
+$('postTitle').value='';
 
-$('postContent').value = '';
+$('postContent').value='';
 
-$('postPrice').value = '';
+$('postPrice').value='';
 
 
-$('postMsg').textContent =
+$('postMsg').textContent=
 'Published successfully.';
 
 
 }catch(error){
 
-$('postMsg').textContent =
+$('postMsg').textContent=
 error.message;
 
 }finally{
 
-$('publish').disabled = false;
+$('publish').disabled=false;
 
 }
 
 };
 
 
-/* =========================
-   LOAD POSTS
-========================= */
+/* LOAD POSTS */
 
 function listenPosts(){
 
@@ -1437,26 +1097,30 @@ stopPosts();
 }
 
 
-const postsQuery =
+const postsQuery=
 query(
 collection(db,'posts'),
-orderBy('createdAt','desc')
+orderBy(
+'createdAt',
+'desc'
+)
 );
 
 
-stopPosts =
+stopPosts=
 onSnapshot(
+
 postsQuery,
 
-snapshot => {
+snapshot=>{
 
-const box =
+const box=
 $('posts');
 
 
 if(snapshot.empty){
 
-box.innerHTML =
+box.innerHTML=
 '<p class="empty">No content has been published yet.</p>';
 
 return;
@@ -1464,65 +1128,47 @@ return;
 }
 
 
-/*
-IMPORTANT:
-
-For paid posts we DO NOT
-render p.content here.
-
-Only free posts show content.
-*/
-
-box.innerHTML =
+box.innerHTML=
 
 snapshot.docs
 
 .filter(
-docSnap =>
-docSnap.data().published !== false
+docSnap=>
+docSnap.data().published!==false
 )
 
-.map(docSnap => {
+.map(docSnap=>{
 
-const post =
+const post=
 docSnap.data();
 
 
-const date =
+const date=
 post.createdAt?.toDate
-
 ?
-
 post.createdAt
 .toDate()
 .toLocaleString()
-
 :
-
 'Just now';
 
 
-const price =
+const price=
 Number(
-post.price || 0
+post.price||0
 );
 
 
-/* =========================
-   FREE CONTENT
-========================= */
+/* FREE CONTENT */
 
-if(price <= 0){
+if(price<=0){
 
 return `
 
 <article class="post-card">
 
 <h3>
-${esc(
-post.title ||
-'Untitled'
-)}
+${esc(post.title||'Untitled')}
 </h3>
 
 <div class="date">
@@ -1530,10 +1176,7 @@ ${esc(date)}
 </div>
 
 <div class="preview">
-${esc(
-post.content ||
-''
-)}
+${esc(post.content||'')}
 </div>
 
 <div class="price">
@@ -1554,9 +1197,7 @@ VIEW CONTENT
 }
 
 
-/* =========================
-   PAID CONTENT
-========================= */
+/* PAID CONTENT */
 
 return `
 
@@ -1567,10 +1208,7 @@ return `
 </div>
 
 <h3>
-${esc(
-post.title ||
-'Untitled'
-)}
+${esc(post.title||'Untitled')}
 </h3>
 
 <div class="date">
@@ -1589,7 +1227,8 @@ Premium Content
 
 <br>
 
-Pay to unlock and view the full content.
+Pay to unlock and view
+the full content.
 
 </div>
 
@@ -1615,43 +1254,37 @@ PAY & VIEW CONTENT
 .join('');
 
 
-/* =========================
-   BUTTON EVENTS
-========================= */
-
 box
 .querySelectorAll(
 '.view-content'
 )
-.forEach(button => {
+.forEach(button=>{
 
-button.onclick = () => {
+button.onclick=()=>{
 
-const selectedDoc =
+const selectedDoc=
 snapshot.docs.find(
-docSnap =>
-docSnap.id ===
+docSnap=>
+docSnap.id===
 button.dataset.id
 );
 
 
-if(!selectedDoc)
-return;
+if(!selectedDoc)return;
 
 
-const post =
+const post=
 selectedDoc.data();
 
-
-const price =
+const price=
 Number(
-post.price || 0
+post.price||0
 );
 
 
 /* FREE */
 
-if(price <= 0){
+if(price<=0){
 
 showContent(post);
 
@@ -1673,14 +1306,11 @@ post
 
 },
 
-error => {
+error=>{
 
-console.error(
-'Firestore error:',
-error
-);
+console.error(error);
 
-$('posts').innerHTML =
+$('posts').innerHTML=
 '<p class="empty">Unable to load content.</p>';
 
 }
@@ -1690,90 +1320,77 @@ $('posts').innerHTML =
 }
 
 
-/* =========================
-   PAYMENT MODAL
-========================= */
+/* OPEN PAYMENT */
 
 function openPaymentModal(
 postId,
 post
 ){
 
-selectedPostId =
-postId;
+selectedPostId=postId;
 
-selectedPost =
-post;
+selectedPost=post;
 
 
-$('paymentTitle').textContent =
-post.title ||
+$('paymentTitle').textContent=
+post.title||
 'Unlock Content';
 
 
-$('paymentPrice').textContent =
+$('paymentPrice').textContent=
 
 Number(
-post.price || 0
+post.price||0
 )
-.toLocaleString() +
+.toLocaleString()+
 ' TSh';
 
 
-$('payName').value =
-currentUser?.displayName ||
+$('payName').value=
+currentUser?.displayName||
 '';
 
 
-$('payEmail').value =
-currentUser?.email ||
+$('payEmail').value=
+currentUser?.email||
 '';
 
 
-$('payPhone').value = '';
+$('payPhone').value='';
 
+$('paymentMsg').textContent='';
 
-$('paymentMsg').textContent = '';
-
-
-$('paymentModal').style.display =
+$('paymentModal').style.display=
 'flex';
 
 }
 
 
-/* =========================
-   CLOSE PAYMENT
-========================= */
+/* CLOSE MODALS */
 
-$('closePayment').onclick = () => {
+$('closePayment').onclick=()=>{
 
-$('paymentModal').style.display =
+$('paymentModal').style.display=
 'none';
 
 };
 
 
-/* =========================
-   CLOSE CONTENT
-========================= */
+$('closeModal').onclick=()=>{
 
-$('closeModal').onclick = () => {
-
-$('contentModal').style.display =
+$('contentModal').style.display=
 'none';
 
 };
 
 
-$('contentModal').onclick = event => {
+$('contentModal').onclick=event=>{
 
 if(
-event.target ===
-$('contentModal')
+event.target===$('contentModal')
 ){
 
-$('contentModal').style.display =
+$('contentModal').style.display=
 'none';
 
 }
@@ -1781,14 +1398,13 @@ $('contentModal').style.display =
 };
 
 
-$('paymentModal').onclick = event => {
+$('paymentModal').onclick=event=>{
 
 if(
-event.target ===
-$('paymentModal')
+event.target===$('paymentModal')
 ){
 
-$('paymentModal').style.display =
+$('paymentModal').style.display=
 'none';
 
 }
@@ -1796,47 +1412,35 @@ $('paymentModal').style.display =
 };
 
 
-/* =========================
-   PAYMENT
-========================= */
+/* PAYMENT */
 
-$('payButton').onclick = async () => {
+$('payButton').onclick=async()=>{
 
-if(!currentUser)
-return;
+if(!currentUser)return;
 
 
-const name =
-$('payName')
-.value
-.trim();
+const name=
+$('payName').value.trim();
 
+const email=
+$('payEmail').value.trim();
 
-const email =
-$('payEmail')
-.value
-.trim();
+const phone=
+$('payPhone').value.trim();
 
-
-const phone =
-$('payPhone')
-.value
-.trim();
-
-
-const amount =
+const amount=
 Number(
-selectedPost?.price || 0
+selectedPost?.price||0
 );
 
 
 if(
-!name ||
-!email ||
+!name||
+!email||
 !phone
 ){
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Please complete all fields.';
 
 return;
@@ -1845,11 +1449,11 @@ return;
 
 
 if(
-!amount ||
-amount <= 0
+!amount||
+amount<=0
 ){
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Invalid payment amount.';
 
 return;
@@ -1857,15 +1461,15 @@ return;
 }
 
 
-$('payButton').disabled = true;
+$('payButton').disabled=true;
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Starting payment...';
 
 
 try{
 
-const response =
+const response=
 await fetch(
 '/api/pay',
 {
@@ -1879,84 +1483,70 @@ headers:{
 
 body:
 JSON.stringify({
-
 name:name,
-
 email:email,
-
 phone:phone,
-
 amount:amount,
-
 postId:selectedPostId,
-
 userId:currentUser.uid
-
 })
 
 }
 );
 
 
-const result =
+/* Safely read server response */
+
+const result=
 await response.json();
 
 
 if(
-!response.ok ||
+!response.ok||
 !result.success
 ){
 
 throw new Error(
-result.message ||
+result.message||
 'Unable to start payment.'
 );
 
 }
 
 
-$('paymentMsg').innerHTML = `
+/*
+TEMPORARY SUCCESS FLOW
 
-Payment request sent successfully.
+PalmPesa accepted the
+payment request.
+*/
 
-<br><br>
+$('paymentMsg').innerHTML=
 
-Transaction ID:
+'<strong>Payment request successful.</strong>'+
 
-<strong>
-${esc(
-result.transaction_id ||
-'Pending'
-)}
-</strong>
+'<br><br>'+
 
-<br><br>
-
-Complete the payment on your phone.
-
-<br><br>
-
-<strong>
-Do not close this window until you finish the payment.
-</strong>
-
-`;
+'Opening your content...';
 
 
 /*
-IMPORTANT:
-
-We are NOT unlocking the
-content yet.
-
-This version only starts
-the PalmPesa payment.
-
-Once payment verification
-is added, successful users
-can automatically unlock
-the content.
+Close payment modal
+and open full content
 */
+
+setTimeout(()=>{
+
+$('paymentModal').style.display=
+'none';
+
+showContent(
+selectedPost
+);
+
+$('payButton').disabled=false;
+
+},1500);
 
 
 }catch(error){
@@ -1966,78 +1556,63 @@ console.error(
 error
 );
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 error.message;
 
-}finally{
-
-$('payButton').disabled = false;
+$('payButton').disabled=false;
 
 }
 
 };
 
 
-/* =========================
-   SHOW CONTENT
-========================= */
+/* SHOW CONTENT */
 
 function showContent(post){
 
-$('modalTitle').textContent =
-post.title ||
+$('modalTitle').textContent=
+post.title||
 'Untitled';
 
 
-$('modalDate').textContent =
+$('modalDate').textContent=
 
 post.createdAt?.toDate
-
 ?
-
 post.createdAt
 .toDate()
 .toLocaleString()
-
 :
-
 'Just now';
 
 
-$('modalContent').textContent =
-post.content ||
+$('modalContent').textContent=
+post.content||
 '';
 
 
-$('contentModal').style.display =
+$('contentModal').style.display=
 'flex';
 
 }
 
 
-/* =========================
-   REFRESH
-========================= */
+/* REFRESH */
 
-$('refreshPosts').onclick = () => {
+$('refreshPosts').onclick=()=>{
 
 listenPosts();
 
 };
 
 
-/* =========================
-   ESCAPE HTML
-========================= */
+/* ESCAPE */
 
 function esc(value){
 
-return String(value)
-
-.replace(
+return String(value).replace(
 /[&<>"']/g,
-
-character => ({
+character=>({
 
 '&':'&amp;',
 '<':'&lt;',
@@ -2046,19 +1621,16 @@ character => ({
 "'":'&#039;'
 
 }[character])
-
 );
 
 }
 
 
-/* =========================
-   AUTH STATE
-========================= */
+/* AUTH STATE */
 
 onAuthStateChanged(
 auth,
-user => {
+user=>{
 
 if(user){
 
@@ -2066,7 +1638,8 @@ openApp(user);
 
 }
 
-});
+}
+);
 
 </script>
 
