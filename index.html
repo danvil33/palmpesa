@@ -3,918 +3,795 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KB — Premium Content</title>
+<title>MIKEKA BOOM</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html,body{
-  margin:0;
-  width:100%;
-  min-height:100%;
-  font-family:Inter,Arial,Helvetica,sans-serif;
-  background:#f7f7f8;
-  color:#161616;
+margin:0;
+width:100%;
+min-height:100%;
+font-family:Arial,Helvetica,sans-serif;
+background:#f7f7f8;
+color:#151515
 }
 
-body{
-  overflow-x:hidden;
-}
+body{overflow-x:hidden}
 
-button,input,textarea{
-  font:inherit;
-}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 
-button{
-  cursor:pointer;
-}
-
-/* =========================
-   LOADER
-========================= */
-
+/* LOADER */
 .loader{
-  position:fixed;
-  inset:0;
-  background:#ff6a00;
-  color:white;
-  display:grid;
-  place-items:center;
-  z-index:9999;
-  animation:loaderOut .45s 1.2s forwards;
+position:fixed;
+inset:0;
+background:#ff6a00;
+color:#fff;
+display:grid;
+place-items:center;
+z-index:9999;
+animation:loaderOut .5s 1.2s forwards
 }
 
 .loader b{
-  font-size:clamp(100px,20vw,260px);
-  letter-spacing:-.14em;
-  line-height:1;
+font-size:clamp(80px,16vw,220px);
+font-weight:950;
+letter-spacing:-.12em
 }
 
 @keyframes loaderOut{
-  to{
-    opacity:0;
-    visibility:hidden;
-  }
+to{
+opacity:0;
+visibility:hidden
+}
 }
 
-/* =========================
-   HOME
-========================= */
-
+/* HOME */
 .home{
-  position:fixed;
-  inset:0;
-  display:flex;
-  background:#fff;
+position:fixed;
+inset:0;
+display:flex;
+background:#fff
 }
 
 .brand{
-  width:44%;
-  background:#ff6a00;
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:clamp(120px,20vw,300px);
-  font-weight:950;
-  letter-spacing:-.15em;
-  line-height:1;
+width:43%;
+background:#ff6a00;
+color:#fff;
+display:grid;
+place-items:center;
+font-size:clamp(80px,12vw,190px);
+font-weight:950;
+letter-spacing:-.12em
 }
 
 .intro{
-  flex:1;
-  display:flex;
-  align-items:center;
-  padding:8vw;
+flex:1;
+display:flex;
+align-items:center;
+padding:8vw
 }
 
 .intro-inner{
-  max-width:650px;
+max-width:650px
 }
 
 .eyebrow{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  color:#ff6a00;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  margin-bottom:20px;
+display:inline-flex;
+align-items:center;
+gap:8px;
+color:#ff6a00;
+font-size:11px;
+font-weight:900;
+letter-spacing:.15em;
+text-transform:uppercase;
+margin-bottom:20px
 }
 
 .eyebrow-dot{
-  width:8px;
-  height:8px;
-  background:#ff6a00;
-  border-radius:50%;
+width:8px;
+height:8px;
+border-radius:50%;
+background:#ff6a00
 }
 
 .intro h1{
-  font-size:clamp(55px,7vw,100px);
-  line-height:.95;
-  margin:0;
-  letter-spacing:-.06em;
+font-size:clamp(48px,7vw,90px);
+line-height:.94;
+margin:0;
+letter-spacing:-.06em
 }
 
 .intro h1 span{
-  color:#ff6a00;
+color:#ff6a00
 }
 
 .intro p{
-  color:#777;
-  max-width:500px;
-  line-height:1.7;
-  margin:25px 0 30px;
+color:#777;
+line-height:1.7;
+max-width:570px;
+margin:25px 0 30px
 }
 
 .primary-btn{
-  border:0;
-  background:#ff6a00;
-  color:white;
-  padding:15px 23px;
-  border-radius:10px;
-  font-weight:850;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  transition:.2s;
+border:0;
+background:#ff6a00;
+color:#fff;
+padding:15px 23px;
+border-radius:10px;
+font-weight:900;
+display:inline-flex;
+align-items:center;
+gap:10px;
+transition:.2s
 }
 
 .primary-btn:hover{
-  background:#df5c00;
-  transform:translateY(-1px);
+background:#df5c00;
+transform:translateY(-1px)
 }
 
-.primary-btn svg{
-  width:18px;
-  height:18px;
-}
-
-/* =========================
-   AUTH
-========================= */
-
+/* AUTH */
 .auth{
-  position:fixed;
-  inset:0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  background:#f5f5f5;
+position:fixed;
+inset:0;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+background:#f5f5f5
 }
 
 .auth-card{
-  width:min(900px,95vw);
-  display:grid;
-  grid-template-columns:40% 60%;
-  background:#fff;
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:0 25px 80px #00000018;
+width:min(900px,95vw);
+display:grid;
+grid-template-columns:40% 60%;
+background:#fff;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 25px 80px #00000018
 }
 
 .auth-side{
-  background:#ff6a00;
-  color:white;
-  padding:45px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  min-height:560px;
+background:#ff6a00;
+color:#fff;
+padding:45px;
+display:flex;
+flex-direction:column;
+justify-content:space-between;
+min-height:550px
 }
 
 .auth-logo{
-  font-size:90px;
-  font-weight:950;
-  letter-spacing:-.15em;
-  line-height:.8;
+font-size:65px;
+font-weight:950;
+letter-spacing:-.1em
 }
 
 .auth-side h2{
-  font-size:30px;
-  margin:0 0 10px;
+font-size:28px;
+margin:0 0 10px
 }
 
 .auth-side p{
-  color:#fff9;
-  line-height:1.6;
+color:#fff9;
+line-height:1.6
 }
 
 .auth-main{
-  padding:50px;
+padding:50px
 }
 
 .auth-main h1{
-  margin:0;
-  font-size:42px;
-  letter-spacing:-.04em;
+margin:0;
+font-size:42px;
+letter-spacing:-.04em
 }
 
 .auth-main>p{
-  color:#777;
-  margin-bottom:30px;
+color:#777;
+margin-bottom:30px
 }
 
 .field{
-  margin:18px 0;
+margin:17px 0
 }
 
 .field label{
-  display:block;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.08em;
-  margin-bottom:8px;
-  color:#444;
+display:block;
+font-size:11px;
+font-weight:900;
+letter-spacing:.08em;
+margin-bottom:8px;
+color:#444
 }
 
 .field input,
 .field textarea{
-  width:100%;
-  padding:14px 15px;
-  border:1px solid #ddd;
-  border-radius:9px;
-  outline:none;
-  background:#fff;
-  transition:.2s;
+width:100%;
+padding:14px 15px;
+border:1px solid #ddd;
+border-radius:9px;
+outline:none;
+background:#fff
 }
 
 .field input:focus,
 .field textarea:focus{
-  border-color:#ff6a00;
-  box-shadow:0 0 0 3px #ff6a0012;
+border-color:#ff6a00;
+box-shadow:0 0 0 3px #ff6a0012
 }
 
 .field textarea{
-  resize:vertical;
+resize:vertical
 }
 
 .submit{
-  width:100%;
-  border:0;
-  border-radius:9px;
-  background:#ff6a00;
-  color:white;
-  padding:15px;
-  font-weight:900;
-  transition:.2s;
+width:100%;
+border:0;
+border-radius:9px;
+background:#ff6a00;
+color:#fff;
+padding:15px;
+font-weight:900
 }
 
 .submit:hover{
-  background:#df5c00;
+background:#df5c00
 }
 
 .submit:disabled{
-  opacity:.55;
-  cursor:not-allowed;
+opacity:.55;
+cursor:not-allowed
 }
 
 .link{
-  border:0;
-  background:none;
-  color:#ff6a00;
-  font-weight:800;
-  padding:0;
+border:0;
+background:none;
+color:#ff6a00;
+font-weight:800;
+padding:0
 }
 
 .msg{
-  min-height:20px;
-  color:#d43b00;
-  font-size:13px;
-  line-height:1.5;
+min-height:20px;
+color:#d43b00;
+font-size:13px;
+line-height:1.5
 }
 
-/* =========================
-   APP
-========================= */
-
+/* APP */
 .app{
-  display:none;
-  min-height:100vh;
-  background:#f7f7f8;
+display:none;
+min-height:100vh;
+background:#f7f7f8
 }
 
 .topbar{
-  position:fixed;
-  z-index:50;
-  top:0;
-  left:0;
-  right:0;
-  height:72px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:0 35px;
-  background:#fff;
-  border-bottom:1px solid #ececec;
+position:fixed;
+z-index:50;
+top:0;
+left:0;
+right:0;
+height:72px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 35px;
+background:#fff;
+border-bottom:1px solid #ececec
 }
 
 .logo{
-  font-size:30px;
-  font-weight:950;
-  color:#ff6a00;
-  letter-spacing:-.08em;
+font-size:24px;
+font-weight:950;
+color:#ff6a00;
+letter-spacing:-.04em
 }
 
 .user-area{
-  display:flex;
-  align-items:center;
-  gap:15px;
+display:flex;
+align-items:center;
+gap:15px
 }
 
 .user-name{
-  font-size:13px;
-  font-weight:700;
-  color:#555;
+font-size:13px;
+font-weight:700;
+color:#555
 }
 
 .logout{
-  border:0;
-  background:#111;
-  color:#fff;
-  padding:10px 16px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:900;
+border:0;
+background:#111;
+color:#fff;
+padding:10px 16px;
+border-radius:8px;
+font-size:12px;
+font-weight:900
 }
 
-.logout:hover{
-  background:#333;
-}
-
-/* =========================
-   CONTENT
-========================= */
-
+/* CONTENT */
 .content{
-  width:min(1120px,92vw);
-  margin:auto;
-  padding:120px 0 60px;
+width:min(1120px,92vw);
+margin:auto;
+padding:120px 0 60px
 }
 
 .hero{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  gap:30px;
-  margin-bottom:45px;
+display:flex;
+justify-content:space-between;
+align-items:flex-end;
+margin-bottom:45px
 }
 
 .hero-copy h1{
-  font-size:clamp(45px,7vw,82px);
-  line-height:.95;
-  letter-spacing:-.065em;
-  margin:0;
+font-size:clamp(45px,7vw,82px);
+line-height:.95;
+letter-spacing:-.065em;
+margin:0
 }
 
 .hero-copy h1 span{
-  color:#ff6a00;
+color:#ff6a00
 }
 
 .hero-copy p{
-  color:#777;
-  max-width:600px;
-  line-height:1.6;
-  margin-top:20px;
+color:#777;
+line-height:1.6;
+margin-top:20px
 }
 
 .hero-icon{
-  width:90px;
-  height:90px;
-  border-radius:25px;
-  background:#fff0e7;
-  color:#ff6a00;
-  display:grid;
-  place-items:center;
+width:90px;
+height:90px;
+border-radius:25px;
+background:#fff0e7;
+color:#ff6a00;
+display:grid;
+place-items:center
 }
 
-.hero-icon svg{
-  width:42px;
-  height:42px;
-}
-
-/* =========================
-   ADMIN
-========================= */
-
+/* ADMIN */
 .admin-panel{
-  background:#fff;
-  border:1px solid #eaeaea;
-  border-radius:18px;
-  padding:28px;
-  margin-bottom:45px;
-  box-shadow:0 10px 35px #00000007;
+background:#fff;
+border:1px solid #eaeaea;
+border-radius:18px;
+padding:28px;
+margin-bottom:45px;
+box-shadow:0 10px 35px #00000007
 }
 
 .admin-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:20px;
-  margin-bottom:25px;
+margin-bottom:25px
 }
 
 .admin-title{
-  display:flex;
-  align-items:center;
-  gap:13px;
+display:flex;
+align-items:center;
+gap:13px
 }
 
 .admin-icon{
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  background:#fff0e7;
-  color:#ff6a00;
-  display:grid;
-  place-items:center;
-}
-
-.admin-icon svg{
-  width:22px;
-  height:22px;
+width:44px;
+height:44px;
+border-radius:12px;
+background:#fff0e7;
+color:#ff6a00;
+display:grid;
+place-items:center;
+font-size:22px
 }
 
 .admin-title h2{
-  margin:0;
-  font-size:21px;
+margin:0;
+font-size:21px
 }
 
 .admin-title p{
-  margin:4px 0 0;
-  color:#888;
-  font-size:13px;
+margin:4px 0 0;
+color:#888;
+font-size:13px
 }
 
 .admin-grid{
-  display:grid;
-  grid-template-columns:1fr 180px;
-  gap:18px;
+display:grid;
+grid-template-columns:1fr 180px;
+gap:18px
 }
 
 .admin-grid .full{
-  grid-column:1/-1;
+grid-column:1/-1
 }
 
-.price-input-wrap{
-  position:relative;
+.price-wrap{
+position:relative
 }
 
-.price-input-wrap span{
-  position:absolute;
-  right:14px;
-  top:50%;
-  transform:translateY(-50%);
-  font-size:11px;
-  font-weight:900;
-  color:#999;
+.price-wrap span{
+position:absolute;
+right:14px;
+top:50%;
+transform:translateY(-50%);
+font-size:10px;
+font-weight:900;
+color:#999
 }
 
-/* =========================
-   SECTION HEADER
-========================= */
-
+/* SECTION */
 .section-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
 }
 
 .section-title{
-  display:flex;
-  align-items:center;
-  gap:10px;
+display:flex;
+align-items:center;
+gap:10px
 }
 
 .section-title h2{
-  margin:0;
-  font-size:22px;
+margin:0;
+font-size:22px
 }
 
 .count-label{
-  color:#999;
-  font-size:13px;
+color:#999;
+font-size:13px
 }
 
 .refresh{
-  border:1px solid #ddd;
-  background:#fff;
-  padding:9px 14px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:900;
+border:1px solid #ddd;
+background:#fff;
+padding:9px 14px;
+border-radius:8px;
+font-size:12px;
+font-weight:900
 }
 
-.refresh:hover{
-  border-color:#ff6a00;
-  color:#ff6a00;
-}
-
-/* =========================
-   POST CARDS
-========================= */
-
+/* POSTS */
 .posts{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:20px
 }
 
 .post-card{
-  background:#fff;
-  border:1px solid #e9e9e9;
-  border-radius:17px;
-  padding:23px;
-  min-height:320px;
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 8px 30px #00000006;
-  transition:.2s;
-  overflow:hidden;
+background:#fff;
+border:1px solid #e9e9e9;
+border-radius:17px;
+padding:23px;
+min-height:320px;
+display:flex;
+flex-direction:column;
+box-shadow:0 8px 30px #00000006;
+transition:.2s
 }
 
 .post-card:hover{
-  transform:translateY(-3px);
-  box-shadow:0 15px 35px #0000000c;
+transform:translateY(-3px);
+box-shadow:0 15px 35px #0000000c
 }
 
 .post-card.unlocked{
-  border-color:#ff6a00;
+border-color:#ff6a00
 }
 
 .card-top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:18px
 }
 
 .category-icon{
-  width:43px;
-  height:43px;
-  border-radius:12px;
-  background:#fff0e7;
-  color:#ff6a00;
-  display:grid;
-  place-items:center;
-}
-
-.category-icon svg{
-  width:21px;
-  height:21px;
+width:43px;
+height:43px;
+border-radius:12px;
+background:#fff0e7;
+color:#ff6a00;
+display:grid;
+place-items:center;
+font-size:20px
 }
 
 .badge{
-  display:inline-flex;
-  align-items:center;
-  gap:5px;
-  padding:7px 10px;
-  border-radius:20px;
-  background:#f1f1f1;
-  color:#777;
-  font-size:10px;
-  font-weight:900;
-  text-transform:uppercase;
+padding:7px 10px;
+border-radius:20px;
+background:#f1f1f1;
+color:#777;
+font-size:10px;
+font-weight:900
 }
 
 .badge.premium{
-  background:#fff0e7;
-  color:#ff6a00;
+background:#fff0e7;
+color:#ff6a00
 }
 
 .badge.free{
-  background:#eaf7ed;
-  color:#188038;
+background:#eaf7ed;
+color:#188038
 }
 
 .post-card h3{
-  margin:0 0 8px;
-  font-size:22px;
-  line-height:1.2;
-  letter-spacing:-.02em;
+margin:0 0 8px;
+font-size:22px;
+line-height:1.2
 }
 
 .date{
-  color:#999;
-  font-size:11px;
-  margin-bottom:15px;
+color:#999;
+font-size:11px;
+margin-bottom:15px
 }
 
 .locked-area{
-  flex:1;
-  border-radius:13px;
-  background:#fafafa;
-  border:1px dashed #ddd;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-  padding:25px;
-  margin-top:8px;
+flex:1;
+border-radius:13px;
+background:#fafafa;
+border:1px dashed #ddd;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
+margin-top:8px
 }
 
 .lock-circle{
-  width:58px;
-  height:58px;
-  border-radius:50%;
-  background:#fff0e7;
-  color:#ff6a00;
-  display:grid;
-  place-items:center;
-  margin-bottom:14px;
-}
-
-.lock-circle svg{
-  width:25px;
-  height:25px;
+width:58px;
+height:58px;
+border-radius:50%;
+background:#fff0e7;
+color:#ff6a00;
+display:grid;
+place-items:center;
+font-size:25px;
+margin-bottom:14px
 }
 
 .locked-area strong{
-  font-size:16px;
+font-size:16px
 }
 
 .locked-area p{
-  margin:7px 0 0;
-  color:#888;
-  font-size:13px;
+margin:7px 0 0;
+color:#888;
+font-size:13px
 }
 
 .price{
-  color:#ff6a00;
-  font-size:20px;
-  font-weight:950;
-  margin:18px 0 0;
+color:#ff6a00;
+font-size:20px;
+font-weight:950;
+margin:18px 0 0
 }
 
-.pay-button,
-.view-button{
-  margin-top:18px;
-  width:100%;
-  border:0;
-  border-radius:9px;
-  padding:13px;
-  background:#ff6a00;
-  color:#fff;
-  font-weight:900;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:8px;
+.pay-button{
+margin-top:18px;
+width:100%;
+border:0;
+border-radius:9px;
+padding:13px;
+background:#ff6a00;
+color:#fff;
+font-weight:900
 }
 
-.pay-button:hover,
-.view-button:hover{
-  background:#df5c00;
-}
-
-.pay-button svg,
-.view-button svg{
-  width:17px;
-  height:17px;
+.pay-button:hover{
+background:#df5c00
 }
 
 .unlocked-content{
-  flex:1;
-  margin-top:10px;
-  padding:18px;
-  border-radius:12px;
-  background:#fffaf6;
-  border:1px solid #ffe0cc;
+flex:1;
+margin-top:10px;
+padding:18px;
+border-radius:12px;
+background:#fffaf6;
+border:1px solid #ffe0cc
 }
 
-.unlocked-content-header{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  color:#188038;
-  font-size:12px;
-  font-weight:900;
-  margin-bottom:14px;
-}
-
-.unlocked-content-header svg{
-  width:17px;
-  height:17px;
+.unlocked-header{
+color:#188038;
+font-size:12px;
+font-weight:900;
+margin-bottom:14px
 }
 
 .content-text{
-  color:#444;
-  line-height:1.7;
-  white-space:pre-wrap;
-  font-size:14px;
+color:#444;
+line-height:1.7;
+white-space:pre-wrap;
+font-size:14px
 }
 
 .free-content{
-  flex:1;
-  padding:15px 0;
+flex:1;
+padding:15px 0
 }
 
 .empty{
-  grid-column:1/-1;
-  background:#fff;
-  border:1px dashed #ddd;
-  padding:50px;
-  text-align:center;
-  border-radius:15px;
-  color:#999;
+grid-column:1/-1;
+background:#fff;
+border:1px dashed #ddd;
+padding:50px;
+text-align:center;
+border-radius:15px;
+color:#999
 }
 
-/* =========================
-   PAYMENT MODAL
-========================= */
-
+/* PAYMENT MODAL */
 .modal{
-  position:fixed;
-  inset:0;
-  background:#00000085;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  z-index:100;
-  backdrop-filter:blur(5px);
+position:fixed;
+inset:0;
+background:#00000085;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:100;
+backdrop-filter:blur(5px)
 }
 
 .modal-box{
-  width:min(500px,95vw);
-  max-height:90vh;
-  overflow:auto;
-  background:#fff;
-  border-radius:20px;
-  padding:32px;
-  position:relative;
-  box-shadow:0 30px 90px #0004;
+width:min(500px,95vw);
+max-height:90vh;
+overflow:auto;
+background:#fff;
+border-radius:20px;
+padding:32px;
+position:relative;
+box-shadow:0 30px 90px #0004
 }
 
 .close-modal{
-  position:absolute;
-  top:16px;
-  right:18px;
-  width:35px;
-  height:35px;
-  border:0;
-  border-radius:50%;
-  background:#f5f5f5;
-  font-size:24px;
-  line-height:1;
+position:absolute;
+top:15px;
+right:18px;
+width:35px;
+height:35px;
+border:0;
+border-radius:50%;
+background:#f5f5f5;
+font-size:24px
 }
 
 .payment-icon{
-  width:65px;
-  height:65px;
-  border-radius:18px;
-  background:#fff0e7;
-  color:#ff6a00;
-  display:grid;
-  place-items:center;
-  margin-bottom:18px;
-}
-
-.payment-icon svg{
-  width:31px;
-  height:31px;
+width:65px;
+height:65px;
+border-radius:18px;
+background:#fff0e7;
+color:#ff6a00;
+display:grid;
+place-items:center;
+font-size:28px;
+margin-bottom:18px
 }
 
 .modal-box h2{
-  margin:0 45px 8px 0;
-  font-size:28px;
-  letter-spacing:-.03em;
+margin:0 45px 8px 0;
+font-size:28px
 }
 
 .modal-description{
-  color:#777;
-  line-height:1.5;
-  font-size:14px;
+color:#777;
+line-height:1.5;
+font-size:14px
 }
 
 .payment-price{
-  font-size:28px;
-  font-weight:950;
-  color:#ff6a00;
-  margin:22px 0;
+font-size:28px;
+font-weight:950;
+color:#ff6a00;
+margin:22px 0
 }
 
 .payment-status{
-  display:none;
-  text-align:center;
-  background:#fafafa;
-  border:1px solid #eee;
-  border-radius:14px;
-  padding:28px 20px;
-  margin-top:20px;
+display:none;
+text-align:center;
+background:#fafafa;
+border:1px solid #eee;
+border-radius:14px;
+padding:28px 20px;
+margin-top:20px
 }
 
 .spinner{
-  width:38px;
-  height:38px;
-  border:4px solid #ddd;
-  border-top-color:#ff6a00;
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-  margin:0 auto 16px;
+width:38px;
+height:38px;
+border:4px solid #ddd;
+border-top-color:#ff6a00;
+border-radius:50%;
+animation:spin .8s linear infinite;
+margin:0 auto 16px
 }
 
 @keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
+to{transform:rotate(360deg)}
 }
 
 .payment-status strong{
-  display:block;
-  font-size:16px;
+display:block
 }
 
 .payment-status small{
-  display:block;
-  color:#888;
-  line-height:1.5;
-  margin-top:8px;
+display:block;
+color:#888;
+margin-top:8px;
+line-height:1.5
 }
 
 .status-text{
-  color:#ff6a00;
-  font-weight:800;
-  font-size:13px;
-  margin-top:14px;
+color:#ff6a00;
+font-weight:800;
+font-size:13px;
+margin-top:14px
+}
+
+.success-box,
+.failed-box{
+display:none;
+text-align:center;
+border-radius:14px;
+padding:25px;
+font-weight:900;
+margin-top:20px
 }
 
 .success-box{
-  display:none;
-  text-align:center;
-  background:#eaf7ed;
-  color:#188038;
-  border-radius:14px;
-  padding:25px;
-  font-weight:900;
-  margin-top:20px;
+background:#eaf7ed;
+color:#188038
 }
 
 .failed-box{
-  display:none;
-  text-align:center;
-  background:#fff0f0;
-  color:#d93025;
-  border-radius:14px;
-  padding:25px;
-  font-weight:900;
-  margin-top:20px;
+background:#fff0f0;
+color:#d93025
 }
 
-/* =========================
-   RESPONSIVE
-========================= */
-
+/* RESPONSIVE */
 @media(max-width:800px){
 
 .home{
-  flex-direction:column;
+flex-direction:column
 }
 
 .brand{
-  width:100%;
-  height:40%;
-  font-size:100px;
+width:100%;
+height:40%;
+font-size:100px
 }
 
 .intro{
-  padding:35px;
+padding:35px
 }
 
 .auth-card{
-  grid-template-columns:1fr;
+grid-template-columns:1fr
 }
 
 .auth-side{
-  display:none;
+display:none
 }
 
 .auth-main{
-  padding:35px;
+padding:35px
 }
 
 .admin-grid{
-  grid-template-columns:1fr;
+grid-template-columns:1fr
 }
 
 .admin-grid .full{
-  grid-column:auto;
-}
-
-.hero{
-  align-items:flex-start;
+grid-column:auto
 }
 
 .hero-icon{
-  display:none;
+display:none
 }
 
 }
@@ -922,32 +799,32 @@ button{
 @media(max-width:550px){
 
 .topbar{
-  padding:0 16px;
+padding:0 16px
 }
 
 .user-name{
-  display:none;
+display:none
 }
 
 .content{
-  width:94vw;
-  padding-top:105px;
+width:94vw;
+padding-top:105px
 }
 
 .hero-copy h1{
-  font-size:50px;
+font-size:50px
 }
 
 .posts{
-  grid-template-columns:1fr;
+grid-template-columns:1fr
 }
 
 .admin-panel{
-  padding:20px;
+padding:20px
 }
 
 .modal-box{
-  padding:25px;
+padding:25px
 }
 
 }
@@ -956,110 +833,14 @@ button{
 
 <body>
 
-<!-- SVG ICON DEFINITIONS -->
-<svg style="display:none">
-
-<symbol id="icon-arrow" viewBox="0 0 24 24">
-<path d="M5 12h14M13 6l6 6-6 6"
-stroke="currentColor"
-stroke-width="2"
-fill="none"
-stroke-linecap="round"
-stroke-linejoin="round"/>
-</symbol>
-
-<symbol id="icon-lock" viewBox="0 0 24 24">
-<rect x="4" y="10" width="16" height="11" rx="2"
-fill="none"
-stroke="currentColor"
-stroke-width="2"/>
-<path d="M8 10V7a4 4 0 0 1 8 0v3"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-</symbol>
-
-<symbol id="icon-file" viewBox="0 0 24 24">
-<path d="M6 3h8l4 4v14H6z"
-fill="none"
-stroke="currentColor"
-stroke-width="2"/>
-<path d="M14 3v5h5M9 13h6M9 17h6"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-</symbol>
-
-<symbol id="icon-plus" viewBox="0 0 24 24">
-<path d="M12 5v14M5 12h14"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-</symbol>
-
-<symbol id="icon-check" viewBox="0 0 24 24">
-<path d="M5 12l4 4L19 6"
-fill="none"
-stroke="currentColor"
-stroke-width="2.5"
-stroke-linecap="round"
-stroke-linejoin="round"/>
-</symbol>
-
-<symbol id="icon-card" viewBox="0 0 24 24">
-<rect x="3" y="5" width="18" height="14" rx="2"
-fill="none"
-stroke="currentColor"
-stroke-width="2"/>
-<path d="M3 10h18M7 15h4"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-</symbol>
-
-<symbol id="icon-refresh" viewBox="0 0 24 24">
-<path d="M20 11a8 8 0 0 0-14.8-4L3 10"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-<path d="M3 5v5h5"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"/>
-<path d="M4 13a8 8 0 0 0 14.8 4L21 14"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"/>
-<path d="M21 19v-5h-5"
-fill="none"
-stroke="currentColor"
-stroke-width="2"
-stroke-linecap="round"
-stroke-linejoin="round"/>
-</symbol>
-
-</svg>
-
-
-<!-- LOADER -->
-
 <div class="loader">
-<b>KB</b>
+<b>MB</b>
 </div>
-
-
-<!-- HOME -->
 
 <section class="home" id="home">
 
 <div class="brand">
-KB
+MB
 </div>
 
 <div class="intro">
@@ -1068,7 +849,7 @@ KB
 
 <div class="eyebrow">
 <span class="eyebrow-dot"></span>
-Premium Content
+MIKEKA BOOM
 </div>
 
 <h1>
@@ -1077,19 +858,13 @@ Knowledge<br>
 </h1>
 
 <p>
-Access exclusive KB content. Create an account,
-choose the content you want, and unlock premium
-material securely through mobile payment.
+Welcome to MIKEKA BOOM — your premium content
+library. Create an account, choose your content,
+pay securely and unlock it instantly.
 </p>
 
 <button class="primary-btn" id="view">
-
-Get Started
-
-<svg>
-<use href="#icon-arrow"></use>
-</svg>
-
+GET STARTED →
 </button>
 
 </div>
@@ -1099,8 +874,6 @@ Get Started
 </section>
 
 
-<!-- AUTH -->
-
 <section class="auth" id="auth">
 
 <div class="auth-card">
@@ -1108,13 +881,13 @@ Get Started
 <aside class="auth-side">
 
 <div class="auth-logo">
-KB
+MB
 </div>
 
 <div>
 
 <h2>
-Welcome to KB.
+MIKEKA BOOM
 </h2>
 
 <p>
@@ -1124,7 +897,6 @@ Your private library for premium knowledge and exclusive content.
 </div>
 
 </aside>
-
 
 <main class="auth-main">
 
@@ -1138,73 +910,43 @@ Sign in to continue.
 
 <div class="msg" id="msg"></div>
 
-
-<div
-class="field"
-id="nameBox"
-style="display:none">
+<div class="field" id="nameBox" style="display:none">
 
 <label>FULL NAME</label>
 
-<input
-id="name"
-autocomplete="name"
-placeholder="Your name">
+<input id="name" autocomplete="name" placeholder="Your name">
 
 </div>
-
 
 <div class="field">
 
 <label>EMAIL</label>
 
-<input
-id="email"
-type="email"
-autocomplete="email"
-placeholder="you@example.com">
+<input id="email" type="email" autocomplete="email" placeholder="you@example.com">
 
 </div>
-
 
 <div class="field">
 
 <label>PASSWORD</label>
 
-<input
-id="password"
-type="password"
-autocomplete="current-password"
-placeholder="••••••••">
+<input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
 
 </div>
 
-
-<button
-class="link"
-id="forgot">
-
+<button class="link" id="forgot">
 Forgot password?
-
 </button>
 
 <br><br>
 
-
-<button
-class="submit"
-id="submit">
-
+<button class="submit" id="submit">
 SIGN IN
-
 </button>
-
 
 <p id="switch">
 Don't have an account?
-<button class="link">
-CREATE ACCOUNT
-</button>
+<button class="link">CREATE ACCOUNT</button>
 </p>
 
 </main>
@@ -1214,29 +956,20 @@ CREATE ACCOUNT
 </section>
 
 
-<!-- APP -->
-
 <section class="app" id="app">
 
 <header class="topbar">
 
 <div class="logo">
-KB
+MIKEKA BOOM
 </div>
 
 <div class="user-area">
 
-<span
-class="user-name"
-id="userName">
-</span>
+<span class="user-name" id="userName"></span>
 
-<button
-class="logout"
-id="logout">
-
+<button class="logout" id="logout">
 SIGN OUT
-
 </button>
 
 </div>
@@ -1246,15 +979,13 @@ SIGN OUT
 
 <main class="content">
 
-<!-- HERO -->
-
 <div class="hero">
 
 <div class="hero-copy">
 
 <div class="eyebrow">
 <span class="eyebrow-dot"></span>
-KB Library
+MIKEKA BOOM LIBRARY
 </div>
 
 <h1>
@@ -1268,33 +999,20 @@ Your content library.
 </div>
 
 <div class="hero-icon">
-
-<svg>
-<use href="#icon-file"></use>
-</svg>
-
+📚
 </div>
 
 </div>
 
 
-<!-- ADMIN -->
-
-<section
-id="adminPanel"
-class="admin-panel"
-style="display:none">
+<section id="adminPanel" class="admin-panel" style="display:none">
 
 <div class="admin-header">
 
 <div class="admin-title">
 
 <div class="admin-icon">
-
-<svg>
-<use href="#icon-plus"></use>
-</svg>
-
+＋
 </div>
 
 <div>
@@ -1332,7 +1050,7 @@ placeholder="Enter content title">
 
 <label>PRICE</label>
 
-<div class="price-input-wrap">
+<div class="price-wrap">
 
 <input
 id="postPrice"
@@ -1348,8 +1066,7 @@ placeholder="0">
 </div>
 
 
-<div
-class="field full">
+<div class="field full">
 
 <label>CONTENT</label>
 
@@ -1363,23 +1080,14 @@ placeholder="Write your content here..."></textarea>
 </div>
 
 
-<button
-class="submit"
-id="publish">
-
+<button class="submit" id="publish">
 PUBLISH CONTENT
-
 </button>
 
-<div
-class="msg"
-id="postMsg">
-</div>
+<div class="msg" id="postMsg"></div>
 
 </section>
 
-
-<!-- CONTENT SECTION -->
 
 <div class="section-header">
 
@@ -1389,32 +1097,20 @@ id="postMsg">
 Content
 </h2>
 
-<span
-class="count-label">
+<span class="count-label">
 Premium library
 </span>
 
 </div>
 
-<button
-class="refresh"
-id="refreshPosts">
-
-<svg
-style="width:14px;height:14px;vertical-align:-2px">
-<use href="#icon-refresh"></use>
-</svg>
-
-REFRESH
-
+<button class="refresh" id="refreshPosts">
+↻ REFRESH
 </button>
 
 </div>
 
 
-<div
-id="posts"
-class="posts">
+<div id="posts" class="posts">
 
 <div class="empty">
 Loading content...
@@ -1427,31 +1123,17 @@ Loading content...
 </section>
 
 
-<!-- PAYMENT MODAL -->
-
-<div
-class="modal"
-id="paymentModal">
+<div class="modal" id="paymentModal">
 
 <div class="modal-box">
 
-<button
-class="close-modal"
-id="closePayment">
-
+<button class="close-modal" id="closePayment">
 ×
-
 </button>
 
-
 <div class="payment-icon">
-
-<svg>
-<use href="#icon-card"></use>
-</svg>
-
+💳
 </div>
-
 
 <h2 id="paymentTitle">
 Unlock Content
@@ -1459,13 +1141,10 @@ Unlock Content
 
 <p class="modal-description">
 Complete the payment below. After PalmPesa confirms
-the payment, the content will automatically unlock.
+your payment, the content will automatically unlock.
 </p>
 
-
-<div
-class="payment-price"
-id="paymentPrice">
+<div class="payment-price" id="paymentPrice">
 </div>
 
 
@@ -1475,56 +1154,34 @@ id="paymentPrice">
 
 <label>NAME</label>
 
-<input
-id="payName"
-placeholder="Your full name">
+<input id="payName" placeholder="Your full name">
 
 </div>
-
 
 <div class="field">
 
 <label>EMAIL</label>
 
-<input
-id="payEmail"
-type="email"
-placeholder="you@example.com">
+<input id="payEmail" type="email" placeholder="you@example.com">
 
 </div>
-
 
 <div class="field">
 
 <label>PHONE NUMBER</label>
 
-<input
-id="payPhone"
-type="tel"
-placeholder="07XXXXXXXX">
+<input id="payPhone" type="tel" placeholder="07XXXXXXXX">
 
 </div>
 
-
-<button
-class="submit"
-id="payButton">
-
-<svg
-style="width:18px;height:18px;vertical-align:-4px;margin-right:6px">
-<use href="#icon-card"></use>
-</svg>
-
+<button class="submit" id="payButton">
 PAY NOW
-
 </button>
 
 </div>
 
 
-<div
-class="payment-status"
-id="paymentStatus">
+<div class="payment-status" id="paymentStatus">
 
 <div class="spinner"></div>
 
@@ -1536,50 +1193,28 @@ Waiting for payment...
 Enter your PIN on your phone and complete the payment.
 </small>
 
-<div
-class="status-text"
-id="statusText">
+<div class="status-text" id="statusText">
 Checking payment status...
 </div>
 
 </div>
 
 
-<div
-class="success-box"
-id="successBox">
-
-<svg
-style="width:25px;height:25px;vertical-align:-7px;margin-right:5px">
-<use href="#icon-check"></use>
-</svg>
-
+<div class="success-box" id="successBox">
 PAYMENT COMPLETED
-
 <br><br>
-
 Unlocking your content...
-
 </div>
 
 
-<div
-class="failed-box"
-id="failedBox">
-
+<div class="failed-box" id="failedBox">
 PAYMENT FAILED
-
 <br><br>
-
 Please try again.
-
 </div>
 
 
-<div
-class="msg"
-id="paymentMsg">
-</div>
+<div class="msg" id="paymentMsg"></div>
 
 </div>
 
@@ -1614,6 +1249,7 @@ setDoc,
 getDoc,
 collection,
 addDoc,
+getDocs,
 onSnapshot,
 query,
 orderBy,
@@ -1623,49 +1259,31 @@ from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
 
-/* =========================
-   FIREBASE
-========================= */
-
 const firebaseConfig={
 
-apiKey:
-'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
+apiKey:'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
 
-authDomain:
-'volcanobxpl.firebaseapp.com',
+authDomain:'volcanobxpl.firebaseapp.com',
 
-projectId:
-'volcanobxpl',
+projectId:'volcanobxpl',
 
-storageBucket:
-'volcanobxpl.firebasestorage.app',
+storageBucket:'volcanobxpl.firebasestorage.app',
 
-messagingSenderId:
-'742861205377',
+messagingSenderId:'742861205377',
 
-appId:
-'1:742861205377:web:bbe8a42b78c90354a64280',
+appId:'1:742861205377:web:bbe8a42b78c90354a64280',
 
-measurementId:
-'G-G1KWGHLZES'
+measurementId:'G-G1KWGHLZES'
 
 };
 
 
-const firebaseApp =
-initializeApp(firebaseConfig);
+const firebaseApp=initializeApp(firebaseConfig);
 
-const auth =
-getAuth(firebaseApp);
+const auth=getAuth(firebaseApp);
 
-const db =
-getFirestore(firebaseApp);
+const db=getFirestore(firebaseApp);
 
-
-/* =========================
-   STATE
-========================= */
 
 let signup=false;
 
@@ -1679,34 +1297,19 @@ let selectedPostId=null;
 
 let paymentPolling=false;
 
+let paidPosts=new Set();
 
-/* =========================
-   HELPERS
-========================= */
 
-const $ =
-id =>
-document.getElementById(id);
+const $=id=>document.getElementById(id);
 
 
 function msg(text){
-
 $('msg').textContent=text;
-
 }
 
 
 function sleep(ms){
-
-return new Promise(
-resolve =>
-setTimeout(
-resolve,
-ms
-)
-);
-
-
+return new Promise(resolve=>setTimeout(resolve,ms));
 }
 
 
@@ -1714,24 +1317,71 @@ function esc(value){
 
 return String(value).replace(
 /[&<>"']/g,
-character => ({
-
+character=>({
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
 '"':'&quot;',
 "'":'&#039;'
-
 }[character])
 );
 
 }
 
 
-/* =========================
-   HOME
-========================= */
+/*
+ LOAD PURCHASES FOR CURRENT USER
+*/
+async function loadPurchases(){
 
+paidPosts=new Set();
+
+if(!currentUser){
+return;
+}
+
+try{
+
+const purchasesRef=
+collection(
+db,
+'people',
+currentUser.uid,
+'purchases'
+);
+
+const snapshot=
+await getDocs(purchasesRef);
+
+snapshot.forEach(item=>{
+
+const data=item.data();
+
+if(
+data.status==='COMPLETED'
+){
+
+paidPosts.add(item.id);
+
+}
+
+});
+
+}catch(error){
+
+console.error(
+'Purchase loading error:',
+error
+);
+
+}
+
+}
+
+
+/*
+ HOME
+*/
 $('view').onclick=()=>{
 
 $('home').style.display='none';
@@ -1741,10 +1391,9 @@ $('auth').style.display='flex';
 };
 
 
-/* =========================
-   LOGIN / SIGNUP SWITCH
-========================= */
-
+/*
+ AUTH SWITCH
+*/
 $('switch').onclick=()=>{
 
 signup=!signup;
@@ -1759,30 +1408,18 @@ signup
 $('sub').textContent=
 signup
 ?
-'Join KB today.'
+'Join MIKEKA BOOM today.'
 :
 'Sign in to continue.';
 
 $('nameBox').style.display=
-signup
-?
-'block'
-:
-'none';
+signup?'block':'none';
 
 $('forgot').style.display=
-signup
-?
-'none'
-:
-'inline-block';
+signup?'none':'inline-block';
 
 $('submit').textContent=
-signup
-?
-'CREATE ACCOUNT'
-:
-'SIGN IN';
+signup?'CREATE ACCOUNT':'SIGN IN';
 
 $('switch').innerHTML=
 signup
@@ -1794,30 +1431,24 @@ signup
 };
 
 
-/* =========================
-   AUTH SUBMIT
-========================= */
-
+/*
+ AUTH SUBMIT
+*/
 $('submit').onclick=async()=>{
 
-const email=
-$('email').value.trim();
+const email=$('email').value.trim();
 
-const password=
-$('password').value;
+const password=$('password').value;
 
-const name=
-$('name').value.trim();
+const name=$('name').value.trim();
 
 if(
-!email ||
-!password ||
-(signup && !name)
+!email||
+!password||
+(signup&&!name)
 ){
 
-msg(
-'Please complete all fields.'
-);
+msg('Please complete all fields.');
 
 return;
 
@@ -1852,7 +1483,7 @@ credential.user
 }catch(error){
 
 console.log(
-'Verification email error:',
+'Verification error:',
 error
 );
 
@@ -1865,22 +1496,14 @@ db,
 credential.user.uid
 ),
 {
-
 name:name,
-
 email:email,
-
 role:'user',
-
-createdAt:
-serverTimestamp()
-
+createdAt:serverTimestamp()
 }
 );
 
-openApp(
-credential.user
-);
+openApp(credential.user);
 
 }else{
 
@@ -1891,36 +1514,22 @@ email,
 password
 );
 
-openApp(
-credential.user
-);
+openApp(credential.user);
 
 }
 
 }catch(error){
 
 msg(
-
-error.code ===
-'auth/invalid-credential'
-
+error.code==='auth/invalid-credential'
 ?
-
 'Invalid email or password.'
-
 :
-
-error.code ===
-'auth/email-already-in-use'
-
+error.code==='auth/email-already-in-use'
 ?
-
 'Email already exists.'
-
 :
-
 error.message
-
 );
 
 }finally{
@@ -1932,20 +1541,16 @@ $('submit').disabled=false;
 };
 
 
-/* =========================
-   FORGOT PASSWORD
-========================= */
-
+/*
+ FORGOT
+*/
 $('forgot').onclick=async()=>{
 
-const email=
-$('email').value.trim();
+const email=$('email').value.trim();
 
 if(!email){
 
-msg(
-'Enter your email first.'
-);
+msg('Enter your email first.');
 
 return;
 
@@ -1958,25 +1563,20 @@ auth,
 email
 );
 
-msg(
-'Password reset email sent.'
-);
+msg('Password reset email sent.');
 
 }catch(error){
 
-msg(
-error.message
-);
+msg(error.message);
 
 }
 
 };
 
 
-/* =========================
-   OPEN APP
-========================= */
-
+/*
+ OPEN APP
+*/
 async function openApp(user){
 
 currentUser=user;
@@ -1988,8 +1588,7 @@ $('home').style.display='none';
 $('app').style.display='block';
 
 $('userName').textContent=
-user.displayName ||
-user.email;
+user.displayName||user.email;
 
 
 const snap=
@@ -2001,46 +1600,38 @@ user.uid
 )
 );
 
-
 const data=
 snap.exists()
 ?
 snap.data()
 :
-{
-role:'user'
-};
-
+{role:'user'};
 
 const admin=
 data.role==='admin';
 
 
 $('adminPanel').style.display=
-admin
-?
-'block'
-:
-'none';
-
+admin?'block':'none';
 
 $('roleText').textContent=
 admin
 ?
-'Administrator — manage and publish your content.'
+'Administrator — manage and publish content.'
 :
 'Member — unlock premium content after payment.';
 
+
+await loadPurchases();
 
 listenPosts();
 
 }
 
 
-/* =========================
-   LOGOUT
-========================= */
-
+/*
+ LOGOUT
+*/
 $('logout').onclick=async()=>{
 
 paymentPolling=false;
@@ -2057,6 +1648,8 @@ await signOut(auth);
 
 currentUser=null;
 
+paidPosts=new Set();
+
 $('app').style.display='none';
 
 $('home').style.display='flex';
@@ -2064,10 +1657,9 @@ $('home').style.display='flex';
 };
 
 
-/* =========================
-   ADMIN PUBLISH
-========================= */
-
+/*
+ ADMIN PUBLISH
+*/
 $('publish').onclick=async()=>{
 
 if(!currentUser){
@@ -2090,7 +1682,7 @@ currentUser.uid
 );
 
 if(
-!userSnap.exists() ||
+!userSnap.exists()||
 userSnap.data().role!=='admin'
 ){
 
@@ -2100,7 +1692,6 @@ throw new Error(
 
 }
 
-
 const title=
 $('postTitle').value.trim();
 
@@ -2109,63 +1700,33 @@ $('postContent').value.trim();
 
 const price=
 Number(
-$('postPrice').value || 0
+$('postPrice').value||0
 );
-
 
 if(!title){
-
-throw new Error(
-'Enter a title.'
-);
-
+throw new Error('Enter a title.');
 }
 
 if(!content){
-
-throw new Error(
-'Enter content.'
-);
-
+throw new Error('Enter content.');
 }
 
-if(
-!Number.isFinite(price) ||
-price<0
-){
-
-throw new Error(
-'Enter a valid price.'
-);
-
+if(!Number.isFinite(price)||price<0){
+throw new Error('Enter a valid price.');
 }
-
 
 await addDoc(
 collection(db,'posts'),
 {
-
-title:title,
-
-content:content,
-
-price:price,
-
+title,
+content,
+price,
 published:true,
-
-authorId:
-currentUser.uid,
-
-authorName:
-currentUser.displayName ||
-currentUser.email,
-
-createdAt:
-serverTimestamp()
-
+authorId:currentUser.uid,
+authorName:currentUser.displayName||currentUser.email,
+createdAt:serverTimestamp()
 }
 );
-
 
 $('postTitle').value='';
 
@@ -2190,123 +1751,83 @@ $('publish').disabled=false;
 };
 
 
-/* =========================
-   LISTEN POSTS
-========================= */
-
+/*
+ LIST POSTS
+*/
 function listenPosts(){
 
 if(stopPosts){
-
 stopPosts();
-
 }
 
 const q=
 query(
 collection(db,'posts'),
-orderBy(
-'createdAt',
-'desc'
-)
+orderBy('createdAt','desc')
 );
-
 
 stopPosts=
 onSnapshot(
 q,
 snapshot=>{
 
-const box=
-$('posts');
-
+const box=$('posts');
 
 if(snapshot.empty){
 
-box.innerHTML=`
-
-<div class="empty">
-
-No content has been published yet.
-
-</div>
-
-`;
+box.innerHTML=
+'<div class="empty">No content has been published yet.</div>';
 
 return;
 
 }
 
-
 const docs=
 snapshot.docs.filter(
-docSnap =>
-docSnap.data().published!==false
+item=>item.data().published!==false
 );
-
 
 box.innerHTML=
-docs.map(
-docSnap=>{
+docs.map(item=>{
 
-const post=
-docSnap.data();
+const post=item.data();
 
 const price=
-Number(
-post.price || 0
-);
+Number(post.price||0);
 
 const date=
 post.createdAt?.toDate
 ?
-post.createdAt
-.toDate()
-.toLocaleString()
+post.createdAt.toDate().toLocaleString()
 :
 'Just now';
 
 
-/* FREE CONTENT */
-
+/*
+ FREE CONTENT
+*/
 if(price<=0){
 
 return `
 
-<article
-class="post-card"
-id="post-${docSnap.id}">
+<article class="post-card">
 
 <div class="card-top">
 
-<div class="category-icon">
+<div class="category-icon">📄</div>
 
-<svg>
-<use href="#icon-file"></use>
-</svg>
+<div class="badge free">FREE</div>
 
 </div>
 
-<div class="badge free">
+<h3>${esc(post.title||'Untitled')}</h3>
 
-FREE
-
-</div>
-
-</div>
-
-<h3>
-${esc(post.title || 'Untitled')}
-</h3>
-
-<div class="date">
-${esc(date)}
-</div>
+<div class="date">${esc(date)}</div>
 
 <div class="free-content">
 
 <div class="content-text">
-${esc(post.content || '')}
+${esc(post.content||'')}
 </div>
 
 </div>
@@ -2318,54 +1839,73 @@ ${esc(post.content || '')}
 }
 
 
-/* PAID CONTENT */
+/*
+ ALREADY PAID
+*/
+if(paidPosts.has(item.id)){
 
 return `
 
 <article
-class="post-card"
-id="post-${docSnap.id}">
+class="post-card unlocked"
+id="post-${item.id}">
 
 <div class="card-top">
 
-<div class="category-icon">
+<div class="category-icon">🔓</div>
 
-<svg>
-<use href="#icon-lock"></use>
-</svg>
+<div class="badge free">UNLOCKED</div>
 
 </div>
 
-<div class="badge premium">
+<h3>${esc(post.title||'Untitled')}</h3>
 
-<svg
-style="width:12px;height:12px">
-<use href="#icon-lock"></use>
-</svg>
+<div class="date">${esc(date)}</div>
 
-PREMIUM
+<div class="unlocked-content">
 
+<div class="unlocked-header">
+✓ PAYMENT COMPLETED — CONTENT UNLOCKED
+</div>
+
+<div class="content-text">
+${esc(post.content||'')}
 </div>
 
 </div>
 
-<h3>
-${esc(post.title || 'Untitled')}
-</h3>
+</article>
 
-<div class="date">
-${esc(date)}
+`;
+
+}
+
+
+/*
+ LOCKED
+*/
+return `
+
+<article
+class="post-card"
+id="post-${item.id}">
+
+<div class="card-top">
+
+<div class="category-icon">🔒</div>
+
+<div class="badge premium">PREMIUM</div>
+
 </div>
 
+<h3>${esc(post.title||'Untitled')}</h3>
+
+<div class="date">${esc(date)}</div>
 
 <div class="locked-area">
 
 <div class="lock-circle">
-
-<svg>
-<use href="#icon-lock"></use>
-</svg>
-
+🔒
 </div>
 
 <strong>
@@ -2378,21 +1918,13 @@ Complete payment to unlock this content.
 
 </div>
 
-
 <div class="price">
-
 ${price.toLocaleString()} TSh
-
 </div>
-
 
 <button
 class="pay-button"
-data-id="${docSnap.id}">
-
-<svg>
-<use href="#icon-card"></use>
-</svg>
+data-id="${item.id}">
 
 PAY & UNLOCK
 
@@ -2402,9 +1934,7 @@ PAY & UNLOCK
 
 `;
 
-}
-)
-.join('');
+}).join('');
 
 
 box
@@ -2415,32 +1945,20 @@ button.onclick=()=>{
 
 const postDoc=
 snapshot.docs.find(
-docSnap =>
-docSnap.id===
-button.dataset.id
+item=>item.id===button.dataset.id
 );
 
 if(!postDoc){
 return;
 }
 
-const post=
-postDoc.data();
+selectedPostId=postDoc.id;
 
-const price=
-Number(
-post.price || 0
-);
-
-if(price<=0){
-
-return;
-
-}
+selectedPost=postDoc.data();
 
 openPaymentModal(
 postDoc.id,
-post
+selectedPost
 );
 
 };
@@ -2450,20 +1968,10 @@ post
 },
 error=>{
 
-console.error(
-'Firestore error:',
-error
-);
+console.error(error);
 
-$('posts').innerHTML=`
-
-<div class="empty">
-
-Unable to load content.
-
-</div>
-
-`;
+$('posts').innerHTML=
+'<div class="empty">Unable to load content.</div>';
 
 }
 );
@@ -2471,14 +1979,10 @@ Unable to load content.
 }
 
 
-/* =========================
-   PAYMENT MODAL
-========================= */
-
-function openPaymentModal(
-postId,
-post
-){
+/*
+ PAYMENT MODAL
+*/
+function openPaymentModal(postId,post){
 
 paymentPolling=false;
 
@@ -2486,26 +1990,18 @@ selectedPostId=postId;
 
 selectedPost=post;
 
-
 $('paymentTitle').textContent=
-post.title ||
-'Unlock Content';
-
+post.title||'Unlock Content';
 
 $('paymentPrice').textContent=
-Number(
-post.price || 0
-).toLocaleString()+
+Number(post.price||0).toLocaleString()+
 ' TSh';
 
-
 $('payName').value=
-currentUser?.displayName ||
-'';
+currentUser?.displayName||'';
 
 $('payEmail').value=
-currentUser?.email ||
-'';
+currentUser?.email||'';
 
 $('payPhone').value='';
 
@@ -2526,10 +2022,9 @@ $('paymentModal').style.display='flex';
 }
 
 
-/* =========================
-   CLOSE PAYMENT
-========================= */
-
+/*
+ CLOSE
+*/
 $('closePayment').onclick=()=>{
 
 if(paymentPolling){
@@ -2541,22 +2036,20 @@ $('paymentModal').style.display='none';
 };
 
 
-/* =========================
-   START PAYMENT
-========================= */
-
+/*
+ PAY
+*/
 $('payButton').onclick=async()=>{
 
 if(
-!currentUser ||
-!selectedPost ||
+!currentUser||
+!selectedPost||
 paymentPolling
 ){
 
 return;
 
 }
-
 
 const name=
 $('payName').value.trim();
@@ -2568,16 +2061,9 @@ const phone=
 $('payPhone').value.trim();
 
 const amount=
-Number(
-selectedPost.price || 0
-);
+Number(selectedPost.price||0);
 
-
-if(
-!name ||
-!email ||
-!phone
-){
+if(!name||!email||!phone){
 
 $('paymentMsg').textContent=
 'Please complete all fields.';
@@ -2586,11 +2072,7 @@ return;
 
 }
 
-
-if(
-!amount ||
-amount<=0
-){
+if(!amount||amount<=0){
 
 $('paymentMsg').textContent=
 'Invalid payment amount.';
@@ -2599,12 +2081,10 @@ return;
 
 }
 
-
 $('payButton').disabled=true;
 
 $('paymentMsg').textContent=
 'Sending payment request...';
-
 
 try{
 
@@ -2612,42 +2092,30 @@ const response=
 await fetch(
 '/api/pay',
 {
-
 method:'POST',
-
 headers:{
-'Content-Type':
-'application/json'
+'Content-Type':'application/json'
 },
+body:JSON.stringify({
 
-body:
-JSON.stringify({
-
-name:name,
-
-email:email,
-
-phone:phone,
-
-amount:amount,
+name,
+email,
+phone,
+amount,
 
 postId:selectedPostId,
 
-userId:
-currentUser.uid
+userId:currentUser.uid
 
 })
-
 }
 );
-
 
 let result;
 
 try{
 
-result=
-await response.json();
+result=await response.json();
 
 }catch{
 
@@ -2657,14 +2125,13 @@ throw new Error(
 
 }
 
-
 if(
-!response.ok ||
+!response.ok||
 !result.success
 ){
 
 throw new Error(
-result.message ||
+result.message||
 'Unable to start payment.'
 );
 
@@ -2672,10 +2139,17 @@ result.message ||
 
 
 const orderId=
-result.order_id;
+result.order_id||
+result.data?.order_id||
+result.data?.data?.order_id;
 
 
 if(!orderId){
+
+console.error(
+'Payment response:',
+result
+);
 
 throw new Error(
 'PalmPesa did not return an order ID.'
@@ -2688,23 +2162,18 @@ $('paymentForm').style.display='none';
 
 $('paymentStatus').style.display='block';
 
-$('paymentMsg').textContent='';
-
 $('statusText').textContent=
 'Waiting for payment confirmation...';
 
+paymentPolling=true;
 
 pollPaymentStatus(
 orderId
 );
 
-
 }catch(error){
 
-console.error(
-'Payment initiation error:',
-error
-);
+console.error(error);
 
 $('paymentMsg').textContent=
 error.message;
@@ -2716,15 +2185,10 @@ $('payButton').disabled=false;
 };
 
 
-/* =========================
-   POLL PAYMENT
-========================= */
-
-async function pollPaymentStatus(
-orderId
-){
-
-paymentPolling=true;
+/*
+ POLL STATUS
+*/
+async function pollPaymentStatus(orderId){
 
 let delay=2000;
 
@@ -2736,58 +2200,33 @@ const maxAttempts=60;
 
 
 while(
-paymentPolling &&
+paymentPolling&&
 attempts<maxAttempts
 ){
 
 attempts++;
 
-
 try{
-
-$('statusText').textContent=
-'Checking payment...';
-
 
 const response=
 await fetch(
 '/api/order-status',
 {
-
 method:'POST',
-
 headers:{
-'Content-Type':
-'application/json'
+'Content-Type':'application/json'
 },
-
-body:
-JSON.stringify({
+body:JSON.stringify({
 order_id:orderId
 })
-
 }
 );
 
-
-let result;
-
-try{
-
-result=
+const result=
 await response.json();
 
-}catch{
-
-throw new Error(
-'Invalid response from order-status.'
-);
-
-}
-
-
 console.log(
-'PAYMENT STATUS:',
+'PalmPesa status:',
 result
 );
 
@@ -2795,7 +2234,7 @@ result
 if(!response.ok){
 
 throw new Error(
-result.message ||
+result.message||
 'Unable to check payment.'
 );
 
@@ -2805,23 +2244,22 @@ result.message ||
 const status=
 String(
 
-result?.payment_status ||
+result.payment_status||
 
-result?.data?.[0]?.payment_status ||
+result.data?.[0]?.payment_status||
+
+result.data?.data?.[0]?.payment_status||
+
+result.data?.data?.payment_status||
 
 ''
 
-)
-.trim()
-.toUpperCase();
+).toUpperCase();
 
-
-/* COMPLETED */
 
 if(status==='COMPLETED'){
 
 paymentPolling=false;
-
 
 $('paymentStatus').style.display='none';
 
@@ -2829,11 +2267,58 @@ $('successBox').style.display='block';
 
 
 /*
-IMPORTANT:
-Wait briefly, then close payment modal.
-The content will be rendered DIRECTLY
-inside the card.
+ SAVE PURCHASE
 */
+try{
+
+await setDoc(
+doc(
+db,
+'people',
+currentUser.uid,
+'purchases',
+selectedPostId
+),
+{
+
+postId:selectedPostId,
+
+orderId:orderId,
+
+title:selectedPost.title||'',
+
+amount:Number(selectedPost.price||0),
+
+status:'COMPLETED',
+
+paidAt:serverTimestamp()
+
+}
+);
+
+
+paidPosts.add(
+selectedPostId
+);
+
+
+}catch(saveError){
+
+console.error(
+'Purchase save error:',
+saveError
+);
+
+/*
+ Even if Firestore rules reject the write,
+the content is unlocked for this session.
+*/
+paidPosts.add(
+selectedPostId
+);
+
+}
+
 
 setTimeout(()=>{
 
@@ -2845,12 +2330,6 @@ $('paymentForm').style.display='block';
 
 $('payButton').disabled=false;
 
-
-/*
-Unlock card directly.
-NO second click.
-*/
-
 unlockCard(
 selectedPostId,
 selectedPost
@@ -2858,13 +2337,10 @@ selectedPost
 
 },900);
 
-
 return;
 
 }
 
-
-/* FAILED */
 
 if(status==='FAILED'){
 
@@ -2878,46 +2354,34 @@ $('paymentForm').style.display='block';
 
 $('payButton').disabled=false;
 
-$('paymentMsg').textContent=
-'Payment failed. Please try again.';
-
 return;
 
 }
 
 
-/* PENDING */
-
-$('paymentStatus').style.display='block';
-
 $('statusText').textContent=
-'Payment is still pending. Enter your PIN and complete the payment.';
-
+'Payment is still pending. Complete the PIN request on your phone.';
 
 await sleep(delay);
 
-delay=
-Math.min(
+delay=Math.min(
 delay*2,
 maxDelay
 );
 
-
 }catch(error){
 
 console.error(
-'Payment status error:',
+'Status check error:',
 error
 );
 
 $('statusText').textContent=
 'Still checking payment...';
 
-
 await sleep(delay);
 
-delay=
-Math.min(
+delay=Math.min(
 delay*2,
 maxDelay
 );
@@ -2926,8 +2390,6 @@ maxDelay
 
 }
 
-
-/* TIMEOUT */
 
 paymentPolling=false;
 
@@ -2943,62 +2405,38 @@ $('paymentMsg').textContent=
 }
 
 
-/* =========================
-   UNLOCK CARD
-========================= */
-
-function unlockCard(
-postId,
-post
-){
+/*
+ UNLOCK CURRENT CARD
+*/
+function unlockCard(postId,post){
 
 const card=
 document.getElementById(
 'post-'+postId
 );
 
-
 if(!card){
+listenPosts();
 return;
 }
 
+card.classList.add('unlocked');
 
-card.classList.add(
-'unlocked'
-);
+const locked=
+card.querySelector('.locked-area');
 
+if(locked){
 
-/*
-Replace locked section
-with actual content.
-*/
-
-const lockedArea=
-card.querySelector(
-'.locked-area'
-);
-
-
-if(lockedArea){
-
-lockedArea.outerHTML=`
+locked.outerHTML=`
 
 <div class="unlocked-content">
 
-<div class="unlocked-content-header">
-
-<svg>
-<use href="#icon-check"></use>
-</svg>
-
-PAYMENT COMPLETED — CONTENT UNLOCKED
-
+<div class="unlocked-header">
+✓ PAYMENT COMPLETED — CONTENT UNLOCKED
 </div>
 
 <div class="content-text">
-
-${esc(post.content || '')}
-
+${esc(post.content||'')}
 </div>
 
 </div>
@@ -3007,42 +2445,56 @@ ${esc(post.content || '')}
 
 }
 
-
-/*
-Replace payment button.
-No VIEW CONTENT button.
-*/
-
 const button=
-card.querySelector(
-'.pay-button'
-);
-
+card.querySelector('.pay-button');
 
 if(button){
-
 button.remove();
+}
 
+const price=
+card.querySelector('.price');
+
+if(price){
+price.remove();
+}
+
+const badge=
+card.querySelector('.badge');
+
+if(badge){
+
+badge.className='badge free';
+
+badge.textContent='UNLOCKED';
+
+}
+
+const icon=
+card.querySelector('.category-icon');
+
+if(icon){
+icon.textContent='🔓';
 }
 
 }
 
 
-/* =========================
-   REFRESH
-========================= */
+/*
+ REFRESH
+*/
+$('refreshPosts').onclick=async()=>{
 
-$('refreshPosts').onclick=()=>{
+await loadPurchases();
 
 listenPosts();
 
 };
 
 
-/* =========================
-   AUTH STATE
-========================= */
-
+/*
+ AUTH STATE
+*/
 onAuthStateChanged(
 auth,
 user=>{
