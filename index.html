@@ -3,477 +3,951 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KB</title>
+<title>KB — Premium Content</title>
 
 <style>
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
-body{background:#f4f4f4}
+*{
+  box-sizing:border-box;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  background:#f7f7f8;
+  color:#161616;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+button,input,textarea{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+/* =========================
+   LOADER
+========================= */
 
 .loader{
-position:fixed;
-inset:0;
-background:#ff6a00;
-color:#fff;
-display:grid;
-place-items:center;
-z-index:99;
-animation:out .5s 1.5s forwards
+  position:fixed;
+  inset:0;
+  background:#ff6a00;
+  color:white;
+  display:grid;
+  place-items:center;
+  z-index:9999;
+  animation:loaderOut .45s 1.2s forwards;
 }
 
 .loader b{
-font-size:25vw;
-letter-spacing:-.12em
+  font-size:clamp(100px,20vw,260px);
+  letter-spacing:-.14em;
+  line-height:1;
 }
 
-.home,.auth,.app{
-position:absolute;
-inset:0
+@keyframes loaderOut{
+  to{
+    opacity:0;
+    visibility:hidden;
+  }
 }
+
+/* =========================
+   HOME
+========================= */
 
 .home{
-display:flex;
-background:#fff
+  position:fixed;
+  inset:0;
+  display:flex;
+  background:#fff;
 }
 
 .brand{
-width:42%;
-background:#ff6a00;
-color:#fff;
-display:grid;
-place-items:center;
-font-size:20vw;
-font-weight:900;
-letter-spacing:-.13em
+  width:44%;
+  background:#ff6a00;
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-size:clamp(120px,20vw,300px);
+  font-weight:950;
+  letter-spacing:-.15em;
+  line-height:1;
 }
 
 .intro{
-flex:1;
-display:flex;
-align-items:center;
-padding:8vw
+  flex:1;
+  display:flex;
+  align-items:center;
+  padding:8vw;
+}
+
+.intro-inner{
+  max-width:650px;
+}
+
+.eyebrow{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  color:#ff6a00;
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  margin-bottom:20px;
+}
+
+.eyebrow-dot{
+  width:8px;
+  height:8px;
+  background:#ff6a00;
+  border-radius:50%;
 }
 
 .intro h1{
-font-size:7vw;
-margin:0
+  font-size:clamp(55px,7vw,100px);
+  line-height:.95;
+  margin:0;
+  letter-spacing:-.06em;
+}
+
+.intro h1 span{
+  color:#ff6a00;
 }
 
 .intro p{
-color:#777;
-text-transform:uppercase;
-letter-spacing:.15em
+  color:#777;
+  max-width:500px;
+  line-height:1.7;
+  margin:25px 0 30px;
 }
 
-.view,.submit{
-background:#ff6a00;
-color:#fff;
-border:0;
-padding:16px 28px;
-font-weight:800;
-cursor:pointer
+.primary-btn{
+  border:0;
+  background:#ff6a00;
+  color:white;
+  padding:15px 23px;
+  border-radius:10px;
+  font-weight:850;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  transition:.2s;
 }
 
-.view:hover,.submit:hover{
-background:#df5c00
+.primary-btn:hover{
+  background:#df5c00;
+  transform:translateY(-1px);
 }
+
+.primary-btn svg{
+  width:18px;
+  height:18px;
+}
+
+/* =========================
+   AUTH
+========================= */
 
 .auth{
-display:none;
-align-items:center;
-justify-content:center
+  position:fixed;
+  inset:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:#f5f5f5;
 }
 
-.card{
-background:#fff;
-width:min(900px,94vw);
-display:grid;
-grid-template-columns:40% 60%;
-box-shadow:0 25px 70px #0002
+.auth-card{
+  width:min(900px,95vw);
+  display:grid;
+  grid-template-columns:40% 60%;
+  background:#fff;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 25px 80px #00000018;
 }
 
-.aside{
-background:#ff6a00;
-color:white;
-padding:50px
+.auth-side{
+  background:#ff6a00;
+  color:white;
+  padding:45px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  min-height:560px;
 }
 
-.aside b{
-font-size:10vw;
-letter-spacing:-.13em
+.auth-logo{
+  font-size:90px;
+  font-weight:950;
+  letter-spacing:-.15em;
+  line-height:.8;
 }
 
-.main{
-padding:55px
+.auth-side h2{
+  font-size:30px;
+  margin:0 0 10px;
 }
 
-.main h1{
-font-size:42px
+.auth-side p{
+  color:#fff9;
+  line-height:1.6;
+}
+
+.auth-main{
+  padding:50px;
+}
+
+.auth-main h1{
+  margin:0;
+  font-size:42px;
+  letter-spacing:-.04em;
+}
+
+.auth-main>p{
+  color:#777;
+  margin-bottom:30px;
 }
 
 .field{
-margin:15px 0
+  margin:18px 0;
 }
 
 .field label{
-display:block;
-font-size:11px;
-font-weight:bold;
-margin-bottom:7px
+  display:block;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+  margin-bottom:8px;
+  color:#444;
 }
 
 .field input,
 .field textarea{
-width:100%;
-padding:15px;
-border:1px solid #ddd;
-font:inherit
+  width:100%;
+  padding:14px 15px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  outline:none;
+  background:#fff;
+  transition:.2s;
+}
+
+.field input:focus,
+.field textarea:focus{
+  border-color:#ff6a00;
+  box-shadow:0 0 0 3px #ff6a0012;
 }
 
 .field textarea{
-resize:vertical
+  resize:vertical;
 }
 
 .submit{
-width:100%
+  width:100%;
+  border:0;
+  border-radius:9px;
+  background:#ff6a00;
+  color:white;
+  padding:15px;
+  font-weight:900;
+  transition:.2s;
 }
 
-.link{
-border:0;
-background:none;
-color:#ff6a00;
-font-weight:bold;
-cursor:pointer
-}
-
-.msg{
-min-height:20px;
-color:#d43b00;
-font-size:13px
-}
-
-.app{
-display:none;
-background:#fff;
-overflow:auto;
-min-height:100vh
-}
-
-.topbar{
-position:fixed;
-top:0;
-left:0;
-right:0;
-height:76px;
-display:flex;
-align-items:center;
-justify-content:space-between;
-padding:0 30px;
-border-bottom:1px solid #eee;
-background:#fff;
-z-index:5
-}
-
-.logo{
-font-size:32px;
-font-weight:900;
-color:#ff6a00
-}
-
-.user-area{
-display:flex;
-align-items:center;
-gap:15px
-}
-
-.logout{
-padding:13px 22px;
-background:#ff6a00;
-color:#fff;
-border:0;
-font-weight:bold;
-cursor:pointer
-}
-
-.logout:hover{
-background:#df5c00
-}
-
-.content{
-width:min(1050px,92vw);
-padding:110px 0 50px;
-margin:auto
-}
-
-.hero h1{
-font-size:clamp(42px,7vw,78px);
-margin:0
-}
-
-.hero h1 span{
-color:#ff6a00
-}
-
-.hero p{
-color:#777
-}
-
-.admin-panel{
-border:1px solid #eee;
-padding:28px;
-margin:40px 0;
-background:#fff;
-box-shadow:0 12px 35px #0000000d
-}
-
-.admin-panel h2{
-margin:0 0 8px
-}
-
-.admin-panel p{
-color:#777
-}
-
-.section-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:20px
-}
-
-.posts{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:18px
-}
-
-.post-card{
-border:1px solid #eee;
-background:#fff;
-padding:24px;
-box-shadow:0 10px 30px #0000000a;
-display:flex;
-flex-direction:column;
-min-height:280px
-}
-
-.post-card h3{
-font-size:22px;
-margin:0 0 10px
-}
-
-.date{
-font-size:12px;
-color:#999;
-margin-bottom:14px
-}
-
-.locked-box{
-flex:1;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-text-align:center;
-color:#777;
-padding:25px 10px
-}
-
-.lock-icon{
-font-size:50px;
-margin-bottom:12px
-}
-
-.locked-title{
-font-size:18px;
-font-weight:bold;
-color:#333;
-margin-bottom:8px
-}
-
-.price{
-font-size:20px;
-font-weight:900;
-color:#ff6a00;
-margin:15px 0
-}
-
-.unlocked{
-border-color:#ff6a00
-}
-
-.unlocked-label{
-color:#188038;
-font-weight:bold;
-font-size:13px;
-margin-bottom:12px
-}
-
-.unlocked-preview{
-white-space:pre-wrap;
-line-height:1.6;
-color:#444;
-flex:1
-}
-
-.view-content{
-margin-top:18px;
-background:#ff6a00;
-color:#fff;
-border:0;
-padding:12px 18px;
-font-weight:800;
-cursor:pointer
-}
-
-.view-content:hover{
-background:#df5c00
-}
-
-.empty{
-color:#888
-}
-
-.modal{
-position:fixed;
-inset:0;
-background:#0008;
-display:none;
-align-items:center;
-justify-content:center;
-padding:20px;
-z-index:20
-}
-
-.modal-box{
-background:#fff;
-width:min(800px,94vw);
-max-height:85vh;
-overflow:auto;
-padding:32px;
-position:relative
-}
-
-.modal-box h2{
-margin-top:0;
-font-size:32px
-}
-
-.modal-content{
-white-space:pre-wrap;
-line-height:1.75;
-color:#444
-}
-
-.close-modal{
-position:absolute;
-right:18px;
-top:15px;
-border:0;
-background:none;
-font-size:28px;
-cursor:pointer
-}
-
-.payment-price{
-font-size:25px;
-font-weight:900;
-color:#ff6a00;
-margin:15px 0 25px
-}
-
-.payment-status{
-text-align:center;
-padding:20px;
-margin:15px 0;
-background:#f7f7f7;
-display:none
-}
-
-.spinner{
-width:30px;
-height:30px;
-border:4px solid #ddd;
-border-top:4px solid #ff6a00;
-border-radius:50%;
-animation:spin 1s linear infinite;
-margin:0 auto 12px
-}
-
-.success-box{
-color:#188038;
-font-weight:bold;
-text-align:center;
-display:none
-}
-
-.failed-box{
-color:#d93025;
-font-weight:bold;
-text-align:center;
-display:none
+.submit:hover{
+  background:#df5c00;
 }
 
 .submit:disabled{
-opacity:.6;
-cursor:not-allowed
+  opacity:.55;
+  cursor:not-allowed;
 }
 
-@keyframes out{
-to{
-opacity:0;
-visibility:hidden
-}
-}
-
-@keyframes spin{
-to{
-transform:rotate(360deg)
-}
+.link{
+  border:0;
+  background:none;
+  color:#ff6a00;
+  font-weight:800;
+  padding:0;
 }
 
-@media(max-width:700px){
-
-.home{
-flex-direction:column
+.msg{
+  min-height:20px;
+  color:#d43b00;
+  font-size:13px;
+  line-height:1.5;
 }
 
-.brand{
-width:100%;
-height:42%;
-font-size:100px
-}
+/* =========================
+   APP
+========================= */
 
-.intro{
-padding:30px
-}
-
-.card{
-grid-template-columns:1fr
-}
-
-.aside{
-display:none
-}
-
-.main{
-padding:30px
+.app{
+  display:none;
+  min-height:100vh;
+  background:#f7f7f8;
 }
 
 .topbar{
-padding:0 15px
+  position:fixed;
+  z-index:50;
+  top:0;
+  left:0;
+  right:0;
+  height:72px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 35px;
+  background:#fff;
+  border-bottom:1px solid #ececec;
 }
 
 .logo{
-font-size:26px
+  font-size:30px;
+  font-weight:950;
+  color:#ff6a00;
+  letter-spacing:-.08em;
 }
 
-.user-area span{
-display:none
+.user-area{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.user-name{
+  font-size:13px;
+  font-weight:700;
+  color:#555;
+}
+
+.logout{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:10px 16px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.logout:hover{
+  background:#333;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  width:min(1120px,92vw);
+  margin:auto;
+  padding:120px 0 60px;
+}
+
+.hero{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:30px;
+  margin-bottom:45px;
+}
+
+.hero-copy h1{
+  font-size:clamp(45px,7vw,82px);
+  line-height:.95;
+  letter-spacing:-.065em;
+  margin:0;
+}
+
+.hero-copy h1 span{
+  color:#ff6a00;
+}
+
+.hero-copy p{
+  color:#777;
+  max-width:600px;
+  line-height:1.6;
+  margin-top:20px;
+}
+
+.hero-icon{
+  width:90px;
+  height:90px;
+  border-radius:25px;
+  background:#fff0e7;
+  color:#ff6a00;
+  display:grid;
+  place-items:center;
+}
+
+.hero-icon svg{
+  width:42px;
+  height:42px;
+}
+
+/* =========================
+   ADMIN
+========================= */
+
+.admin-panel{
+  background:#fff;
+  border:1px solid #eaeaea;
+  border-radius:18px;
+  padding:28px;
+  margin-bottom:45px;
+  box-shadow:0 10px 35px #00000007;
+}
+
+.admin-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+  margin-bottom:25px;
+}
+
+.admin-title{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.admin-icon{
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:#fff0e7;
+  color:#ff6a00;
+  display:grid;
+  place-items:center;
+}
+
+.admin-icon svg{
+  width:22px;
+  height:22px;
+}
+
+.admin-title h2{
+  margin:0;
+  font-size:21px;
+}
+
+.admin-title p{
+  margin:4px 0 0;
+  color:#888;
+  font-size:13px;
+}
+
+.admin-grid{
+  display:grid;
+  grid-template-columns:1fr 180px;
+  gap:18px;
+}
+
+.admin-grid .full{
+  grid-column:1/-1;
+}
+
+.price-input-wrap{
+  position:relative;
+}
+
+.price-input-wrap span{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:11px;
+  font-weight:900;
+  color:#999;
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.section-title{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.section-title h2{
+  margin:0;
+  font-size:22px;
+}
+
+.count-label{
+  color:#999;
+  font-size:13px;
+}
+
+.refresh{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:9px 14px;
+  border-radius:8px;
+  font-size:12px;
+  font-weight:900;
+}
+
+.refresh:hover{
+  border-color:#ff6a00;
+  color:#ff6a00;
+}
+
+/* =========================
+   POST CARDS
+========================= */
+
+.posts{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:20px;
+}
+
+.post-card{
+  background:#fff;
+  border:1px solid #e9e9e9;
+  border-radius:17px;
+  padding:23px;
+  min-height:320px;
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 8px 30px #00000006;
+  transition:.2s;
+  overflow:hidden;
+}
+
+.post-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 15px 35px #0000000c;
+}
+
+.post-card.unlocked{
+  border-color:#ff6a00;
+}
+
+.card-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.category-icon{
+  width:43px;
+  height:43px;
+  border-radius:12px;
+  background:#fff0e7;
+  color:#ff6a00;
+  display:grid;
+  place-items:center;
+}
+
+.category-icon svg{
+  width:21px;
+  height:21px;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  padding:7px 10px;
+  border-radius:20px;
+  background:#f1f1f1;
+  color:#777;
+  font-size:10px;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+.badge.premium{
+  background:#fff0e7;
+  color:#ff6a00;
+}
+
+.badge.free{
+  background:#eaf7ed;
+  color:#188038;
+}
+
+.post-card h3{
+  margin:0 0 8px;
+  font-size:22px;
+  line-height:1.2;
+  letter-spacing:-.02em;
+}
+
+.date{
+  color:#999;
+  font-size:11px;
+  margin-bottom:15px;
+}
+
+.locked-area{
+  flex:1;
+  border-radius:13px;
+  background:#fafafa;
+  border:1px dashed #ddd;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:25px;
+  margin-top:8px;
+}
+
+.lock-circle{
+  width:58px;
+  height:58px;
+  border-radius:50%;
+  background:#fff0e7;
+  color:#ff6a00;
+  display:grid;
+  place-items:center;
+  margin-bottom:14px;
+}
+
+.lock-circle svg{
+  width:25px;
+  height:25px;
+}
+
+.locked-area strong{
+  font-size:16px;
+}
+
+.locked-area p{
+  margin:7px 0 0;
+  color:#888;
+  font-size:13px;
+}
+
+.price{
+  color:#ff6a00;
+  font-size:20px;
+  font-weight:950;
+  margin:18px 0 0;
+}
+
+.pay-button,
+.view-button{
+  margin-top:18px;
+  width:100%;
+  border:0;
+  border-radius:9px;
+  padding:13px;
+  background:#ff6a00;
+  color:#fff;
+  font-weight:900;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+}
+
+.pay-button:hover,
+.view-button:hover{
+  background:#df5c00;
+}
+
+.pay-button svg,
+.view-button svg{
+  width:17px;
+  height:17px;
+}
+
+.unlocked-content{
+  flex:1;
+  margin-top:10px;
+  padding:18px;
+  border-radius:12px;
+  background:#fffaf6;
+  border:1px solid #ffe0cc;
+}
+
+.unlocked-content-header{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#188038;
+  font-size:12px;
+  font-weight:900;
+  margin-bottom:14px;
+}
+
+.unlocked-content-header svg{
+  width:17px;
+  height:17px;
+}
+
+.content-text{
+  color:#444;
+  line-height:1.7;
+  white-space:pre-wrap;
+  font-size:14px;
+}
+
+.free-content{
+  flex:1;
+  padding:15px 0;
+}
+
+.empty{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px dashed #ddd;
+  padding:50px;
+  text-align:center;
+  border-radius:15px;
+  color:#999;
+}
+
+/* =========================
+   PAYMENT MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  background:#00000085;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+  backdrop-filter:blur(5px);
+}
+
+.modal-box{
+  width:min(500px,95vw);
+  max-height:90vh;
+  overflow:auto;
+  background:#fff;
+  border-radius:20px;
+  padding:32px;
+  position:relative;
+  box-shadow:0 30px 90px #0004;
+}
+
+.close-modal{
+  position:absolute;
+  top:16px;
+  right:18px;
+  width:35px;
+  height:35px;
+  border:0;
+  border-radius:50%;
+  background:#f5f5f5;
+  font-size:24px;
+  line-height:1;
+}
+
+.payment-icon{
+  width:65px;
+  height:65px;
+  border-radius:18px;
+  background:#fff0e7;
+  color:#ff6a00;
+  display:grid;
+  place-items:center;
+  margin-bottom:18px;
+}
+
+.payment-icon svg{
+  width:31px;
+  height:31px;
+}
+
+.modal-box h2{
+  margin:0 45px 8px 0;
+  font-size:28px;
+  letter-spacing:-.03em;
+}
+
+.modal-description{
+  color:#777;
+  line-height:1.5;
+  font-size:14px;
+}
+
+.payment-price{
+  font-size:28px;
+  font-weight:950;
+  color:#ff6a00;
+  margin:22px 0;
+}
+
+.payment-status{
+  display:none;
+  text-align:center;
+  background:#fafafa;
+  border:1px solid #eee;
+  border-radius:14px;
+  padding:28px 20px;
+  margin-top:20px;
+}
+
+.spinner{
+  width:38px;
+  height:38px;
+  border:4px solid #ddd;
+  border-top-color:#ff6a00;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:0 auto 16px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+.payment-status strong{
+  display:block;
+  font-size:16px;
+}
+
+.payment-status small{
+  display:block;
+  color:#888;
+  line-height:1.5;
+  margin-top:8px;
+}
+
+.status-text{
+  color:#ff6a00;
+  font-weight:800;
+  font-size:13px;
+  margin-top:14px;
+}
+
+.success-box{
+  display:none;
+  text-align:center;
+  background:#eaf7ed;
+  color:#188038;
+  border-radius:14px;
+  padding:25px;
+  font-weight:900;
+  margin-top:20px;
+}
+
+.failed-box{
+  display:none;
+  text-align:center;
+  background:#fff0f0;
+  color:#d93025;
+  border-radius:14px;
+  padding:25px;
+  font-weight:900;
+  margin-top:20px;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:800px){
+
+.home{
+  flex-direction:column;
+}
+
+.brand{
+  width:100%;
+  height:40%;
+  font-size:100px;
+}
+
+.intro{
+  padding:35px;
+}
+
+.auth-card{
+  grid-template-columns:1fr;
+}
+
+.auth-side{
+  display:none;
+}
+
+.auth-main{
+  padding:35px;
+}
+
+.admin-grid{
+  grid-template-columns:1fr;
+}
+
+.admin-grid .full{
+  grid-column:auto;
+}
+
+.hero{
+  align-items:flex-start;
+}
+
+.hero-icon{
+  display:none;
+}
+
+}
+
+@media(max-width:550px){
+
+.topbar{
+  padding:0 16px;
+}
+
+.user-name{
+  display:none;
 }
 
 .content{
-padding-top:100px
+  width:94vw;
+  padding-top:105px;
+}
+
+.hero-copy h1{
+  font-size:50px;
+}
+
+.posts{
+  grid-template-columns:1fr;
+}
+
+.admin-panel{
+  padding:20px;
+}
+
+.modal-box{
+  padding:25px;
 }
 
 }
@@ -482,9 +956,105 @@ padding-top:100px
 
 <body>
 
+<!-- SVG ICON DEFINITIONS -->
+<svg style="display:none">
+
+<symbol id="icon-arrow" viewBox="0 0 24 24">
+<path d="M5 12h14M13 6l6 6-6 6"
+stroke="currentColor"
+stroke-width="2"
+fill="none"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="icon-lock" viewBox="0 0 24 24">
+<rect x="4" y="10" width="16" height="11" rx="2"
+fill="none"
+stroke="currentColor"
+stroke-width="2"/>
+<path d="M8 10V7a4 4 0 0 1 8 0v3"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-file" viewBox="0 0 24 24">
+<path d="M6 3h8l4 4v14H6z"
+fill="none"
+stroke="currentColor"
+stroke-width="2"/>
+<path d="M14 3v5h5M9 13h6M9 17h6"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-plus" viewBox="0 0 24 24">
+<path d="M12 5v14M5 12h14"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-check" viewBox="0 0 24 24">
+<path d="M5 12l4 4L19 6"
+fill="none"
+stroke="currentColor"
+stroke-width="2.5"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="icon-card" viewBox="0 0 24 24">
+<rect x="3" y="5" width="18" height="14" rx="2"
+fill="none"
+stroke="currentColor"
+stroke-width="2"/>
+<path d="M3 10h18M7 15h4"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+</symbol>
+
+<symbol id="icon-refresh" viewBox="0 0 24 24">
+<path d="M20 11a8 8 0 0 0-14.8-4L3 10"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+<path d="M3 5v5h5"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+<path d="M4 13a8 8 0 0 0 14.8 4L21 14"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"/>
+<path d="M21 19v-5h-5"
+fill="none"
+stroke="currentColor"
+stroke-width="2"
+stroke-linecap="round"
+stroke-linejoin="round"/>
+</symbol>
+
+</svg>
+
+
+<!-- LOADER -->
+
 <div class="loader">
 <b>KB</b>
 </div>
+
+
+<!-- HOME -->
 
 <section class="home" id="home">
 
@@ -494,14 +1064,32 @@ KB
 
 <div class="intro">
 
-<div>
+<div class="intro-inner">
 
-<h1>KB</h1>
+<div class="eyebrow">
+<span class="eyebrow-dot"></span>
+Premium Content
+</div>
 
-<p>The experience begins</p>
+<h1>
+Knowledge<br>
+<span>Begins.</span>
+</h1>
 
-<button class="view" id="view">
-VIEW NOW
+<p>
+Access exclusive KB content. Create an account,
+choose the content you want, and unlock premium
+material securely through mobile payment.
+</p>
+
+<button class="primary-btn" id="view">
+
+Get Started
+
+<svg>
+<use href="#icon-arrow"></use>
+</svg>
+
 </button>
 
 </div>
@@ -511,19 +1099,34 @@ VIEW NOW
 </section>
 
 
+<!-- AUTH -->
+
 <section class="auth" id="auth">
 
-<div class="card">
+<div class="auth-card">
 
-<aside class="aside">
+<aside class="auth-side">
 
-<b>KB</b>
+<div class="auth-logo">
+KB
+</div>
 
-<h2>Welcome to KB.</h2>
+<div>
+
+<h2>
+Welcome to KB.
+</h2>
+
+<p>
+Your private library for premium knowledge and exclusive content.
+</p>
+
+</div>
 
 </aside>
 
-<main class="main">
+
+<main class="auth-main">
 
 <h1 id="title">
 Welcome back.
@@ -535,16 +1138,21 @@ Sign in to continue.
 
 <div class="msg" id="msg"></div>
 
+
 <div
 class="field"
 id="nameBox"
 style="display:none">
 
-<label>NAME</label>
+<label>FULL NAME</label>
 
-<input id="name" autocomplete="name">
+<input
+id="name"
+autocomplete="name"
+placeholder="Your name">
 
 </div>
+
 
 <div class="field">
 
@@ -553,9 +1161,11 @@ style="display:none">
 <input
 id="email"
 type="email"
-autocomplete="email">
+autocomplete="email"
+placeholder="you@example.com">
 
 </div>
+
 
 <div class="field">
 
@@ -564,19 +1174,31 @@ autocomplete="email">
 <input
 id="password"
 type="password"
-autocomplete="current-password">
+autocomplete="current-password"
+placeholder="••••••••">
 
 </div>
 
-<button class="link" id="forgot">
+
+<button
+class="link"
+id="forgot">
+
 Forgot password?
+
 </button>
 
 <br><br>
 
-<button class="submit" id="submit">
+
+<button
+class="submit"
+id="submit">
+
 SIGN IN
+
 </button>
+
 
 <p id="switch">
 Don't have an account?
@@ -592,6 +1214,8 @@ CREATE ACCOUNT
 </section>
 
 
+<!-- APP -->
+
 <section class="app" id="app">
 
 <header class="topbar">
@@ -602,10 +1226,17 @@ KB
 
 <div class="user-area">
 
-<span id="userName"></span>
+<span
+class="user-name"
+id="userName">
+</span>
 
-<button class="logout" id="logout">
+<button
+class="logout"
+id="logout">
+
 SIGN OUT
+
 </button>
 
 </div>
@@ -615,31 +1246,75 @@ SIGN OUT
 
 <main class="content">
 
+<!-- HERO -->
+
 <div class="hero">
 
+<div class="hero-copy">
+
+<div class="eyebrow">
+<span class="eyebrow-dot"></span>
+KB Library
+</div>
+
 <h1>
-KB <span>Content</span>
+Premium <span>Content.</span>
 </h1>
 
 <p id="roleText">
-Your content library
+Your content library.
 </p>
 
 </div>
 
+<div class="hero-icon">
+
+<svg>
+<use href="#icon-file"></use>
+</svg>
+
+</div>
+
+</div>
+
+
+<!-- ADMIN -->
 
 <section
 id="adminPanel"
 class="admin-panel"
 style="display:none">
 
+<div class="admin-header">
+
+<div class="admin-title">
+
+<div class="admin-icon">
+
+<svg>
+<use href="#icon-plus"></use>
+</svg>
+
+</div>
+
+<div>
+
 <h2>
-Admin — Create Content
+Create Content
 </h2>
 
 <p>
-Publish text content and set the price.
+Publish premium content and set its price.
 </p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="admin-grid">
 
 <div class="field">
 
@@ -648,11 +1323,33 @@ Publish text content and set the price.
 <input
 id="postTitle"
 maxlength="160"
-placeholder="Enter a title">
+placeholder="Enter content title">
 
 </div>
 
+
 <div class="field">
+
+<label>PRICE</label>
+
+<div class="price-input-wrap">
+
+<input
+id="postPrice"
+type="number"
+min="0"
+step="1"
+placeholder="0">
+
+<span>TSH</span>
+
+</div>
+
+</div>
+
+
+<div
+class="field full">
 
 <label>CONTENT</label>
 
@@ -663,24 +1360,15 @@ placeholder="Write your content here..."></textarea>
 
 </div>
 
-<div class="field">
-
-<label>PRICE — TSH</label>
-
-<input
-id="postPrice"
-type="number"
-min="0"
-step="1"
-placeholder="Example: 5000">
-
 </div>
+
 
 <button
 class="submit"
 id="publish">
 
-PUBLISH
+PUBLISH CONTENT
+
 </button>
 
 <div
@@ -691,68 +1379,52 @@ id="postMsg">
 </section>
 
 
-<section>
+<!-- CONTENT SECTION -->
 
-<div class="section-head">
+<div class="section-header">
+
+<div class="section-title">
 
 <h2>
 Content
 </h2>
 
+<span
+class="count-label">
+Premium library
+</span>
+
+</div>
+
 <button
-class="link"
+class="refresh"
 id="refreshPosts">
+
+<svg
+style="width:14px;height:14px;vertical-align:-2px">
+<use href="#icon-refresh"></use>
+</svg>
+
 REFRESH
+
 </button>
 
 </div>
+
 
 <div
 id="posts"
 class="posts">
 
-<p class="empty">
+<div class="empty">
 Loading content...
-</p>
-
 </div>
 
-</section>
+</div>
 
 </main>
 
 </section>
-
-
-<!-- CONTENT MODAL -->
-
-<div
-class="modal"
-id="contentModal">
-
-<div class="modal-box">
-
-<button
-class="close-modal"
-id="closeModal">
-×
-</button>
-
-<h2 id="modalTitle"></h2>
-
-<div
-class="date"
-id="modalDate">
-</div>
-
-<div
-class="modal-content"
-id="modalContent">
-</div>
-
-</div>
-
-</div>
 
 
 <!-- PAYMENT MODAL -->
@@ -766,22 +1438,30 @@ id="paymentModal">
 <button
 class="close-modal"
 id="closePayment">
+
 ×
+
 </button>
 
-<div
-class="lock-icon"
-style="text-align:center">
-🔒
+
+<div class="payment-icon">
+
+<svg>
+<use href="#icon-card"></use>
+</svg>
+
 </div>
+
 
 <h2 id="paymentTitle">
 Unlock Content
 </h2>
 
-<p>
-This content is locked. Complete payment to view it.
+<p class="modal-description">
+Complete the payment below. After PalmPesa confirms
+the payment, the content will automatically unlock.
 </p>
+
 
 <div
 class="payment-price"
@@ -801,6 +1481,7 @@ placeholder="Your full name">
 
 </div>
 
+
 <div class="field">
 
 <label>EMAIL</label>
@@ -808,9 +1489,10 @@ placeholder="Your full name">
 <input
 id="payEmail"
 type="email"
-placeholder="Your email">
+placeholder="you@example.com">
 
 </div>
+
 
 <div class="field">
 
@@ -823,9 +1505,15 @@ placeholder="07XXXXXXXX">
 
 </div>
 
+
 <button
 class="submit"
 id="payButton">
+
+<svg
+style="width:18px;height:18px;vertical-align:-4px;margin-right:6px">
+<use href="#icon-card"></use>
+</svg>
 
 PAY NOW
 
@@ -844,17 +1532,15 @@ id="paymentStatus">
 Waiting for payment...
 </strong>
 
-<br><br>
-
 <small>
 Enter your PIN on your phone and complete the payment.
 </small>
 
-<br><br>
-
-<span id="statusText">
+<div
+class="status-text"
+id="statusText">
 Checking payment status...
-</span>
+</div>
 
 </div>
 
@@ -863,11 +1549,16 @@ Checking payment status...
 class="success-box"
 id="successBox">
 
-✓ PAYMENT COMPLETED
+<svg
+style="width:25px;height:25px;vertical-align:-7px;margin-right:5px">
+<use href="#icon-check"></use>
+</svg>
+
+PAYMENT COMPLETED
 
 <br><br>
 
-Unlocking content...
+Unlocking your content...
 
 </div>
 
@@ -876,7 +1567,7 @@ Unlocking content...
 class="failed-box"
 id="failedBox">
 
-✕ PAYMENT FAILED
+PAYMENT FAILED
 
 <br><br>
 
@@ -932,7 +1623,11 @@ from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
 
-const firebaseConfig = {
+/* =========================
+   FIREBASE
+========================= */
+
+const firebaseConfig={
 
 apiKey:
 'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
@@ -968,83 +1663,128 @@ const db =
 getFirestore(firebaseApp);
 
 
-let signup = false;
+/* =========================
+   STATE
+========================= */
 
-let currentUser = null;
+let signup=false;
 
-let stopPosts = null;
+let currentUser=null;
 
-let selectedPost = null;
+let stopPosts=null;
 
-let selectedPostId = null;
+let selectedPost=null;
 
-let paymentPolling = false;
+let selectedPostId=null;
 
+let paymentPolling=false;
+
+
+/* =========================
+   HELPERS
+========================= */
 
 const $ =
-id => document.getElementById(id);
+id =>
+document.getElementById(id);
 
 
 function msg(text){
 
-$('msg').textContent = text;
+$('msg').textContent=text;
 
 }
 
 
-/* HOME */
+function sleep(ms){
 
-$('view').onclick = () => {
+return new Promise(
+resolve =>
+setTimeout(
+resolve,
+ms
+)
+);
 
-$('home').style.display = 'none';
 
-$('auth').style.display = 'flex';
+}
+
+
+function esc(value){
+
+return String(value).replace(
+/[&<>"']/g,
+character => ({
+
+'&':'&amp;',
+'<':'&lt;',
+'>':'&gt;',
+'"':'&quot;',
+"'":'&#039;'
+
+}[character])
+);
+
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+$('view').onclick=()=>{
+
+$('home').style.display='none';
+
+$('auth').style.display='flex';
 
 };
 
 
-/* LOGIN / SIGNUP */
+/* =========================
+   LOGIN / SIGNUP SWITCH
+========================= */
 
-$('switch').onclick = () => {
+$('switch').onclick=()=>{
 
-signup = !signup;
+signup=!signup;
 
-$('title').textContent =
+$('title').textContent=
 signup
 ?
 'Create your account.'
 :
 'Welcome back.';
 
-$('sub').textContent =
+$('sub').textContent=
 signup
 ?
 'Join KB today.'
 :
 'Sign in to continue.';
 
-$('nameBox').style.display =
+$('nameBox').style.display=
 signup
 ?
 'block'
 :
 'none';
 
-$('forgot').style.display =
+$('forgot').style.display=
 signup
 ?
 'none'
 :
 'inline-block';
 
-$('submit').textContent =
+$('submit').textContent=
 signup
 ?
 'CREATE ACCOUNT'
 :
 'SIGN IN';
 
-$('switch').innerHTML =
+$('switch').innerHTML=
 signup
 ?
 'Already have an account? <button class="link">SIGN IN</button>'
@@ -1054,17 +1794,19 @@ signup
 };
 
 
-/* AUTH */
+/* =========================
+   AUTH SUBMIT
+========================= */
 
-$('submit').onclick = async () => {
+$('submit').onclick=async()=>{
 
-const email =
+const email=
 $('email').value.trim();
 
-const password =
+const password=
 $('password').value;
 
-const name =
+const name=
 $('name').value.trim();
 
 if(
@@ -1081,13 +1823,13 @@ return;
 
 }
 
-$('submit').disabled = true;
+$('submit').disabled=true;
 
 try{
 
 if(signup){
 
-const credential =
+const credential=
 await createUserWithEmailAndPassword(
 auth,
 email,
@@ -1110,7 +1852,7 @@ credential.user
 }catch(error){
 
 console.log(
-'Verification email:',
+'Verification email error:',
 error
 );
 
@@ -1123,10 +1865,16 @@ db,
 credential.user.uid
 ),
 {
+
 name:name,
+
 email:email,
+
 role:'user',
-createdAt:serverTimestamp()
+
+createdAt:
+serverTimestamp()
+
 }
 );
 
@@ -1136,7 +1884,7 @@ credential.user
 
 }else{
 
-const credential =
+const credential=
 await signInWithEmailAndPassword(
 auth,
 email,
@@ -1152,33 +1900,45 @@ credential.user
 }catch(error){
 
 msg(
+
 error.code ===
 'auth/invalid-credential'
+
 ?
+
 'Invalid email or password.'
+
 :
+
 error.code ===
 'auth/email-already-in-use'
+
 ?
+
 'Email already exists.'
+
 :
+
 error.message
+
 );
 
 }finally{
 
-$('submit').disabled = false;
+$('submit').disabled=false;
 
 }
 
 };
 
 
-/* FORGOT */
+/* =========================
+   FORGOT PASSWORD
+========================= */
 
-$('forgot').onclick = async () => {
+$('forgot').onclick=async()=>{
 
-const email =
+const email=
 $('email').value.trim();
 
 if(!email){
@@ -1213,23 +1973,26 @@ error.message
 };
 
 
-/* OPEN APP */
+/* =========================
+   OPEN APP
+========================= */
 
 async function openApp(user){
 
-currentUser = user;
+currentUser=user;
 
-$('auth').style.display = 'none';
+$('auth').style.display='none';
 
-$('home').style.display = 'none';
+$('home').style.display='none';
 
-$('app').style.display = 'block';
+$('app').style.display='block';
 
-$('userName').textContent =
+$('userName').textContent=
 user.displayName ||
 user.email;
 
-const userSnap =
+
+const snap=
 await getDoc(
 doc(
 db,
@@ -1238,77 +2001,86 @@ user.uid
 )
 );
 
-const userData =
-userSnap.exists()
+
+const data=
+snap.exists()
 ?
-userSnap.data()
+snap.data()
 :
 {
 role:'user'
 };
 
-const isAdmin =
-userData.role === 'admin';
 
-$('adminPanel').style.display =
-isAdmin
+const admin=
+data.role==='admin';
+
+
+$('adminPanel').style.display=
+admin
 ?
 'block'
 :
 'none';
 
-$('roleText').textContent =
-isAdmin
+
+$('roleText').textContent=
+admin
 ?
-'Administrator — publish content below.'
+'Administrator — manage and publish your content.'
 :
-'Member — pay to unlock premium content.';
+'Member — unlock premium content after payment.';
+
 
 listenPosts();
 
 }
 
 
-/* LOGOUT */
+/* =========================
+   LOGOUT
+========================= */
 
-$('logout').onclick = async () => {
+$('logout').onclick=async()=>{
 
-paymentPolling = false;
+paymentPolling=false;
 
 if(stopPosts){
 
 stopPosts();
 
-stopPosts = null;
+stopPosts=null;
 
 }
 
 await signOut(auth);
 
-currentUser = null;
+currentUser=null;
 
-$('app').style.display = 'none';
+$('app').style.display='none';
 
-$('home').style.display = 'flex';
+$('home').style.display='flex';
 
 };
 
 
-/* ADMIN PUBLISH */
+/* =========================
+   ADMIN PUBLISH
+========================= */
 
-$('publish').onclick = async () => {
+$('publish').onclick=async()=>{
 
 if(!currentUser){
 return;
 }
 
-$('publish').disabled = true;
+$('publish').disabled=true;
 
-$('postMsg').textContent = '';
+$('postMsg').textContent='';
 
 try{
 
-const userSnap =
+const userSnap=
 await getDoc(
 doc(
 db,
@@ -1319,7 +2091,7 @@ currentUser.uid
 
 if(
 !userSnap.exists() ||
-userSnap.data().role !== 'admin'
+userSnap.data().role!=='admin'
 ){
 
 throw new Error(
@@ -1328,16 +2100,18 @@ throw new Error(
 
 }
 
-const title =
+
+const title=
 $('postTitle').value.trim();
 
-const content =
+const content=
 $('postContent').value.trim();
 
-const price =
+const price=
 Number(
 $('postPrice').value || 0
 );
+
 
 if(!title){
 
@@ -1357,7 +2131,7 @@ throw new Error(
 
 if(
 !Number.isFinite(price) ||
-price < 0
+price<0
 ){
 
 throw new Error(
@@ -1365,6 +2139,7 @@ throw new Error(
 );
 
 }
+
 
 await addDoc(
 collection(db,'posts'),
@@ -1391,30 +2166,33 @@ serverTimestamp()
 }
 );
 
-$('postTitle').value = '';
 
-$('postContent').value = '';
+$('postTitle').value='';
 
-$('postPrice').value = '';
+$('postContent').value='';
 
-$('postMsg').textContent =
-'Published successfully.';
+$('postPrice').value='';
+
+$('postMsg').textContent=
+'Content published successfully.';
 
 }catch(error){
 
-$('postMsg').textContent =
+$('postMsg').textContent=
 error.message;
 
 }finally{
 
-$('publish').disabled = false;
+$('publish').disabled=false;
 
 }
 
 };
 
 
-/* LOAD POSTS */
+/* =========================
+   LISTEN POSTS
+========================= */
 
 function listenPosts(){
 
@@ -1424,7 +2202,7 @@ stopPosts();
 
 }
 
-const postsQuery =
+const q=
 query(
 collection(db,'posts'),
 orderBy(
@@ -1433,42 +2211,53 @@ orderBy(
 )
 );
 
-stopPosts =
-onSnapshot(
-postsQuery,
-snapshot => {
 
-const box =
+stopPosts=
+onSnapshot(
+q,
+snapshot=>{
+
+const box=
 $('posts');
+
 
 if(snapshot.empty){
 
-box.innerHTML =
-'<p class="empty">No content has been published yet.</p>';
+box.innerHTML=`
+
+<div class="empty">
+
+No content has been published yet.
+
+</div>
+
+`;
 
 return;
 
 }
 
 
-/*
-Paid content is intentionally NOT
-placed in the locked card.
-*/
-
-box.innerHTML =
-snapshot.docs
-.filter(
+const docs=
+snapshot.docs.filter(
 docSnap =>
-docSnap.data().published !== false
-)
-.map(
-docSnap => {
+docSnap.data().published!==false
+);
 
-const post =
+
+box.innerHTML=
+docs.map(
+docSnap=>{
+
+const post=
 docSnap.data();
 
-const date =
+const price=
+Number(
+post.price || 0
+);
+
+const date=
 post.createdAt?.toDate
 ?
 post.createdAt
@@ -1477,21 +2266,34 @@ post.createdAt
 :
 'Just now';
 
-const price =
-Number(
-post.price || 0
-);
 
+/* FREE CONTENT */
 
-/* FREE */
-
-if(price <= 0){
+if(price<=0){
 
 return `
 
 <article
 class="post-card"
 id="post-${docSnap.id}">
+
+<div class="card-top">
+
+<div class="category-icon">
+
+<svg>
+<use href="#icon-file"></use>
+</svg>
+
+</div>
+
+<div class="badge free">
+
+FREE
+
+</div>
+
+</div>
 
 <h3>
 ${esc(post.title || 'Untitled')}
@@ -1501,21 +2303,13 @@ ${esc(post.title || 'Untitled')}
 ${esc(date)}
 </div>
 
-<div class="unlocked-preview">
+<div class="free-content">
+
+<div class="content-text">
 ${esc(post.content || '')}
 </div>
 
-<div class="price">
-FREE
 </div>
-
-<button
-class="view-content"
-data-id="${docSnap.id}">
-
-VIEW CONTENT
-
-</button>
 
 </article>
 
@@ -1524,7 +2318,7 @@ VIEW CONTENT
 }
 
 
-/* PAID */
+/* PAID CONTENT */
 
 return `
 
@@ -1532,18 +2326,25 @@ return `
 class="post-card"
 id="post-${docSnap.id}">
 
-<div class="locked-box">
+<div class="card-top">
 
-<div class="lock-icon">
-🔒
+<div class="category-icon">
+
+<svg>
+<use href="#icon-lock"></use>
+</svg>
+
 </div>
 
-<div class="locked-title">
-Premium Content
-</div>
+<div class="badge premium">
 
-<div>
-This content is locked.
+<svg
+style="width:12px;height:12px">
+<use href="#icon-lock"></use>
+</svg>
+
+PREMIUM
+
 </div>
 
 </div>
@@ -1556,15 +2357,44 @@ ${esc(post.title || 'Untitled')}
 ${esc(date)}
 </div>
 
-<div class="price">
-${price.toLocaleString()} TSh
+
+<div class="locked-area">
+
+<div class="lock-circle">
+
+<svg>
+<use href="#icon-lock"></use>
+</svg>
+
 </div>
 
+<strong>
+Premium content locked
+</strong>
+
+<p>
+Complete payment to unlock this content.
+</p>
+
+</div>
+
+
+<div class="price">
+
+${price.toLocaleString()} TSh
+
+</div>
+
+
 <button
-class="view-content"
+class="pay-button"
 data-id="${docSnap.id}">
 
-PAY & VIEW CONTENT
+<svg>
+<use href="#icon-card"></use>
+</svg>
+
+PAY & UNLOCK
 
 </button>
 
@@ -1578,40 +2408,38 @@ PAY & VIEW CONTENT
 
 
 box
-.querySelectorAll('.view-content')
-.forEach(button => {
+.querySelectorAll('.pay-button')
+.forEach(button=>{
 
-button.onclick = () => {
+button.onclick=()=>{
 
-const selectedDoc =
+const postDoc=
 snapshot.docs.find(
 docSnap =>
-docSnap.id ===
+docSnap.id===
 button.dataset.id
 );
 
-if(!selectedDoc){
+if(!postDoc){
 return;
 }
 
-const post =
-selectedDoc.data();
+const post=
+postDoc.data();
 
-const price =
+const price=
 Number(
 post.price || 0
 );
 
-if(price <= 0){
-
-showContent(post);
+if(price<=0){
 
 return;
 
 }
 
 openPaymentModal(
-selectedDoc.id,
+postDoc.id,
 post
 );
 
@@ -1620,15 +2448,22 @@ post
 });
 
 },
-error => {
+error=>{
 
 console.error(
 'Firestore error:',
 error
 );
 
-$('posts').innerHTML =
-'<p class="empty">Unable to load content.</p>';
+$('posts').innerHTML=`
+
+<div class="empty">
+
+Unable to load content.
+
+</div>
+
+`;
 
 }
 );
@@ -1636,103 +2471,81 @@ $('posts').innerHTML =
 }
 
 
-/* PAYMENT MODAL */
+/* =========================
+   PAYMENT MODAL
+========================= */
 
 function openPaymentModal(
 postId,
 post
 ){
 
-paymentPolling = false;
+paymentPolling=false;
 
-selectedPostId = postId;
+selectedPostId=postId;
 
-selectedPost = post;
+selectedPost=post;
 
-$('paymentTitle').textContent =
+
+$('paymentTitle').textContent=
 post.title ||
 'Unlock Content';
 
-$('paymentPrice').textContent =
+
+$('paymentPrice').textContent=
 Number(
 post.price || 0
-).toLocaleString() +
+).toLocaleString()+
 ' TSh';
 
-$('payName').value =
+
+$('payName').value=
 currentUser?.displayName ||
 '';
 
-$('payEmail').value =
+$('payEmail').value=
 currentUser?.email ||
 '';
 
-$('payPhone').value = '';
+$('payPhone').value='';
 
-$('paymentMsg').textContent = '';
+$('paymentMsg').textContent='';
 
-$('paymentStatus').style.display =
-'none';
+$('paymentStatus').style.display='none';
 
-$('successBox').style.display =
-'none';
+$('successBox').style.display='none';
 
-$('failedBox').style.display =
-'none';
+$('failedBox').style.display='none';
 
-$('paymentForm').style.display =
-'block';
+$('paymentForm').style.display='block';
 
-$('payButton').disabled = false;
+$('payButton').disabled=false;
 
-$('paymentModal').style.display =
-'flex';
+$('paymentModal').style.display='flex';
 
 }
 
 
-/* CLOSE PAYMENT */
+/* =========================
+   CLOSE PAYMENT
+========================= */
 
-$('closePayment').onclick = () => {
+$('closePayment').onclick=()=>{
 
 if(paymentPolling){
 return;
 }
 
-$('paymentModal').style.display =
-'none';
+$('paymentModal').style.display='none';
 
 };
 
 
-/* CLOSE CONTENT */
+/* =========================
+   START PAYMENT
+========================= */
 
-$('closeModal').onclick = () => {
-
-$('contentModal').style.display =
-'none';
-
-};
-
-$('contentModal').onclick = event => {
-
-if(
-event.target ===
-$('contentModal')
-){
-
-$('contentModal').style.display =
-'none';
-
-}
-
-};
-
-
-/* START PAYMENT */
-
-$('payButton').onclick =
-async () => {
+$('payButton').onclick=async()=>{
 
 if(
 !currentUser ||
@@ -1744,19 +2557,21 @@ return;
 
 }
 
-const name =
+
+const name=
 $('payName').value.trim();
 
-const email =
+const email=
 $('payEmail').value.trim();
 
-const phone =
+const phone=
 $('payPhone').value.trim();
 
-const amount =
+const amount=
 Number(
 selectedPost.price || 0
 );
+
 
 if(
 !name ||
@@ -1764,33 +2579,36 @@ if(
 !phone
 ){
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Please complete all fields.';
 
 return;
 
 }
 
+
 if(
 !amount ||
-amount <= 0
+amount<=0
 ){
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Invalid payment amount.';
 
 return;
 
 }
 
-$('payButton').disabled = true;
 
-$('paymentMsg').textContent =
+$('payButton').disabled=true;
+
+$('paymentMsg').textContent=
 'Sending payment request...';
+
 
 try{
 
-const response =
+const response=
 await fetch(
 '/api/pay',
 {
@@ -1823,11 +2641,12 @@ currentUser.uid
 }
 );
 
+
 let result;
 
 try{
 
-result =
+result=
 await response.json();
 
 }catch{
@@ -1837,6 +2656,7 @@ throw new Error(
 );
 
 }
+
 
 if(
 !response.ok ||
@@ -1851,20 +2671,11 @@ result.message ||
 }
 
 
-/*
-Payment started.
-This does NOT mean payment completed.
-*/
-
-const orderId =
+const orderId=
 result.order_id;
 
-if(!orderId){
 
-console.error(
-'Payment response:',
-result
-);
+if(!orderId){
 
 throw new Error(
 'PalmPesa did not return an order ID.'
@@ -1872,25 +2683,21 @@ throw new Error(
 
 }
 
-console.log(
-'PalmPesa ORDER ID:',
-orderId
-);
 
-$('paymentForm').style.display =
-'none';
+$('paymentForm').style.display='none';
 
-$('paymentStatus').style.display =
-'block';
+$('paymentStatus').style.display='block';
 
-$('paymentMsg').textContent = '';
+$('paymentMsg').textContent='';
 
-$('statusText').textContent =
+$('statusText').textContent=
 'Waiting for payment confirmation...';
+
 
 pollPaymentStatus(
 orderId
 );
+
 
 }catch(error){
 
@@ -1899,46 +2706,50 @@ console.error(
 error
 );
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 error.message;
 
-$('payButton').disabled = false;
+$('payButton').disabled=false;
 
 }
 
 };
 
 
-/* PAYMENT STATUS POLLING */
+/* =========================
+   POLL PAYMENT
+========================= */
 
 async function pollPaymentStatus(
 orderId
 ){
 
-paymentPolling = true;
+paymentPolling=true;
 
-let delay = 2000;
+let delay=2000;
 
-const maxDelay = 10000;
+const maxDelay=10000;
 
-let attempts = 0;
+let attempts=0;
 
-const maxAttempts = 60;
+const maxAttempts=60;
 
 
 while(
 paymentPolling &&
-attempts < maxAttempts
+attempts<maxAttempts
 ){
 
 attempts++;
 
+
 try{
 
-$('statusText').textContent =
+$('statusText').textContent=
 'Checking payment...';
 
-const response =
+
+const response=
 await fetch(
 '/api/order-status',
 {
@@ -1952,20 +2763,18 @@ headers:{
 
 body:
 JSON.stringify({
-
-order_id:
-orderId
-
+order_id:orderId
 })
 
 }
 );
 
+
 let result;
 
 try{
 
-result =
+result=
 await response.json();
 
 }catch{
@@ -1976,27 +2785,24 @@ throw new Error(
 
 }
 
+
 console.log(
-'ORDER STATUS RESPONSE:',
+'PAYMENT STATUS:',
 result
 );
+
 
 if(!response.ok){
 
 throw new Error(
 result.message ||
-'Unable to check payment status.'
+'Unable to check payment.'
 );
 
 }
 
 
-/*
-Your order-status.js returns:
-payment_status: COMPLETED
-*/
-
-const status =
+const status=
 String(
 
 result?.payment_status ||
@@ -2010,59 +2816,48 @@ result?.data?.[0]?.payment_status ||
 .toUpperCase();
 
 
-console.log(
-'REAL PAYMENT STATUS:',
-status
-);
-
-
 /* COMPLETED */
 
-if(
-status ===
-'COMPLETED'
-){
+if(status==='COMPLETED'){
 
-paymentPolling = false;
-
-$('paymentStatus').style.display =
-'none';
-
-$('successBox').style.display =
-'block';
+paymentPolling=false;
 
 
-setTimeout(
-() => {
+$('paymentStatus').style.display='none';
 
-$('paymentModal').style.display =
-'none';
-
-$('successBox').style.display =
-'none';
-
-$('paymentForm').style.display =
-'block';
-
-$('payButton').disabled = false;
+$('successBox').style.display='block';
 
 
 /*
-ONLY AFTER COMPLETED:
-show the actual content.
+IMPORTANT:
+Wait briefly, then close payment modal.
+The content will be rendered DIRECTLY
+inside the card.
 */
 
-showContent(
+setTimeout(()=>{
+
+$('paymentModal').style.display='none';
+
+$('successBox').style.display='none';
+
+$('paymentForm').style.display='block';
+
+$('payButton').disabled=false;
+
+
+/*
+Unlock card directly.
+NO second click.
+*/
+
+unlockCard(
+selectedPostId,
 selectedPost
 );
 
-markCardUnlocked(
-selectedPostId
-);
+},900);
 
-},
-1200
-);
 
 return;
 
@@ -2071,26 +2866,20 @@ return;
 
 /* FAILED */
 
-if(
-status ===
-'FAILED'
-){
+if(status==='FAILED'){
 
-paymentPolling = false;
+paymentPolling=false;
 
-$('paymentStatus').style.display =
-'none';
+$('paymentStatus').style.display='none';
 
-$('failedBox').style.display =
-'block';
+$('failedBox').style.display='block';
 
-$('paymentForm').style.display =
-'block';
+$('paymentForm').style.display='block';
 
-$('payButton').disabled = false;
+$('payButton').disabled=false;
 
-$('paymentMsg').textContent =
-'PalmPesa reports that the payment failed.';
+$('paymentMsg').textContent=
+'Payment failed. Please try again.';
 
 return;
 
@@ -2099,45 +2888,37 @@ return;
 
 /* PENDING */
 
-$('paymentStatus').style.display =
-'block';
+$('paymentStatus').style.display='block';
 
-$('statusText').textContent =
+$('statusText').textContent=
 'Payment is still pending. Enter your PIN and complete the payment.';
 
 
-/*
-Wait before checking again.
-*/
-
 await sleep(delay);
 
-
-/*
-Exponential backoff.
-*/
-
-delay =
+delay=
 Math.min(
-delay * 2,
+delay*2,
 maxDelay
 );
+
 
 }catch(error){
 
 console.error(
-'Payment status check error:',
+'Payment status error:',
 error
 );
 
-$('statusText').textContent =
+$('statusText').textContent=
 'Still checking payment...';
+
 
 await sleep(delay);
 
-delay =
+delay=
 Math.min(
-delay * 2,
+delay*2,
 maxDelay
 );
 
@@ -2146,168 +2927,125 @@ maxDelay
 }
 
 
-/*
-Payment was not confirmed
-within the polling period.
-*/
+/* TIMEOUT */
 
-paymentPolling = false;
+paymentPolling=false;
 
-$('paymentStatus').style.display =
-'none';
+$('paymentStatus').style.display='none';
 
-$('paymentForm').style.display =
-'block';
+$('paymentForm').style.display='block';
 
-$('payButton').disabled = false;
+$('payButton').disabled=false;
 
-$('paymentMsg').textContent =
+$('paymentMsg').textContent=
 'Payment could not be confirmed automatically. Please try again.';
 
 }
 
 
-/* SLEEP */
+/* =========================
+   UNLOCK CARD
+========================= */
 
-function sleep(ms){
-
-return new Promise(
-resolve =>
-setTimeout(
-resolve,
-ms
-)
-);
-
-}
-
-
-/* MARK CARD UNLOCKED */
-
-function markCardUnlocked(
-postId
+function unlockCard(
+postId,
+post
 ){
 
-const card =
+const card=
 document.getElementById(
-'post-' + postId
+'post-'+postId
 );
+
 
 if(!card){
 return;
 }
 
+
 card.classList.add(
 'unlocked'
 );
 
-const lockedBox =
+
+/*
+Replace locked section
+with actual content.
+*/
+
+const lockedArea=
 card.querySelector(
-'.locked-box'
+'.locked-area'
 );
 
-if(lockedBox){
 
-lockedBox.innerHTML = `
+if(lockedArea){
 
-<div class="unlocked-label">
-✓ PAYMENT COMPLETED
+lockedArea.outerHTML=`
+
+<div class="unlocked-content">
+
+<div class="unlocked-content-header">
+
+<svg>
+<use href="#icon-check"></use>
+</svg>
+
+PAYMENT COMPLETED — CONTENT UNLOCKED
+
 </div>
 
-<div class="locked-title">
-Content Unlocked
+<div class="content-text">
+
+${esc(post.content || '')}
+
 </div>
 
-<div>
-You can now view this content.
 </div>
 
 `;
 
 }
 
-const button =
+
+/*
+Replace payment button.
+No VIEW CONTENT button.
+*/
+
+const button=
 card.querySelector(
-'.view-content'
+'.pay-button'
 );
+
 
 if(button){
 
-button.textContent =
-'VIEW CONTENT';
-
-button.onclick = () => {
-
-showContent(
-selectedPost
-);
-
-};
+button.remove();
 
 }
 
 }
 
 
-/* SHOW CONTENT */
+/* =========================
+   REFRESH
+========================= */
 
-function showContent(post){
-
-$('modalTitle').textContent =
-post.title ||
-'Untitled';
-
-$('modalDate').textContent =
-post.createdAt?.toDate
-?
-post.createdAt
-.toDate()
-.toLocaleString()
-:
-'Just now';
-
-$('modalContent').textContent =
-post.content ||
-'';
-
-$('contentModal').style.display =
-'flex';
-
-}
-
-
-/* REFRESH */
-
-$('refreshPosts').onclick = () => {
+$('refreshPosts').onclick=()=>{
 
 listenPosts();
 
 };
 
 
-/* ESCAPE HTML */
-
-function esc(value){
-
-return String(value).replace(
-/[&<>"']/g,
-character => ({
-'&':'&amp;',
-'<':'&lt;',
-'>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
-}[character])
-);
-
-}
-
-
-/* AUTH STATE */
+/* =========================
+   AUTH STATE
+========================= */
 
 onAuthStateChanged(
 auth,
-user => {
+user=>{
 
 if(user){
 
