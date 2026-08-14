@@ -5,11 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MIKEKA BOOM</title>
 
-<!-- FONT AWESOME -->
-<link
-  rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
->
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
 *{box-sizing:border-box}
@@ -24,7 +21,6 @@ color:#151515
 }
 
 body{overflow-x:hidden}
-
 button,input,textarea{font:inherit}
 button{cursor:pointer}
 
@@ -47,10 +43,7 @@ letter-spacing:-.12em
 }
 
 @keyframes loaderOut{
-to{
-opacity:0;
-visibility:hidden
-}
+to{opacity:0;visibility:hidden}
 }
 
 /* HOME */
@@ -109,9 +102,7 @@ margin:0;
 letter-spacing:-.06em
 }
 
-.intro h1 span{
-color:#ff6a00
-}
+.intro h1 span{color:#ff6a00}
 
 .intro p{
 color:#777;
@@ -185,9 +176,7 @@ color:#fff9;
 line-height:1.6
 }
 
-.auth-main{
-padding:50px
-}
+.auth-main{padding:50px}
 
 .auth-main h1{
 margin:0;
@@ -200,9 +189,7 @@ color:#777;
 margin-bottom:30px
 }
 
-.field{
-margin:17px 0
-}
+.field{margin:17px 0}
 
 .field label{
 display:block;
@@ -229,9 +216,7 @@ border-color:#ff6a00;
 box-shadow:0 0 0 3px #ff6a0012
 }
 
-.field textarea{
-resize:vertical
-}
+.field textarea{resize:vertical}
 
 .submit{
 width:100%;
@@ -243,9 +228,7 @@ padding:15px;
 font-weight:900
 }
 
-.submit:hover{
-background:#df5c00
-}
+.submit:hover{background:#df5c00}
 
 .submit:disabled{
 opacity:.55;
@@ -321,9 +304,7 @@ align-items:center;
 gap:8px
 }
 
-.logout:hover{
-background:#333
-}
+.logout:hover{background:#333}
 
 /* CONTENT */
 .content{
@@ -346,9 +327,7 @@ letter-spacing:-.065em;
 margin:0
 }
 
-.hero-copy h1 span{
-color:#ff6a00
-}
+.hero-copy h1 span{color:#ff6a00}
 
 .hero-copy p{
 color:#777;
@@ -377,9 +356,7 @@ margin-bottom:45px;
 box-shadow:0 10px 35px #00000007
 }
 
-.admin-header{
-margin-bottom:25px
-}
+.admin-header{margin-bottom:25px}
 
 .admin-title{
 display:flex;
@@ -419,9 +396,7 @@ gap:18px
 grid-column:1/-1
 }
 
-.price-wrap{
-position:relative
-}
+.price-wrap{position:relative}
 
 .price-wrap span{
 position:absolute;
@@ -542,6 +517,11 @@ background:#eaf7ed;
 color:#188038
 }
 
+.badge.admin{
+background:#eeeaff;
+color:#6246d9
+}
+
 .post-card h3{
 margin:0 0 8px;
 font-size:22px;
@@ -580,9 +560,7 @@ font-size:21px;
 margin-bottom:14px
 }
 
-.locked-area strong{
-font-size:16px
-}
+.locked-area strong{font-size:16px}
 
 .locked-area p{
 margin:7px 0 0;
@@ -612,9 +590,7 @@ justify-content:center;
 gap:9px
 }
 
-.pay-button:hover{
-background:#df5c00
-}
+.pay-button:hover{background:#df5c00}
 
 .unlocked-content{
 flex:1;
@@ -642,9 +618,42 @@ white-space:pre-wrap;
 font-size:14px
 }
 
-.free-content{
-flex:1;
-padding:15px 0
+/* ADMIN CONTENT */
+.admin-content{
+background:#faf8ff;
+border:1px solid #e2dbff
+}
+
+.admin-content .unlocked-header{
+color:#6246d9
+}
+
+/* DELETE */
+.delete-button{
+width:100%;
+margin-top:18px;
+padding:12px 15px;
+border:1px solid #ffd0d0;
+border-radius:9px;
+background:#fff5f5;
+color:#d93025;
+font-weight:900;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:8px;
+transition:.2s
+}
+
+.delete-button:hover{
+background:#d93025;
+color:#fff;
+border-color:#d93025
+}
+
+.delete-button:disabled{
+opacity:.6;
+cursor:not-allowed
 }
 
 .empty{
@@ -751,14 +760,10 @@ margin:0 auto 16px
 }
 
 @keyframes spin{
-to{
-transform:rotate(360deg)
-}
+to{transform:rotate(360deg)}
 }
 
-.payment-status strong{
-display:block
-}
+.payment-status strong{display:block}
 
 .payment-status small{
 display:block;
@@ -794,12 +799,78 @@ background:#fff0f0;
 color:#d93025
 }
 
+/* CONFIRM DELETE MODAL */
+.confirm-modal{
+position:fixed;
+inset:0;
+background:#0008;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:200
+}
+
+.confirm-box{
+width:min(420px,94vw);
+background:#fff;
+border-radius:18px;
+padding:30px;
+text-align:center
+}
+
+.confirm-icon{
+width:60px;
+height:60px;
+border-radius:50%;
+background:#fff0f0;
+color:#d93025;
+display:grid;
+place-items:center;
+font-size:23px;
+margin:0 auto 18px
+}
+
+.confirm-box h3{
+margin:0 0 10px;
+font-size:22px
+}
+
+.confirm-box p{
+color:#777;
+font-size:14px;
+line-height:1.5
+}
+
+.confirm-actions{
+display:flex;
+gap:10px;
+margin-top:25px
+}
+
+.cancel-delete,
+.confirm-delete{
+flex:1;
+padding:12px;
+border-radius:9px;
+font-weight:900
+}
+
+.cancel-delete{
+border:1px solid #ddd;
+background:#fff
+}
+
+.confirm-delete{
+border:0;
+background:#d93025;
+color:#fff
+}
+
 /* RESPONSIVE */
 @media(max-width:800px){
 
-.home{
-flex-direction:column
-}
+.home{flex-direction:column}
 
 .brand{
 width:100%;
@@ -807,21 +878,15 @@ height:40%;
 font-size:100px
 }
 
-.intro{
-padding:35px
-}
+.intro{padding:35px}
 
 .auth-card{
 grid-template-columns:1fr
 }
 
-.auth-side{
-display:none
-}
+.auth-side{display:none}
 
-.auth-main{
-padding:35px
-}
+.auth-main{padding:35px}
 
 .admin-grid{
 grid-template-columns:1fr
@@ -831,42 +896,28 @@ grid-template-columns:1fr
 grid-column:auto
 }
 
-.hero-icon{
-display:none
-}
+.hero-icon{display:none}
 
 }
 
 @media(max-width:550px){
 
-.topbar{
-padding:0 16px
-}
+.topbar{padding:0 16px}
 
-.user-name{
-display:none
-}
+.user-name{display:none}
 
 .content{
 width:94vw;
 padding-top:105px
 }
 
-.hero-copy h1{
-font-size:50px
-}
+.hero-copy h1{font-size:50px}
 
-.posts{
-grid-template-columns:1fr
-}
+.posts{grid-template-columns:1fr}
 
-.admin-panel{
-padding:20px
-}
+.admin-panel{padding:20px}
 
-.modal-box{
-padding:25px
-}
+.modal-box{padding:25px}
 
 }
 </style>
@@ -932,9 +983,7 @@ MB
 
 <div>
 
-<h2>
-MIKEKA BOOM
-</h2>
+<h2>MIKEKA BOOM</h2>
 
 <p>
 Your private library for premium knowledge and exclusive content.
@@ -1064,7 +1113,7 @@ Your content library.
 </div>
 
 
-<!-- ADMIN -->
+<!-- ADMIN PANEL -->
 <section id="adminPanel" class="admin-panel" style="display:none">
 
 <div class="admin-header">
@@ -1072,14 +1121,12 @@ Your content library.
 <div class="admin-title">
 
 <div class="admin-icon">
-<i class="fa-solid fa-plus"></i>
+<i class="fa-solid fa-shield-halved"></i>
 </div>
 
 <div>
 
-<h2>
-Create Content
-</h2>
+<h2>Create Content</h2>
 
 <p>
 Publish premium content and set its price.
@@ -1141,9 +1188,11 @@ placeholder="Write your content here..."></textarea>
 
 
 <button class="submit" id="publish">
+
 <i class="fa-solid fa-cloud-arrow-up"></i>
 &nbsp;
 PUBLISH CONTENT
+
 </button>
 
 <div class="msg" id="postMsg"></div>
@@ -1151,14 +1200,12 @@ PUBLISH CONTENT
 </section>
 
 
-<!-- CONTENT HEADER -->
+<!-- CONTENT -->
 <div class="section-header">
 
 <div class="section-title">
 
-<h2>
-Content
-</h2>
+<h2>Content</h2>
 
 <span class="count-label">
 Premium library
@@ -1167,17 +1214,20 @@ Premium library
 </div>
 
 <button class="refresh" id="refreshPosts">
+
 <i class="fa-solid fa-rotate"></i>
 REFRESH
+
 </button>
 
 </div>
 
 
-<!-- POSTS -->
 <div id="posts" class="posts">
 
 <div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
 Loading content...
 </div>
 
@@ -1194,14 +1244,14 @@ Loading content...
 <div class="modal-box">
 
 <button class="close-modal" id="closePayment">
-<i class="fa-solid fa-xmark"></i>
-</button>
 
+<i class="fa-solid fa-xmark"></i>
+
+</button>
 
 <div class="payment-icon">
 <i class="fa-solid fa-credit-card"></i>
 </div>
-
 
 <h2 id="paymentTitle">
 Unlock Content
@@ -1212,8 +1262,7 @@ Complete the payment below. After PalmPesa confirms
 your payment, the content will automatically unlock.
 </p>
 
-<div class="payment-price" id="paymentPrice">
-</div>
+<div class="payment-price" id="paymentPrice"></div>
 
 
 <div id="paymentForm">
@@ -1251,15 +1300,16 @@ placeholder="07XXXXXXXX">
 </div>
 
 <button class="submit" id="payButton">
+
 <i class="fa-solid fa-lock-open"></i>
 &nbsp;
 PAY NOW
+
 </button>
 
 </div>
 
 
-<!-- PAYMENT WAITING -->
 <div class="payment-status" id="paymentStatus">
 
 <div class="spinner"></div>
@@ -1279,7 +1329,6 @@ Checking payment status...
 </div>
 
 
-<!-- SUCCESS -->
 <div class="success-box" id="successBox">
 
 <i class="fa-solid fa-circle-check"></i>
@@ -1295,7 +1344,6 @@ Unlocking your content...
 </div>
 
 
-<!-- FAILED -->
 <div class="failed-box" id="failedBox">
 
 <i class="fa-solid fa-circle-xmark"></i>
@@ -1312,6 +1360,52 @@ Please try again.
 
 
 <div class="msg" id="paymentMsg"></div>
+
+</div>
+
+</div>
+
+
+<!-- DELETE CONFIRMATION -->
+<div class="confirm-modal" id="deleteModal">
+
+<div class="confirm-box">
+
+<div class="confirm-icon">
+
+<i class="fa-solid fa-trash"></i>
+
+</div>
+
+<h3>
+Delete Content?
+</h3>
+
+<p>
+This content will be permanently removed from
+MIKEKA BOOM. This action cannot be undone.
+</p>
+
+<div class="confirm-actions">
+
+<button
+class="cancel-delete"
+id="cancelDelete">
+
+CANCEL
+
+</button>
+
+<button
+class="confirm-delete"
+id="confirmDelete">
+
+<i class="fa-solid fa-trash"></i>
+DELETE
+
+</button>
+
+</div>
 
 </div>
 
@@ -1347,6 +1441,7 @@ getDoc,
 collection,
 addDoc,
 getDocs,
+deleteDoc,
 onSnapshot,
 query,
 orderBy,
@@ -1386,6 +1481,8 @@ let signup=false;
 
 let currentUser=null;
 
+let currentIsAdmin=false;
+
 let stopPosts=null;
 
 let selectedPost=null;
@@ -1395,6 +1492,8 @@ let selectedPostId=null;
 let paymentPolling=false;
 
 let paidPosts=new Set();
+
+let deleteTargetId=null;
 
 
 const $=id=>document.getElementById(id);
@@ -1426,7 +1525,7 @@ character=>({
 }
 
 
-/* LOAD PURCHASES */
+/* LOAD PAID CONTENT */
 async function loadPurchases(){
 
 paidPosts=new Set();
@@ -1520,7 +1619,7 @@ signup
 };
 
 
-/* AUTH */
+/* LOGIN / SIGNUP */
 $('submit').onclick=async()=>{
 
 const email=$('email').value.trim();
@@ -1690,8 +1789,11 @@ snap.data()
 :
 {role:'user'};
 
+
 const admin=
 data.role==='admin';
+
+currentIsAdmin=admin;
 
 
 $('adminPanel').style.display=
@@ -1700,7 +1802,7 @@ admin?'block':'none';
 $('roleText').textContent=
 admin
 ?
-'Administrator — manage and publish content.'
+'Administrator — view, publish and manage all content.'
 :
 'Member — unlock premium content after payment.';
 
@@ -1729,6 +1831,8 @@ await signOut(auth);
 
 currentUser=null;
 
+currentIsAdmin=false;
+
 paidPosts=new Set();
 
 $('app').style.display='none';
@@ -1738,7 +1842,7 @@ $('home').style.display='flex';
 };
 
 
-/* ADMIN PUBLISH */
+/* PUBLISH */
 $('publish').onclick=async()=>{
 
 if(!currentUser){
@@ -1848,7 +1952,7 @@ $('publish').disabled=false;
 };
 
 
-/* POSTS */
+/* LIST POSTS */
 function listenPosts(){
 
 if(stopPosts){
@@ -1870,19 +1974,31 @@ snapshot=>{
 
 const box=$('posts');
 
-if(snapshot.empty){
+const docs=
+snapshot.docs.filter(
+item=>item.data().published!==false
+);
 
-box.innerHTML=
-'<div class="empty"><i class="fa-regular fa-folder-open"></i><br><br>No content has been published yet.</div>';
+if(!docs.length){
+
+box.innerHTML=`
+
+<div class="empty">
+
+<i class="fa-regular fa-folder-open"></i>
+
+<br><br>
+
+No content has been published yet.
+
+</div>
+
+`;
 
 return;
 
 }
 
-const docs=
-snapshot.docs.filter(
-item=>item.data().published!==false
-);
 
 box.innerHTML=
 docs.map(item=>{
@@ -1900,22 +2016,27 @@ post.createdAt.toDate().toLocaleString()
 'Just now';
 
 
-/* FREE */
+/* FREE CONTENT */
 if(price<=0){
 
 return `
 
-<article class="post-card">
+<article class="post-card unlocked">
 
 <div class="card-top">
 
 <div class="category-icon">
+
 <i class="fa-regular fa-file-lines"></i>
+
 </div>
 
 <div class="badge free">
+
 <i class="fa-solid fa-unlock"></i>
+
 FREE
+
 </div>
 
 </div>
@@ -1936,6 +2057,20 @@ ${esc(post.content||'')}
 
 </div>
 
+${currentIsAdmin ? `
+
+<button
+class="delete-button"
+data-delete-id="${item.id}">
+
+<i class="fa-solid fa-trash"></i>
+
+DELETE CONTENT
+
+</button>
+
+` : ''}
+
 </article>
 
 `;
@@ -1943,7 +2078,74 @@ ${esc(post.content||'')}
 }
 
 
-/* PAID */
+/* ADMIN ALWAYS GETS ACCESS */
+if(currentIsAdmin){
+
+return `
+
+<article
+class="post-card unlocked">
+
+<div class="card-top">
+
+<div class="category-icon">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+</div>
+
+<div class="badge admin">
+
+<i class="fa-solid fa-user-shield"></i>
+
+ADMIN VIEW
+
+</div>
+
+</div>
+
+<h3>
+${esc(post.title||'Untitled')}
+</h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+<div class="unlocked-content admin-content">
+
+<div class="unlocked-header">
+
+<i class="fa-solid fa-circle-check"></i>
+
+ADMIN ACCESS — CONTENT VISIBLE
+
+</div>
+
+<div class="content-text">
+${esc(post.content||'')}
+</div>
+
+</div>
+
+<button
+class="delete-button"
+data-delete-id="${item.id}">
+
+<i class="fa-solid fa-trash"></i>
+
+DELETE CONTENT
+
+</button>
+
+</article>
+
+`;
+
+}
+
+
+/* PAID USER */
 if(paidPosts.has(item.id)){
 
 return `
@@ -1955,12 +2157,17 @@ id="post-${item.id}">
 <div class="card-top">
 
 <div class="category-icon">
+
 <i class="fa-solid fa-lock-open"></i>
+
 </div>
 
 <div class="badge free">
+
 <i class="fa-solid fa-circle-check"></i>
+
 UNLOCKED
+
 </div>
 
 </div>
@@ -1976,8 +2183,11 @@ ${esc(date)}
 <div class="unlocked-content">
 
 <div class="unlocked-header">
+
 <i class="fa-solid fa-circle-check"></i>
+
 PAYMENT COMPLETED — CONTENT UNLOCKED
+
 </div>
 
 <div class="content-text">
@@ -1993,7 +2203,7 @@ ${esc(post.content||'')}
 }
 
 
-/* LOCKED */
+/* LOCKED USER */
 return `
 
 <article
@@ -2003,12 +2213,17 @@ id="post-${item.id}">
 <div class="card-top">
 
 <div class="category-icon">
+
 <i class="fa-solid fa-lock"></i>
+
 </div>
 
 <div class="badge premium">
+
 <i class="fa-solid fa-crown"></i>
+
 PREMIUM
+
 </div>
 
 </div>
@@ -2024,7 +2239,9 @@ ${esc(date)}
 <div class="locked-area">
 
 <div class="lock-circle">
+
 <i class="fa-solid fa-lock"></i>
+
 </div>
 
 <strong>
@@ -2038,7 +2255,9 @@ Complete payment to unlock this content.
 </div>
 
 <div class="price">
+
 ${price.toLocaleString()} TSh
+
 </div>
 
 <button
@@ -2046,6 +2265,7 @@ class="pay-button"
 data-id="${item.id}">
 
 <i class="fa-solid fa-credit-card"></i>
+
 PAY & UNLOCK
 
 </button>
@@ -2057,6 +2277,7 @@ PAY & UNLOCK
 }).join('');
 
 
+/* PAYMENT BUTTONS */
 box
 .querySelectorAll('.pay-button')
 .forEach(button=>{
@@ -2088,18 +2309,135 @@ selectedPost
 
 });
 
+
+/* DELETE BUTTONS */
+box
+.querySelectorAll('.delete-button')
+.forEach(button=>{
+
+button.onclick=()=>{
+
+if(!currentIsAdmin){
+
+return;
+
+}
+
+deleteTargetId=
+button.dataset.deleteId;
+
+$('deleteModal').style.display='flex';
+
+};
+
+});
+
 },
 error=>{
 
-console.error(error);
+console.error(
+'Firestore error:',
+error
+);
 
-$('posts').innerHTML=
-'<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><br><br>Unable to load content.</div>';
+$('posts').innerHTML=`
+
+<div class="empty">
+
+<i class="fa-solid fa-triangle-exclamation"></i>
+
+<br><br>
+
+Unable to load content.
+
+</div>
+
+`;
 
 }
 );
 
 }
+
+
+/* DELETE CANCEL */
+$('cancelDelete').onclick=()=>{
+
+deleteTargetId=null;
+
+$('deleteModal').style.display='none';
+
+};
+
+
+/* DELETE CONFIRM */
+$('confirmDelete').onclick=async()=>{
+
+if(!currentIsAdmin||!deleteTargetId){
+
+return;
+
+}
+
+const id=deleteTargetId;
+
+const button=$('confirmDelete');
+
+button.disabled=true;
+
+button.innerHTML=
+'<i class="fa-solid fa-spinner fa-spin"></i> DELETING...';
+
+try{
+
+await deleteDoc(
+doc(
+db,
+'posts',
+id
+)
+);
+
+deleteTargetId=null;
+
+$('deleteModal').style.display='none';
+
+}catch(error){
+
+console.error(
+'Delete error:',
+error
+);
+
+alert(
+'Unable to delete content: '+
+error.message
+);
+
+}finally{
+
+button.disabled=false;
+
+button.innerHTML=
+'<i class="fa-solid fa-trash"></i> DELETE';
+
+}
+
+};
+
+
+/* CLOSE DELETE MODAL */
+$('deleteModal').onclick=e=>{
+
+if(e.target===$('deleteModal')){
+
+deleteTargetId=null;
+
+$('deleteModal').style.display='none';
+
+}
+
+};
 
 
 /* PAYMENT MODAL */
@@ -2148,7 +2486,9 @@ $('paymentModal').style.display='flex';
 $('closePayment').onclick=()=>{
 
 if(paymentPolling){
+
 return;
+
 }
 
 $('paymentModal').style.display='none';
@@ -2271,7 +2611,6 @@ result.order_id||
 result.data?.order_id||
 result.data?.data?.order_id;
 
-
 if(!orderId){
 
 console.error(
@@ -2284,7 +2623,6 @@ throw new Error(
 );
 
 }
-
 
 $('paymentForm').style.display='none';
 
@@ -2311,7 +2649,7 @@ $('payButton').disabled=false;
 };
 
 
-/* POLL PAYMENT */
+/* PAYMENT STATUS */
 async function pollPaymentStatus(orderId){
 
 let delay=2000;
@@ -2342,8 +2680,7 @@ headers:{
 'application/json'
 },
 body:JSON.stringify({
-order_id:
-orderId
+order_id:orderId
 })
 }
 );
@@ -2378,8 +2715,7 @@ result.data?.data?.payment_status||
 
 ''
 
-)
-.toUpperCase();
+).toUpperCase();
 
 
 if(status==='COMPLETED'){
@@ -2403,25 +2739,19 @@ selectedPostId
 ),
 {
 
-postId:
-selectedPostId,
+postId:selectedPostId,
 
-orderId:
-orderId,
+orderId:orderId,
 
-title:
-selectedPost.title||'',
+title:selectedPost.title||'',
 
-amount:
-Number(
+amount:Number(
 selectedPost.price||0
 ),
 
-status:
-'COMPLETED',
+status:'COMPLETED',
 
-paidAt:
-serverTimestamp()
+paidAt:serverTimestamp()
 
 }
 );
@@ -2531,7 +2861,7 @@ $('paymentMsg').textContent=
 }
 
 
-/* UNLOCK CARD */
+/* UNLOCK CARD AFTER PAYMENT */
 function unlockCard(postId,post){
 
 const card=
@@ -2621,12 +2951,10 @@ icon.innerHTML=
 /* REFRESH */
 $('refreshPosts').onclick=async()=>{
 
-const refreshIcon=
+const icon=
 $('refreshPosts').querySelector('i');
 
-refreshIcon.classList.add(
-'fa-spin'
-);
+icon.classList.add('fa-spin');
 
 await loadPurchases();
 
@@ -2634,11 +2962,9 @@ listenPosts();
 
 setTimeout(()=>{
 
-refreshIcon.classList.remove(
-'fa-spin'
-);
+icon.classList.remove('fa-spin');
 
-},500);
+},600);
 
 };
 
