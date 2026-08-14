@@ -1,10 +1,12 @@
 export default async function handler(req, res) {
 
   if (req.method !== "POST") {
+
     return res.status(405).json({
       success: false,
       message: "Method not allowed"
     });
+
   }
 
   try {
@@ -18,41 +20,61 @@ export default async function handler(req, res) {
       userId
     } = req.body || {};
 
-    // Validate required fields
-    if (!name || !email || !phone || !amount) {
+
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !amount ||
+      !postId ||
+      !userId
+    ) {
+
       return res.status(400).json({
+
         success: false,
-        message: "Name, email, phone and amount are required."
+
+        message:
+          "Name, email, phone, amount, postId and userId are required."
+
       });
+
     }
 
-    const numericAmount = Number(amount);
+
+    const numericAmount =
+      Number(amount);
+
 
     if (
       !Number.isFinite(numericAmount) ||
       numericAmount <= 0
     ) {
+
       return res.status(400).json({
+
         success: false,
+
         message: "Invalid payment amount."
+
       });
+
     }
 
-    /*
-     * Create our own transaction ID.
-     */
-    const transactionId =
-      "TXN-" +
-      Date.now() +
-      "-" +
-      Math.random()
-        .toString(36)
-        .substring(2, 8)
-        .toUpperCase();
 
     /*
-     * Payment information sent to PalmPesa.
+     * PalmPesa transaction ID
      */
+
+    const transactionId =
+      "TXN-" +
+      Date.now();
+
+
+    /*
+     * PalmPesa payment payload
+     */
+
     const paymentData = {
 
       name: name,
@@ -66,54 +88,21 @@ export default async function handler(req, res) {
       transaction_id:
         transactionId,
 
-      address: "Geita",
+      address:
+        "Geita",
 
-      postcode: "30100"
+      postcode:
+        "30100"
 
     };
 
+
     console.log(
-      "Starting PalmPesa payment:",
-      {
-        transaction_id:
-          transactionId,
-
-        amount:
-          numericAmount,
-
-        postId:
-          postId || null,
-
-        userId:
-          userId || null
-      }
+      "Sending payment to PalmPesa:",
+      paymentData
     );
 
 
-    /*
-     * IMPORTANT:
-     *
-     * PALMPESA_TOKEN MUST ONLY EXIST
-     * IN VERCEL ENVIRONMENT VARIABLES.
-     */
-    if (!process.env.PALMPESA_TOKEN) {
-
-      console.error(
-        "PALMPESA_TOKEN is missing."
-      );
-
-      return res.status(500).json({
-        success: false,
-        message:
-          "Payment server is not configured."
-      });
-
-    }
-
-
-    /*
-     * Send payment request to PalmPesa.
-     */
     const response =
       await fetch(
         "https://palmpesa.drmlelwa.co.tz/api/pay-via-mobile",
@@ -143,27 +132,22 @@ export default async function handler(req, res) {
       );
 
 
-    /*
-     * Read response as text first.
-     */
     const rawResponse =
       await response.text();
 
 
     console.log(
-      "PalmPesa HTTP status:",
+      "PalmPesa HTTP:",
       response.status
     );
 
+
     console.log(
-      "PalmPesa raw response:",
+      "PalmPesa response:",
       rawResponse
     );
 
 
-    /*
-     * Convert PalmPesa response to JSON.
-     */
     let data;
 
     try {
@@ -184,61 +168,26 @@ export default async function handler(req, res) {
 
 
     /*
-     * Find PalmPesa ORDER ID.
-     *
-     * Different API responses can put
-     * the order_id in different places.
+     * PalmPesa can return order_id
+     * in slightly different structures.
      */
+
     const orderId =
-
       data?.order_id ||
-
-      data?.orderId ||
 
       data?.data?.order_id ||
 
-      data?.data?.orderId ||
+      data?.data?.data?.order_id ||
 
-      data?.data?.[0]?.order_id ||
+      data?.order?.order_id ||
 
-      data?.data?.[0]?.orderId ||
-
-      null;
+      data?.data?.order?.order_id;
 
 
-    /*
-     * PalmPesa rejected the request.
-     */
-    if (!response.ok) {
-
-      return res.status(
-        response.status
-      ).json({
-
-        success: false,
-
-        message:
-          data?.message ||
-          "PalmPesa rejected the payment request.",
-
-        transaction_id:
-          transactionId,
-
-        data:
-          data
-
-      });
-
-    }
-
-
-    /*
-     * Payment request succeeded,
-     * but PAYMENT IS NOT COMPLETED YET.
-     *
-     * The user still has to enter the PIN.
-     */
-    if (!orderId) {
+    if (
+      response.ok &&
+      !orderId
+    ) {
 
       console.error(
         "PalmPesa did not return order_id:",
@@ -250,13 +199,9 @@ export default async function handler(req, res) {
         success: false,
 
         message:
-          "PalmPesa did not return an order ID.",
+          "Payment was sent, but PalmPesa did not return an order ID.",
 
-        transaction_id:
-          transactionId,
-
-        data:
-          data
+        data: data
 
       });
 
@@ -264,25 +209,34 @@ export default async function handler(req, res) {
 
 
     /*
-     * Return ONLY the information
-     * needed by index.html.
-     *
-     * DO NOT return payment_status=COMPLETED.
+     * Return everything needed
+     * by the frontend.
      */
-    return res.status(200).json({
 
-      success: true,
+    return res.status(
+      response.status
+    ).json({
 
-      payment_started: true,
+      success:
+        response.ok,
 
       transaction_id:
         transactionId,
 
       order_id:
-        orderId,
+        orderId || null,
 
-      message:
-        "Payment request sent. Waiting for customer payment confirmation."
+      postId:
+        postId,
+
+      userId:
+        userId,
+
+      amount:
+        numericAmount,
+
+      data:
+        data
 
     });
 
@@ -290,9 +244,10 @@ export default async function handler(req, res) {
   } catch (error) {
 
     console.error(
-      "PalmPesa payment error:",
+      "Payment server error:",
       error
     );
+
 
     return res.status(500).json({
 
