@@ -18,13 +18,12 @@ animation:out .5s 1.5s forwards
 .loader b{font-size:25vw;letter-spacing:-.12em}
 
 .home,.auth,.app{position:absolute;inset:0}
-
 .home{display:flex;background:#fff}
 
 .brand{
 width:42%;background:#ff6a00;color:#fff;
-display:grid;place-items:center;
-font-size:20vw;font-weight:900;letter-spacing:-.13em
+display:grid;place-items:center;font-size:20vw;
+font-weight:900;letter-spacing:-.13em
 }
 
 .intro{
@@ -63,17 +62,18 @@ font-size:10vw;letter-spacing:-.13em
 }
 
 .main{padding:55px}
-
 .main h1{font-size:42px}
 
 .field{margin:15px 0}
 
 .field label{
-display:block;font-size:11px;font-weight:bold;margin-bottom:7px
+display:block;font-size:11px;
+font-weight:bold;margin-bottom:7px
 }
 
 .field input,.field textarea{
-width:100%;padding:15px;border:1px solid #ddd;font:inherit
+width:100%;padding:15px;
+border:1px solid #ddd;font:inherit
 }
 
 .field textarea{resize:vertical}
@@ -90,14 +90,15 @@ min-height:20px;color:#d43b00;font-size:13px
 }
 
 .app{
-display:none;background:#fff;overflow:auto
+display:none;background:#fff;
+overflow:auto;min-height:100vh
 }
 
 .topbar{
-position:absolute;top:0;left:0;right:0;height:76px;
-display:flex;align-items:center;justify-content:space-between;
-padding:0 30px;border-bottom:1px solid #eee;
-background:#fff;z-index:5
+position:fixed;top:0;left:0;right:0;height:76px;
+display:flex;align-items:center;
+justify-content:space-between;padding:0 30px;
+border-bottom:1px solid #eee;background:#fff;z-index:5
 }
 
 .logo{
@@ -125,16 +126,15 @@ font-size:clamp(42px,7vw,78px);margin:0
 }
 
 .hero h1 span{color:#ff6a00}
-
 .hero p{color:#777}
 
 .admin-panel{
-border:1px solid #eee;padding:28px;margin:40px 0;
-background:#fff;box-shadow:0 12px 35px #0000000d
+border:1px solid #eee;padding:28px;
+margin:40px 0;background:#fff;
+box-shadow:0 12px 35px #0000000d
 }
 
 .admin-panel h2{margin:0 0 8px}
-
 .admin-panel p{color:#777}
 
 .section-head{
@@ -151,7 +151,7 @@ gap:18px
 .post-card{
 border:1px solid #eee;background:#fff;padding:24px;
 box-shadow:0 10px 30px #0000000a;
-display:flex;flex-direction:column;min-height:260px
+display:flex;flex-direction:column;min-height:280px
 }
 
 .post-card h3{
@@ -219,8 +219,8 @@ border:0;background:none;font-size:28px;cursor:pointer
 }
 
 .payment-price{
-font-size:25px;font-weight:900;color:#ff6a00;
-margin:15px 0 25px
+font-size:25px;font-weight:900;
+color:#ff6a00;margin:15px 0 25px
 }
 
 .submit:disabled{
@@ -242,15 +242,11 @@ width:100%;height:42%;font-size:100px
 .intro{padding:30px}
 
 .card{grid-template-columns:1fr}
-
 .aside{display:none}
-
 .main{padding:30px}
 
 .topbar{padding:0 15px}
-
 .logo{font-size:26px}
-
 .user-area span{display:none}
 
 .content{padding-top:100px}
@@ -277,7 +273,6 @@ width:100%;height:42%;font-size:100px
 
 </section>
 
-
 <section class="auth" id="auth">
 
 <div class="card">
@@ -290,41 +285,23 @@ width:100%;height:42%;font-size:100px
 <main class="main">
 
 <h1 id="title">Welcome back.</h1>
-
 <p id="sub">Sign in to continue.</p>
 
 <div class="msg" id="msg"></div>
 
 <div class="field" id="nameBox" style="display:none">
-
 <label>NAME</label>
-
 <input id="name" autocomplete="name">
-
 </div>
 
 <div class="field">
-
 <label>EMAIL</label>
-
-<input
-id="email"
-type="email"
-autocomplete="email"
->
-
+<input id="email" type="email" autocomplete="email">
 </div>
 
 <div class="field">
-
 <label>PASSWORD</label>
-
-<input
-id="password"
-type="password"
-autocomplete="current-password"
->
-
+<input id="password" type="password" autocomplete="current-password">
 </div>
 
 <button class="link" id="forgot">
@@ -343,11 +320,8 @@ Don't have an account?
 </p>
 
 </main>
-
 </div>
-
 </section>
-
 
 <section class="app" id="app">
 
@@ -356,227 +330,126 @@ Don't have an account?
 <div class="logo">KB</div>
 
 <div class="user-area">
-
 <span id="userName"></span>
-
-<button class="logout" id="logout">
-SIGN OUT
-</button>
-
+<button class="logout" id="logout">SIGN OUT</button>
 </div>
 
 </header>
 
-
 <main class="content">
 
 <div class="hero">
-
 <h1>KB <span>Content</span></h1>
-
-<p id="roleText">
-Your content library
-</p>
-
+<p id="roleText">Your content library</p>
 </div>
 
-
-<section
-id="adminPanel"
-class="admin-panel"
-style="display:none"
->
+<section id="adminPanel" class="admin-panel" style="display:none">
 
 <h2>Admin — Create Content</h2>
 
-<p>
-Publish content and set the price members must pay to view it.
-</p>
+<p>Publish content and set the price members must pay to view it.</p>
 
 <div class="field">
-
 <label>TITLE</label>
-
-<input
-id="postTitle"
-maxlength="160"
-placeholder="Enter a title"
->
-
+<input id="postTitle" maxlength="160" placeholder="Enter a title">
 </div>
 
 <div class="field">
-
 <label>CONTENT</label>
-
-<textarea
-id="postContent"
-rows="8"
-placeholder="Write your content here..."
-></textarea>
-
+<textarea id="postContent" rows="8" placeholder="Write your content here..."></textarea>
 </div>
 
 <div class="field">
-
 <label>PRICE — TSH</label>
-
-<input
-id="postPrice"
-type="number"
-min="0"
-step="1"
-placeholder="Example: 5000"
->
-
+<input id="postPrice" type="number" min="0" step="1" placeholder="Example: 5000">
 </div>
 
-<button class="submit" id="publish">
-PUBLISH
-</button>
+<button class="submit" id="publish">PUBLISH</button>
 
 <div class="msg" id="postMsg"></div>
 
 </section>
 
-
 <section>
 
 <div class="section-head">
-
 <h2>Content</h2>
-
-<button class="link" id="refreshPosts">
-REFRESH
-</button>
-
+<button class="link" id="refreshPosts">REFRESH</button>
 </div>
 
 <div id="posts" class="posts">
-
-<p class="empty">
-Loading content...
-</p>
-
+<p class="empty">Loading content...</p>
 </div>
 
 </section>
 
 </main>
-
 </section>
 
+<!-- CONTENT MODAL -->
 
 <div class="modal" id="contentModal">
 
 <div class="modal-box">
 
-<button
-class="close-modal"
-id="closeModal"
->
-×
-</button>
+<button class="close-modal" id="closeModal">×</button>
 
 <h2 id="modalTitle"></h2>
 
 <div class="date" id="modalDate"></div>
 
-<div
-class="modal-content"
-id="modalContent"
-></div>
+<div class="modal-content" id="modalContent"></div>
 
 </div>
-
 </div>
 
+<!-- PAYMENT MODAL -->
 
 <div class="modal" id="paymentModal">
 
 <div class="modal-box">
 
-<button
-class="close-modal"
-id="closePayment"
->
-×
-</button>
+<button class="close-modal" id="closePayment">×</button>
 
 <div class="lock">🔒</div>
 
-<h2 id="paymentTitle">
-Unlock Content
-</h2>
+<h2 id="paymentTitle">Unlock Content</h2>
 
-<p>
-This content requires payment before it can be viewed.
-</p>
+<p>This content requires payment before it can be viewed.</p>
 
-<div
-class="payment-price"
-id="paymentPrice"
-></div>
+<div class="payment-price" id="paymentPrice"></div>
 
 <div class="field">
-
 <label>NAME</label>
-
-<input
-id="payName"
-placeholder="Your full name"
->
-
+<input id="payName" placeholder="Your full name">
 </div>
 
 <div class="field">
-
 <label>EMAIL</label>
-
-<input
-id="payEmail"
-type="email"
-placeholder="Your email"
->
-
+<input id="payEmail" type="email" placeholder="Your email">
 </div>
 
 <div class="field">
-
 <label>PHONE NUMBER</label>
-
-<input
-id="payPhone"
-type="tel"
-placeholder="07XXXXXXXX"
->
-
+<input id="payPhone" type="tel" placeholder="07XXXXXXXX">
 </div>
 
 <button class="submit" id="payButton">
 PAY NOW
 </button>
 
-<div
-class="msg"
-id="paymentMsg"
-></div>
+<div class="msg" id="paymentMsg"></div>
 
 </div>
-
 </div>
-
 
 <script type="module">
 
-import{
+import {
 initializeApp
-}
-from
-'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
+} from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
 
-
-import{
+import {
 getAuth,
 onAuthStateChanged,
 createUserWithEmailAndPassword,
@@ -585,12 +458,9 @@ sendPasswordResetEmail,
 sendEmailVerification,
 signOut,
 updateProfile
-}
-from
-'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
+} from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
 
-
-import{
+import {
 getFirestore,
 doc,
 setDoc,
@@ -601,46 +471,24 @@ onSnapshot,
 query,
 orderBy,
 serverTimestamp
-}
-from
-'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
+} from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
+
+/* CORRECT FIREBASE CONFIG */
 
 const firebaseConfig={
-
-apiKey:
-'AizaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
-
-authDomain:
-'volcanobxpl.firebaseapp.com',
-
-projectId:
-'volcanobxpl',
-
-storageBucket:
-'volcanobxpl.firebasestorage.app',
-
-messagingSenderId:
-'742861205377',
-
-appId:
-'1:742861205377:web:bbe8a42b78c90354a64280',
-
-measurementId:
-'G-G1KWGHLZES'
-
+apiKey:'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
+authDomain:'volcanobxpl.firebaseapp.com',
+projectId:'volcanobxpl',
+storageBucket:'volcanobxpl.firebasestorage.app',
+messagingSenderId:'742861205377',
+appId:'1:742861205377:web:bbe8a42b78c90354a64280',
+measurementId:'G-G1KWGHLZES'
 };
 
-
-const firebaseApp=
-initializeApp(firebaseConfig);
-
-const auth=
-getAuth(firebaseApp);
-
-const db=
-getFirestore(firebaseApp);
-
+const firebaseApp=initializeApp(firebaseConfig);
+const auth=getAuth(firebaseApp);
+const db=getFirestore(firebaseApp);
 
 let signup=false;
 let currentUser=null;
@@ -648,76 +496,46 @@ let stopPosts=null;
 let selectedPost=null;
 let selectedPostId=null;
 
-
-const $=
-id=>document.getElementById(id);
-
+const $=id=>document.getElementById(id);
 
 function msg(text){
-
 $('msg').textContent=text;
-
 }
 
 
 /* HOME */
 
 $('view').onclick=()=>{
-
 $('home').style.display='none';
-
 $('auth').style.display='flex';
-
 };
 
 
-/* SWITCH LOGIN / SIGNUP */
+/* LOGIN / SIGNUP SWITCH */
 
 $('switch').onclick=()=>{
 
 signup=!signup;
 
 $('title').textContent=
-signup
-?
-'Create your account.'
-:
-'Welcome back.';
+signup?'Create your account.':'Welcome back.';
 
 $('sub').textContent=
-signup
-?
-'Join KB today.'
-:
-'Sign in to continue.';
+signup?'Join KB today.':'Sign in to continue.';
 
 $('nameBox').style.display=
-signup
-?
-'block'
-:
-'none';
+signup?'block':'none';
 
 $('forgot').style.display=
-signup
-?
-'none'
-:
-'inline-block';
+signup?'none':'inline-block';
 
 $('submit').textContent=
-signup
-?
-'CREATE ACCOUNT'
-:
-'SIGN IN';
+signup?'CREATE ACCOUNT':'SIGN IN';
 
 $('switch').innerHTML=
 signup
-?
-'Already have an account? <button class="link">SIGN IN</button>'
-:
-'Don\'t have an account? <button class="link">CREATE ACCOUNT</button>';
+?'Already have an account? <button class="link">SIGN IN</button>'
+:'Don\'t have an account? <button class="link">CREATE ACCOUNT</button>';
 
 };
 
@@ -726,31 +544,16 @@ signup
 
 $('submit').onclick=async()=>{
 
-const email=
-$('email').value.trim();
+const email=$('email').value.trim();
+const password=$('password').value;
+const name=$('name').value.trim();
 
-const password=
-$('password').value;
-
-const name=
-$('name').value.trim();
-
-
-if(
-!email||
-!password||
-(signup&&!name)
-){
-
+if(!email||!password||(signup&&!name)){
 msg('Please complete all fields.');
-
 return;
-
 }
 
-
 $('submit').disabled=true;
-
 
 try{
 
@@ -758,36 +561,22 @@ if(signup){
 
 const credential=
 await createUserWithEmailAndPassword(
-auth,
-email,
-password
+auth,email,password
 );
 
 await updateProfile(
 credential.user,
-{
-displayName:name
-}
+{displayName:name}
 );
 
 try{
-
-await sendEmailVerification(
-credential.user
-);
-
+await sendEmailVerification(credential.user);
 }catch(error){
-
 console.log(error);
-
 }
 
 await setDoc(
-doc(
-db,
-'people',
-credential.user.uid
-),
+doc(db,'people',credential.user.uid),
 {
 name:name,
 email:email,
@@ -796,21 +585,10 @@ createdAt:serverTimestamp()
 }
 );
 
-openApp(
-credential.user
-);
-
 }else{
 
-const credential=
 await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-openApp(
-credential.user
+auth,email,password
 );
 
 }
@@ -818,25 +596,11 @@ credential.user
 }catch(error){
 
 msg(
-
 error.code==='auth/invalid-credential'
-
-?
-
-'Invalid email or password.'
-
-:
-
-error.code==='auth/email-already-in-use'
-
-?
-
-'Email already exists.'
-
-:
-
-error.message
-
+?'Invalid email or password.'
+:error.code==='auth/email-already-in-use'
+?'Email already exists.'
+:error.message
 );
 
 }finally{
@@ -848,31 +612,22 @@ $('submit').disabled=false;
 };
 
 
-/* FORGOT PASSWORD */
+/* PASSWORD RESET */
 
 $('forgot').onclick=async()=>{
 
-const email=
-$('email').value.trim();
+const email=$('email').value.trim();
 
 if(!email){
-
 msg('Enter your email first.');
-
 return;
-
 }
 
 try{
 
-await sendPasswordResetEmail(
-auth,
-email
-);
+await sendPasswordResetEmail(auth,email);
 
-msg(
-'Password reset email sent.'
-);
+msg('Password reset email sent.');
 
 }catch(error){
 
@@ -890,55 +645,32 @@ async function openApp(user){
 currentUser=user;
 
 $('auth').style.display='none';
-
 $('home').style.display='none';
-
 $('app').style.display='block';
 
 $('userName').textContent=
-user.displayName||
-user.email;
-
+user.displayName||user.email;
 
 const userSnap=
 await getDoc(
-doc(
-db,
-'people',
-user.uid
-)
+doc(db,'people',user.uid)
 );
-
 
 const userData=
 userSnap.exists()
-?
-userSnap.data()
-:
-{
-role:'user'
-};
-
+?userSnap.data()
+:{role:'user'};
 
 const isAdmin=
 userData.role==='admin';
 
-
 $('adminPanel').style.display=
-isAdmin
-?
-'block'
-:
-'none';
-
+isAdmin?'block':'none';
 
 $('roleText').textContent=
 isAdmin
-?
-'Administrator — publish content below.'
-:
-'Member — pay to unlock premium content.';
-
+?'Administrator — publish content below.'
+:'Member — pay to unlock premium content.';
 
 listenPosts();
 
@@ -952,98 +684,55 @@ $('logout').onclick=async()=>{
 await signOut(auth);
 
 if(stopPosts){
-
 stopPosts();
-
 stopPosts=null;
-
 }
 
 currentUser=null;
 
 $('app').style.display='none';
-
 $('home').style.display='flex';
 
 };
 
 
-/* PUBLISH */
+/* PUBLISH POST */
 
 $('publish').onclick=async()=>{
 
 if(!currentUser)return;
 
 $('publish').disabled=true;
-
 $('postMsg').textContent='';
-
 
 try{
 
 const userSnap=
 await getDoc(
-doc(
-db,
-'people',
-currentUser.uid
-)
+doc(db,'people',currentUser.uid)
 );
-
 
 if(
 !userSnap.exists()||
 userSnap.data().role!=='admin'
 ){
-
-throw new Error(
-'You are not an admin.'
-);
-
+throw new Error('You are not an admin.');
 }
 
-
-const title=
-$('postTitle').value.trim();
-
-const content=
-$('postContent').value.trim();
+const title=$('postTitle').value.trim();
+const content=$('postContent').value.trim();
 
 const price=
-Number(
-$('postPrice').value||0
-);
+Number($('postPrice').value||0);
 
+if(!title)
+throw new Error('Enter a title.');
 
-if(!title){
+if(!content)
+throw new Error('Enter content.');
 
-throw new Error(
-'Enter a title.'
-);
-
-}
-
-
-if(!content){
-
-throw new Error(
-'Enter content.'
-);
-
-}
-
-
-if(
-price<0||
-!Number.isFinite(price)
-){
-
-throw new Error(
-'Enter a valid price.'
-);
-
-}
-
+if(price<0||!Number.isFinite(price))
+throw new Error('Enter a valid price.');
 
 await addDoc(
 collection(db,'posts'),
@@ -1054,23 +743,17 @@ price:price,
 published:true,
 authorId:currentUser.uid,
 authorName:
-currentUser.displayName||
-currentUser.email,
+currentUser.displayName||currentUser.email,
 createdAt:serverTimestamp()
 }
 );
 
-
 $('postTitle').value='';
-
 $('postContent').value='';
-
 $('postPrice').value='';
-
 
 $('postMsg').textContent=
 'Published successfully.';
-
 
 }catch(error){
 
@@ -1091,32 +774,21 @@ $('publish').disabled=false;
 function listenPosts(){
 
 if(stopPosts){
-
 stopPosts();
-
 }
 
-
-const postsQuery=
-query(
+const postsQuery=query(
 collection(db,'posts'),
-orderBy(
-'createdAt',
-'desc'
-)
+orderBy('createdAt','desc')
 );
 
-
-stopPosts=
-onSnapshot(
+stopPosts=onSnapshot(
 
 postsQuery,
 
 snapshot=>{
 
-const box=
-$('posts');
-
+const box=$('posts');
 
 if(snapshot.empty){
 
@@ -1126,7 +798,6 @@ box.innerHTML=
 return;
 
 }
-
 
 box.innerHTML=
 
@@ -1139,93 +810,66 @@ docSnap.data().published!==false
 
 .map(docSnap=>{
 
-const post=
-docSnap.data();
-
+const post=docSnap.data();
 
 const date=
 post.createdAt?.toDate
-?
-post.createdAt
-.toDate()
-.toLocaleString()
-:
-'Just now';
-
+?post.createdAt.toDate().toLocaleString()
+:'Just now';
 
 const price=
-Number(
-post.price||0
-);
+Number(post.price||0);
 
 
-/* FREE CONTENT */
+/* FREE POST */
 
 if(price<=0){
 
 return `
-
 <article class="post-card">
 
-<h3>
-${esc(post.title||'Untitled')}
-</h3>
+<h3>${esc(post.title||'Untitled')}</h3>
 
-<div class="date">
-${esc(date)}
-</div>
+<div class="date">${esc(date)}</div>
 
 <div class="preview">
 ${esc(post.content||'')}
 </div>
 
-<div class="price">
-FREE
-</div>
+<div class="price">FREE</div>
 
 <button
 class="view-content"
-data-id="${docSnap.id}"
->
+data-id="${docSnap.id}">
 VIEW CONTENT
 </button>
 
 </article>
-
 `;
 
 }
 
 
-/* PAID CONTENT */
+/* PAID POST - CONTENT COMPLETELY HIDDEN */
 
 return `
-
 <article class="post-card">
 
-<div class="lock">
-🔒
-</div>
+<div class="lock">🔒</div>
 
-<h3>
-${esc(post.title||'Untitled')}
-</h3>
+<h3>${esc(post.title||'Untitled')}</h3>
 
-<div class="date">
-${esc(date)}
-</div>
+<div class="date">${esc(date)}</div>
 
 <div class="premium-preview">
 
-<strong>
-Premium Content
-</strong>
+<strong>Premium Content</strong>
 
 <br><br>
 
 🔒 This content is locked.
 
-<br>
+<br><br>
 
 Pay to unlock and view
 the full content.
@@ -1233,20 +877,16 @@ the full content.
 </div>
 
 <div class="price">
-
 ${price.toLocaleString()} TSh
-
 </div>
 
 <button
 class="view-content"
-data-id="${docSnap.id}"
->
+data-id="${docSnap.id}">
 PAY & VIEW CONTENT
 </button>
 
 </article>
-
 `;
 
 })
@@ -1255,9 +895,7 @@ PAY & VIEW CONTENT
 
 
 box
-.querySelectorAll(
-'.view-content'
-)
+.querySelectorAll('.view-content')
 .forEach(button=>{
 
 button.onclick=()=>{
@@ -1265,40 +903,27 @@ button.onclick=()=>{
 const selectedDoc=
 snapshot.docs.find(
 docSnap=>
-docSnap.id===
-button.dataset.id
+docSnap.id===button.dataset.id
 );
-
 
 if(!selectedDoc)return;
 
+const post=selectedDoc.data();
 
-const post=
-selectedDoc.data();
-
-const price=
-Number(
-post.price||0
-);
-
-
-/* FREE */
+const price=Number(post.price||0);
 
 if(price<=0){
 
 showContent(post);
 
-return;
-
-}
-
-
-/* PAID */
+}else{
 
 openPaymentModal(
 selectedDoc.id,
 post
 );
+
+}
 
 };
 
@@ -1322,46 +947,28 @@ $('posts').innerHTML=
 
 /* OPEN PAYMENT */
 
-function openPaymentModal(
-postId,
-post
-){
+function openPaymentModal(postId,post){
 
 selectedPostId=postId;
-
 selectedPost=post;
 
-
 $('paymentTitle').textContent=
-post.title||
-'Unlock Content';
-
+post.title||'Unlock Content';
 
 $('paymentPrice').textContent=
-
-Number(
-post.price||0
-)
-.toLocaleString()+
-' TSh';
-
+Number(post.price||0).toLocaleString()+' TSh';
 
 $('payName').value=
-currentUser?.displayName||
-'';
-
+currentUser?.displayName||'';
 
 $('payEmail').value=
-currentUser?.email||
-'';
-
+currentUser?.email||'';
 
 $('payPhone').value='';
 
 $('paymentMsg').textContent='';
 
-$('paymentModal').style.display=
-'flex';
+$('paymentModal').style.display='flex';
 
 }
 
@@ -1370,43 +977,28 @@ $('paymentModal').style.display=
 
 $('closePayment').onclick=()=>{
 
-$('paymentModal').style.display=
-'none';
+$('paymentModal').style.display='none';
 
 };
-
 
 $('closeModal').onclick=()=>{
 
-$('contentModal').style.display=
-'none';
+$('contentModal').style.display='none';
 
 };
 
-
 $('contentModal').onclick=event=>{
 
-if(
-event.target===$('contentModal')
-){
-
-$('contentModal').style.display=
-'none';
-
+if(event.target===$('contentModal')){
+$('contentModal').style.display='none';
 }
 
 };
 
-
 $('paymentModal').onclick=event=>{
 
-if(
-event.target===$('paymentModal')
-){
-
-$('paymentModal').style.display=
-'none';
-
+if(event.target===$('paymentModal')){
+$('paymentModal').style.display='none';
 }
 
 };
@@ -1416,29 +1008,16 @@ $('paymentModal').style.display=
 
 $('payButton').onclick=async()=>{
 
-if(!currentUser)return;
+if(!currentUser||!selectedPost)return;
 
-
-const name=
-$('payName').value.trim();
-
-const email=
-$('payEmail').value.trim();
-
-const phone=
-$('payPhone').value.trim();
+const name=$('payName').value.trim();
+const email=$('payEmail').value.trim();
+const phone=$('payPhone').value.trim();
 
 const amount=
-Number(
-selectedPost?.price||0
-);
+Number(selectedPost.price||0);
 
-
-if(
-!name||
-!email||
-!phone
-){
+if(!name||!email||!phone){
 
 $('paymentMsg').textContent=
 'Please complete all fields.';
@@ -1447,11 +1026,7 @@ return;
 
 }
 
-
-if(
-!amount||
-amount<=0
-){
+if(!amount||amount<=0){
 
 $('paymentMsg').textContent=
 'Invalid payment amount.';
@@ -1460,29 +1035,23 @@ return;
 
 }
 
-
 $('payButton').disabled=true;
 
 $('paymentMsg').textContent=
-'Starting payment...';
-
+'Sending payment request...';
 
 try{
 
-const response=
-await fetch(
+const response=await fetch(
 '/api/pay',
 {
-
 method:'POST',
 
 headers:{
-'Content-Type':
-'application/json'
+'Content-Type':'application/json'
 },
 
-body:
-JSON.stringify({
+body:JSON.stringify({
 name:name,
 email:email,
 phone:phone,
@@ -1495,16 +1064,24 @@ userId:currentUser.uid
 );
 
 
-/* Safely read server response */
+/* HANDLE JSON OR SERVER ERROR */
 
-const result=
-await response.json();
+let result;
+
+try{
+
+result=await response.json();
+
+}catch{
+
+throw new Error(
+'Server returned an invalid response.'
+);
+
+}
 
 
-if(
-!response.ok||
-!result.success
-){
+if(!response.ok||!result.success){
 
 throw new Error(
 result.message||
@@ -1515,36 +1092,23 @@ result.message||
 
 
 /*
-TEMPORARY SUCCESS FLOW
-
-PalmPesa accepted the
-payment request.
+PALMPESA REQUEST WAS ACCEPTED.
+TEMPORARILY UNLOCK CONTENT.
 */
 
 $('paymentMsg').innerHTML=
+'<strong>Payment request successful.</strong><br><br>Opening your content...';
 
-'<strong>Payment request successful.</strong>'+
-
-'<br><br>'+
-
-'Opening your content...';
-
-
-/*
-Close payment modal
-and open full content
-*/
 
 setTimeout(()=>{
 
-$('paymentModal').style.display=
-'none';
-
-showContent(
-selectedPost
-);
+$('paymentModal').style.display='none';
 
 $('payButton').disabled=false;
+
+/* SHOW PAID CONTENT */
+
+showContent(selectedPost);
 
 },1500);
 
@@ -1571,28 +1135,17 @@ $('payButton').disabled=false;
 function showContent(post){
 
 $('modalTitle').textContent=
-post.title||
-'Untitled';
-
+post.title||'Untitled';
 
 $('modalDate').textContent=
-
 post.createdAt?.toDate
-?
-post.createdAt
-.toDate()
-.toLocaleString()
-:
-'Just now';
-
+?post.createdAt.toDate().toLocaleString()
+:'Just now';
 
 $('modalContent').textContent=
-post.content||
-'';
+post.content||'';
 
-
-$('contentModal').style.display=
-'flex';
+$('contentModal').style.display='flex';
 
 }
 
@@ -1600,26 +1153,22 @@ $('contentModal').style.display=
 /* REFRESH */
 
 $('refreshPosts').onclick=()=>{
-
 listenPosts();
-
 };
 
 
-/* ESCAPE */
+/* ESCAPE HTML */
 
 function esc(value){
 
 return String(value).replace(
 /[&<>"']/g,
 character=>({
-
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
 '"':'&quot;',
 "'":'&#039;'
-
 }[character])
 );
 
@@ -1628,9 +1177,7 @@ character=>({
 
 /* AUTH STATE */
 
-onAuthStateChanged(
-auth,
-user=>{
+onAuthStateChanged(auth,user=>{
 
 if(user){
 
@@ -1638,8 +1185,7 @@ openApp(user);
 
 }
 
-}
-);
+});
 
 </script>
 
