@@ -7,12 +7,7 @@
 
 <style>
 *{box-sizing:border-box}
-html,body{
-margin:0;
-width:100%;
-height:100%;
-font-family:Arial,sans-serif
-}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
 body{background:#f4f4f4}
 
 .loader{
@@ -248,10 +243,7 @@ margin-bottom:20px
 
 .posts{
 display:grid;
-grid-template-columns:repeat(
-auto-fit,
-minmax(260px,1fr)
-);
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 gap:18px
 }
 
@@ -275,6 +267,8 @@ font-size:12px;
 color:#999;
 margin-bottom:14px
 }
+
+/* LOCKED CONTENT */
 
 .locked-box{
 flex:1;
@@ -306,18 +300,7 @@ color:#ff6a00;
 margin:15px 0
 }
 
-.view-content{
-background:#ff6a00;
-color:#fff;
-border:0;
-padding:12px 18px;
-font-weight:800;
-cursor:pointer
-}
-
-.view-content:hover{
-background:#df5c00
-}
+/* UNLOCKED */
 
 .unlocked{
 border-color:#ff6a00
@@ -337,9 +320,24 @@ color:#444;
 flex:1
 }
 
+.view-content{
+background:#ff6a00;
+color:#fff;
+border:0;
+padding:12px 18px;
+font-weight:800;
+cursor:pointer
+}
+
+.view-content:hover{
+background:#df5c00
+}
+
 .empty{
 color:#888
 }
+
+/* CONTENT MODAL */
 
 .modal{
 position:fixed;
@@ -382,6 +380,8 @@ font-size:28px;
 cursor:pointer
 }
 
+/* PAYMENT */
+
 .payment-price{
 font-size:25px;
 font-weight:900;
@@ -391,7 +391,7 @@ margin:15px 0 25px
 
 .payment-status{
 text-align:center;
-padding:15px;
+padding:20px;
 margin:15px 0;
 background:#f7f7f7;
 display:none
@@ -493,6 +493,7 @@ padding-top:100px
 <b>KB</b>
 </div>
 
+<!-- HOME -->
 
 <section class="home" id="home">
 
@@ -523,6 +524,8 @@ VIEW NOW
 </section>
 
 
+<!-- AUTH -->
+
 <section class="auth" id="auth">
 
 <div class="card">
@@ -536,7 +539,6 @@ Welcome to KB.
 </h2>
 
 </aside>
-
 
 <main class="main">
 
@@ -559,9 +561,7 @@ class="field"
 id="nameBox"
 style="display:none">
 
-<label>
-NAME
-</label>
+<label>NAME</label>
 
 <input
 id="name"
@@ -572,9 +572,7 @@ autocomplete="name">
 
 <div class="field">
 
-<label>
-EMAIL
-</label>
+<label>EMAIL</label>
 
 <input
 id="email"
@@ -586,9 +584,7 @@ autocomplete="email">
 
 <div class="field">
 
-<label>
-PASSWORD
-</label>
+<label>PASSWORD</label>
 
 <input
 id="password"
@@ -606,8 +602,7 @@ Forgot password?
 
 </button>
 
-<br>
-<br>
+<br><br>
 
 
 <button
@@ -636,6 +631,8 @@ CREATE ACCOUNT
 </section>
 
 
+<!-- APP -->
+
 <section class="app" id="app">
 
 <header class="topbar">
@@ -663,7 +660,6 @@ SIGN OUT
 
 <main class="content">
 
-
 <div class="hero">
 
 <h1>
@@ -676,6 +672,8 @@ Your content library
 
 </div>
 
+
+<!-- ADMIN -->
 
 <section
 id="adminPanel"
@@ -693,9 +691,7 @@ Publish content and set the price members must pay to view it.
 
 <div class="field">
 
-<label>
-TITLE
-</label>
+<label>TITLE</label>
 
 <input
 id="postTitle"
@@ -707,24 +703,19 @@ placeholder="Enter a title">
 
 <div class="field">
 
-<label>
-CONTENT
-</label>
+<label>CONTENT</label>
 
 <textarea
 id="postContent"
 rows="8"
-placeholder="Write your content here...">
-</textarea>
+placeholder="Write your content here..."></textarea>
 
 </div>
 
 
 <div class="field">
 
-<label>
-PRICE — TSH
-</label>
+<label>PRICE — TSH</label>
 
 <input
 id="postPrice"
@@ -751,6 +742,8 @@ id="postMsg">
 
 </section>
 
+
+<!-- POSTS -->
 
 <section>
 
@@ -833,24 +826,20 @@ id="closePayment">
 ×
 </button>
 
-
 <div
 class="lock-icon"
 style="text-align:center">
 🔒
 </div>
 
-
 <h2 id="paymentTitle">
 Unlock Content
 </h2>
-
 
 <p>
 This content is locked.
 Complete the payment to unlock it.
 </p>
-
 
 <div
 class="payment-price"
@@ -858,15 +847,11 @@ id="paymentPrice">
 </div>
 
 
-<div
-id="paymentForm">
-
+<div id="paymentForm">
 
 <div class="field">
 
-<label>
-NAME
-</label>
+<label>NAME</label>
 
 <input
 id="payName"
@@ -877,9 +862,7 @@ placeholder="Your full name">
 
 <div class="field">
 
-<label>
-EMAIL
-</label>
+<label>EMAIL</label>
 
 <input
 id="payEmail"
@@ -891,9 +874,7 @@ placeholder="Your email">
 
 <div class="field">
 
-<label>
-PHONE NUMBER
-</label>
+<label>PHONE NUMBER</label>
 
 <input
 id="payPhone"
@@ -914,6 +895,8 @@ PAY NOW
 </div>
 
 
+<!-- WAITING -->
+
 <div
 class="payment-status"
 id="paymentStatus">
@@ -930,8 +913,16 @@ Waiting for payment...
 Enter your PIN on your phone and complete the payment.
 </small>
 
+<br><br>
+
+<span id="statusText">
+Checking payment status...
+</span>
+
 </div>
 
+
+<!-- SUCCESS -->
 
 <div
 class="success-box"
@@ -945,6 +936,8 @@ Unlocking content...
 
 </div>
 
+
+<!-- FAILED -->
 
 <div
 class="failed-box"
@@ -964,7 +957,6 @@ class="msg"
 id="paymentMsg">
 </div>
 
-
 </div>
 
 </div>
@@ -978,7 +970,6 @@ initializeApp
 from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
 
-
 import {
 getAuth,
 onAuthStateChanged,
@@ -991,7 +982,6 @@ updateProfile
 }
 from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
-
 
 import {
 getFirestore,
@@ -1084,12 +1074,11 @@ $('auth').style.display='flex';
 };
 
 
-/* LOGIN / SIGNUP */
+/* SWITCH LOGIN / SIGNUP */
 
 $('switch').onclick=()=>{
 
 signup=!signup;
-
 
 $('title').textContent=
 signup
@@ -1098,14 +1087,12 @@ signup
 :
 'Welcome back.';
 
-
 $('sub').textContent=
 signup
 ?
 'Join KB today.'
 :
 'Sign in to continue.';
-
 
 $('nameBox').style.display=
 signup
@@ -1114,7 +1101,6 @@ signup
 :
 'none';
 
-
 $('forgot').style.display=
 signup
 ?
@@ -1122,14 +1108,12 @@ signup
 :
 'inline-block';
 
-
 $('submit').textContent=
 signup
 ?
 'CREATE ACCOUNT'
 :
 'SIGN IN';
-
 
 $('switch').innerHTML=
 signup
@@ -1154,7 +1138,6 @@ $('password').value;
 const name=
 $('name').value.trim();
 
-
 if(
 !email||
 !password||
@@ -1169,9 +1152,7 @@ return;
 
 }
 
-
 $('submit').disabled=true;
-
 
 try{
 
@@ -1184,14 +1165,12 @@ email,
 password
 );
 
-
 await updateProfile(
 credential.user,
 {
 displayName:name
 }
 );
-
 
 try{
 
@@ -1204,7 +1183,6 @@ credential.user
 console.log(error);
 
 }
-
 
 await setDoc(
 doc(
@@ -1220,11 +1198,9 @@ createdAt:serverTimestamp()
 }
 );
 
-
 openApp(
 credential.user
 );
-
 
 }else{
 
@@ -1235,13 +1211,11 @@ email,
 password
 );
 
-
 openApp(
 credential.user
 );
 
 }
-
 
 }catch(error){
 
@@ -1249,22 +1223,14 @@ msg(
 
 error.code===
 'auth/invalid-credential'
-
 ?
-
 'Invalid email or password.'
-
 :
-
 error.code===
 'auth/email-already-in-use'
-
 ?
-
 'Email already exists.'
-
 :
-
 error.message
 
 );
@@ -1285,7 +1251,6 @@ $('forgot').onclick=async()=>{
 const email=
 $('email').value.trim();
 
-
 if(!email){
 
 msg(
@@ -1296,7 +1261,6 @@ return;
 
 }
 
-
 try{
 
 await sendPasswordResetEmail(
@@ -1304,11 +1268,9 @@ auth,
 email
 );
 
-
 msg(
 'Password reset email sent.'
 );
-
 
 }catch(error){
 
@@ -1327,18 +1289,15 @@ async function openApp(user){
 
 currentUser=user;
 
-
 $('auth').style.display='none';
 
 $('home').style.display='none';
 
 $('app').style.display='block';
 
-
 $('userName').textContent=
 user.displayName||
 user.email;
-
 
 const userSnap=
 await getDoc(
@@ -1349,7 +1308,6 @@ user.uid
 )
 );
 
-
 const userData=
 userSnap.exists()
 ?
@@ -1359,10 +1317,8 @@ userSnap.data()
 role:'user'
 };
 
-
 const isAdmin=
 userData.role==='admin';
-
 
 $('adminPanel').style.display=
 isAdmin
@@ -1371,14 +1327,12 @@ isAdmin
 :
 'none';
 
-
 $('roleText').textContent=
 isAdmin
 ?
 'Administrator — publish content below.'
 :
 'Member — pay to unlock premium content.';
-
 
 listenPosts();
 
@@ -1389,8 +1343,9 @@ listenPosts();
 
 $('logout').onclick=async()=>{
 
-await signOut(auth);
+paymentPolling=false;
 
+await signOut(auth);
 
 if(stopPosts){
 
@@ -1400,9 +1355,7 @@ stopPosts=null;
 
 }
 
-
 currentUser=null;
-
 
 $('app').style.display='none';
 
@@ -1417,11 +1370,9 @@ $('publish').onclick=async()=>{
 
 if(!currentUser)return;
 
-
 $('publish').disabled=true;
 
 $('postMsg').textContent='';
-
 
 try{
 
@@ -1434,7 +1385,6 @@ currentUser.uid
 )
 );
 
-
 if(
 !userSnap.exists()||
 userSnap.data().role!=='admin'
@@ -1445,7 +1395,6 @@ throw new Error(
 );
 
 }
-
 
 const title=
 $('postTitle').value.trim();
@@ -1458,7 +1407,6 @@ Number(
 $('postPrice').value||0
 );
 
-
 if(!title){
 
 throw new Error(
@@ -1467,7 +1415,6 @@ throw new Error(
 
 }
 
-
 if(!content){
 
 throw new Error(
@@ -1475,7 +1422,6 @@ throw new Error(
 );
 
 }
-
 
 if(
 price<0||
@@ -1487,7 +1433,6 @@ throw new Error(
 );
 
 }
-
 
 await addDoc(
 collection(db,'posts'),
@@ -1514,17 +1459,14 @@ serverTimestamp()
 }
 );
 
-
 $('postTitle').value='';
 
 $('postContent').value='';
 
 $('postPrice').value='';
 
-
 $('postMsg').textContent=
 'Published successfully.';
-
 
 }catch(error){
 
@@ -1540,7 +1482,7 @@ $('publish').disabled=false;
 };
 
 
-/* POSTS */
+/* LIST POSTS */
 
 function listenPosts(){
 
@@ -1549,7 +1491,6 @@ if(stopPosts){
 stopPosts();
 
 }
-
 
 const postsQuery=
 query(
@@ -1560,7 +1501,6 @@ orderBy(
 )
 );
 
-
 stopPosts=
 onSnapshot(
 
@@ -1570,7 +1510,6 @@ snapshot=>{
 
 const box=
 $('posts');
-
 
 if(snapshot.empty){
 
@@ -1585,8 +1524,8 @@ return;
 /*
 IMPORTANT:
 
-For paid posts we NEVER put
-the content inside the locked
+Paid content is NEVER placed
+inside the HTML of the locked
 card.
 */
 
@@ -1616,7 +1555,7 @@ post.price||0
 );
 
 
-/* FREE */
+/* FREE CONTENT */
 
 if(price<=0){
 
@@ -1656,7 +1595,7 @@ VIEW CONTENT
 }
 
 
-/* PAID */
+/* PAID CONTENT */
 
 return `
 
@@ -1721,17 +1660,13 @@ docSnap.id===
 button.dataset.id
 );
 
-
 if(!selectedDoc)return;
-
 
 const post=
 selectedDoc.data();
 
-
 const price=
 Number(post.price||0);
-
 
 if(price<=0){
 
@@ -1740,7 +1675,6 @@ showContent(post);
 return;
 
 }
-
 
 openPaymentModal(
 selectedDoc.id,
@@ -1755,7 +1689,10 @@ post
 
 error=>{
 
-console.error(error);
+console.error(
+'Firestore error:',
+error
+);
 
 $('posts').innerHTML=
 '<p class="empty">Unable to load content.</p>';
@@ -1774,17 +1711,17 @@ postId,
 post
 ){
 
+paymentPolling=false;
+
 selectedPostId=
 postId;
 
 selectedPost=
 post;
 
-
 $('paymentTitle').textContent=
 post.title||
 'Unlock Content';
-
 
 $('paymentPrice').textContent=
 Number(
@@ -1792,41 +1729,31 @@ post.price||0
 ).toLocaleString()+
 ' TSh';
 
-
 $('payName').value=
 currentUser?.displayName||
 '';
-
 
 $('payEmail').value=
 currentUser?.email||
 '';
 
-
 $('payPhone').value='';
 
-
 $('paymentMsg').textContent='';
-
 
 $('paymentStatus').style.display=
 'none';
 
-
 $('successBox').style.display=
 'none';
-
 
 $('failedBox').style.display=
 'none';
 
-
 $('paymentForm').style.display=
 'block';
 
-
 $('payButton').disabled=false;
-
 
 $('paymentModal').style.display=
 'flex';
@@ -1838,12 +1765,14 @@ $('paymentModal').style.display=
 
 $('closePayment').onclick=()=>{
 
-if(!paymentPolling){
+if(paymentPolling){
+
+return;
+
+}
 
 $('paymentModal').style.display=
 'none';
-
-}
 
 };
 
@@ -1856,7 +1785,6 @@ $('contentModal').style.display=
 'none';
 
 };
-
 
 $('contentModal').onclick=
 event=>{
@@ -1889,7 +1817,6 @@ return;
 
 }
 
-
 const name=
 $('payName').value.trim();
 
@@ -1904,7 +1831,6 @@ Number(
 selectedPost.price||0
 );
 
-
 if(
 !name||
 !email||
@@ -1918,7 +1844,6 @@ return;
 
 }
 
-
 if(
 !amount||
 amount<=0
@@ -1931,12 +1856,10 @@ return;
 
 }
 
-
 $('payButton').disabled=true;
 
 $('paymentMsg').textContent=
 'Sending payment request...';
-
 
 try{
 
@@ -1973,9 +1896,7 @@ currentUser.uid
 }
 );
 
-
 let result;
-
 
 try{
 
@@ -1989,7 +1910,6 @@ throw new Error(
 );
 
 }
-
 
 if(
 !response.ok||
@@ -2007,19 +1927,21 @@ result.message||
 /*
 IMPORTANT:
 
-This is NOT payment completion.
+SUCCESS HERE ONLY MEANS
+PAYMENT WAS INITIATED.
 
-It only means PalmPesa
-started the payment request.
-
-DO NOT unlock content here.
+IT DOES NOT MEAN PAID.
 */
 
 const orderId=
 result.order_id;
 
-
 if(!orderId){
+
+console.error(
+'Payment response:',
+result
+);
 
 throw new Error(
 'PalmPesa did not return an order ID.'
@@ -2027,32 +1949,38 @@ throw new Error(
 
 }
 
+console.log(
+'PalmPesa ORDER ID:',
+orderId
+);
 
 $('paymentForm').style.display=
 'none';
 
-
 $('paymentStatus').style.display=
 'block';
-
 
 $('paymentMsg').textContent=
 '';
 
+$('statusText').textContent=
+'Waiting for payment confirmation...';
+
 
 /*
-NOW START CHECKING THE
-REAL PAYMENT STATUS.
+START REAL STATUS CHECK.
 */
 
 pollPaymentStatus(
 orderId
 );
 
-
 }catch(error){
 
-console.error(error);
+console.error(
+'Payment initiation error:',
+error
+);
 
 $('paymentMsg').textContent=
 error.message;
@@ -2064,24 +1992,13 @@ $('payButton').disabled=false;
 };
 
 
-/*
-PAYMENT STATUS POLLING
-
-Uses exponential backoff:
-
-2 sec
-4 sec
-8 sec
-10 sec
-10 sec...
-*/
+/* PAYMENT STATUS */
 
 async function pollPaymentStatus(
 orderId
 ){
 
 paymentPolling=true;
-
 
 let delay=2000;
 
@@ -2099,8 +2016,11 @@ attempts<maxAttempts
 
 attempts++;
 
-
 try{
+
+$('statusText').textContent=
+'Checking payment...';
+
 
 const response=
 await fetch(
@@ -2116,7 +2036,10 @@ headers:{
 
 body:
 JSON.stringify({
-order_id:orderId
+
+order_id:
+orderId
+
 })
 
 }
@@ -2124,7 +2047,6 @@ order_id:orderId
 
 
 let result;
-
 
 try{
 
@@ -2134,10 +2056,16 @@ await response.json();
 }catch{
 
 throw new Error(
-'Invalid status response.'
+'Invalid response from order-status.'
 );
 
 }
+
+
+console.log(
+'ORDER STATUS RESPONSE:',
+result
+);
 
 
 if(!response.ok){
@@ -2151,47 +2079,53 @@ result.message||
 
 
 /*
-PalmPesa response:
+IMPORTANT:
 
-data[0].payment_status
+order-status.js returns:
 
-COMPLETED
-PENDING
-FAILED
+{
+ success:true,
+ payment_status:"COMPLETED"
+}
+
 */
 
 const status=
 String(
-result?.data?.[0]?.payment_status||
+
 result?.payment_status||
+
+result?.data?.[0]?.payment_status||
+
 ''
-).toUpperCase();
+
+).trim().toUpperCase();
 
 
 console.log(
-'Payment status:',
+'REAL PAYMENT STATUS:',
 status
 );
 
 
 /* COMPLETED */
 
-if(status==='COMPLETED'){
+if(
+status===
+'COMPLETED'
+){
 
 paymentPolling=false;
 
-
 $('paymentStatus').style.display=
 'none';
-
 
 $('successBox').style.display=
 'block';
 
 
 /*
-NOW AND ONLY NOW
-THE CONTENT IS UNLOCKED.
+ONLY HERE DO WE UNLOCK.
 */
 
 setTimeout(()=>{
@@ -2199,21 +2133,18 @@ setTimeout(()=>{
 $('paymentModal').style.display=
 'none';
 
-
 $('successBox').style.display=
 'none';
 
-
 $('paymentForm').style.display=
 'block';
-
 
 $('payButton').disabled=false;
 
 
 /*
-Show the content ONLY
-after COMPLETED.
+SHOW CONTENT ONLY AFTER
+PAYMENT STATUS = COMPLETED.
 */
 
 showContent(
@@ -2222,7 +2153,8 @@ selectedPost
 
 
 /*
-Update the card to unlocked.
+CHANGE CARD FROM LOCKED
+TO UNLOCKED.
 */
 
 markCardUnlocked(
@@ -2231,7 +2163,6 @@ selectedPostId
 
 },1200);
 
-
 return;
 
 }
@@ -2239,56 +2170,65 @@ return;
 
 /* FAILED */
 
-if(status==='FAILED'){
+if(
+status===
+'FAILED'
+){
 
 paymentPolling=false;
-
 
 $('paymentStatus').style.display=
 'none';
 
-
 $('failedBox').style.display=
 'block';
-
 
 $('paymentForm').style.display=
 'block';
 
-
 $('payButton').disabled=false;
 
+$('paymentMsg').textContent=
+'PalmPesa reports that the payment failed.';
 
 return;
 
 }
 
 
-/*
-PENDING
+/* PENDING */
 
-Keep waiting.
-*/
-
-if(status==='PENDING'||status===''){
+if(
+status===
+'PENDING'||
+status===
+''
+){
 
 $('paymentStatus').style.display=
 'block';
 
+$('statusText').textContent=
+'Payment is still pending. Enter your PIN and complete the payment.';
+
 }
 
 
 /*
-Wait before next request.
+WAIT BEFORE NEXT CHECK.
 */
 
 await sleep(delay);
 
 
 /*
-Exponential backoff.
+EXPONENTIAL BACKOFF:
 
-2 → 4 → 8 → 10 → 10...
+2 sec
+4 sec
+8 sec
+10 sec
+10 sec...
 */
 
 delay=
@@ -2296,21 +2236,16 @@ Math.min(
 delay*2,
 maxDelay
 );
-
 
 }catch(error){
 
 console.error(
-'Status check error:',
+'Payment status check error:',
 error
 );
 
-
-/*
-Do not unlock.
-
-Keep polling.
-*/
+$('statusText').textContent=
+'Still checking payment...';
 
 await sleep(delay);
 
@@ -2326,7 +2261,10 @@ maxDelay
 
 
 /*
-Timeout.
+TIMEOUT
+
+Never unlock if payment was
+not confirmed.
 */
 
 paymentPolling=false;
@@ -2334,16 +2272,13 @@ paymentPolling=false;
 $('paymentStatus').style.display=
 'none';
 
-
-$('paymentMsg').textContent=
-'Payment status could not be confirmed. Please check your payment and try again.';
-
-
 $('paymentForm').style.display=
 'block';
 
-
 $('payButton').disabled=false;
+
+$('paymentMsg').textContent=
+'Payment could not be confirmed automatically. Please try again.';
 
 }
 
@@ -2360,13 +2295,8 @@ ms
 )
 );
 
-}
 
-
-/*
-CHANGE LOCKED CARD TO UNLOCKED
-AFTER PAYMENT COMPLETION.
-*/
+/* MARK UNLOCKED */
 
 function markCardUnlocked(
 postId
@@ -2377,9 +2307,7 @@ document.getElementById(
 'post-'+postId
 );
 
-
 if(!card)return;
-
 
 card.classList.add(
 'unlocked'
@@ -2390,7 +2318,6 @@ const lockedBox=
 card.querySelector(
 '.locked-box'
 );
-
 
 if(lockedBox){
 
@@ -2418,7 +2345,6 @@ card.querySelector(
 '.view-content'
 );
 
-
 if(button){
 
 button.textContent=
@@ -2442,16 +2368,14 @@ selectedPost
 function showContent(post){
 
 /*
-This function is ONLY called for:
-
-1. Free content
-2. Payment status COMPLETED
+This function must ONLY be called
+for FREE content or COMPLETED
+payments.
 */
 
 $('modalTitle').textContent=
 post.title||
 'Untitled';
-
 
 $('modalDate').textContent=
 post.createdAt?.toDate
@@ -2462,11 +2386,9 @@ post.createdAt
 :
 'Just now';
 
-
 $('modalContent').textContent=
 post.content||
 '';
-
 
 $('contentModal').style.display=
 'flex';
@@ -2483,7 +2405,7 @@ listenPosts();
 };
 
 
-/* ESCAPE */
+/* ESCAPE HTML */
 
 function esc(value){
 
