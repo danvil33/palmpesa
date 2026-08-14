@@ -1,1397 +1,1786 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bet · Live Feed</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0b0e11;
-            color: #eaecef;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 16px;
-            padding-top: 30px;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 820px;
-            background: #1e2329;
-            border-radius: 24px;
-            border: 1px solid #2b3139;
-            box-shadow: 0 24px 80px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-        }
-
-        .app-header {
-            padding: 18px 24px;
-            background: #181a20;
-            border-bottom: 1px solid #2b3139;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .app-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .app-brand .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #f0b90b, #f8d33a);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            color: #181a20;
-            font-weight: 700;
-        }
-
-        .app-brand h1 {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f0b90b;
-        }
-
-        .app-brand h1 span {
-            color: #eaecef;
-            font-weight: 400;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .user-profile {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: #2b3139;
-            padding: 4px 14px 4px 8px;
-            border-radius: 40px;
-            font-size: 12px;
-            font-weight: 500;
-            color: #eaecef;
-            cursor: default;
-        }
-
-        .user-profile .avatar {
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background: #f0b90b;
-            color: #181a20;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .btn {
-            border: none;
-            padding: 7px 18px;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 12px;
-            font-family: 'Inter', sans-serif;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: #2b3139;
-            color: #eaecef;
-        }
-
-        .btn:hover {
-            background: #3b424b;
-            transform: translateY(-1px);
-        }
-
-        .btn-primary {
-            background: #f0b90b;
-            color: #181a20;
-        }
-
-        .btn-primary:hover {
-            background: #f8d33a;
-            box-shadow: 0 4px 16px rgba(240, 185, 11, 0.3);
-        }
-
-        .btn-danger {
-            background: #f6465d;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #ff6b7f;
-        }
-
-        .btn-success {
-            background: #0ecb81;
-            color: white;
-        }
-
-        .btn-success:hover {
-            background: #1ad991;
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 1px solid #2b3139;
-            color: #eaecef;
-        }
-
-        .btn-outline:hover {
-            background: #2b3139;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-
-        .main-content {
-            padding: 20px 24px 18px;
-        }
-
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 14px;
-            background: #181a20;
-            border-radius: 10px;
-            margin-bottom: 16px;
-            font-size: 12px;
-            color: #848e9c;
-            border: 1px solid #2b3139;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            display: inline-block;
-            margin-right: 6px;
-        }
-
-        .status-dot.online {
-            background: #0ecb81;
-            box-shadow: 0 0 12px rgba(14, 203, 129, 0.4);
-        }
-        .status-dot.offline {
-            background: #f6465d;
-        }
-        .status-dot.connecting {
-            background: #f0b90b;
-            animation: pulse 1.2s infinite;
-        }
-
-        @keyframes pulse {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.4;
-            }
-        }
-
-        .badge-count {
-            background: #2b3139;
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-size: 11px;
-            font-weight: 600;
-            color: #eaecef;
-        }
-
-        /* Auth Page */
-        .auth-page {
-            padding: 40px 30px;
-            background: #181a20;
-            border-radius: 16px;
-            border: 1px solid #2b3139;
-            margin-bottom: 12px;
-            max-width: 420px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .auth-page .auth-header {
-            text-align: center;
-            margin-bottom: 28px;
-        }
-
-        .auth-page .auth-header .lock-icon {
-            font-size: 48px;
-            color: #f0b90b;
-            margin-bottom: 12px;
-            display: block;
-        }
-
-        .auth-page .auth-header h3 {
-            font-weight: 600;
-            font-size: 22px;
-            color: #eaecef;
-            margin-bottom: 4px;
-        }
-
-        .auth-page .auth-header p {
-            color: #848e9c;
-            font-size: 14px;
-        }
-
-        .auth-page .form-group {
-            margin-bottom: 16px;
-        }
-
-        .auth-page .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-            color: #848e9c;
-            margin-bottom: 4px;
-        }
-
-        .auth-page .form-group input {
-            width: 100%;
-            padding: 10px 14px;
-            background: #0b0e11;
-            border: 1px solid #2b3139;
-            border-radius: 10px;
-            font-size: 14px;
-            font-family: 'Inter', sans-serif;
-            color: #eaecef;
-            transition: border 0.2s;
-            outline: none;
-        }
-
-        .auth-page .form-group input:focus {
-            border-color: #f0b90b;
-            box-shadow: 0 0 0 3px rgba(240, 185, 11, 0.1);
-        }
-
-        .auth-page .role-badge {
-            background: #2b3139;
-            padding: 8px 14px;
-            border-radius: 10px;
-            font-size: 13px;
-            color: #eaecef;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 16px;
-            border: 1px solid #3b424b;
-        }
-
-        .auth-page .role-badge i {
-            color: #f0b90b;
-        }
-
-        .auth-page .role-badge strong {
-            color: #f0b90b;
-        }
-
-        .auth-page .btn {
-            width: 100%;
-            justify-content: center;
-            padding: 10px;
-            font-size: 14px;
-        }
-
-        .auth-page .auth-toggle {
-            text-align: center;
-            margin-top: 14px;
-            font-size: 13px;
-            color: #848e9c;
-        }
-
-        .auth-page .auth-toggle a {
-            color: #f0b90b;
-            cursor: pointer;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .auth-page .auth-toggle a:hover {
-            text-decoration: underline;
-        }
-
-        .auth-page .auth-error {
-            color: #f6465d;
-            font-size: 13px;
-            padding: 8px 12px;
-            background: rgba(246, 70, 93, 0.1);
-            border-radius: 8px;
-            border-left: 3px solid #f6465d;
-            margin-bottom: 12px;
-        }
-
-        .auth-page .auth-error.hidden {
-            display: none;
-        }
-
-        /* Feed */
-        .feed-container {
-            background: #181a20;
-            border-radius: 16px;
-            border: 1px solid #2b3139;
-            min-height: 340px;
-            max-height: 460px;
-            overflow-y: auto;
-            padding: 8px 0;
-        }
-
-        .feed-container::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .feed-container::-webkit-scrollbar-thumb {
-            background: #2b3139;
-            border-radius: 8px;
-        }
-
-        .empty-feed {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 50px 20px;
-            color: #848e9c;
-        }
-
-        .empty-feed i {
-            font-size: 42px;
-            color: #2b3139;
-            margin-bottom: 12px;
-        }
-
-        .empty-feed h3 {
-            font-weight: 500;
-            margin-bottom: 4px;
-            color: #eaecef;
-        }
-
-        .empty-feed p {
-            font-size: 13px;
-        }
-
-        /* Message Item */
-        .message-item {
-            padding: 14px 18px;
-            border-bottom: 1px solid #2b3139;
-            transition: background 0.15s;
-            animation: slideIn 0.25s ease;
-        }
-
-        .message-item:hover {
-            background: #1e2329;
-        }
-
-        .message-item:last-child {
-            border-bottom: none;
-        }
-
-        .message-item .msg-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 12px;
-            color: #848e9c;
-        }
-
-        .message-item .msg-header .sender {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
-            color: #f0b90b;
-        }
-
-        .message-item .msg-header .time {
-            font-size: 11px;
-            background: #2b3139;
-            padding: 2px 10px;
-            border-radius: 40px;
-        }
-
-        .message-item .msg-body {
-            font-size: 14px;
-            line-height: 1.6;
-            color: #eaecef;
-            word-break: break-word;
-            margin-bottom: 8px;
-            min-height: 24px;
-        }
-
-        .message-item .msg-body i {
-            color: #f0b90b;
-            margin-right: 6px;
-            font-size: 13px;
-        }
-
-        .message-item .msg-body.locked {
-            color: #848e9c;
-            font-style: italic;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .message-item .msg-body.locked i {
-            color: #f6465d;
-            font-size: 16px;
-        }
-
-        .message-item .msg-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 6px;
-            flex-wrap: wrap;
-        }
-
-        .message-item .msg-price-tag {
-            font-size: 12px;
-            font-weight: 600;
-            color: #f0b90b;
-            background: rgba(240, 185, 11, 0.15);
-            padding: 2px 12px;
-            border-radius: 40px;
-        }
-
-        .message-item .msg-price-tag.free {
-            color: #0ecb81;
-            background: rgba(14, 203, 129, 0.15);
-        }
-
-        .message-item .btn-pay {
-            padding: 4px 14px;
-            font-size: 11px;
-            background: #f0b90b;
-            color: #181a20;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-
-        .message-item .btn-pay:hover {
-            background: #f8d33a;
-            transform: scale(1.02);
-        }
-
-        .message-item .btn-pay:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .message-item .payment-status {
-            font-size: 11px;
-            padding: 2px 10px;
-            border-radius: 40px;
-            font-weight: 500;
-        }
-
-        .message-item .payment-status.paid {
-            color: #0ecb81;
-            background: rgba(14, 203, 129, 0.15);
-        }
-
-        .message-item .payment-status.pending {
-            color: #f0b90b;
-            background: rgba(240, 185, 11, 0.15);
-            animation: pulse 1.2s infinite;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-6px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Payment Modal (inline) */
-        .payment-modal {
-            background: #0b0e11;
-            border: 1px solid #2b3139;
-            border-radius: 12px;
-            padding: 20px 16px;
-            margin-top: 10px;
-            animation: slideIn 0.3s ease;
-        }
-
-        .payment-modal .modal-title {
-            font-weight: 600;
-            font-size: 15px;
-            color: #eaecef;
-            margin-bottom: 2px;
-        }
-
-        .payment-modal .modal-subtitle {
-            color: #848e9c;
-            font-size: 12px;
-            margin-bottom: 12px;
-        }
-
-        .payment-modal .payment-details {
-            background: #181a20;
-            border-radius: 8px;
-            padding: 10px 12px;
-            margin-bottom: 12px;
-        }
-
-        .payment-modal .payment-details .detail-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 3px 0;
-            font-size: 13px;
-        }
-
-        .payment-modal .payment-details .detail-row .label {
-            color: #848e9c;
-        }
-
-        .payment-modal .payment-details .detail-row .value {
-            color: #eaecef;
-            font-weight: 500;
-        }
-
-        .payment-modal .payment-details .detail-row .value.price {
-            color: #f0b90b;
-            font-weight: 700;
-        }
-
-        .payment-modal .form-group {
-            margin-bottom: 10px;
-        }
-
-        .payment-modal .form-group label {
-            display: block;
-            font-size: 11px;
-            font-weight: 500;
-            color: #848e9c;
-            margin-bottom: 3px;
-        }
-
-        .payment-modal .form-group input {
-            width: 100%;
-            padding: 8px 12px;
-            background: #181a20;
-            border: 1px solid #2b3139;
-            border-radius: 8px;
-            font-size: 13px;
-            font-family: 'Inter', sans-serif;
-            color: #eaecef;
-            outline: none;
-        }
-
-        .payment-modal .form-group input:focus {
-            border-color: #f0b90b;
-        }
-
-        .payment-modal .btn {
-            width: 100%;
-            justify-content: center;
-            padding: 9px;
-            font-size: 13px;
-        }
-
-        .payment-modal .btn-pay-now {
-            background: #0ecb81;
-            color: white;
-            margin-top: 4px;
-        }
-
-        .payment-modal .btn-pay-now:hover {
-            background: #1ad991;
-        }
-
-        .payment-modal .btn-pay-now:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .payment-modal .btn-cancel {
-            background: #2b3139;
-            color: #eaecef;
-            margin-top: 6px;
-        }
-
-        .payment-modal .btn-cancel:hover {
-            background: #3b424b;
-        }
-
-        .payment-modal .payment-error {
-            color: #f6465d;
-            font-size: 12px;
-            padding: 6px 10px;
-            background: rgba(246, 70, 93, 0.1);
-            border-radius: 6px;
-            border-left: 3px solid #f6465d;
-            margin-bottom: 10px;
-            display: none;
-        }
-
-        .payment-modal .payment-error.show {
-            display: block;
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e2329;
-            border: 1px solid #2b3139;
-            color: #eaecef;
-            padding: 12px 24px;
-            border-radius: 16px;
-            font-size: 13px;
-            font-weight: 500;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            z-index: 2000;
-            animation: toastUp 0.35s ease;
-            backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .toast i {
-            font-size: 16px;
-        }
-
-        .toast.success i {
-            color: #0ecb81;
-        }
-        .toast.error i {
-            color: #f6465d;
-        }
-        .toast.info i {
-            color: #f0b90b;
-        }
-
-        @keyframes toastUp {
-            from {
-                opacity: 0;
-                transform: translateX(-50%) translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(-50%) translateY(0);
-            }
-        }
-
-        @media (max-width: 640px) {
-            .app-header {
-                padding: 14px 16px;
-                flex-direction: column;
-                align-items: stretch;
-                gap: 8px;
-            }
-
-            .header-actions {
-                justify-content: space-between;
-            }
-
-            .main-content {
-                padding: 14px 16px 14px;
-            }
-
-            .auth-page {
-                padding: 28px 18px;
-            }
-
-            .message-item .msg-header {
-                flex-wrap: wrap;
-                gap: 4px;
-            }
-
-            .message-item .msg-actions {
-                flex-wrap: wrap;
-            }
-
-            .payment-modal {
-                padding: 14px 12px;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KB</title>
+
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;height:100%;font-family:Arial,sans-serif}
+body{background:#f4f4f4}
+
+.loader{
+position:fixed;inset:0;background:#ff6a00;color:#fff;
+display:grid;place-items:center;z-index:99;
+animation:out .5s 1.5s forwards
+}
+.loader b{font-size:25vw;letter-spacing:-.12em}
+
+.home,.auth,.app{position:absolute;inset:0}
+
+.home{display:flex;background:#fff}
+
+.brand{
+width:42%;background:#ff6a00;color:#fff;
+display:grid;place-items:center;
+font-size:20vw;font-weight:900;
+letter-spacing:-.13em
+}
+
+.intro{
+flex:1;display:flex;align-items:center;padding:8vw
+}
+
+.intro h1{font-size:7vw;margin:0}
+.intro p{color:#777;text-transform:uppercase;letter-spacing:.15em}
+
+.view,.submit{
+background:#ff6a00;color:#fff;border:0;
+padding:16px 28px;font-weight:800;cursor:pointer
+}
+
+.view:hover,.submit:hover{background:#df5c00}
+
+.auth{
+display:none;
+align-items:center;
+justify-content:center
+}
+
+.card{
+background:#fff;
+width:min(900px,94vw);
+display:grid;
+grid-template-columns:40% 60%;
+box-shadow:0 25px 70px #0002
+}
+
+.aside{
+background:#ff6a00;color:#fff;padding:50px
+}
+
+.aside b{
+font-size:10vw;
+letter-spacing:-.13em
+}
+
+.main{padding:55px}
+.main h1{font-size:42px}
+
+.field{margin:15px 0}
+
+.field label{
+display:block;
+font-size:11px;
+font-weight:bold;
+margin-bottom:7px
+}
+
+.field input,
+.field textarea{
+width:100%;
+padding:15px;
+border:1px solid #ddd;
+font:inherit
+}
+
+.field textarea{
+resize:vertical
+}
+
+.submit{width:100%}
+
+.link{
+border:0;
+background:none;
+color:#ff6a00;
+font-weight:bold;
+cursor:pointer
+}
+
+.msg{
+min-height:20px;
+color:#d43b00;
+font-size:13px
+}
+
+.app{
+display:none;
+background:#fff;
+overflow:auto
+}
+
+.topbar{
+position:absolute;
+top:0;
+left:0;
+right:0;
+height:76px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 30px;
+border-bottom:1px solid #eee;
+background:#fff;
+z-index:5
+}
+
+.logo{
+font-size:32px;
+font-weight:900;
+color:#ff6a00
+}
+
+.user-area{
+display:flex;
+align-items:center;
+gap:15px
+}
+
+.logout{
+padding:13px 22px;
+background:#ff6a00;
+color:#fff;
+border:0;
+font-weight:bold;
+cursor:pointer
+}
+
+.content{
+width:min(1050px,92vw);
+padding:110px 0 50px;
+margin:auto
+}
+
+.hero h1{
+font-size:clamp(42px,7vw,78px);
+margin:0
+}
+
+.hero h1 span{color:#ff6a00}
+.hero p{color:#777}
+
+.admin-panel{
+border:1px solid #eee;
+padding:28px;
+margin:40px 0;
+background:#fff;
+box-shadow:0 12px 35px #0000000d
+}
+
+.admin-panel h2{margin:0 0 8px}
+.admin-panel p{color:#777}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px
+}
+
+.posts{
+display:grid;
+grid-template-columns:
+repeat(auto-fit,minmax(260px,1fr));
+gap:18px
+}
+
+.post-card{
+border:1px solid #eee;
+background:#fff;
+padding:24px;
+box-shadow:0 10px 30px #0000000a;
+display:flex;
+flex-direction:column;
+min-height:250px
+}
+
+.post-card h3{
+font-size:22px;
+margin:0 0 10px
+}
+
+.date{
+font-size:12px;
+color:#999;
+margin-bottom:14px
+}
+
+.preview{
+color:#666;
+line-height:1.5;
+flex:1;
+display:-webkit-box;
+-webkit-line-clamp:4;
+-webkit-box-orient:vertical;
+overflow:hidden
+}
+
+.price{
+font-size:20px;
+font-weight:900;
+color:#ff6a00;
+margin:15px 0
+}
+
+.view-content{
+background:#ff6a00;
+color:#fff;
+border:0;
+padding:12px 18px;
+font-weight:800;
+cursor:pointer
+}
+
+.view-content:hover{background:#df5c00}
+
+.empty{color:#888}
+
+.modal{
+position:fixed;
+inset:0;
+background:#0008;
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+z-index:20
+}
+
+.modal-box{
+background:#fff;
+width:min(800px,94vw);
+max-height:85vh;
+overflow:auto;
+padding:32px;
+position:relative
+}
+
+.modal-box h2{
+margin-top:0;
+font-size:32px
+}
+
+.modal-content{
+white-space:pre-wrap;
+line-height:1.75;
+color:#444
+}
+
+.close-modal{
+position:absolute;
+right:18px;
+top:15px;
+border:0;
+background:none;
+font-size:28px;
+cursor:pointer
+}
+
+.payment-price{
+font-size:25px;
+font-weight:900;
+color:#ff6a00;
+margin:15px 0 25px
+}
+
+.submit:disabled{
+opacity:.6;
+cursor:not-allowed
+}
+
+.lock{
+font-size:40px;
+text-align:center;
+margin-bottom:10px
+}
+
+@keyframes out{
+to{
+opacity:0;
+visibility:hidden
+}
+}
+
+@media(max-width:700px){
+
+.home{
+flex-direction:column
+}
+
+.brand{
+width:100%;
+height:42%;
+font-size:100px
+}
+
+.intro{
+padding:30px
+}
+
+.card{
+grid-template-columns:1fr
+}
+
+.aside{
+display:none
+}
+
+.main{
+padding:30px
+}
+
+.topbar{
+padding:0 15px
+}
+
+.logo{
+font-size:26px
+}
+
+.user-area span{
+display:none
+}
+
+.content{
+padding-top:100px
+}
+
+}
+</style>
 </head>
+
 <body>
 
-    <div class="app-container" id="app">
-        <header class="app-header">
-            <div class="app-brand">
-                <div class="logo-icon">B</div>
-                <h1>Bet<span>Live</span></h1>
-            </div>
-            <div class="header-actions">
-                <div class="user-profile" id="userBadge">
-                    <div class="avatar" id="userAvatar">G</div>
-                    <span id="userNameDisplay">Guest</span>
-                </div>
-                <button class="btn btn-danger hidden" id="signOutBtn">
-                    <i class="fa-regular fa-arrow-right-from-bracket"></i> Sign Out
-                </button>
-            </div>
-        </header>
-
-        <div class="main-content">
-            <div class="status-bar">
-                <div>
-                    <span class="status-dot" id="statusDot"></span>
-                    <span id="statusText">Ready</span>
-                </div>
-                <div>
-                    <span class="badge-count"><i class="fa-regular fa-message"></i> <span id="messageCount">0</span></span>
-                </div>
-            </div>
-
-            <!-- Auth Page -->
-            <div id="authPage" class="auth-page">
-                <div class="auth-header">
-                    <i class="fa-regular fa-lock lock-icon"></i>
-                    <h3 id="authTitle">Bettor Access</h3>
-                    <p id="authSubtitle">Sign in to view and pay for messages</p>
-                </div>
-
-                <div class="auth-error hidden" id="authError"></div>
-
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="authEmail" placeholder="Enter your email" />
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="authPassword" placeholder="Enter your password" />
-                </div>
-
-                <div class="role-badge">
-                    <i class="fa-regular fa-user"></i>
-                    <span>You are registering as a <strong>Bettor</strong></span>
-                </div>
-
-                <button class="btn btn-primary" id="authSubmitBtn">
-                    <i class="fa-regular fa-arrow-right-to-bracket"></i> Sign In
-                </button>
-
-                <div class="auth-toggle">
-                    <span id="authToggleText">Don't have an account?</span>
-                    <a id="authToggleLink">Create one</a>
-                </div>
-            </div>
-
-            <!-- Feed Content -->
-            <div id="betContent" class="hidden">
-                <div id="feedContainer" class="feed-container"></div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        // ============================================================
-        // FIREBASE CONFIG
-        // ============================================================
-        const firebaseConfig = {
-            apiKey: "AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow",
-            authDomain: "volcanobxpl.firebaseapp.com",
-            projectId: "volcanobxpl",
-            storageBucket: "volcanobxpl.firebasestorage.app",
-            messagingSenderId: "742861205377",
-            appId: "1:742861205377:web:bbe8a42b78c90354a64280",
-            measurementId: "G-G1KWGHLZES"
-        };
-
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // ============================================================
-        // STATE
-        // ============================================================
-        let currentUser = null;
-        let isSignUp = false;
-        let unsubscribe = null;
-        let paidMessagesListener = null;
-        let paidMessages = new Set();
-
-        const $ = id => document.getElementById(id);
-        const authPage = $('authPage');
-        const authEmail = $('authEmail');
-        const authPassword = $('authPassword');
-        const authSubmitBtn = $('authSubmitBtn');
-        const authToggleLink = $('authToggleLink');
-        const authToggleText = $('authToggleText');
-        const authTitle = $('authTitle');
-        const authSubtitle = $('authSubtitle');
-        const authError = $('authError');
-        const betContent = $('betContent');
-        const signOutBtn = $('signOutBtn');
-        const userAvatar = $('userAvatar');
-        const userNameDisplay = $('userNameDisplay');
-        const feedEl = $('feedContainer');
-        const statusDot = $('statusDot');
-        const statusText = $('statusText');
-        const messageCountSpan = $('messageCount');
-
-        const messagesRef = db.collection('messages');
-
-        // ============================================================
-        // AUTH FUNCTIONS
-        // ============================================================
-        function toggleAuthMode(signUp = false) {
-            isSignUp = signUp;
-            authError.classList.add('hidden');
-            authError.textContent = '';
-            authEmail.value = '';
-            authPassword.value = '';
-
-            if (signUp) {
-                authTitle.textContent = 'Create Bettor Account';
-                authSubtitle.textContent = 'Register to view live bets';
-                authSubmitBtn.innerHTML = '<i class="fa-regular fa-user-plus"></i> Register as Bettor';
-                authToggleText.textContent = 'Already have an account?';
-                authToggleLink.textContent = 'Sign In';
-            } else {
-                authTitle.textContent = 'Bettor Sign In';
-                authSubtitle.textContent = 'Sign in to view live bets';
-                authSubmitBtn.innerHTML = '<i class="fa-regular fa-arrow-right-to-bracket"></i> Sign In';
-                authToggleText.textContent = "Don't have an account?";
-                authToggleLink.textContent = 'Create one';
-            }
-            setTimeout(() => authEmail.focus(), 100);
-        }
-
-        function showAuthError(msg) {
-            authError.textContent = msg;
-            authError.classList.remove('hidden');
-        }
-
-        function handleAuthSubmit() {
-            const email = authEmail.value.trim();
-            const pass = authPassword.value.trim();
-
-            if (!email || !pass) {
-                showAuthError('Please fill in all fields');
-                return;
-            }
-            if (pass.length < 6) {
-                showAuthError('Password must be at least 6 characters');
-                return;
-            }
-
-            authError.classList.add('hidden');
-            authSubmitBtn.disabled = true;
-            authSubmitBtn.innerHTML = '<i class="fa-regular fa-spinner fa-spin"></i> Processing…';
-
-            if (isSignUp) {
-                auth.createUserWithEmailAndPassword(email, pass)
-                    .then((userCredential) => {
-                        const user = userCredential.user;
-                        return db.collection('users').doc(user.uid).set({
-                            email: user.email,
-                            role: 'bettor',
-                            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                        }).then(() => {
-                            showToast('✅ Registered as Bettor!', 'success');
-                        });
-                    })
-                    .catch((err) => {
-                        console.error("Signup error:", err);
-                        showAuthError(err.message);
-                        authSubmitBtn.disabled = false;
-                        authSubmitBtn.innerHTML = isSignUp ?
-                            '<i class="fa-regular fa-user-plus"></i> Register as Bettor' :
-                            '<i class="fa-regular fa-arrow-right-to-bracket"></i> Sign In';
-                    });
-            } else {
-                auth.signInWithEmailAndPassword(email, pass)
-                    .then(() => {
-                        showToast('✅ Signed in successfully!', 'success');
-                    })
-                    .catch((err) => {
-                        console.error("Login error:", err);
-                        showAuthError(err.message);
-                        authSubmitBtn.disabled = false;
-                        authSubmitBtn.innerHTML = isSignUp ?
-                            '<i class="fa-regular fa-user-plus"></i> Register as Bettor' :
-                            '<i class="fa-regular fa-arrow-right-to-bracket"></i> Sign In';
-                    });
-            }
-        }
-
-        function signOut() {
-            auth.signOut().then(() => {
-                showToast('👋 Signed out', 'info');
-            });
-        }
-
-        // ============================================================
-        // USER UI UPDATE
-        // ============================================================
-        function updateUI(user) {
-            if (user) {
-                currentUser = user;
-                const displayName = user.email || 'Bettor';
-                const initial = displayName.charAt(0).toUpperCase();
-                userAvatar.textContent = initial;
-                userNameDisplay.textContent = displayName;
-                signOutBtn.classList.remove('hidden');
-
-                db.collection('users').doc(user.uid).get().then((doc) => {
-                    if (doc.exists) {
-                        const role = doc.data().role || 'bettor';
-                        if (role === 'bettor') {
-                            authPage.classList.add('hidden');
-                            betContent.classList.remove('hidden');
-                            loadPaidMessages();
-                            startListening();
-                        } else {
-                            authPage.classList.remove('hidden');
-                            betContent.classList.add('hidden');
-                            toggleAuthMode(false);
-                            showAuthError('Access Denied: This account is an admin. Please use admin.html.');
-                            if (unsubscribe) { unsubscribe();
-                                unsubscribe = null; }
-                            if (paidMessagesListener) { paidMessagesListener();
-                                paidMessagesListener = null; }
-                            updateStatus('offline', 'Admin Mode');
-                            feedEl.innerHTML =
-                                `<div class="empty-feed" style="color:#f0b90b;"><i class="fa-regular fa-user-gear"></i><h3>Admin Detected</h3><p>Please use the admin panel</p></div>`;
-                        }
-                    } else {
-                        authPage.classList.add('hidden');
-                        betContent.classList.remove('hidden');
-                        loadPaidMessages();
-                        startListening();
-                    }
-                });
-            } else {
-                currentUser = null;
-                userAvatar.textContent = 'G';
-                userNameDisplay.textContent = 'Guest';
-                signOutBtn.classList.add('hidden');
-                authPage.classList.remove('hidden');
-                betContent.classList.add('hidden');
-                toggleAuthMode(false);
-                if (unsubscribe) { unsubscribe();
-                    unsubscribe = null; }
-                if (paidMessagesListener) { paidMessagesListener();
-                    paidMessagesListener = null; }
-                feedEl.innerHTML = '';
-                messageCountSpan.textContent = '0';
-                updateStatus('offline', 'Not signed in');
-            }
-        }
-
-        // ============================================================
-        // LOAD PAID MESSAGES
-        // ============================================================
-        function loadPaidMessages() {
-            if (paidMessagesListener) {
-                paidMessagesListener();
-                paidMessagesListener = null;
-            }
-
-            if (!currentUser) return;
-
-            paidMessagesListener = db.collection('user_paid_messages')
-                .where('userId', '==', currentUser.uid)
-                .onSnapshot((snapshot) => {
-                    paidMessages = new Set();
-                    snapshot.forEach((doc) => {
-                        const data = doc.data();
-                        if (data.messageId) paidMessages.add(data.messageId);
-                    });
-                    // Refresh the feed display
-                    refreshFeedDisplay();
-                }, (error) => {
-                    console.error('Paid messages listener error:', error);
-                });
-        }
-
-        // ============================================================
-        // STATUS HELPER
-        // ============================================================
-        function updateStatus(state, text) {
-            statusDot.className = 'status-dot';
-            if (state === 'online') {
-                statusDot.classList.add('online');
-                statusText.textContent = text || 'Live';
-            } else if (state === 'offline') {
-                statusDot.classList.add('offline');
-                statusText.textContent = text || 'Offline';
-            } else {
-                statusDot.classList.add('connecting');
-                statusText.textContent = text || 'Connecting…';
-            }
-        }
-
-        // ============================================================
-        // REFRESH FEED DISPLAY
-        // ============================================================
-        function refreshFeedDisplay() {
-            // This will be called when paid messages change
-            // The main listener will handle the refresh
-        }
-
-        // ============================================================
-        // PAYMENT FUNCTIONS
-        // ============================================================
-        async function initiatePayment(messageId, messageText, price) {
-            if (!currentUser) {
-                showToast('⚠️ Please sign in first', 'error');
-                return;
-            }
-
-            const messageEl = document.querySelector(`[data-message-id="${messageId}"]`);
-            if (!messageEl) return;
-
-            // Remove any existing payment modal
-            const existingModal = messageEl.querySelector('.payment-modal');
-            if (existingModal) existingModal.remove();
-
-            const modal = document.createElement('div');
-            modal.className = 'payment-modal';
-            modal.innerHTML = `
-                <div class="modal-title">💰 Complete Payment</div>
-                <div class="modal-subtitle">Pay to view this message</div>
-
-                <div class="payment-details">
-                    <div class="detail-row">
-                        <span class="label">Amount</span>
-                        <span class="value price">TZS ${price}</span>
-                    </div>
-                    <div class="detail-row">
-                        <span class="label">Message</span>
-                        <span class="value">${escapeHtml(messageText.substring(0, 50))}${messageText.length > 50 ? '...' : ''}</span>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>Phone Number (for payment)</label>
-                    <input type="tel" id="paymentPhone_${messageId}" placeholder="Enter phone number (e.g., 0712345678)" />
-                </div>
-                <div class="form-group">
-                    <label>Your Full Name</label>
-                    <input type="text" id="paymentName_${messageId}" placeholder="Enter your full name" />
-                </div>
-
-                <div id="paymentError_${messageId}" class="payment-error"></div>
-
-                <button class="btn btn-pay-now" id="payBtn_${messageId}">
-                    <i class="fa-regular fa-lock"></i> Pay TZS ${price}
-                </button>
-                <button class="btn btn-cancel" id="cancelPayBtn_${messageId}">
-                    Cancel
-                </button>
-            `;
-
-            messageEl.appendChild(modal);
-
-            // Set default values
-            const phoneInput = document.getElementById(`paymentPhone_${messageId}`);
-            const nameInput = document.getElementById(`paymentName_${messageId}`);
-
-            // Get user data if available
-            if (currentUser) {
-                try {
-                    const userDoc = await db.collection('users').doc(currentUser.uid).get();
-                    if (userDoc.exists) {
-                        const data = userDoc.data();
-                        if (data.phone) phoneInput.value = data.phone;
-                    }
-                } catch (e) { /* ignore */ }
-                if (currentUser.displayName) nameInput.value = currentUser.displayName;
-                else if (currentUser.email) nameInput.value = currentUser.email.split('@')[0];
-            }
-
-            // Handle cancel
-            document.getElementById(`cancelPayBtn_${messageId}`).addEventListener('click', () => {
-                modal.remove();
-            });
-
-            // Handle payment
-            document.getElementById(`payBtn_${messageId}`).addEventListener('click', async () => {
-                const phone = phoneInput.value.trim();
-                const name = nameInput.value.trim();
-                const errorEl = document.getElementById(`paymentError_${messageId}`);
-
-                if (!phone) {
-                    errorEl.textContent = '⚠️ Please enter your phone number';
-                    errorEl.className = 'payment-error show';
-                    return;
-                }
-
-                if (!name) {
-                    errorEl.textContent = '⚠️ Please enter your name';
-                    errorEl.className = 'payment-error show';
-                    return;
-                }
-
-                const payBtn = document.getElementById(`payBtn_${messageId}`);
-                payBtn.disabled = true;
-                payBtn.innerHTML = '<i class="fa-regular fa-spinner fa-spin"></i> Processing…';
-                errorEl.className = 'payment-error';
-
-                try {
-                    // Store payment record
-                    const paymentRef = await db.collection('payments').add({
-                        userId: currentUser.uid,
-                        userEmail: currentUser.email,
-                        messageId: messageId,
-                        messageText: messageText,
-                        amount: price,
-                        phone: phone,
-                        name: name,
-                        status: 'pending',
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    });
-
-                    // For demo: Simulate successful payment after 3 seconds
-                    // In production, this would call your PalmPesa API
-                    showToast('⏳ Processing payment...', 'info');
-
-                    setTimeout(async () => {
-                        // Mark as paid
-                        await db.collection('user_paid_messages').doc(`${currentUser.uid}_${messageId}`).set({
-                            userId: currentUser.uid,
-                            messageId: messageId,
-                            paidAt: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-
-                        await paymentRef.update({
-                            status: 'completed',
-                            completedAt: firebase.firestore.FieldValue.serverTimestamp()
-                        });
-
-                        modal.remove();
-                        showToast('✅ Payment successful! Message unlocked.', 'success');
-
-                        // Update the message display
-                        const msgEl = document.querySelector(`[data-message-id="${messageId}"]`);
-                        if (msgEl) {
-                            const bodyEl = msgEl.querySelector('.msg-body');
-                            if (bodyEl) {
-                                bodyEl.className = 'msg-body';
-                                bodyEl.innerHTML = `<i class="fa-regular fa-message"></i> ${escapeHtml(messageText)}`;
-                            }
-                            const statusEl = msgEl.querySelector('.payment-status');
-                            if (statusEl) {
-                                statusEl.className = 'payment-status paid';
-                                statusEl.textContent = '✓ Paid & Unlocked';
-                            }
-                            const payBtn2 = msgEl.querySelector('.btn-pay');
-                            if (payBtn2) payBtn2.style.display = 'none';
-                            const priceTag = msgEl.querySelector('.msg-price-tag');
-                            if (priceTag) {
-                                priceTag.className = 'msg-price-tag free';
-                                priceTag.textContent = '✓ Unlocked';
-                            }
-                        }
-
-                        // Add to paid messages set
-                        paidMessages.add(messageId);
-
-                    }, 3000);
-
-                } catch (err) {
-                    console.error('Payment error:', err);
-                    errorEl.textContent = '❌ ' + (err.message || 'Payment failed. Please try again.');
-                    errorEl.className = 'payment-error show';
-                    payBtn.disabled = false;
-                    payBtn.innerHTML = `<i class="fa-regular fa-lock"></i> Pay TZS ${price}`;
-                }
-            });
-        }
-
-        // ============================================================
-        // FIRESTORE LISTENER
-        // ============================================================
-        function startListening() {
-            if (unsubscribe) unsubscribe();
-            updateStatus('connecting', 'Connecting…');
-
-            unsubscribe = messagesRef.orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
-                updateStatus('online', 'Live');
-                messageCountSpan.textContent = snapshot.size;
-
-                if (snapshot.empty) {
-                    feedEl.innerHTML = `
-                        <div class="empty-feed">
-                            <i class="fa-regular fa-comment-dots"></i>
-                            <h3>No messages yet</h3>
-                            <p>Admin will post updates here</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                let html = '';
-                snapshot.forEach((doc) => {
-                    const data = doc.data();
-                    const messageId = doc.id;
-                    const text = data.text || '⚠️ empty message';
-                    const price = data.price || 0;
-                    const time = data.timestamp ? new Date(data.timestamp.seconds * 1000) : new Date();
-                    const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    const dateStr = time.toLocaleDateString([], { month: 'short', day: 'numeric' });
-
-                    const isPaid = paidMessages.has(messageId);
-                    const isFree = price === 0;
-
-                    // Determine if message should be visible
-                    const isVisible = isFree || isPaid;
-
-                    html += `
-                        <div class="message-item" data-message-id="${messageId}">
-                            <div class="msg-header">
-                                <span class="sender"><i class="fa-regular fa-user"></i> Admin</span>
-                                <span class="time">${dateStr} · ${timeStr}</span>
-                            </div>
-                            <div class="msg-body ${isVisible ? '' : 'locked'}">
-                                ${isVisible ? 
-                                    `<i class="fa-regular fa-message"></i> ${escapeHtml(text)}` : 
-                                    `<i class="fa-solid fa-lock"></i> Pay to view this message`
-                                }
-                            </div>
-                            <div class="msg-actions">
-                                ${price > 0 ? 
-                                    `<span class="msg-price-tag">TZS ${price}</span>` : 
-                                    `<span class="msg-price-tag free">FREE</span>`
-                                }
-                                ${!isFree && !isPaid ? 
-                                    `<button class="btn-pay" onclick="initiatePayment('${messageId}', '${escapeHtml(text)}', ${price})">
-                                        <i class="fa-regular fa-lock"></i> Pay to View
-                                    </button>` : 
-                                    ''
-                                }
-                                ${isPaid ? 
-                                    `<span class="payment-status paid">✓ Unlocked</span>` : 
-                                    (isFree ? `<span class="payment-status paid" style="color:#0ecb81;">✓ Free</span>` : '')
-                                }
-                            </div>
-                        </div>
-                    `;
-                });
-                feedEl.innerHTML = html;
-                feedEl.scrollTop = 0;
-
-            }, (error) => {
-                console.error('Firestore listener error:', error);
-                updateStatus('offline', 'Connection error');
-                feedEl.innerHTML = `
-                    <div class="empty-feed" style="color:#f6465d;">
-                        <i class="fa-regular fa-triangle-exclamation"></i>
-                        <h3 style="color:#f6465d;">Connection Error</h3>
-                        <p>${error.message || 'Please check your network'}</p>
-                    </div>
-                `;
-            });
-        }
-
-        function escapeHtml(unsafe) {
-            if (!unsafe) return '';
-            return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g,
-                "&#039;");
-        }
-
-        // Make initiatePayment globally accessible
-        window.initiatePayment = initiatePayment;
-
-        // ============================================================
-        // TOAST
-        // ============================================================
-        function showToast(msg, type = 'info') {
-            const existing = document.querySelector('.toast');
-            if (existing) existing.remove();
-
-            const icons = {
-                success: 'fa-regular fa-circle-check',
-                error: 'fa-regular fa-circle-xmark',
-                info: 'fa-regular fa-circle-info'
-            };
-
-            const div = document.createElement('div');
-            div.className = `toast ${type}`;
-            div.innerHTML = `<i class="${icons[type] || icons.info}"></i> ${msg}`;
-            document.body.appendChild(div);
-
-            setTimeout(() => {
-                if (div.parentNode) div.remove();
-            }, 5000);
-        }
-
-        // ============================================================
-        // AUTH STATE OBSERVER
-        // ============================================================
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                console.log('👤 User logged in:', user.email);
-                updateUI(user);
-            } else {
-                console.log('👤 No user');
-                updateUI(null);
-            }
-        });
-
-        // ============================================================
-        // EVENT LISTENERS
-        // ============================================================
-        authSubmitBtn.addEventListener('click', handleAuthSubmit);
-        authPassword.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
-        authEmail.addEventListener('keydown', (e) => { if (e.key === 'Enter') handleAuthSubmit(); });
-
-        authToggleLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            toggleAuthMode(!isSignUp);
-        });
-
-        signOutBtn.addEventListener('click', signOut);
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        toggleAuthMode(false);
-        updateStatus('connecting', 'Initializing…');
-        console.log('🚀 BetLive · Bettor view with payment integration');
-        console.log('📌 Users must pay to view messages with prices');
-        console.log('📌 Free messages (price = 0) are visible immediately');
-        console.log('📌 Payment simulation: auto-confirms after 3 seconds');
-    </script>
+<div class="loader">
+<b>KB</b>
+</div>
+
+
+<!-- HOME -->
+
+<section class="home" id="home">
+
+<div class="brand">
+KB
+</div>
+
+<div class="intro">
+
+<div>
+
+<h1>KB</h1>
+
+<p>The experience begins</p>
+
+<button class="view" id="view">
+VIEW NOW
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- AUTH -->
+
+<section class="auth" id="auth">
+
+<div class="card">
+
+<aside class="aside">
+
+<b>KB</b>
+
+<h2>Welcome to KB.</h2>
+
+</aside>
+
+
+<main class="main">
+
+<h1 id="title">
+Welcome back.
+</h1>
+
+<p id="sub">
+Sign in to continue.
+</p>
+
+<div class="msg" id="msg"></div>
+
+
+<div
+class="field"
+id="nameBox"
+style="display:none"
+>
+
+<label>NAME</label>
+
+<input
+id="name"
+autocomplete="name"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>EMAIL</label>
+
+<input
+id="email"
+type="email"
+autocomplete="email"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>PASSWORD</label>
+
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+>
+
+</div>
+
+
+<button
+class="link"
+id="forgot"
+>
+Forgot password?
+</button>
+
+<br><br>
+
+
+<button
+class="submit"
+id="submit"
+>
+SIGN IN
+</button>
+
+
+<p id="switch">
+Don't have an account?
+<button class="link">
+CREATE ACCOUNT
+</button>
+</p>
+
+</main>
+
+</div>
+
+</section>
+
+
+<!-- APP -->
+
+<section class="app" id="app">
+
+<header class="topbar">
+
+<div class="logo">
+KB
+</div>
+
+<div class="user-area">
+
+<span id="userName"></span>
+
+<button
+class="logout"
+id="logout"
+>
+SIGN OUT
+</button>
+
+</div>
+
+</header>
+
+
+<main class="content">
+
+<div class="hero">
+
+<h1>
+KB <span>Content</span>
+</h1>
+
+<p id="roleText">
+Your content library
+</p>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<section
+id="adminPanel"
+class="admin-panel"
+style="display:none"
+>
+
+<h2>
+Admin — Create Content
+</h2>
+
+<p>
+Publish content and set the price members must pay to view it.
+</p>
+
+
+<div class="field">
+
+<label>TITLE</label>
+
+<input
+id="postTitle"
+maxlength="160"
+placeholder="Enter a title"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>CONTENT</label>
+
+<textarea
+id="postContent"
+rows="8"
+placeholder="Write your content here..."
+></textarea>
+
+</div>
+
+
+<div class="field">
+
+<label>PRICE — TSH</label>
+
+<input
+id="postPrice"
+type="number"
+min="0"
+step="1"
+placeholder="Example: 5000"
+>
+
+</div>
+
+
+<button
+class="submit"
+id="publish"
+>
+PUBLISH
+</button>
+
+<div
+class="msg"
+id="postMsg"
+></div>
+
+</section>
+
+
+<!-- POSTS -->
+
+<section>
+
+<div class="section-head">
+
+<h2>
+Content
+</h2>
+
+<button
+class="link"
+id="refreshPosts"
+>
+REFRESH
+</button>
+
+</div>
+
+
+<div
+id="posts"
+class="posts"
+>
+
+<p class="empty">
+Loading content...
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+</section>
+
+
+<!-- CONTENT MODAL -->
+
+<div
+class="modal"
+id="contentModal"
+>
+
+<div class="modal-box">
+
+<button
+class="close-modal"
+id="closeModal"
+>
+×
+</button>
+
+<h2 id="modalTitle"></h2>
+
+<div
+class="date"
+id="modalDate"
+></div>
+
+<div
+class="modal-content"
+id="modalContent"
+></div>
+
+</div>
+
+</div>
+
+
+<!-- PAYMENT MODAL -->
+
+<div
+class="modal"
+id="paymentModal"
+>
+
+<div class="modal-box">
+
+<button
+class="close-modal"
+id="closePayment"
+>
+×
+</button>
+
+
+<div class="lock">
+🔒
+</div>
+
+
+<h2 id="paymentTitle">
+Unlock Content
+</h2>
+
+
+<p>
+This content requires payment before it can be viewed.
+</p>
+
+
+<div
+class="payment-price"
+id="paymentPrice"
+>
+</div>
+
+
+<div class="field">
+
+<label>NAME</label>
+
+<input
+id="payName"
+placeholder="Your full name"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>EMAIL</label>
+
+<input
+id="payEmail"
+type="email"
+placeholder="Your email"
+>
+
+</div>
+
+
+<div class="field">
+
+<label>PHONE NUMBER</label>
+
+<input
+id="payPhone"
+type="tel"
+placeholder="07XXXXXXXX"
+>
+
+</div>
+
+
+<button
+class="submit"
+id="payButton"
+>
+PAY NOW
+</button>
+
+
+<div
+class="msg"
+id="paymentMsg"
+></div>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import {
+initializeApp
+}
+from
+'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
+
+
+import {
+getAuth,
+onAuthStateChanged,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+sendEmailVerification,
+signOut,
+updateProfile
+}
+from
+'https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js';
+
+
+import {
+getFirestore,
+doc,
+setDoc,
+getDoc,
+collection,
+addDoc,
+onSnapshot,
+query,
+orderBy,
+serverTimestamp
+}
+from
+'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
+
+
+const firebaseConfig={
+
+apiKey:
+'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
+
+authDomain:
+'volcanobxpl.firebaseapp.com',
+
+projectId:
+'volcanobxpl',
+
+storageBucket:
+'volcanobxpl.firebasestorage.app',
+
+messagingSenderId:
+'742861205377',
+
+appId:
+'1:742861205377:web:bbe8a42b78c90354a64280',
+
+measurementId:
+'G-G1KWGHLZES'
+
+};
+
+
+const firebaseApp =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(firebaseApp);
+
+const db =
+getFirestore(firebaseApp);
+
+
+let signup=false;
+let currentUser=null;
+let stopPosts=null;
+let selectedPost=null;
+let selectedPostId=null;
+
+
+const $ =
+id => document.getElementById(id);
+
+
+const msg =
+text => {
+$('msg').textContent=text;
+};
+
+
+/* HOME */
+
+$('view').onclick=()=>{
+
+$('home').style.display='none';
+
+$('auth').style.display='flex';
+
+};
+
+
+/* LOGIN / SIGNUP */
+
+$('switch').onclick=()=>{
+
+signup=!signup;
+
+$('title').textContent =
+signup
+?'Create your account.'
+:'Welcome back.';
+
+$('sub').textContent =
+signup
+?'Join KB today.'
+:'Sign in to continue.';
+
+$('nameBox').style.display =
+signup
+?'block'
+:'none';
+
+$('forgot').style.display =
+signup
+?'none'
+:'inline-block';
+
+$('submit').textContent =
+signup
+?'CREATE ACCOUNT'
+:'SIGN IN';
+
+$('switch').innerHTML =
+signup
+?
+'Already have an account? <button class="link">SIGN IN</button>'
+:
+'Don\'t have an account? <button class="link">CREATE ACCOUNT</button>';
+
+};
+
+
+/* AUTH */
+
+$('submit').onclick=async()=>{
+
+const e =
+$('email').value.trim();
+
+const p =
+$('password').value;
+
+const n =
+$('name').value.trim();
+
+
+if(
+!e ||
+!p ||
+(signup && !n)
+){
+
+msg(
+'Please complete all fields.'
+);
+
+return;
+
+}
+
+
+$('submit').disabled=true;
+
+
+try{
+
+if(signup){
+
+const c =
+await createUserWithEmailAndPassword(
+auth,
+e,
+p
+);
+
+
+await updateProfile(
+c.user,
+{
+displayName:n
+}
+);
+
+
+try{
+
+await sendEmailVerification(
+c.user
+);
+
+}catch(error){
+
+console.log(
+'Verification email:',
+error
+);
+
+}
+
+
+await setDoc(
+doc(db,'people',c.user.uid),
+{
+
+name:n,
+
+email:e,
+
+role:'user',
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+openApp(c.user);
+
+
+}else{
+
+const c =
+await signInWithEmailAndPassword(
+auth,
+e,
+p
+);
+
+openApp(c.user);
+
+}
+
+
+}catch(x){
+
+msg(
+
+x.code ===
+'auth/invalid-credential'
+
+?
+
+'Invalid email or password.'
+
+:
+
+x.code ===
+'auth/email-already-in-use'
+
+?
+
+'Email already exists.'
+
+:
+
+x.message
+
+);
+
+}finally{
+
+$('submit').disabled=false;
+
+}
+
+};
+
+
+/* FORGOT */
+
+$('forgot').onclick=async()=>{
+
+const e =
+$('email').value.trim();
+
+
+if(!e){
+
+msg(
+'Enter your email first.'
+);
+
+return;
+
+}
+
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+e
+);
+
+msg(
+'Password reset email sent.'
+);
+
+}catch(x){
+
+msg(x.message);
+
+}
+
+};
+
+
+/* OPEN APP */
+
+async function openApp(u){
+
+currentUser=u;
+
+$('auth').style.display='none';
+
+$('home').style.display='none';
+
+$('app').style.display='block';
+
+
+$('userName').textContent =
+u.displayName ||
+u.email;
+
+
+const snap =
+await getDoc(
+doc(db,'people',u.uid)
+);
+
+
+const data =
+snap.exists()
+?
+snap.data()
+:
+{role:'user'};
+
+
+const admin =
+data.role === 'admin';
+
+
+$('adminPanel').style.display =
+admin
+?
+'block'
+:
+'none';
+
+
+$('roleText').textContent =
+admin
+?
+'Administrator — publish content below.'
+:
+'Member — pay to unlock premium content.';
+
+
+listenPosts();
+
+}
+
+
+/* LOGOUT */
+
+$('logout').onclick=async()=>{
+
+await signOut(auth);
+
+if(stopPosts){
+
+stopPosts();
+
+stopPosts=null;
+
+}
+
+currentUser=null;
+
+$('app').style.display='none';
+
+$('home').style.display='flex';
+
+};
+
+
+/* ADMIN PUBLISH */
+
+$('publish').onclick=async()=>{
+
+if(!currentUser)return;
+
+
+$('publish').disabled=true;
+
+$('postMsg').textContent='';
+
+
+try{
+
+const u =
+await getDoc(
+doc(db,'people',currentUser.uid)
+);
+
+
+if(
+!u.exists() ||
+u.data().role !== 'admin'
+){
+
+throw new Error(
+'You are not an admin.'
+);
+
+}
+
+
+const title =
+$('postTitle').value.trim();
+
+
+const content =
+$('postContent').value.trim();
+
+
+const price =
+Number(
+$('postPrice').value || 0
+);
+
+
+if(!title){
+
+throw new Error(
+'Enter a title.'
+);
+
+}
+
+
+if(!content){
+
+throw new Error(
+'Enter content.'
+);
+
+}
+
+
+if(
+price < 0 ||
+!Number.isFinite(price)
+){
+
+throw new Error(
+'Enter a valid price.'
+);
+
+}
+
+
+await addDoc(
+collection(db,'posts'),
+{
+
+title:title,
+
+content:content,
+
+price:price,
+
+published:true,
+
+authorId:
+currentUser.uid,
+
+authorName:
+currentUser.displayName ||
+currentUser.email,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+$('postTitle').value='';
+
+$('postContent').value='';
+
+$('postPrice').value='';
+
+
+$('postMsg').textContent =
+'Published successfully.';
+
+
+}catch(error){
+
+$('postMsg').textContent =
+error.message;
+
+}finally{
+
+$('publish').disabled=false;
+
+}
+
+};
+
+
+/* LOAD POSTS */
+
+function listenPosts(){
+
+if(stopPosts)
+stopPosts();
+
+
+const q =
+query(
+collection(db,'posts'),
+orderBy('createdAt','desc')
+);
+
+
+stopPosts =
+onSnapshot(
+q,
+
+snap=>{
+
+const box =
+$('posts');
+
+
+if(snap.empty){
+
+box.innerHTML =
+'<p class="empty">No content has been published yet.</p>';
+
+return;
+
+}
+
+
+box.innerHTML =
+snap.docs
+
+.filter(
+d =>
+d.data().published !== false
+)
+
+.map(d=>{
+
+const p=d.data();
+
+
+const date =
+p.createdAt?.toDate
+?
+p.createdAt.toDate()
+.toLocaleString()
+:
+'Just now';
+
+
+const price =
+Number(p.price || 0);
+
+
+return `
+
+<article class="post-card">
+
+<h3>
+${esc(p.title || 'Untitled')}
+</h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+<div class="preview">
+${esc(p.content || '')}
+</div>
+
+<div class="price">
+
+${
+price > 0
+?
+price.toLocaleString()+' TSh'
+:
+'FREE'
+}
+
+</div>
+
+<button
+class="view-content"
+data-id="${d.id}"
+>
+
+${
+price > 0
+?
+'PAY & VIEW CONTENT'
+:
+'VIEW CONTENT'
+}
+
+</button>
+
+</article>
+
+`;
+
+})
+
+.join('');
+
+
+box
+.querySelectorAll('.view-content')
+.forEach(button=>{
+
+button.onclick=()=>{
+
+const d =
+snap.docs.find(
+x =>
+x.id ===
+button.dataset.id
+);
+
+
+if(!d)return;
+
+
+const post =
+d.data();
+
+
+const price =
+Number(post.price || 0);
+
+
+if(price <= 0){
+
+showContent(post);
+
+}else{
+
+openPaymentModal(
+d.id,
+post
+);
+
+}
+
+};
+
+});
+
+
+},
+
+error=>{
+
+$('posts').innerHTML =
+'<p class="empty">Unable to load content.</p>';
+
+}
+
+);
+
+}
+
+
+/* PAYMENT MODAL */
+
+function openPaymentModal(
+postId,
+post
+){
+
+selectedPostId=postId;
+
+selectedPost=post;
+
+
+$('paymentTitle').textContent =
+post.title ||
+'Unlock Content';
+
+
+$('paymentPrice').textContent =
+Number(
+post.price || 0
+).toLocaleString() +
+' TSh';
+
+
+$('payName').value =
+currentUser?.displayName ||
+'';
+
+
+$('payEmail').value =
+currentUser?.email ||
+'';
+
+
+$('payPhone').value='';
+
+
+$('paymentMsg').textContent='';
+
+
+$('paymentModal').style.display='flex';
+
+}
+
+
+/* CLOSE PAYMENT */
+
+$('closePayment').onclick=()=>{
+
+$('paymentModal').style.display='none';
+
+};
+
+
+/* CLOSE CONTENT */
+
+$('closeModal').onclick=()=>{
+
+$('contentModal').style.display='none';
+
+};
+
+
+$('contentModal').onclick=e=>{
+
+if(
+e.target ===
+$('contentModal')
+){
+
+$('contentModal').style.display='none';
+
+}
+
+};
+
+
+$('paymentModal').onclick=e=>{
+
+if(
+e.target ===
+$('paymentModal')
+){
+
+$('paymentModal').style.display='none';
+
+}
+
+};
+
+
+/* PAYMENT */
+
+$('payButton').onclick=async()=>{
+
+if(!currentUser)return;
+
+
+const name =
+$('payName').value.trim();
+
+
+const email =
+$('payEmail').value.trim();
+
+
+const phone =
+$('payPhone').value.trim();
+
+
+const amount =
+Number(
+selectedPost?.price || 0
+);
+
+
+if(!name || !email || !phone){
+
+$('paymentMsg').textContent =
+'Please complete all fields.';
+
+return;
+
+}
+
+
+if(!amount || amount<=0){
+
+$('paymentMsg').textContent =
+'Invalid payment amount.';
+
+return;
+
+}
+
+
+$('payButton').disabled=true;
+
+$('paymentMsg').textContent =
+'Starting payment...';
+
+
+try{
+
+const response =
+await fetch(
+'/api/pay',
+{
+
+method:'POST',
+
+headers:{
+'Content-Type':
+'application/json'
+},
+
+body:JSON.stringify({
+
+name:name,
+
+email:email,
+
+phone:phone,
+
+amount:amount,
+
+postId:selectedPostId,
+
+userId:currentUser.uid
+
+})
+
+}
+);
+
+
+const result =
+await response.json();
+
+
+if(
+!response.ok ||
+!result.success
+){
+
+throw new Error(
+result.message ||
+'Unable to start payment.'
+);
+
+}
+
+
+$('paymentMsg').innerHTML =
+`
+Payment request sent successfully.<br><br>
+
+Transaction ID:
+<strong>
+${esc(
+result.transaction_id ||
+'Pending'
+)}
+</strong>
+
+<br><br>
+
+Complete the payment on your phone.
+`;
+
+
+/*
+IMPORTANT:
+
+For now we don't automatically
+unlock the content.
+
+We are only starting the payment.
+
+Once you check PalmPesa's API,
+we can add payment verification.
+*/
+
+
+}catch(error){
+
+$('paymentMsg').textContent =
+error.message;
+
+}finally{
+
+$('payButton').disabled=false;
+
+}
+
+};
+
+
+/* SHOW CONTENT */
+
+function showContent(p){
+
+$('modalTitle').textContent =
+p.title ||
+'Untitled';
+
+
+$('modalDate').textContent =
+p.createdAt?.toDate
+?
+p.createdAt.toDate()
+.toLocaleString()
+:
+'Just now';
+
+
+$('modalContent').textContent =
+p.content ||
+'';
+
+
+$('contentModal').style.display='flex';
+
+}
+
+
+/* REFRESH */
+
+$('refreshPosts').onclick=()=>{
+
+listenPosts();
+
+};
+
+
+/* ESCAPE HTML */
+
+function esc(v){
+
+return String(v)
+.replace(
+/[&<>"']/g,
+
+c=>({
+
+'&':'&amp;',
+
+'<':'&lt;',
+
+'>':'&gt;',
+
+'"':'&quot;',
+
+"'":'&#039;'
+
+}[c])
+
+);
+
+}
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(
+auth,
+u=>{
+
+if(u){
+
+openApp(u);
+
+}
+
+});
+
+</script>
+
 </body>
 </html>
