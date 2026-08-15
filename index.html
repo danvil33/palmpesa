@@ -1125,74 +1125,20 @@ textarea:focus-visible{
 }
 
 /* ---------- RESPONSIVE ---------- */
-@media(max-width:800px){
-
-  .home-hero{flex-direction:column}
-
-  .brand{
-    width:100%;
-    height:34%;
-    min-height:180px;
-  }
-
-  .brand b{font-size:88px}
-
-  .intro{padding:38px}
-
-  .auth-card{
-    grid-template-columns:1fr
-  }
-
-  .auth-side{display:none}
-
-  .auth-main{padding:36px}
-
-  .admin-grid{
-    grid-template-columns:1fr
-  }
-
-  .admin-grid .full{
-    grid-column:auto
-  }
-
-  .hero-icon{display:none}
-
-}
-
-@media(max-width:550px){
-
-  .topbar{padding:0 16px}
-
-  .home-nav{padding:16px}
-
-  .user-name{display:none}
-
-  .content{
-    width:94vw;
-    padding-top:108px
-  }
-
-  .home-content-inner{
-    width:94vw;
-    padding:44px 0 60px
-  }
-
-  .hero-copy h1{font-size:44px}
-
-  .posts{grid-template-columns:1fr}
-
-  .admin-panel{padding:20px}
-
-  .modal-box{padding:26px}
-
-}
-/* ================= RESPONSIVENESS PATCH ================= */
+/* Single, ordered (900 -> 700 -> 480 -> 360) breakpoint system.
+   No duplicated/conflicting rules — each property is set once. */
 
 @media(max-width:900px){
 
-  .home-hero{min-height:auto}
+  .home-hero{flex-direction:column;min-height:auto}
 
-  .brand{padding:44px 0}
+  .brand{
+    width:100%;
+    min-height:220px;
+    padding:44px 0;
+  }
+
+  .brand b{font-size:88px}
 
   .intro{padding:48px 32px}
 
@@ -1200,21 +1146,39 @@ textarea:focus-visible{
 
   .hero-icon{display:none}
 
-  .admin-grid{grid-template-columns:1fr}
-
-  .admin-grid .full{grid-column:auto}
-
   .auth-card{grid-template-columns:1fr}
 
   .auth-side{display:none}
+
+  .auth-main{padding:36px}
+
+  .admin-grid{grid-template-columns:1fr}
+
+  .admin-grid .full{grid-column:auto}
 
 }
 
 @media(max-width:700px){
 
+  .topbar{height:64px;padding:0 14px}
+
   .home-nav{padding:14px 18px;flex-wrap:wrap;gap:10px}
 
   .home-nav .logo{font-size:18px}
+
+  .user-name{display:none}
+
+  .logout{padding:9px 13px;font-size:11px}
+
+  .content{width:94vw;padding-top:96px}
+
+  .home-content-inner{width:94vw;padding:40px 0 56px}
+
+  .hero-copy h1{font-size:44px}
+
+  .section-header{align-items:flex-start;flex-direction:column;gap:10px}
+
+  .refresh{align-self:flex-start}
 
   .posts{grid-template-columns:1fr;gap:16px}
 
@@ -1222,17 +1186,9 @@ textarea:focus-visible{
 
   .locked-area{padding:20px}
 
-  .content{padding-top:96px}
+  .admin-panel{padding:20px}
 
-  .home-content-inner{padding:40px 0 56px}
-
-  .topbar{height:64px;padding:0 14px}
-
-  .logout{padding:9px 13px;font-size:11px}
-
-  .section-header{align-items:flex-start;flex-direction:column;gap:10px}
-
-  .refresh{align-self:flex-start}
+  .modal-box{padding:26px}
 
 }
 
@@ -2400,7 +2356,7 @@ paidPosts=new Set();
 
 $('app').style.display='none';
 
-$('home').style.display='flex';
+$('home').style.display='block';
 
 };
 
