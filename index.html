@@ -6,7 +6,6 @@
   <title>Content Cards · MIKEKA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
-    /* ----- reset & base ----- */
     * { box-sizing: border-box; margin: 0; }
     html, body {
       width: 100%;
@@ -19,7 +18,7 @@
     button, input, textarea { font: inherit; }
     button { cursor: pointer; }
 
-    /* ----- LOADER (quick fade) ----- */
+    /* loader */
     .loader {
       position: fixed;
       inset: 0;
@@ -30,14 +29,10 @@
       z-index: 9999;
       animation: loaderOut .4s 0.8s forwards;
     }
-    .loader b {
-      font-size: clamp(60px, 12vw, 140px);
-      font-weight: 950;
-      letter-spacing: -.08em;
-    }
+    .loader b { font-size: clamp(60px, 12vw, 140px); font-weight: 950; letter-spacing: -.08em; }
     @keyframes loaderOut { to { opacity: 0; visibility: hidden; } }
 
-    /* ----- minimal header / topbar ----- */
+    /* topbar */
     .topbar {
       position: fixed;
       z-index: 50;
@@ -92,7 +87,7 @@
     }
     .top-btn.danger:hover { background: #333; }
 
-    /* ----- main content (cards) ----- */
+    /* content */
     .content {
       width: min(1200px, 94vw);
       margin: 0 auto;
@@ -137,7 +132,7 @@
     }
     .refresh-btn:hover { border-color: #ff6a00; color: #ff6a00; }
 
-    /* ----- card grid ----- */
+    /* card grid */
     .posts {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -308,7 +303,7 @@
       color: #999;
     }
 
-    /* ----- auth modal (light overlay) ----- */
+    /* auth modal */
     .auth-overlay {
       position: fixed;
       inset: 0;
@@ -385,7 +380,7 @@
     .switch-wrap { margin-top: 18px; font-size: 14px; color: #555; }
     .forgot-link { font-size: 13px; margin-top: 4px; display: inline-block; }
 
-    /* ----- payment modal (simple) ----- */
+    /* payment modal */
     .modal {
       position: fixed;
       inset: 0;
@@ -452,7 +447,6 @@
     .cancel-btn { background: #f0f0f0; }
     .danger-btn { background: #d93025; color: #fff; }
 
-    /* ----- responsive ----- */
     @media (max-width: 600px) {
       .topbar { padding: 0 16px; }
       .content { padding-top: 80px; }
@@ -603,7 +597,7 @@
       } catch (_) {}
     }
 
-    // ----- render posts (cards) -----
+    // ----- render posts (cards) - ALWAYS VISIBLE even without login -----
     function listenPosts() {
       if (stopPosts) { stopPosts(); }
       const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
@@ -622,7 +616,7 @@
           const price = Number(post.price || 0);
           const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString() : 'Just now';
 
-          // FREE
+          // FREE content – always visible
           if (price <= 0) {
             return `<article class="post-card unlocked">
               <div class="card-top"><div class="category-icon"><i class="fa-regular fa-file-lines"></i></div><div class="badge free"><i class="fa-solid fa-unlock"></i> FREE</div></div>
@@ -632,7 +626,7 @@
             </article>`;
           }
 
-          // ADMIN always sees full
+          // ADMIN always sees full content
           if (currentIsAdmin) {
             return `<article class="post-card unlocked">
               <div class="card-top"><div class="category-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="badge admin"><i class="fa-solid fa-user-shield"></i> ADMIN</div></div>
@@ -642,7 +636,7 @@
             </article>`;
           }
 
-          // PAID (user has purchased)
+          // PAID (user has purchased) – full content
           if (currentUser && paidPosts.has(item.id)) {
             return `<article class="post-card unlocked" id="post-${item.id}">
               <div class="card-top"><div class="category-icon"><i class="fa-solid fa-lock-open"></i></div><div class="badge free"><i class="fa-solid fa-circle-check"></i> UNLOCKED</div></div>
@@ -651,10 +645,10 @@
             </article>`;
           }
 
-          // LOCKED (visible to all, with pay button if logged in)
+          // LOCKED – card visible, content hidden, pay button only if logged in
           const payBtn = currentUser 
             ? `<button class="pay-button" data-id="${item.id}"><i class="fa-solid fa-credit-card"></i> PAY & UNLOCK</button>`
-            : `<div style="margin-top:12px;color:#999;font-size:13px;text-align:center;"><i class="fa-solid fa-circle-info"></i> Sign in to unlock</div>`;
+            : `<div style="margin-top:12px;color:#999;font-size:13px;text-align:center;"><i class="fa-solid fa-circle-info"></i> <button class="link-btn" id="loginPromptBtn" style="color:#ff6a00;font-weight:700;">Sign in</button> to unlock</div>`;
 
           return `<article class="post-card" id="post-${item.id}">
             <div class="card-top"><div class="category-icon"><i class="fa-solid fa-lock"></i></div><div class="badge premium"><i class="fa-solid fa-crown"></i> PREMIUM</div></div>
@@ -675,6 +669,12 @@
             openPaymentModal(doc.id, doc.data());
           };
         });
+
+        // attach "sign in" prompt inside locked cards
+        box.querySelectorAll('#loginPromptBtn').forEach(btn => {
+          btn.onclick = () => { openAuth(); };
+        });
+
         // delete events
         box.querySelectorAll('.delete-button').forEach(btn => {
           btn.onclick = () => {
@@ -702,7 +702,6 @@
 
     authBtn.onclick = () => {
       if (currentUser) { 
-        // sign out
         signOut(auth);
         return;
       }
@@ -723,7 +722,6 @@
       switchBtn.parentElement.innerHTML = signupMode 
         ? 'Already have an account? <button class="link-btn" id="switchBtn">SIGN IN</button>'
         : 'Don\'t have an account? <button class="link-btn" id="switchBtn">CREATE ACCOUNT</button>';
-      // re-bind switch
       document.getElementById('switchBtn').onclick = switchBtn.onclick;
       $('authMsg').textContent = '';
     };
@@ -772,7 +770,6 @@
         authBtn.textContent = 'SIGN OUT';
         authBtn.className = 'top-btn danger';
         $('userName').textContent = user.displayName || user.email;
-        // check admin
         getDoc(doc(db, 'people', user.uid)).then(snap => {
           const data = snap.exists() ? snap.data() : { role: 'user' };
           currentIsAdmin = data.role === 'admin';
