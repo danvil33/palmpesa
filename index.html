@@ -1133,6 +1133,116 @@ textarea:focus-visible{
   .modal-box{padding:26px}
 
 }
+/* ================= RESPONSIVENESS PATCH ================= */
+
+@media(max-width:900px){
+
+  .home-hero{min-height:auto}
+
+  .brand{padding:44px 0}
+
+  .intro{padding:48px 32px}
+
+  .hero{flex-wrap:wrap;align-items:flex-start;row-gap:20px}
+
+  .hero-icon{display:none}
+
+  .admin-grid{grid-template-columns:1fr}
+
+  .admin-grid .full{grid-column:auto}
+
+  .auth-card{grid-template-columns:1fr}
+
+  .auth-side{display:none}
+
+}
+
+@media(max-width:700px){
+
+  .home-nav{padding:14px 18px;flex-wrap:wrap;gap:10px}
+
+  .home-nav .logo{font-size:18px}
+
+  .posts{grid-template-columns:1fr;gap:16px}
+
+  .post-card{min-height:auto;padding:20px}
+
+  .locked-area{padding:20px}
+
+  .content{padding-top:96px}
+
+  .home-content-inner{padding:40px 0 56px}
+
+  .topbar{height:64px;padding:0 14px}
+
+  .logout{padding:9px 13px;font-size:11px}
+
+  .section-header{align-items:flex-start;flex-direction:column;gap:10px}
+
+  .refresh{align-self:flex-start}
+
+}
+
+@media(max-width:480px){
+
+  .intro h1{font-size:36px}
+
+  .intro p{font-size:14.5px;margin:18px 0 24px}
+
+  .brand b{font-size:56px}
+
+  .primary-btn,
+  .ghost-btn{width:100%;justify-content:center}
+
+  .eyebrow{font-size:9.5px}
+
+  .auth-main{padding:26px}
+
+  .auth-main h1{font-size:27px}
+
+  .field input,
+  .field textarea{padding:12px 13px}
+
+  .modal-box{padding:20px;border-radius:18px}
+
+  .confirm-box{padding:22px}
+
+  .confirm-actions{flex-direction:column}
+
+  .payment-icon,
+  .confirm-icon{width:52px;height:52px;font-size:18px;border-radius:14px}
+
+  .modal-box h2{margin-right:40px;font-size:22px}
+
+  .price{font-size:19px}
+
+  .badge{font-size:9px;padding:6px 9px}
+
+  .section-title h2{font-size:19px}
+
+  .hero-copy h1{font-size:34px}
+
+  .hero-copy p{font-size:14px}
+
+  .admin-panel{padding:18px;border-radius:16px}
+
+  .admin-title h2{font-size:18px}
+
+  .post-card h3{font-size:19px}
+
+  .lock-circle{width:48px;height:48px;font-size:17px}
+}
+
+@media(max-width:360px){
+
+  .brand b{font-size:46px}
+
+  .intro h1{font-size:31px}
+
+  .content{width:96vw}
+
+  .home-content-inner{width:96vw}
+}
 </style>
 </head>
 
@@ -2989,13 +3099,13 @@ $('payButton').disabled=false;
 /* PAYMENT STATUS */
 async function pollPaymentStatus(orderId){
 
-let delay=2000;
+let delay=1200;
 
-const maxDelay=10000;
+const maxDelay=4000;
 
 let attempts=0;
 
-const maxAttempts=60;
+const maxAttempts=120;
 
 
 while(
@@ -3157,7 +3267,7 @@ await sleep(delay);
 
 delay=
 Math.min(
-delay*2,
+delay*1.4,
 maxDelay
 );
 
@@ -3175,7 +3285,7 @@ await sleep(delay);
 
 delay=
 Math.min(
-delay*2,
+delay*1.4,
 maxDelay
 );
 
