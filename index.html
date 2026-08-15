@@ -783,7 +783,60 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   margin-bottom:14px;
   display:flex;
   align-items:center;
+  justify-content:space-between;
+  gap:10px
+}
+
+.unlocked-header span{
+  display:inline-flex;
+  align-items:center;
   gap:7px
+}
+
+.content-header{
+  color:#8a848a;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.02em;
+  margin-bottom:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px
+}
+
+.content-header span{
+  display:inline-flex;
+  align-items:center;
+  gap:7px
+}
+
+.copy-btn{
+  flex-shrink:0;
+  border:1px solid var(--panel-line);
+  background:var(--paper);
+  color:#8a848a;
+  font-size:11px;
+  font-weight:700;
+  width:28px;
+  height:28px;
+  border-radius:8px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+
+.copy-btn:hover{
+  border-color:var(--orange);
+  color:var(--orange-deep)
+}
+
+.copy-btn.copied{
+  background:var(--teal-tint);
+  color:var(--teal);
+  border-color:transparent
 }
 
 .content-text{
@@ -1918,6 +1971,109 @@ character=>({
 }
 
 
+/* COPY CONTENT TO CLIPBOARD */
+function attachCopyHandlers(scope){
+
+scope
+.querySelectorAll('.copy-btn')
+.forEach(button=>{
+
+button.onclick=async()=>{
+
+const container=
+button.closest(
+'.free-content, .unlocked-content'
+);
+
+const textEl=
+container
+?
+container.querySelector('.content-text')
+:
+null;
+
+if(!textEl){
+return;
+}
+
+const text=
+textEl.textContent.trim();
+
+try{
+
+await navigator.clipboard.writeText(text);
+
+}catch(error){
+
+console.error(
+'Clipboard write failed:',
+error
+);
+
+try{
+
+const range=document.createRange();
+
+range.selectNodeContents(textEl);
+
+const selection=window.getSelection();
+
+selection.removeAllRanges();
+
+selection.addRange(range);
+
+document.execCommand('copy');
+
+selection.removeAllRanges();
+
+}catch(fallbackError){
+
+console.error(
+'Fallback copy failed:',
+fallbackError
+);
+
+return;
+
+}
+
+}
+
+const icon=
+button.querySelector('i');
+
+const originalClass=
+icon?icon.className:'';
+
+button.classList.add('copied');
+
+if(icon){
+
+icon.className=
+'fa-solid fa-check';
+
+}
+
+setTimeout(()=>{
+
+button.classList.remove('copied');
+
+if(icon){
+
+icon.className=
+originalClass;
+
+}
+
+},1400);
+
+};
+
+});
+
+}
+
+
 /* LOAD PAID CONTENT */
 async function loadPurchases(){
 
@@ -2433,7 +2589,7 @@ if(price<=0){
 
 return `
 
-<article class="post-card unlocked">
+<article class="post-card unlocked" data-post-id="${item.id}">
 
 <div class="card-top">
 
@@ -2462,6 +2618,16 @@ ${esc(date)}
 </div>
 
 <div class="free-content">
+
+<div class="content-header">
+
+<span><i class="fa-solid fa-unlock"></i> FREE CONTENT</span>
+
+<button class="copy-btn" type="button" title="Copy content">
+<i class="fa-regular fa-copy"></i>
+</button>
+
+</div>
 
 <div class="content-text">
 ${esc(post.content||'')}
@@ -2496,7 +2662,8 @@ if(currentIsAdmin){
 return `
 
 <article
-class="post-card unlocked">
+class="post-card unlocked"
+data-post-id="${item.id}">
 
 <div class="card-top">
 
@@ -2528,9 +2695,11 @@ ${esc(date)}
 
 <div class="unlocked-header">
 
-<i class="fa-solid fa-circle-check"></i>
+<span><i class="fa-solid fa-circle-check"></i> ADMIN ACCESS — CONTENT VISIBLE</span>
 
-ADMIN ACCESS — CONTENT VISIBLE
+<button class="copy-btn" type="button" title="Copy content">
+<i class="fa-regular fa-copy"></i>
+</button>
 
 </div>
 
@@ -2564,7 +2733,7 @@ return `
 
 <article
 class="post-card unlocked"
-id="post-${item.id}">
+data-post-id="${item.id}">
 
 <div class="card-top">
 
@@ -2596,9 +2765,11 @@ ${esc(date)}
 
 <div class="unlocked-header">
 
-<i class="fa-solid fa-circle-check"></i>
+<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</span>
 
-PAYMENT COMPLETED — CONTENT UNLOCKED
+<button class="copy-btn" type="button" title="Copy content">
+<i class="fa-regular fa-copy"></i>
+</button>
 
 </div>
 
@@ -2620,7 +2791,7 @@ return `
 
 <article
 class="post-card"
-id="post-${item.id}">
+data-post-id="${item.id}">
 
 <div class="card-top">
 
@@ -2692,6 +2863,10 @@ PAY & UNLOCK
 boxes.forEach(box=>{
 
 box.innerHTML=html;
+
+
+/* COPY BUTTONS */
+attachCopyHandlers(box);
 
 
 /* PAYMENT BUTTONS */
@@ -3311,18 +3486,22 @@ $('paymentMsg').textContent=
 /* UNLOCK CARD AFTER PAYMENT */
 function unlockCard(postId,post){
 
-const card=
-document.getElementById(
-'post-'+postId
+const cards=
+document.querySelectorAll(
+'[data-post-id="'+
+CSS.escape(postId)+
+'"]'
 );
 
-if(!card){
+if(!cards.length){
 
 listenPosts();
 
 return;
 
 }
+
+cards.forEach(card=>{
 
 card.classList.add('unlocked');
 
@@ -3337,9 +3516,11 @@ locked.outerHTML=`
 
 <div class="unlocked-header">
 
-<i class="fa-solid fa-circle-check"></i>
+<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</span>
 
-PAYMENT COMPLETED — CONTENT UNLOCKED
+<button class="copy-btn" type="button" title="Copy content">
+<i class="fa-regular fa-copy"></i>
+</button>
 
 </div>
 
@@ -3391,6 +3572,10 @@ icon.innerHTML=
 '<i class="fa-solid fa-lock-open"></i>';
 
 }
+
+attachCopyHandlers(card);
+
+});
 
 }
 
