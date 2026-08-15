@@ -256,34 +256,65 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   align-items:center;
   justify-content:center;
   padding:24px;
-  background:var(--panel)
+  background:var(--ink);
+  overflow:auto;
+}
+
+.auth-backdrop{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(255,106,0,.16), transparent 42%),
+    radial-gradient(circle at 86% 88%, rgba(14,107,92,.18), transparent 46%),
+    var(--ink);
+  z-index:0;
 }
 
 .auth-card{
-  width:min(920px,95vw);
+  position:relative;
+  z-index:1;
+  width:min(960px,95vw);
   display:grid;
-  grid-template-columns:38% 62%;
+  grid-template-columns:40% 60%;
   background:var(--paper);
-  border-radius:26px;
+  border-radius:28px;
   overflow:hidden;
-  box-shadow:var(--shadow-lift);
+  box-shadow:0 40px 100px rgba(0,0,0,.45), 0 2px 0 rgba(255,255,255,.06) inset;
+  border:1px solid rgba(255,255,255,.06);
 }
 
 .auth-side{
   position:relative;
-  background:var(--ink);
+  background:
+    radial-gradient(circle at 78% 8%, rgba(255,106,0,.35), transparent 55%),
+    linear-gradient(165deg, #1d1822 0%, var(--ink) 70%);
   color:#fff;
-  padding:46px;
+  padding:44px 42px;
   display:flex;
   flex-direction:column;
   justify-content:space-between;
-  min-height:560px;
+  min-height:600px;
   overflow:hidden;
 }
 
+.auth-side-glow{
+  position:absolute;
+  width:280px;
+  height:280px;
+  border-radius:50%;
+  background:radial-gradient(circle, rgba(255,106,0,.5), transparent 70%);
+  filter:blur(10px);
+  bottom:-120px;
+  left:-90px;
+  opacity:.55;
+  pointer-events:none;
+}
+
+.auth-side .burst{opacity:.14}
+
 .auth-logo{
   font-family:'Space Grotesk',sans-serif;
-  font-size:56px;
+  font-size:52px;
   font-weight:700;
   letter-spacing:-.04em;
   position:relative;
@@ -292,38 +323,75 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
 .auth-logo span{color:var(--orange)}
 
+.auth-side-foot{position:relative;z-index:1}
+
 .auth-side h2{
-  font-size:26px;
+  font-size:24px;
   margin:0 0 10px;
   position:relative;
   z-index:1;
-  font-weight:600;
+  font-weight:700;
+  letter-spacing:-.01em;
 }
 
 .auth-side p{
-  color:rgba(255,255,255,.6);
+  color:rgba(255,255,255,.62);
   line-height:1.65;
   position:relative;
   z-index:1;
-  font-size:14.5px;
+  font-size:14px;
+  max-width:280px;
 }
 
-.auth-main{padding:52px}
+.auth-main{
+  padding:50px 48px;
+  display:flex;
+  flex-direction:column;
+}
+
+.auth-toggle{
+  display:flex;
+  gap:4px;
+  padding:4px;
+  background:var(--panel);
+  border:1px solid var(--panel-line);
+  border-radius:12px;
+  margin-bottom:30px;
+  width:fit-content;
+}
+
+.auth-toggle-btn{
+  border:0;
+  background:transparent;
+  color:#8b8590;
+  padding:10px 20px;
+  border-radius:9px;
+  font-weight:700;
+  font-size:12px;
+  letter-spacing:.03em;
+  transition:background .18s ease, color .18s ease, box-shadow .18s ease;
+}
+
+.auth-toggle-btn.active{
+  background:var(--paper);
+  color:var(--ink);
+  box-shadow:0 4px 14px rgba(21,18,26,.12);
+}
 
 .auth-main h1{
   margin:0;
-  font-size:36px;
+  font-size:32px;
   letter-spacing:-.03em;
   font-weight:700;
 }
 
 .auth-main>p{
   color:var(--ink-soft);
-  margin-bottom:28px;
-  font-size:15px;
+  margin:8px 0 26px;
+  font-size:14.5px;
 }
 
-.field{margin:18px 0}
+.field{margin:16px 0}
 
 .field label{
   display:block;
@@ -336,6 +404,24 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   text-transform:uppercase;
 }
 
+.input-wrap{position:relative}
+
+.field-icon{
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#b4aeb4;
+  font-size:14px;
+  pointer-events:none;
+  transition:color .15s ease;
+}
+
+.input-wrap input:focus + .field-icon,
+.input-wrap:focus-within .field-icon{
+  color:var(--orange-deep);
+}
+
 .field input,
 .field textarea{
   width:100%;
@@ -343,33 +429,46 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border:1.5px solid var(--panel-line);
   border-radius:var(--radius-sm);
   outline:none;
-  background:var(--paper);
-  transition:border-color .15s ease, box-shadow .15s ease;
+  background:var(--panel);
+  transition:border-color .15s ease, box-shadow .15s ease, background .15s ease;
   color:var(--ink);
 }
+
+.input-wrap input{padding-left:44px}
 
 .field input:focus,
 .field textarea:focus{
   border-color:var(--orange);
-  box-shadow:0 0 0 4px var(--orange-tint)
+  box-shadow:0 0 0 4px var(--orange-tint);
+  background:var(--paper);
 }
 
 .field textarea{resize:vertical}
+
+.field-foot{
+  display:flex;
+  justify-content:flex-end;
+  margin:-4px 0 22px;
+}
 
 .submit{
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
-  background:var(--orange);
+  background:linear-gradient(135deg, var(--orange), var(--orange-deep));
   color:#fff;
   padding:16px;
   font-weight:700;
-  font-size:14.5px;
-  letter-spacing:.01em;
-  transition:background .15s ease, transform .15s ease;
+  font-size:14px;
+  letter-spacing:.02em;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 14px 30px rgba(255,106,0,.3);
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 
-.submit:hover{background:var(--orange-deep);transform:translateY(-1px)}
+.submit:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 18px 36px rgba(255,106,0,.36)}
 
 .submit:disabled{
   opacity:.55;
@@ -382,14 +481,26 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   background:none;
   color:var(--orange-deep);
   font-weight:700;
-  padding:0
+  padding:0;
+  font-size:13px;
 }
 
 .msg{
-  min-height:20px;
+  min-height:0;
   color:var(--danger);
-  font-size:13px;
-  line-height:1.5
+  font-size:12.5px;
+  line-height:1.5;
+  font-weight:600;
+}
+
+.msg:not(:empty){
+  background:#fff1f0;
+  border:1px solid #ffd4d0;
+  border-radius:var(--radius-sm);
+  padding:11px 14px;
+  margin-bottom:18px;
+  display:flex;
+  align-items:center;
 }
 
 /* ---------- APP ---------- */
@@ -497,45 +608,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .tab-panel{display:none}
 .tab-panel.active-panel{display:block}
 
-/* ---------- STATS / SHORTCUTS ---------- */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:18px;
-  margin:8px 0 36px
-}
-
-.stat-card{
-  background:var(--paper);
-  border:1px solid var(--panel-line);
-  border-radius:var(--radius-md);
-  padding:22px;
-  box-shadow:var(--shadow-soft);
-}
-
-.stat-card .stat-value{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:32px;
-  font-weight:700;
-  color:var(--orange-deep);
-}
-
-.stat-card .stat-label{
-  color:#8b8590;
-  font-size:11.5px;
-  margin-top:6px;
-  font-family:'IBM Plex Mono',monospace;
-  letter-spacing:.04em;
-  text-transform:uppercase;
-}
-
-.home-shortcuts{
-  display:flex;
-  gap:14px;
-  flex-wrap:wrap;
-  margin-bottom:44px;
-}
-
 /* ---------- COUNTDOWN ---------- */
 .countdown{
   display:inline-flex;
@@ -635,44 +707,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   width:min(1140px,92vw);
   margin:auto;
   padding:190px 0 70px
-}
-
-.hero{
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-end;
-  margin-bottom:48px;
-  gap:20px;
-}
-
-.hero-copy h1{
-  font-size:clamp(42px,6.4vw,74px);
-  line-height:.97;
-  letter-spacing:-.045em;
-  margin:0;
-  font-weight:700;
-}
-
-.hero-copy h1 span{color:var(--orange)}
-
-.hero-copy p{
-  color:var(--ink-soft);
-  line-height:1.6;
-  margin-top:18px;
-  font-size:15.5px;
-}
-
-.hero-icon{
-  width:88px;
-  height:88px;
-  flex-shrink:0;
-  border-radius:24px;
-  background:var(--orange);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:30px;
-  box-shadow:0 14px 30px rgba(255,106,0,.3);
 }
 
 /* ---------- ADMIN ---------- */
@@ -1319,10 +1353,6 @@ textarea:focus-visible{
 
   .intro{padding:48px 32px}
 
-  .hero{flex-wrap:wrap;align-items:flex-start;row-gap:20px}
-
-  .hero-icon{display:none}
-
   .auth-card{grid-template-columns:1fr}
 
   .auth-side{display:none}
@@ -1353,15 +1383,11 @@ textarea:focus-visible{
 
   .content{width:94vw;padding-top:154px}
 
-  .stats-grid{grid-template-columns:1fr 1fr;gap:12px}
-
   .profile-card{padding:22px;gap:16px}
 
   .profile-avatar{width:60px;height:60px;font-size:20px}
 
   .home-content-inner{width:94vw;padding:40px 0 56px}
-
-  .hero-copy h1{font-size:44px}
 
   .section-header{align-items:flex-start;flex-direction:column;gap:10px}
 
@@ -1399,6 +1425,10 @@ textarea:focus-visible{
   .field input,
   .field textarea{padding:12px 13px}
 
+  .input-wrap input{padding-left:40px}
+
+  .field-icon{left:13px}
+
   .modal-box{padding:20px;border-radius:18px}
 
   .confirm-box{padding:22px}
@@ -1415,10 +1445,6 @@ textarea:focus-visible{
   .badge{font-size:9px;padding:6px 9px}
 
   .section-title h2{font-size:19px}
-
-  .hero-copy h1{font-size:34px}
-
-  .hero-copy p{font-size:14px}
 
   .admin-panel{padding:18px;border-radius:16px}
 
@@ -1553,16 +1579,24 @@ Loading content...
 <!-- AUTH -->
 <section class="auth" id="auth">
 
+<div class="auth-backdrop" aria-hidden="true"></div>
+
 <div class="auth-card">
 
 <aside class="auth-side">
 
+<div class="auth-side-glow" aria-hidden="true"></div>
+
 <div class="burst" aria-hidden="true">
-<svg viewBox="0 0 400 400"><g stroke="#ff6a00" stroke-width="2">
+<svg viewBox="0 0 400 400"><g stroke="#ff6a00" stroke-width="1.4">
 <line x1="200" y1="0" x2="200" y2="400"/>
 <line x1="0" y1="200" x2="400" y2="200"/>
 <line x1="60" y1="60" x2="340" y2="340"/>
 <line x1="340" y1="60" x2="60" y2="340"/>
+<line x1="200" y1="0" x2="60" y2="340"/>
+<line x1="200" y1="0" x2="340" y2="340"/>
+<line x1="200" y1="400" x2="60" y2="60"/>
+<line x1="200" y1="400" x2="340" y2="60"/>
 </g></svg>
 </div>
 
@@ -1570,7 +1604,7 @@ Loading content...
 M<span>B</span>
 </div>
 
-<div>
+<div class="auth-side-foot">
 
 <h2>MIKEKA BOOM</h2>
 
@@ -1583,6 +1617,18 @@ Your private hub for premium betting analysis and winning betslips.
 </aside>
 
 <main class="auth-main">
+
+<div class="auth-toggle" id="authToggle">
+
+<button class="auth-toggle-btn active" data-mode="signin" type="button">
+SIGN IN
+</button>
+
+<button class="auth-toggle-btn" data-mode="signup" type="button">
+CREATE ACCOUNT
+</button>
+
+</div>
 
 <h1 id="title">
 Welcome back.
@@ -1598,6 +1644,10 @@ Sign in to continue.
 
 <label>FULL NAME</label>
 
+<div class="input-wrap">
+
+<i class="fa-solid fa-user field-icon"></i>
+
 <input
 id="name"
 autocomplete="name"
@@ -1605,9 +1655,15 @@ placeholder="Your name">
 
 </div>
 
+</div>
+
 <div class="field">
 
 <label>EMAIL</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-envelope field-icon"></i>
 
 <input
 id="email"
@@ -1617,9 +1673,15 @@ placeholder="you@example.com">
 
 </div>
 
+</div>
+
 <div class="field">
 
 <label>PASSWORD</label>
+
+<div class="input-wrap">
+
+<i class="fa-solid fa-lock field-icon"></i>
 
 <input
 id="password"
@@ -1629,20 +1691,21 @@ placeholder="••••••••">
 
 </div>
 
+</div>
+
+<div class="field-foot">
+
 <button class="link" id="forgot">
 Forgot password?
 </button>
 
-<br><br>
+</div>
 
 <button class="submit" id="submit">
+<i class="fa-solid fa-arrow-right-to-bracket"></i>
+&nbsp;
 SIGN IN
 </button>
-
-<p id="switch">
-Don't have an account?
-<button class="link">CREATE ACCOUNT</button>
-</p>
 
 </main>
 
@@ -1675,11 +1738,7 @@ SIGN OUT
 
 <nav class="app-tabs" id="appTabs">
 
-<button class="tab-btn active" data-tab="home">
-<i class="fa-solid fa-house"></i> Home
-</button>
-
-<button class="tab-btn" data-tab="betslips">
+<button class="tab-btn active" data-tab="betslips">
 <i class="fa-solid fa-list-check"></i> Betslips
 </button>
 
@@ -1696,72 +1755,8 @@ SIGN OUT
 
 <main class="content">
 
-<!-- HOME TAB -->
-<div class="tab-panel active-panel" id="tabHome">
-
-<div class="hero">
-
-<div class="hero-copy">
-
-<div class="eyebrow">
-<span class="eyebrow-dot"></span>
-MIKEKA BOOM ANALYSIS
-</div>
-
-<h1>
-Betting <span>Analysis.</span>
-</h1>
-
-<p id="roleText">
-Your betting analysis hub.
-</p>
-
-</div>
-
-<div class="hero-icon">
-<i class="fa-solid fa-chart-line"></i>
-</div>
-
-</div>
-
-<div class="stats-grid">
-
-<div class="stat-card">
-<div class="stat-value" id="statAvailable">0</div>
-<div class="stat-label">Active Betslips</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-value" id="statUnlocked">0</div>
-<div class="stat-label">My Unlocked Betslips</div>
-</div>
-
-<div class="stat-card">
-<div class="stat-value" id="statRole">Member</div>
-<div class="stat-label">Account Type</div>
-</div>
-
-</div>
-
-<div class="home-shortcuts">
-
-<button class="primary-btn" id="goBetslips" type="button">
-<i class="fa-solid fa-list-check"></i>
-BROWSE BETSLIPS
-</button>
-
-<button class="ghost-btn" id="goMyBetslip" type="button">
-<i class="fa-solid fa-ticket"></i>
-MY BETSLIP
-</button>
-
-</div>
-
-</div>
-
-
 <!-- BETSLIPS TAB -->
-<div class="tab-panel" id="tabBetslips">
+<div class="tab-panel active-panel" id="tabBetslips">
 
 <!-- ADMIN PANEL -->
 <section id="adminPanel" class="admin-panel" style="display:none">
@@ -2406,7 +2401,6 @@ originalClass;
 
 /* TAB NAVIGATION */
 const tabPanelMap={
-home:'tabHome',
 betslips:'tabBetslips',
 mybetslip:'tabMyBetslip',
 profile:'tabProfile'
@@ -2425,7 +2419,7 @@ panel.classList.remove('active-panel');
 });
 
 const targetPanel=
-$(tabPanelMap[tab]||tabPanelMap.home);
+$(tabPanelMap[tab]||tabPanelMap.betslips);
 
 if(targetPanel){
 targetPanel.classList.add('active-panel');
@@ -2455,26 +2449,6 @@ switchTab(button.dataset.tab);
 };
 
 });
-
-const goBetslipsBtn=$('goBetslips');
-
-if(goBetslipsBtn){
-
-goBetslipsBtn.onclick=()=>{
-switchTab('betslips');
-};
-
-}
-
-const goMyBetslipBtn=$('goMyBetslip');
-
-if(goMyBetslipBtn){
-
-goMyBetslipBtn.onclick=()=>{
-switchTab('mybetslip');
-};
-
-}
 
 
 /* VALIDITY COUNTDOWN */
@@ -2731,10 +2705,21 @@ promptSignIn('');
 };
 
 
-/* AUTH SWITCH */
-$('switch').onclick=()=>{
+/* AUTH TOGGLE */
+function setAuthMode(nextSignup){
 
-signup=!signup;
+signup=nextSignup;
+
+document
+.querySelectorAll('.auth-toggle-btn')
+.forEach(button=>{
+
+button.classList.toggle(
+'active',
+(button.dataset.mode==='signup')===signup
+);
+
+});
 
 $('title').textContent=
 signup
@@ -2756,17 +2741,24 @@ signup?'block':'none';
 $('forgot').style.display=
 signup?'none':'inline-block';
 
-$('submit').textContent=
-signup?'CREATE ACCOUNT':'SIGN IN';
-
-$('switch').innerHTML=
+$('submit').innerHTML=
 signup
 ?
-'Already have an account? <button class="link">SIGN IN</button>'
+'<i class="fa-solid fa-user-plus"></i>&nbsp; CREATE ACCOUNT'
 :
-'Don\'t have an account? <button class="link">CREATE ACCOUNT</button>';
+'<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; SIGN IN';
 
+}
+
+document
+.querySelectorAll('.auth-toggle-btn')
+.forEach(button=>{
+
+button.onclick=()=>{
+setAuthMode(button.dataset.mode==='signup');
 };
+
+});
 
 
 /* LOGIN / SIGNUP */
@@ -2949,26 +2941,9 @@ currentIsAdmin=admin;
 $('adminPanel').style.display=
 admin?'block':'none';
 
-$('roleText').textContent=
-admin
-?
-'Administrator — view, publish and manage all betslips.'
-:
-'Member — unlock premium betslips after payment.';
-
-const statRole=$('statRole');
-
-if(statRole){
-
-statRole.textContent=
-admin?'Admin':'Member';
-
-}
-
-
 populateProfile(user,data);
 
-switchTab('home');
+switchTab('betslips');
 
 
 await loadPurchases();
@@ -3304,19 +3279,6 @@ item=>
 item.data().published!==false&&
 !isExpired(item.data())
 );
-
-/* HOME STATS */
-const statAvailable=$('statAvailable');
-
-if(statAvailable){
-statAvailable.textContent=docs.length;
-}
-
-const statUnlocked=$('statUnlocked');
-
-if(statUnlocked){
-statUnlocked.textContent=paidPosts.size;
-}
 
 refreshProfileStats();
 
