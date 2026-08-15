@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MIKEKA BOOM · Premium Content</title>
+  <title>Content Cards · MIKEKA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
   <style>
-    /* ----- RESET & BASE ----- */
+    /* ----- reset & base ----- */
     * { box-sizing: border-box; margin: 0; }
     html, body {
       width: 100%;
@@ -19,7 +19,7 @@
     button, input, textarea { font: inherit; }
     button { cursor: pointer; }
 
-    /* ----- LOADER ----- */
+    /* ----- LOADER (quick fade) ----- */
     .loader {
       position: fixed;
       inset: 0;
@@ -28,344 +28,146 @@
       display: grid;
       place-items: center;
       z-index: 9999;
-      animation: loaderOut .5s 1.2s forwards;
+      animation: loaderOut .4s 0.8s forwards;
     }
     .loader b {
-      font-size: clamp(80px, 16vw, 220px);
+      font-size: clamp(60px, 12vw, 140px);
       font-weight: 950;
-      letter-spacing: -.12em;
+      letter-spacing: -.08em;
     }
     @keyframes loaderOut { to { opacity: 0; visibility: hidden; } }
 
-    /* ----- HOME (splash) ----- */
-    .home {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      background: #fff;
-      z-index: 10;
-    }
-    .brand {
-      width: 43%;
-      background: #ff6a00;
-      color: #fff;
-      display: grid;
-      place-items: center;
-      font-size: clamp(80px, 12vw, 190px);
-      font-weight: 950;
-      letter-spacing: -.12em;
-    }
-    .intro {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      padding: 8vw;
-    }
-    .intro-inner { max-width: 650px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: #ff6a00;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .15em;
-      text-transform: uppercase;
-      margin-bottom: 20px;
-    }
-    .eyebrow-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: #ff6a00;
-    }
-    .intro h1 {
-      font-size: clamp(48px, 7vw, 90px);
-      line-height: .94;
-      margin: 0;
-      letter-spacing: -.06em;
-    }
-    .intro h1 span { color: #ff6a00; }
-    .intro p {
-      color: #777;
-      line-height: 1.7;
-      max-width: 570px;
-      margin: 25px 0 30px;
-    }
-    .primary-btn {
-      border: 0;
-      background: #ff6a00;
-      color: #fff;
-      padding: 15px 23px;
-      border-radius: 10px;
-      font-weight: 900;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      transition: .2s;
-    }
-    .primary-btn:hover { background: #df5c00; transform: translateY(-1px); }
-
-    /* ----- AUTH (overlay) ----- */
-    .auth {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: #f5f5f5;
-      z-index: 20;
-    }
-    .auth-card {
-      width: min(900px, 95vw);
-      display: grid;
-      grid-template-columns: 40% 60%;
-      background: #fff;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 25px 80px #00000018;
-    }
-    .auth-side {
-      background: #ff6a00;
-      color: #fff;
-      padding: 45px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      min-height: 550px;
-    }
-    .auth-logo {
-      font-size: 65px;
-      font-weight: 950;
-      letter-spacing: -.1em;
-    }
-    .auth-side h2 { font-size: 28px; margin: 0 0 10px; }
-    .auth-side p { color: #fff9; line-height: 1.6; }
-    .auth-main { padding: 50px; }
-    .auth-main h1 {
-      margin: 0;
-      font-size: 42px;
-      letter-spacing: -.04em;
-    }
-    .auth-main > p { color: #777; margin-bottom: 30px; }
-    .field { margin: 17px 0; }
-    .field label {
-      display: block;
-      font-size: 11px;
-      font-weight: 900;
-      letter-spacing: .08em;
-      margin-bottom: 8px;
-      color: #444;
-    }
-    .field input, .field textarea {
-      width: 100%;
-      padding: 14px 15px;
-      border: 1px solid #ddd;
-      border-radius: 9px;
-      outline: none;
-      background: #fff;
-    }
-    .field input:focus, .field textarea:focus {
-      border-color: #ff6a00;
-      box-shadow: 0 0 0 3px #ff6a0012;
-    }
-    .field textarea { resize: vertical; }
-    .submit {
-      width: 100%;
-      border: 0;
-      border-radius: 9px;
-      background: #ff6a00;
-      color: #fff;
-      padding: 15px;
-      font-weight: 900;
-    }
-    .submit:hover { background: #df5c00; }
-    .submit:disabled { opacity: .55; cursor: not-allowed; }
-    .link {
-      border: 0;
-      background: none;
-      color: #ff6a00;
-      font-weight: 800;
-      padding: 0;
-    }
-    .msg { min-height: 20px; color: #d43b00; font-size: 13px; line-height: 1.5; }
-
-    /* ----- APP (main) ----- */
-    .app {
-      display: none;
-      min-height: 100vh;
-      background: #f7f7f8;
-    }
+    /* ----- minimal header / topbar ----- */
     .topbar {
       position: fixed;
       z-index: 50;
       top: 0; left: 0; right: 0;
-      height: 72px;
+      height: 64px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 35px;
+      padding: 0 24px;
       background: #fff;
       border-bottom: 1px solid #ececec;
     }
     .logo {
-      font-size: 24px;
-      font-weight: 950;
+      font-size: 20px;
+      font-weight: 800;
       color: #ff6a00;
-      letter-spacing: -.04em;
+      letter-spacing: -.03em;
     }
     .user-area {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
     .user-name {
       font-size: 13px;
-      font-weight: 700;
-      color: #555;
+      font-weight: 600;
+      color: #333;
     }
-    .logout {
+    .top-btn {
       border: 0;
+      background: #ff6a00;
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.15s;
+    }
+    .top-btn:hover { background: #df5c00; }
+    .top-btn.outline {
+      background: transparent;
+      color: #222;
+      border: 1px solid #ddd;
+    }
+    .top-btn.outline:hover { border-color: #ff6a00; color: #ff6a00; }
+    .top-btn.danger {
       background: #111;
       color: #fff;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 900;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
-    .logout:hover { background: #333; }
+    .top-btn.danger:hover { background: #333; }
 
-    /* content area */
+    /* ----- main content (cards) ----- */
     .content {
-      width: min(1120px, 92vw);
-      margin: auto;
-      padding: 120px 0 60px;
+      width: min(1200px, 94vw);
+      margin: 0 auto;
+      padding: 90px 0 60px;
     }
-    .hero {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-end;
-      margin-bottom: 45px;
-    }
-    .hero-copy h1 {
-      font-size: clamp(45px, 7vw, 82px);
-      line-height: .95;
-      letter-spacing: -.065em;
-      margin: 0;
-    }
-    .hero-copy h1 span { color: #ff6a00; }
-    .hero-copy p { color: #777; line-height: 1.6; margin-top: 20px; }
-    .hero-icon {
-      width: 90px; height: 90px;
-      border-radius: 25px;
-      background: #fff0e7;
-      color: #ff6a00;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-    }
-    .admin-panel {
-      background: #fff;
-      border: 1px solid #eaeaea;
-      border-radius: 18px;
-      padding: 28px;
-      margin-bottom: 45px;
-      box-shadow: 0 10px 35px #00000007;
-    }
-    .admin-header { margin-bottom: 25px; }
-    .admin-title {
-      display: flex;
-      align-items: center;
-      gap: 13px;
-    }
-    .admin-icon {
-      width: 44px; height: 44px;
-      border-radius: 12px;
-      background: #fff0e7;
-      color: #ff6a00;
-      display: grid;
-      place-items: center;
-      font-size: 18px;
-    }
-    .admin-title h2 { margin: 0; font-size: 21px; }
-    .admin-title p { margin: 4px 0 0; color: #888; font-size: 13px; }
-    .admin-grid {
-      display: grid;
-      grid-template-columns: 1fr 180px;
-      gap: 18px;
-    }
-    .admin-grid .full { grid-column: 1 / -1; }
-    .price-wrap { position: relative; }
-    .price-wrap span {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 10px;
-      font-weight: 900;
-      color: #999;
-    }
-
     .section-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .section-title {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-    .section-title h2 { margin: 0; font-size: 22px; }
-    .count-label { color: #999; font-size: 13px; }
-    .refresh {
+    .section-title h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+    }
+    .section-title span {
+      background: #f0f0f0;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+    }
+    .refresh-btn {
       border: 1px solid #ddd;
       background: #fff;
-      padding: 9px 14px;
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 900;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 600;
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    .refresh:hover { border-color: #ff6a00; color: #ff6a00; }
+    .refresh-btn:hover { border-color: #ff6a00; color: #ff6a00; }
 
-    /* ----- POST CARDS (grid) ----- */
+    /* ----- card grid ----- */
     .posts {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
     }
     .post-card {
       background: #fff;
-      border: 1px solid #e9e9e9;
-      border-radius: 17px;
-      padding: 23px;
-      min-height: 320px;
+      border-radius: 20px;
+      border: 1px solid #eaeaea;
+      padding: 22px 20px 20px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 30px #00000006;
-      transition: .2s;
+      transition: 0.2s;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.02);
     }
     .post-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 35px #0000000c;
+      transform: translateY(-4px);
+      box-shadow: 0 14px 34px rgba(0,0,0,0.06);
     }
     .post-card.unlocked { border-color: #ff6a00; }
+
     .card-top {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 18px;
+      margin-bottom: 14px;
     }
     .category-icon {
-      width: 43px; height: 43px;
-      border-radius: 12px;
+      width: 42px; height: 42px;
+      border-radius: 14px;
       background: #fff0e7;
       color: #ff6a00;
       display: grid;
@@ -373,25 +175,38 @@
       font-size: 18px;
     }
     .badge {
-      padding: 7px 10px;
-      border-radius: 20px;
-      background: #f1f1f1;
-      color: #777;
+      padding: 5px 12px;
+      border-radius: 30px;
       font-size: 10px;
-      font-weight: 900;
+      font-weight: 800;
+      letter-spacing: .04em;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 5px;
+      background: #f1f1f1;
+      color: #777;
     }
     .badge.premium { background: #fff0e7; color: #ff6a00; }
     .badge.free { background: #eaf7ed; color: #188038; }
     .badge.admin { background: #eeeaff; color: #6246d9; }
-    .post-card h3 { margin: 0 0 8px; font-size: 22px; line-height: 1.2; }
-    .date { color: #999; font-size: 11px; margin-bottom: 15px; }
+    .badge.locked { background: #f5f5f5; color: #999; }
 
+    .post-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin: 0 0 4px;
+      line-height: 1.2;
+    }
+    .date {
+      font-size: 11px;
+      color: #999;
+      margin-bottom: 16px;
+    }
+
+    /* locked area */
     .locked-area {
       flex: 1;
-      border-radius: 13px;
+      border-radius: 14px;
       background: #fafafa;
       border: 1px dashed #ddd;
       display: flex;
@@ -399,63 +214,67 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 25px;
-      margin-top: 8px;
+      padding: 20px 16px;
+      margin: 6px 0 12px;
     }
     .lock-circle {
-      width: 58px; height: 58px;
+      width: 50px; height: 50px;
       border-radius: 50%;
       background: #fff0e7;
       color: #ff6a00;
       display: grid;
       place-items: center;
-      font-size: 21px;
-      margin-bottom: 14px;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
-    .locked-area strong { font-size: 16px; }
-    .locked-area p { margin: 7px 0 0; color: #888; font-size: 13px; }
+    .locked-area strong { font-size: 15px; }
+    .locked-area p { margin: 4px 0 0; color: #888; font-size: 13px; }
+
     .price {
       color: #ff6a00;
-      font-size: 20px;
-      font-weight: 950;
-      margin: 18px 0 0;
+      font-size: 22px;
+      font-weight: 900;
+      margin: 8px 0 14px;
     }
+
     .pay-button {
-      margin-top: 18px;
       width: 100%;
       border: 0;
-      border-radius: 9px;
-      padding: 13px;
+      border-radius: 12px;
+      padding: 12px;
       background: #ff6a00;
       color: #fff;
-      font-weight: 900;
+      font-weight: 800;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 9px;
+      gap: 8px;
+      transition: 0.15s;
+      margin-top: 4px;
     }
     .pay-button:hover { background: #df5c00; }
+    .pay-button:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .unlocked-content {
       flex: 1;
-      margin-top: 10px;
-      padding: 18px;
-      border-radius: 12px;
+      margin-top: 6px;
+      padding: 16px;
+      border-radius: 14px;
       background: #fffaf6;
       border: 1px solid #ffe0cc;
     }
     .unlocked-header {
       color: #188038;
       font-size: 12px;
-      font-weight: 900;
-      margin-bottom: 14px;
+      font-weight: 800;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 7px;
+      gap: 6px;
     }
     .content-text {
-      color: #444;
-      line-height: 1.7;
+      color: #333;
+      line-height: 1.6;
       white-space: pre-wrap;
       font-size: 14px;
     }
@@ -464,311 +283,280 @@
 
     .delete-button {
       width: 100%;
-      margin-top: 18px;
-      padding: 12px 15px;
+      margin-top: 16px;
+      padding: 10px;
       border: 1px solid #ffd0d0;
-      border-radius: 9px;
+      border-radius: 10px;
       background: #fff5f5;
       color: #d93025;
-      font-weight: 900;
+      font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      transition: .2s;
+      gap: 6px;
+      transition: 0.15s;
     }
     .delete-button:hover { background: #d93025; color: #fff; border-color: #d93025; }
-    .delete-button:disabled { opacity: .6; cursor: not-allowed; }
+
     .empty {
       grid-column: 1 / -1;
       background: #fff;
       border: 1px dashed #ddd;
-      padding: 50px;
+      padding: 50px 20px;
       text-align: center;
-      border-radius: 15px;
+      border-radius: 20px;
       color: #999;
     }
 
-    /* ----- MODALS (payment + delete) ----- */
-    .modal, .confirm-modal {
+    /* ----- auth modal (light overlay) ----- */
+    .auth-overlay {
       position: fixed;
       inset: 0;
-      background: #00000085;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
       z-index: 100;
-      backdrop-filter: blur(5px);
+      padding: 20px;
+    }
+    .auth-card {
+      width: min(420px, 94vw);
+      background: #fff;
+      border-radius: 28px;
+      padding: 36px 30px 30px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.2);
+      position: relative;
+    }
+    .auth-card .close-auth {
+      position: absolute;
+      top: 16px; right: 18px;
+      border: 0;
+      background: transparent;
+      font-size: 22px;
+      color: #999;
+    }
+    .auth-card .close-auth:hover { color: #222; }
+    .auth-card h2 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -.03em;
+      margin-bottom: 6px;
+    }
+    .auth-card p.sub { color: #777; margin-bottom: 24px; }
+    .field { margin: 16px 0; }
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      margin-bottom: 5px;
+      color: #444;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+    }
+    .field input:focus { border-color: #ff6a00; box-shadow: 0 0 0 3px #ff6a0012; }
+    .submit-btn {
+      width: 100%;
+      border: 0;
+      border-radius: 12px;
+      background: #ff6a00;
+      color: #fff;
+      padding: 14px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .submit-btn:hover { background: #df5c00; }
+    .submit-btn:disabled { opacity: 0.5; }
+    .link-btn {
+      border: 0;
+      background: none;
+      color: #ff6a00;
+      font-weight: 700;
+      padding: 0;
+    }
+    .auth-msg { color: #d43b00; font-size: 13px; min-height: 20px; margin-top: 6px; }
+    .switch-wrap { margin-top: 18px; font-size: 14px; color: #555; }
+    .forgot-link { font-size: 13px; margin-top: 4px; display: inline-block; }
+
+    /* ----- payment modal (simple) ----- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 120;
+      padding: 20px;
     }
     .modal-box {
-      width: min(500px, 95vw);
-      max-height: 90vh;
-      overflow: auto;
+      width: min(460px, 94vw);
       background: #fff;
-      border-radius: 20px;
-      padding: 32px;
+      border-radius: 28px;
+      padding: 32px 28px;
       position: relative;
-      box-shadow: 0 30px 90px #0004;
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    .close-modal {
+    .modal-box .close-modal {
       position: absolute;
-      top: 15px; right: 18px;
-      width: 35px; height: 35px;
+      top: 16px; right: 18px;
       border: 0;
-      border-radius: 50%;
-      background: #f5f5f5;
-      font-size: 17px;
-      display: grid;
-      place-items: center;
+      background: transparent;
+      font-size: 22px;
+      color: #999;
     }
-    .close-modal:hover { background: #eee; color: #ff6a00; }
-    .payment-icon {
-      width: 65px; height: 65px;
-      border-radius: 18px;
-      background: #fff0e7;
-      color: #ff6a00;
-      display: grid;
-      place-items: center;
-      font-size: 25px;
-      margin-bottom: 18px;
-    }
-    .modal-box h2 { margin: 0 45px 8px 0; font-size: 28px; }
-    .modal-description { color: #777; line-height: 1.5; font-size: 14px; }
-    .payment-price {
-      font-size: 28px;
-      font-weight: 950;
-      color: #ff6a00;
-      margin: 22px 0;
-    }
-    .payment-status {
-      display: none;
-      text-align: center;
-      background: #fafafa;
-      border: 1px solid #eee;
-      border-radius: 14px;
-      padding: 28px 20px;
-      margin-top: 20px;
-    }
-    .spinner {
-      width: 38px; height: 38px;
-      border: 4px solid #ddd;
-      border-top-color: #ff6a00;
-      border-radius: 50%;
-      animation: spin .8s linear infinite;
-      margin: 0 auto 16px;
-    }
+    .modal-box .close-modal:hover { color: #222; }
+    .modal-box h2 { font-size: 26px; font-weight: 800; margin: 0 0 6px; }
+    .modal-box .desc { color: #777; font-size: 14px; margin-bottom: 20px; }
+    .payment-price { font-size: 28px; font-weight: 900; color: #ff6a00; margin: 16px 0 20px; }
+    .payment-status { display: none; text-align: center; padding: 24px 0; }
+    .spinner { width: 36px; height: 36px; border: 4px solid #ddd; border-top-color: #ff6a00; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .payment-status strong { display: block; }
-    .payment-status small { display: block; color: #888; margin-top: 8px; line-height: 1.5; }
-    .status-text { color: #ff6a00; font-weight: 800; font-size: 13px; margin-top: 14px; }
-    .success-box, .failed-box {
-      display: none;
-      text-align: center;
-      border-radius: 14px;
-      padding: 25px;
-      font-weight: 900;
-      margin-top: 20px;
-    }
+    .success-box, .failed-box { display: none; text-align: center; padding: 20px; border-radius: 16px; font-weight: 700; margin-top: 16px; }
     .success-box { background: #eaf7ed; color: #188038; }
     .failed-box { background: #fff0f0; color: #d93025; }
 
+    /* delete confirm */
+    .confirm-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(3px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 140;
+      padding: 20px;
+    }
     .confirm-box {
-      width: min(420px, 94vw);
+      width: min(380px, 92vw);
       background: #fff;
-      border-radius: 18px;
-      padding: 30px;
+      border-radius: 24px;
+      padding: 32px 24px;
       text-align: center;
     }
-    .confirm-icon {
-      width: 60px; height: 60px;
-      border-radius: 50%;
-      background: #fff0f0;
-      color: #d93025;
-      display: grid;
-      place-items: center;
-      font-size: 23px;
-      margin: 0 auto 18px;
-    }
-    .confirm-box h3 { margin: 0 0 10px; font-size: 22px; }
+    .confirm-box .icon { font-size: 40px; color: #d93025; margin-bottom: 12px; }
+    .confirm-box h3 { font-size: 22px; margin-bottom: 8px; }
     .confirm-box p { color: #777; font-size: 14px; line-height: 1.5; }
-    .confirm-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 25px;
-    }
-    .cancel-delete, .confirm-delete {
-      flex: 1;
-      padding: 12px;
-      border-radius: 9px;
-      font-weight: 900;
-    }
-    .cancel-delete { border: 1px solid #ddd; background: #fff; }
-    .confirm-delete { border: 0; background: #d93025; color: #fff; }
+    .confirm-actions { display: flex; gap: 10px; margin-top: 24px; }
+    .confirm-actions button { flex: 1; padding: 12px; border-radius: 12px; font-weight: 700; border: 0; }
+    .cancel-btn { background: #f0f0f0; }
+    .danger-btn { background: #d93025; color: #fff; }
 
-    /* ----- RESPONSIVE ----- */
-    @media (max-width: 800px) {
-      .home { flex-direction: column; }
-      .brand { width: 100%; height: 40%; font-size: 100px; }
-      .intro { padding: 35px; }
-      .auth-card { grid-template-columns: 1fr; }
-      .auth-side { display: none; }
-      .auth-main { padding: 35px; }
-      .admin-grid { grid-template-columns: 1fr; }
-      .admin-grid .full { grid-column: auto; }
-      .hero-icon { display: none; }
-    }
-    @media (max-width: 550px) {
+    /* ----- responsive ----- */
+    @media (max-width: 600px) {
       .topbar { padding: 0 16px; }
-      .user-name { display: none; }
-      .content { width: 94vw; padding-top: 105px; }
-      .hero-copy h1 { font-size: 50px; }
+      .content { padding-top: 80px; }
+      .section-title h1 { font-size: 22px; }
       .posts { grid-template-columns: 1fr; }
-      .admin-panel { padding: 20px; }
-      .modal-box { padding: 25px; }
     }
   </style>
 </head>
 <body>
 
   <!-- LOADER -->
-  <div class="loader"><b>MB</b></div>
+  <div class="loader"><b>◆</b></div>
 
-  <!-- HOME -->
-  <section class="home" id="home">
-    <div class="brand">MB</div>
-    <div class="intro">
-      <div class="intro-inner">
-        <div class="eyebrow"><span class="eyebrow-dot"></span>MIKEKA BOOM</div>
-        <h1>Knowledge<br><span>Begins.</span></h1>
-        <p>Welcome to MIKEKA BOOM — your premium content library. Create an account, choose your content, pay securely and unlock it instantly.</p>
-        <button class="primary-btn" id="view">GET STARTED <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="logo">📚 MIKEKA</div>
+    <div class="user-area" id="userArea">
+      <span class="user-name" id="userName"></span>
+      <button class="top-btn" id="authBtn">SIGN IN</button>
     </div>
-  </section>
+  </header>
 
-  <!-- AUTH -->
-  <section class="auth" id="auth">
+  <!-- MAIN CONTENT (CARDS) -->
+  <main class="content">
+    <div class="section-header">
+      <div class="section-title">
+        <h1>Content Library</h1>
+        <span id="countLabel">loading</span>
+      </div>
+      <button class="refresh-btn" id="refreshBtn"><i class="fa-solid fa-rotate"></i> Refresh</button>
+    </div>
+
+    <div id="posts" class="posts">
+      <div class="empty"><i class="fa-solid fa-spinner fa-spin"></i><br><br>Loading content…</div>
+    </div>
+  </main>
+
+  <!-- AUTH MODAL -->
+  <div class="auth-overlay" id="authModal">
     <div class="auth-card">
-      <aside class="auth-side">
-        <div class="auth-logo">MB</div>
-        <div><h2>MIKEKA BOOM</h2><p>Your private library for premium knowledge and exclusive content.</p></div>
-      </aside>
-      <main class="auth-main">
-        <h1 id="title">Welcome back.</h1>
-        <p id="sub">Sign in to continue.</p>
-        <div class="msg" id="msg"></div>
-        <div class="field" id="nameBox" style="display:none">
-          <label>FULL NAME</label>
-          <input id="name" autocomplete="name" placeholder="Your name">
-        </div>
-        <div class="field">
-          <label>EMAIL</label>
-          <input id="email" type="email" autocomplete="email" placeholder="you@example.com">
-        </div>
-        <div class="field">
-          <label>PASSWORD</label>
-          <input id="password" type="password" autocomplete="current-password" placeholder="••••••••">
-        </div>
-        <button class="link" id="forgot">Forgot password?</button>
-        <br><br>
-        <button class="submit" id="submit">SIGN IN</button>
-        <p id="switch">Don't have an account? <button class="link">CREATE ACCOUNT</button></p>
-      </main>
+      <button class="close-auth" id="closeAuth"><i class="fa-solid fa-xmark"></i></button>
+      <h2 id="authTitle">Welcome back</h2>
+      <p class="sub" id="authSub">Sign in to unlock premium content</p>
+      <div class="auth-msg" id="authMsg"></div>
+      <div class="field" id="nameField" style="display:none">
+        <label>FULL NAME</label>
+        <input id="authName" placeholder="Your name" autocomplete="name">
+      </div>
+      <div class="field">
+        <label>EMAIL</label>
+        <input id="authEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      </div>
+      <div class="field">
+        <label>PASSWORD</label>
+        <input id="authPassword" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="link-btn forgot-link" id="forgotBtn">Forgot password?</button>
+      <button class="submit-btn" id="authSubmit">SIGN IN</button>
+      <div class="switch-wrap" id="switchWrap">
+        Don't have an account? <button class="link-btn" id="switchBtn">CREATE ACCOUNT</button>
+      </div>
     </div>
-  </section>
-
-  <!-- APP -->
-  <section class="app" id="app">
-    <header class="topbar">
-      <div class="logo">MIKEKA BOOM</div>
-      <div class="user-area">
-        <span class="user-name" id="userName"></span>
-        <button class="logout" id="logout"><i class="fa-solid fa-right-from-bracket"></i> SIGN OUT</button>
-      </div>
-    </header>
-    <main class="content">
-      <div class="hero">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-dot"></span>MIKEKA BOOM LIBRARY</div>
-          <h1>Premium <span>Content.</span></h1>
-          <p id="roleText">Your content library.</p>
-        </div>
-        <div class="hero-icon"><i class="fa-solid fa-book-open"></i></div>
-      </div>
-
-      <!-- ADMIN PANEL -->
-      <section id="adminPanel" class="admin-panel" style="display:none">
-        <div class="admin-header">
-          <div class="admin-title">
-            <div class="admin-icon"><i class="fa-solid fa-shield-halved"></i></div>
-            <div><h2>Create Content</h2><p>Publish premium content and set its price.</p></div>
-          </div>
-        </div>
-        <div class="admin-grid">
-          <div class="field"><label>TITLE</label><input id="postTitle" maxlength="160" placeholder="Enter content title"></div>
-          <div class="field">
-            <label>PRICE</label>
-            <div class="price-wrap"><input id="postPrice" type="number" min="0" step="1" placeholder="0"><span>TSH</span></div>
-          </div>
-          <div class="field full"><label>CONTENT</label><textarea id="postContent" rows="8" placeholder="Write your content here..."></textarea></div>
-        </div>
-        <button class="submit" id="publish"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;PUBLISH CONTENT</button>
-        <div class="msg" id="postMsg"></div>
-      </section>
-
-      <!-- CONTENT LIST -->
-      <div class="section-header">
-        <div class="section-title"><h2>Content</h2><span class="count-label">Premium library</span></div>
-        <button class="refresh" id="refreshPosts"><i class="fa-solid fa-rotate"></i> REFRESH</button>
-      </div>
-      <div id="posts" class="posts">
-        <div class="empty"><i class="fa-solid fa-spinner fa-spin"></i><br><br>Loading content...</div>
-      </div>
-    </main>
-  </section>
+  </div>
 
   <!-- PAYMENT MODAL -->
   <div class="modal" id="paymentModal">
     <div class="modal-box">
       <button class="close-modal" id="closePayment"><i class="fa-solid fa-xmark"></i></button>
-      <div class="payment-icon"><i class="fa-solid fa-credit-card"></i></div>
-      <h2 id="paymentTitle">Unlock Content</h2>
-      <p class="modal-description">Complete the payment below. After PalmPesa confirms your payment, the content will automatically unlock.</p>
-      <div class="payment-price" id="paymentPrice"></div>
-      <div id="paymentForm">
-        <div class="field"><label>NAME</label><input id="payName" placeholder="Your full name"></div>
+      <h2 id="payTitle">Unlock Content</h2>
+      <p class="desc">Complete payment to unlock this premium content.</p>
+      <div class="payment-price" id="payPrice"></div>
+      <div id="payForm">
+        <div class="field"><label>NAME</label><input id="payName" placeholder="Full name"></div>
         <div class="field"><label>EMAIL</label><input id="payEmail" type="email" placeholder="you@example.com"></div>
-        <div class="field"><label>PHONE NUMBER</label><input id="payPhone" type="tel" placeholder="07XXXXXXXX"></div>
-        <button class="submit" id="payButton"><i class="fa-solid fa-lock-open"></i>&nbsp;PAY NOW</button>
+        <div class="field"><label>PHONE</label><input id="payPhone" type="tel" placeholder="07XXXXXXXX"></div>
+        <button class="submit-btn" id="payBtn"><i class="fa-solid fa-lock-open"></i> PAY NOW</button>
+        <div class="auth-msg" id="payMsg"></div>
       </div>
-      <div class="payment-status" id="paymentStatus">
+      <div class="payment-status" id="payStatus">
         <div class="spinner"></div>
-        <strong>Waiting for payment...</strong>
-        <small>Enter your PIN on your phone and complete the payment.</small>
-        <div class="status-text" id="statusText">Checking payment status...</div>
+        <strong>Waiting for payment…</strong>
+        <small>Confirm the PIN on your phone.</small>
+        <div id="statusText" style="margin-top:12px;font-weight:600;color:#ff6a00;">Checking status…</div>
       </div>
-      <div class="success-box" id="successBox"><i class="fa-solid fa-circle-check"></i><br><br>PAYMENT COMPLETED<br><br>Unlocking your content...</div>
-      <div class="failed-box" id="failedBox"><i class="fa-solid fa-circle-xmark"></i><br><br>PAYMENT FAILED<br><br>Please try again.</div>
-      <div class="msg" id="paymentMsg"></div>
+      <div class="success-box" id="successBox"><i class="fa-solid fa-circle-check"></i><br><br>PAYMENT COMPLETED</div>
+      <div class="failed-box" id="failedBox"><i class="fa-solid fa-circle-xmark"></i><br><br>PAYMENT FAILED</div>
     </div>
   </div>
 
-  <!-- DELETE CONFIRMATION -->
+  <!-- DELETE CONFIRM -->
   <div class="confirm-modal" id="deleteModal">
     <div class="confirm-box">
-      <div class="confirm-icon"><i class="fa-solid fa-trash"></i></div>
-      <h3>Delete Content?</h3>
-      <p>This content will be permanently removed from MIKEKA BOOM. This action cannot be undone.</p>
+      <div class="icon"><i class="fa-solid fa-trash"></i></div>
+      <h3>Delete content?</h3>
+      <p>This cannot be undone.</p>
       <div class="confirm-actions">
-        <button class="cancel-delete" id="cancelDelete">CANCEL</button>
-        <button class="confirm-delete" id="confirmDelete"><i class="fa-solid fa-trash"></i> DELETE</button>
+        <button class="cancel-btn" id="cancelDel">CANCEL</button>
+        <button class="danger-btn" id="confirmDel">DELETE</button>
       </div>
     </div>
   </div>
 
-  <!-- FIREBASE + APP LOGIC -->
   <script type="module">
+    // ----- FIREBASE IMPORTS -----
     import { initializeApp } from 'https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js';
     import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword,
              sendPasswordResetEmail, sendEmailVerification, signOut, updateProfile } 
@@ -786,186 +574,94 @@
       appId: '1:742861205377:web:bbe8a42b78c90354a64280',
       measurementId: 'G-G1KWGHLZES'
     };
-
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
     const db = getFirestore(app);
 
-    // state
-    let signup = false;
+    // ----- state -----
     let currentUser = null;
     let currentIsAdmin = false;
+    let signupMode = false;
     let stopPosts = null;
-    let selectedPost = null;
     let selectedPostId = null;
-    let paymentPolling = false;
+    let selectedPost = null;
     let paidPosts = new Set();
+    let paymentPolling = false;
     let deleteTargetId = null;
 
     const $ = id => document.getElementById(id);
-    function msg(text) { $('msg').textContent = text; }
-    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
     function esc(v) { return String(v).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' })[c]); }
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    // load purchases
+    // ----- load purchases -----
     async function loadPurchases() {
       paidPosts = new Set();
       if (!currentUser) return;
       try {
         const snap = await getDocs(collection(db, 'people', currentUser.uid, 'purchases'));
         snap.forEach(d => { if (d.data().status === 'COMPLETED') paidPosts.add(d.id); });
-      } catch (e) { console.error('Purchase load error:', e); }
+      } catch (_) {}
     }
 
-    // open app
-    async function openApp(user) {
-      currentUser = user;
-      $('auth').style.display = 'none';
-      $('home').style.display = 'none';
-      $('app').style.display = 'block';
-      $('userName').textContent = user.displayName || user.email;
-
-      const snap = await getDoc(doc(db, 'people', user.uid));
-      const data = snap.exists() ? snap.data() : { role: 'user' };
-      currentIsAdmin = data.role === 'admin';
-      $('adminPanel').style.display = currentIsAdmin ? 'block' : 'none';
-      $('roleText').textContent = currentIsAdmin 
-        ? 'Administrator — view, publish and manage all content.'
-        : 'Member — unlock premium content after payment.';
-      await loadPurchases();
-      listenPosts();
-    }
-
-    // auth handlers
-    $('view').onclick = () => { $('home').style.display = 'none'; $('auth').style.display = 'flex'; };
-    $('switch').onclick = () => {
-      signup = !signup;
-      $('title').textContent = signup ? 'Create your account.' : 'Welcome back.';
-      $('sub').textContent = signup ? 'Join MIKEKA BOOM today.' : 'Sign in to continue.';
-      $('nameBox').style.display = signup ? 'block' : 'none';
-      $('forgot').style.display = signup ? 'none' : 'inline-block';
-      $('submit').textContent = signup ? 'CREATE ACCOUNT' : 'SIGN IN';
-      $('switch').innerHTML = signup 
-        ? 'Already have an account? <button class="link">SIGN IN</button>'
-        : 'Don\'t have an account? <button class="link">CREATE ACCOUNT</button>';
-    };
-    $('submit').onclick = async () => {
-      const email = $('email').value.trim();
-      const password = $('password').value;
-      const name = $('name').value.trim();
-      if (!email || !password || (signup && !name)) { msg('Please complete all fields.'); return; }
-      $('submit').disabled = true;
-      try {
-        if (signup) {
-          const cred = await createUserWithEmailAndPassword(auth, email, password);
-          await updateProfile(cred.user, { displayName: name });
-          try { await sendEmailVerification(cred.user); } catch (_) {}
-          await setDoc(doc(db, 'people', cred.user.uid), { name, email, role: 'user', createdAt: serverTimestamp() });
-          openApp(cred.user);
-        } else {
-          const cred = await signInWithEmailAndPassword(auth, email, password);
-          openApp(cred.user);
-        }
-      } catch (e) {
-        msg(e.code === 'auth/invalid-credential' ? 'Invalid email or password.' : e.message);
-      } finally { $('submit').disabled = false; }
-    };
-    $('forgot').onclick = async () => {
-      const email = $('email').value.trim();
-      if (!email) { msg('Enter your email first.'); return; }
-      try { await sendPasswordResetEmail(auth, email); msg('Password reset email sent.'); } 
-      catch (e) { msg(e.message); }
-    };
-    $('logout').onclick = async () => {
-      paymentPolling = false;
-      if (stopPosts) { stopPosts(); stopPosts = null; }
-      await signOut(auth);
-      currentUser = null; currentIsAdmin = false; paidPosts = new Set();
-      $('app').style.display = 'none';
-      $('home').style.display = 'flex';
-    };
-
-    // publish
-    $('publish').onclick = async () => {
-      if (!currentUser) return;
-      $('publish').disabled = true;
-      $('postMsg').textContent = '';
-      try {
-        const snap = await getDoc(doc(db, 'people', currentUser.uid));
-        if (!snap.exists() || snap.data().role !== 'admin') throw new Error('Not admin.');
-        const title = $('postTitle').value.trim();
-        const content = $('postContent').value.trim();
-        const price = Number($('postPrice').value || 0);
-        if (!title || !content) throw new Error('Title and content required.');
-        if (!Number.isFinite(price) || price < 0) throw new Error('Valid price required.');
-        await addDoc(collection(db, 'posts'), {
-          title, content, price, published: true,
-          authorId: currentUser.uid,
-          authorName: currentUser.displayName || currentUser.email,
-          createdAt: serverTimestamp()
-        });
-        $('postTitle').value = ''; $('postContent').value = ''; $('postPrice').value = '';
-        $('postMsg').textContent = 'Content published successfully.';
-      } catch (e) { $('postMsg').textContent = e.message; }
-      finally { $('publish').disabled = false; }
-    };
-
-    // listen posts (always visible, even before login)
+    // ----- render posts (cards) -----
     function listenPosts() {
       if (stopPosts) { stopPosts(); }
       const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'));
       stopPosts = onSnapshot(q, snapshot => {
         const box = $('posts');
         const docs = snapshot.docs.filter(d => d.data().published !== false);
+        $('countLabel').textContent = docs.length + ' items';
+
         if (!docs.length) {
           box.innerHTML = `<div class="empty"><i class="fa-regular fa-folder-open"></i><br><br>No content published yet.</div>`;
           return;
         }
+
         box.innerHTML = docs.map(item => {
           const post = item.data();
           const price = Number(post.price || 0);
           const date = post.createdAt?.toDate ? post.createdAt.toDate().toLocaleString() : 'Just now';
 
-          // free
+          // FREE
           if (price <= 0) {
             return `<article class="post-card unlocked">
               <div class="card-top"><div class="category-icon"><i class="fa-regular fa-file-lines"></i></div><div class="badge free"><i class="fa-solid fa-unlock"></i> FREE</div></div>
               <h3>${esc(post.title||'Untitled')}</h3><div class="date">${esc(date)}</div>
-              <div class="free-content"><div class="content-text">${esc(post.content||'')}</div></div>
-              ${currentIsAdmin ? `<button class="delete-button" data-delete-id="${item.id}"><i class="fa-solid fa-trash"></i> DELETE CONTENT</button>` : ''}
+              <div class="unlocked-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> Free content</div><div class="content-text">${esc(post.content||'')}</div></div>
+              ${currentIsAdmin ? `<button class="delete-button" data-delete-id="${item.id}"><i class="fa-solid fa-trash"></i> DELETE</button>` : ''}
             </article>`;
           }
 
-          // admin
+          // ADMIN always sees full
           if (currentIsAdmin) {
             return `<article class="post-card unlocked">
-              <div class="card-top"><div class="category-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="badge admin"><i class="fa-solid fa-user-shield"></i> ADMIN VIEW</div></div>
+              <div class="card-top"><div class="category-icon"><i class="fa-solid fa-shield-halved"></i></div><div class="badge admin"><i class="fa-solid fa-user-shield"></i> ADMIN</div></div>
               <h3>${esc(post.title||'Untitled')}</h3><div class="date">${esc(date)}</div>
-              <div class="unlocked-content admin-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> ADMIN ACCESS — CONTENT VISIBLE</div><div class="content-text">${esc(post.content||'')}</div></div>
-              <button class="delete-button" data-delete-id="${item.id}"><i class="fa-solid fa-trash"></i> DELETE CONTENT</button>
+              <div class="unlocked-content admin-content"><div class="unlocked-header"><i class="fa-solid fa-eye"></i> Admin view</div><div class="content-text">${esc(post.content||'')}</div></div>
+              <button class="delete-button" data-delete-id="${item.id}"><i class="fa-solid fa-trash"></i> DELETE</button>
             </article>`;
           }
 
-          // paid (if user logged and purchased)
+          // PAID (user has purchased)
           if (currentUser && paidPosts.has(item.id)) {
             return `<article class="post-card unlocked" id="post-${item.id}">
               <div class="card-top"><div class="category-icon"><i class="fa-solid fa-lock-open"></i></div><div class="badge free"><i class="fa-solid fa-circle-check"></i> UNLOCKED</div></div>
               <h3>${esc(post.title||'Untitled')}</h3><div class="date">${esc(date)}</div>
-              <div class="unlocked-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</div><div class="content-text">${esc(post.content||'')}</div></div>
+              <div class="unlocked-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> Payment completed</div><div class="content-text">${esc(post.content||'')}</div></div>
             </article>`;
           }
 
-          // locked (visible to everyone, but pay button only if logged in)
-          const payButton = currentUser 
+          // LOCKED (visible to all, with pay button if logged in)
+          const payBtn = currentUser 
             ? `<button class="pay-button" data-id="${item.id}"><i class="fa-solid fa-credit-card"></i> PAY & UNLOCK</button>`
-            : `<div style="margin-top:18px; color:#999; font-size:13px;"><i class="fa-solid fa-circle-info"></i> Sign in to unlock</div>`;
+            : `<div style="margin-top:12px;color:#999;font-size:13px;text-align:center;"><i class="fa-solid fa-circle-info"></i> Sign in to unlock</div>`;
 
           return `<article class="post-card" id="post-${item.id}">
             <div class="card-top"><div class="category-icon"><i class="fa-solid fa-lock"></i></div><div class="badge premium"><i class="fa-solid fa-crown"></i> PREMIUM</div></div>
             <h3>${esc(post.title||'Untitled')}</h3><div class="date">${esc(date)}</div>
-            <div class="locked-area"><div class="lock-circle"><i class="fa-solid fa-lock"></i></div><strong>Premium content locked</strong><p>Complete payment to unlock this content.</p></div>
+            <div class="locked-area"><div class="lock-circle"><i class="fa-solid fa-lock"></i></div><strong>Premium content</strong><p>Pay to unlock</p></div>
             <div class="price">${price.toLocaleString()} TSh</div>
-            ${payButton}
+            ${payBtn}
           </article>`;
         }).join('');
 
@@ -987,84 +683,167 @@
             $('deleteModal').style.display = 'flex';
           };
         });
-      }, error => {
-        console.error('Firestore error:', error);
-        $('posts').innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><br><br>Unable to load content.</div>`;
+      }, err => {
+        console.error(err);
+        $('posts').innerHTML = `<div class="empty"><i class="fa-solid fa-triangle-exclamation"></i><br><br>Error loading content</div>`;
       });
     }
 
-    // delete handlers
-    $('cancelDelete').onclick = () => { deleteTargetId = null; $('deleteModal').style.display = 'none'; };
-    $('confirmDelete').onclick = async () => {
-      if (!currentIsAdmin || !deleteTargetId) return;
-      const id = deleteTargetId;
-      const btn = $('confirmDelete');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> DELETING...';
-      try {
-        await deleteDoc(doc(db, 'posts', id));
-        deleteTargetId = null;
-        $('deleteModal').style.display = 'none';
-      } catch (e) { alert('Unable to delete: ' + e.message); }
-      finally { btn.disabled = false; btn.innerHTML = '<i class="fa-solid fa-trash"></i> DELETE'; }
-    };
-    $('deleteModal').onclick = e => { if (e.target === $('deleteModal')) { deleteTargetId = null; $('deleteModal').style.display = 'none'; } };
+    // ----- auth modal controls -----
+    const authModal = $('authModal');
+    const authBtn = $('authBtn');
+    const closeAuth = $('closeAuth');
+    const authSubmit = $('authSubmit');
+    const switchBtn = $('switchBtn');
+    const forgotBtn = $('forgotBtn');
 
-    // payment modal
+    function openAuth() { authModal.style.display = 'flex'; }
+    function closeAuthModal() { authModal.style.display = 'none'; }
+
+    authBtn.onclick = () => {
+      if (currentUser) { 
+        // sign out
+        signOut(auth);
+        return;
+      }
+      openAuth();
+    };
+    closeAuth.onclick = closeAuthModal;
+    authModal.onclick = e => { if (e.target === authModal) closeAuthModal(); };
+
+    // switch signup/login
+    switchBtn.onclick = () => {
+      signupMode = !signupMode;
+      $('authTitle').textContent = signupMode ? 'Create account' : 'Welcome back';
+      $('authSub').textContent = signupMode ? 'Join to access premium content' : 'Sign in to continue';
+      $('nameField').style.display = signupMode ? 'block' : 'none';
+      $('forgotBtn').style.display = signupMode ? 'none' : 'inline-block';
+      authSubmit.textContent = signupMode ? 'CREATE ACCOUNT' : 'SIGN IN';
+      switchBtn.textContent = signupMode ? 'SIGN IN' : 'CREATE ACCOUNT';
+      switchBtn.parentElement.innerHTML = signupMode 
+        ? 'Already have an account? <button class="link-btn" id="switchBtn">SIGN IN</button>'
+        : 'Don\'t have an account? <button class="link-btn" id="switchBtn">CREATE ACCOUNT</button>';
+      // re-bind switch
+      document.getElementById('switchBtn').onclick = switchBtn.onclick;
+      $('authMsg').textContent = '';
+    };
+
+    // forgot
+    forgotBtn.onclick = async () => {
+      const email = $('authEmail').value.trim();
+      if (!email) { $('authMsg').textContent = 'Enter your email first.'; return; }
+      try {
+        await sendPasswordResetEmail(auth, email);
+        $('authMsg').textContent = 'Reset email sent.';
+      } catch (e) { $('authMsg').textContent = e.message; }
+    };
+
+    // submit auth
+    authSubmit.onclick = async () => {
+      const email = $('authEmail').value.trim();
+      const password = $('authPassword').value;
+      const name = $('authName').value.trim();
+      if (!email || !password || (signupMode && !name)) {
+        $('authMsg').textContent = 'Please fill all fields.';
+        return;
+      }
+      authSubmit.disabled = true;
+      try {
+        if (signupMode) {
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          await updateProfile(cred.user, { displayName: name });
+          try { await sendEmailVerification(cred.user); } catch (_) {}
+          await setDoc(doc(db, 'people', cred.user.uid), { name, email, role: 'user', createdAt: serverTimestamp() });
+          closeAuthModal();
+        } else {
+          const cred = await signInWithEmailAndPassword(auth, email, password);
+          closeAuthModal();
+        }
+      } catch (e) {
+        $('authMsg').textContent = e.code === 'auth/invalid-credential' ? 'Invalid email/password.' : e.message;
+      }
+      authSubmit.disabled = false;
+    };
+
+    // ----- update UI on auth change -----
+    function updateUI(user) {
+      currentUser = user;
+      if (user) {
+        authBtn.textContent = 'SIGN OUT';
+        authBtn.className = 'top-btn danger';
+        $('userName').textContent = user.displayName || user.email;
+        // check admin
+        getDoc(doc(db, 'people', user.uid)).then(snap => {
+          const data = snap.exists() ? snap.data() : { role: 'user' };
+          currentIsAdmin = data.role === 'admin';
+          loadPurchases().then(() => listenPosts());
+        });
+      } else {
+        authBtn.textContent = 'SIGN IN';
+        authBtn.className = 'top-btn';
+        $('userName').textContent = '';
+        currentIsAdmin = false;
+        paidPosts = new Set();
+        listenPosts(); // still show cards
+      }
+    }
+
+    // ----- payment modal -----
     function openPaymentModal(postId, post) {
       paymentPolling = false;
       selectedPostId = postId;
       selectedPost = post;
-      $('paymentTitle').textContent = post.title || 'Unlock Content';
-      $('paymentPrice').textContent = Number(post.price||0).toLocaleString() + ' TSh';
+      $('payTitle').textContent = post.title || 'Unlock Content';
+      $('payPrice').textContent = Number(post.price||0).toLocaleString() + ' TSh';
       $('payName').value = currentUser?.displayName || '';
       $('payEmail').value = currentUser?.email || '';
       $('payPhone').value = '';
-      $('paymentMsg').textContent = '';
-      $('paymentStatus').style.display = 'none';
+      $('payMsg').textContent = '';
+      $('payStatus').style.display = 'none';
       $('successBox').style.display = 'none';
       $('failedBox').style.display = 'none';
-      $('paymentForm').style.display = 'block';
-      $('payButton').disabled = false;
+      $('payForm').style.display = 'block';
+      $('payBtn').disabled = false;
       $('paymentModal').style.display = 'flex';
     }
-    $('closePayment').onclick = () => { if (!paymentPolling) $('paymentModal').style.display = 'none'; };
 
-    $('payButton').onclick = async () => {
+    $('closePayment').onclick = () => { if (!paymentPolling) $('paymentModal').style.display = 'none'; };
+    $('paymentModal').onclick = e => { if (e.target === $('paymentModal') && !paymentPolling) $('paymentModal').style.display = 'none'; };
+
+    $('payBtn').onclick = async () => {
       if (!currentUser || !selectedPost || paymentPolling) return;
       const name = $('payName').value.trim();
       const email = $('payEmail').value.trim();
       const phone = $('payPhone').value.trim();
       const amount = Number(selectedPost.price||0);
-      if (!name || !email || !phone) { $('paymentMsg').textContent = 'Please complete all fields.'; return; }
-      if (!amount || amount <= 0) { $('paymentMsg').textContent = 'Invalid payment amount.'; return; }
-      $('payButton').disabled = true;
-      $('paymentMsg').textContent = 'Sending payment request...';
+      if (!name || !email || !phone) { $('payMsg').textContent = 'Complete all fields.'; return; }
+      if (!amount || amount <= 0) { $('payMsg').textContent = 'Invalid amount.'; return; }
+      $('payBtn').disabled = true;
+      $('payMsg').textContent = 'Sending request…';
       try {
         const res = await fetch('/api/pay', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name, email, phone, amount, postId: selectedPostId, userId: currentUser.uid })
         });
-        let result; try { result = await res.json(); } catch { throw new Error('Invalid response from payment server.'); }
-        if (!res.ok || !result.success) throw new Error(result.message || 'Unable to start payment.');
+        let result; try { result = await res.json(); } catch { throw new Error('Server error'); }
+        if (!res.ok || !result.success) throw new Error(result.message || 'Payment start failed.');
         const orderId = result.order_id || result.data?.order_id || result.data?.data?.order_id;
-        if (!orderId) throw new Error('PalmPesa did not return an order ID.');
-        $('paymentForm').style.display = 'none';
-        $('paymentStatus').style.display = 'block';
-        $('statusText').textContent = 'Waiting for payment confirmation...';
+        if (!orderId) throw new Error('No order ID.');
+        $('payForm').style.display = 'none';
+        $('payStatus').style.display = 'block';
+        $('statusText').textContent = 'Waiting for confirmation…';
         paymentPolling = true;
-        pollPaymentStatus(orderId);
+        pollPayment(orderId);
       } catch (e) {
-        console.error(e);
-        $('paymentMsg').textContent = e.message;
-        $('payButton').disabled = false;
+        $('payMsg').textContent = e.message;
+        $('payBtn').disabled = false;
       }
     };
 
-    async function pollPaymentStatus(orderId) {
-      let delay = 2000, maxDelay = 10000, attempts = 0, maxAttempts = 60;
-      while (paymentPolling && attempts < maxAttempts) {
+    async function pollPayment(orderId) {
+      let delay = 2000, attempts = 0;
+      while (paymentPolling && attempts < 50) {
         attempts++;
         try {
           const res = await fetch('/api/order-status', {
@@ -1073,11 +852,10 @@
             body: JSON.stringify({ order_id: orderId })
           });
           const result = await res.json();
-          if (!res.ok) throw new Error(result.message || 'Unable to check payment.');
           const status = String(result.payment_status || result.data?.[0]?.payment_status || result.data?.data?.[0]?.payment_status || '').toUpperCase();
           if (status === 'COMPLETED') {
             paymentPolling = false;
-            $('paymentStatus').style.display = 'none';
+            $('payStatus').style.display = 'none';
             $('successBox').style.display = 'block';
             try {
               await setDoc(doc(db, 'people', currentUser.uid, 'purchases', selectedPostId), {
@@ -1089,35 +867,33 @@
             setTimeout(() => {
               $('paymentModal').style.display = 'none';
               $('successBox').style.display = 'none';
-              $('paymentForm').style.display = 'block';
-              $('payButton').disabled = false;
+              $('payForm').style.display = 'block';
+              $('payBtn').disabled = false;
               unlockCard(selectedPostId, selectedPost);
-            }, 900);
+            }, 800);
             return;
           }
           if (status === 'FAILED') {
             paymentPolling = false;
-            $('paymentStatus').style.display = 'none';
+            $('payStatus').style.display = 'none';
             $('failedBox').style.display = 'block';
-            $('paymentForm').style.display = 'block';
-            $('payButton').disabled = false;
+            $('payForm').style.display = 'block';
+            $('payBtn').disabled = false;
             return;
           }
-          $('statusText').textContent = 'Payment is still pending. Complete the PIN request on your phone.';
+          $('statusText').textContent = 'Pending… complete PIN on phone.';
           await sleep(delay);
-          delay = Math.min(delay * 2, maxDelay);
-        } catch (e) {
-          console.error('Status check error:', e);
-          $('statusText').textContent = 'Still checking payment...';
+          delay = Math.min(delay * 1.8, 8000);
+        } catch (_) {
           await sleep(delay);
-          delay = Math.min(delay * 2, maxDelay);
+          delay = Math.min(delay * 1.8, 8000);
         }
       }
       paymentPolling = false;
-      $('paymentStatus').style.display = 'none';
-      $('paymentForm').style.display = 'block';
-      $('payButton').disabled = false;
-      $('paymentMsg').textContent = 'Payment could not be confirmed automatically. Please try again.';
+      $('payStatus').style.display = 'none';
+      $('payForm').style.display = 'block';
+      $('payBtn').disabled = false;
+      $('payMsg').textContent = 'Payment not confirmed. Try again.';
     }
 
     function unlockCard(postId, post) {
@@ -1126,7 +902,7 @@
       card.classList.add('unlocked');
       const locked = card.querySelector('.locked-area');
       if (locked) {
-        locked.outerHTML = `<div class="unlocked-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</div><div class="content-text">${esc(post.content||'')}</div></div>`;
+        locked.outerHTML = `<div class="unlocked-content"><div class="unlocked-header"><i class="fa-solid fa-circle-check"></i> Payment completed</div><div class="content-text">${esc(post.content||'')}</div></div>`;
       }
       const btn = card.querySelector('.pay-button'); if (btn) btn.remove();
       const price = card.querySelector('.price'); if (price) price.remove();
@@ -1136,29 +912,46 @@
       if (icon) icon.innerHTML = '<i class="fa-solid fa-lock-open"></i>';
     }
 
-    $('refreshPosts').onclick = async () => {
-      const icon = $('refreshPosts').querySelector('i');
+    // ----- delete handlers -----
+    $('cancelDel').onclick = () => { $('deleteModal').style.display = 'none'; deleteTargetId = null; };
+    $('confirmDel').onclick = async () => {
+      if (!currentIsAdmin || !deleteTargetId) return;
+      const id = deleteTargetId;
+      const btn = $('confirmDel');
+      btn.disabled = true; btn.textContent = '…';
+      try {
+        await deleteDoc(doc(db, 'posts', id));
+        deleteTargetId = null;
+        $('deleteModal').style.display = 'none';
+      } catch (e) { alert('Delete failed: ' + e.message); }
+      btn.disabled = false; btn.textContent = 'DELETE';
+    };
+    $('deleteModal').onclick = e => { if (e.target === $('deleteModal')) { $('deleteModal').style.display = 'none'; deleteTargetId = null; } };
+
+    // ----- refresh -----
+    $('refreshBtn').onclick = async () => {
+      const icon = $('refreshBtn').querySelector('i');
       icon.classList.add('fa-spin');
       await loadPurchases();
       listenPosts();
-      setTimeout(() => icon.classList.remove('fa-spin'), 600);
+      setTimeout(() => icon.classList.remove('fa-spin'), 500);
     };
 
-    // Auth state
+    // ----- auth state observer -----
     onAuthStateChanged(auth, user => {
-      if (user) openApp(user);
-      else {
-        // show posts anyway (guest view)
-        if (!stopPosts) listenPosts();
-        $('home').style.display = 'flex';
-        $('auth').style.display = 'none';
-        $('app').style.display = 'none';
+      if (user) {
+        updateUI(user);
+      } else {
+        currentUser = null;
+        updateUI(null);
       }
     });
 
-    // initial load: show posts immediately even before auth
+    // initial load (cards visible immediately)
     listenPosts();
 
+    // expose auth modal from topbar if not logged in
+    // already handled by authBtn onclick
   </script>
 </body>
 </html>
