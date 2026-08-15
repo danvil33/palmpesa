@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MIKEKA BOOM — Premium Content</title>
+<title>MIKEKA BOOM — Betting Analysis</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -453,11 +453,188 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
 .logout:hover{background:#000}
 
+/* ---------- APP TABS ---------- */
+.app-tabs{
+  position:fixed;
+  top:74px;
+  left:0;
+  right:0;
+  z-index:45;
+  display:flex;
+  gap:8px;
+  padding:14px 36px;
+  background:var(--paper);
+  border-bottom:1px solid var(--panel-line);
+  overflow-x:auto;
+}
+
+.tab-btn{
+  border:1.5px solid var(--panel-line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  padding:10px 18px;
+  border-radius:var(--radius-sm);
+  font-weight:700;
+  font-size:12.5px;
+  letter-spacing:.02em;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
+}
+
+.tab-btn:hover{border-color:var(--orange);color:var(--orange-deep)}
+
+.tab-btn.active{
+  background:var(--orange);
+  border-color:var(--orange);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(255,106,0,.28);
+}
+
+.tab-panel{display:none}
+.tab-panel.active-panel{display:block}
+
+/* ---------- STATS / SHORTCUTS ---------- */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:18px;
+  margin:8px 0 36px
+}
+
+.stat-card{
+  background:var(--paper);
+  border:1px solid var(--panel-line);
+  border-radius:var(--radius-md);
+  padding:22px;
+  box-shadow:var(--shadow-soft);
+}
+
+.stat-card .stat-value{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:32px;
+  font-weight:700;
+  color:var(--orange-deep);
+}
+
+.stat-card .stat-label{
+  color:#8b8590;
+  font-size:11.5px;
+  margin-top:6px;
+  font-family:'IBM Plex Mono',monospace;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.home-shortcuts{
+  display:flex;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-bottom:44px;
+}
+
+/* ---------- COUNTDOWN ---------- */
+.countdown{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  padding:6px 11px;
+  border-radius:20px;
+  background:var(--teal-tint);
+  color:var(--teal);
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10.5px;
+  font-weight:600;
+  letter-spacing:.03em;
+  margin:-6px 0 16px;
+  width:fit-content;
+}
+
+.countdown.urgent{
+  background:#fff1f0;
+  color:var(--danger);
+}
+
+/* ---------- PROFILE ---------- */
+.profile-card{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  background:var(--paper);
+  border:1px solid var(--panel-line);
+  border-radius:var(--radius-lg);
+  padding:30px;
+  box-shadow:var(--shadow-soft);
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+
+.profile-avatar{
+  width:76px;
+  height:76px;
+  border-radius:50%;
+  background:var(--orange);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:26px;
+  font-weight:700;
+  flex-shrink:0;
+}
+
+.profile-info h2{
+  margin:0 0 6px;
+  font-size:22px;
+  font-weight:700;
+}
+
+.profile-info p{
+  margin:0 0 10px;
+  color:#8b8590;
+  font-size:13.5px;
+}
+
+.profile-stats{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:16px;
+  margin-bottom:24px;
+}
+
+.stat-box{
+  background:var(--paper);
+  border:1px solid var(--panel-line);
+  border-radius:var(--radius-md);
+  padding:20px;
+  text-align:center;
+  box-shadow:var(--shadow-soft);
+}
+
+.stat-box span{
+  display:block;
+  font-family:'Space Grotesk',sans-serif;
+  font-size:26px;
+  font-weight:700;
+  color:var(--orange-deep);
+}
+
+.stat-box small{
+  color:#8b8590;
+  font-family:'IBM Plex Mono',monospace;
+  font-size:10px;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+
 /* ---------- CONTENT ---------- */
 .content{
   width:min(1140px,92vw);
   margin:auto;
-  padding:124px 0 70px
+  padding:190px 0 70px
 }
 
 .hero{
@@ -1170,7 +1347,17 @@ textarea:focus-visible{
 
   .logout{padding:9px 13px;font-size:11px}
 
-  .content{width:94vw;padding-top:96px}
+  .app-tabs{top:64px;padding:10px 14px}
+
+  .tab-btn{padding:9px 14px;font-size:11.5px}
+
+  .content{width:94vw;padding-top:154px}
+
+  .stats-grid{grid-template-columns:1fr 1fr;gap:12px}
+
+  .profile-card{padding:22px;gap:16px}
+
+  .profile-avatar{width:60px;height:60px;font-size:20px}
 
   .home-content-inner{width:94vw;padding:40px 0 56px}
 
@@ -1306,14 +1493,14 @@ MIKEKA BOOM
 </div>
 
 <h1>
-Knowledge<br>
-<span>Begins.</span>
+Winning<br>
+<span>Starts Here.</span>
 </h1>
 
 <p>
-Welcome to MIKEKA BOOM — your premium content
-library. Browse what's published below, then create
-an account to unlock premium pieces instantly.
+Welcome to MIKEKA BOOM — your premium betting analysis
+hub. Browse the free tips published below, then create
+an account to unlock premium betslips instantly.
 </p>
 
 <button class="primary-btn" id="view">
@@ -1336,10 +1523,10 @@ GET STARTED
 
 <div class="section-title">
 
-<h2>Browse Content</h2>
+<h2>Browse Betslips</h2>
 
 <span class="count-label">
-Free pieces open now — sign in to unlock premium
+Free tips open now — sign in to unlock premium betslips
 </span>
 
 </div>
@@ -1388,7 +1575,7 @@ M<span>B</span>
 <h2>MIKEKA BOOM</h2>
 
 <p>
-Your private library for premium knowledge and exclusive content.
+Your private hub for premium betting analysis and winning betslips.
 </p>
 
 </div>
@@ -1486,8 +1673,31 @@ SIGN OUT
 
 </header>
 
+<nav class="app-tabs" id="appTabs">
+
+<button class="tab-btn active" data-tab="home">
+<i class="fa-solid fa-house"></i> Home
+</button>
+
+<button class="tab-btn" data-tab="betslips">
+<i class="fa-solid fa-list-check"></i> Betslips
+</button>
+
+<button class="tab-btn" data-tab="mybetslip">
+<i class="fa-solid fa-ticket"></i> My Betslip
+</button>
+
+<button class="tab-btn" data-tab="profile">
+<i class="fa-solid fa-user"></i> Profile
+</button>
+
+</nav>
+
 
 <main class="content">
+
+<!-- HOME TAB -->
+<div class="tab-panel active-panel" id="tabHome">
 
 <div class="hero">
 
@@ -1495,25 +1705,63 @@ SIGN OUT
 
 <div class="eyebrow">
 <span class="eyebrow-dot"></span>
-MIKEKA BOOM LIBRARY
+MIKEKA BOOM ANALYSIS
 </div>
 
 <h1>
-Premium <span>Content.</span>
+Betting <span>Analysis.</span>
 </h1>
 
 <p id="roleText">
-Your content library.
+Your betting analysis hub.
 </p>
 
 </div>
 
 <div class="hero-icon">
-<i class="fa-solid fa-book-open"></i>
+<i class="fa-solid fa-chart-line"></i>
 </div>
 
 </div>
 
+<div class="stats-grid">
+
+<div class="stat-card">
+<div class="stat-value" id="statAvailable">0</div>
+<div class="stat-label">Active Betslips</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-value" id="statUnlocked">0</div>
+<div class="stat-label">My Unlocked Betslips</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-value" id="statRole">Member</div>
+<div class="stat-label">Account Type</div>
+</div>
+
+</div>
+
+<div class="home-shortcuts">
+
+<button class="primary-btn" id="goBetslips" type="button">
+<i class="fa-solid fa-list-check"></i>
+BROWSE BETSLIPS
+</button>
+
+<button class="ghost-btn" id="goMyBetslip" type="button">
+<i class="fa-solid fa-ticket"></i>
+MY BETSLIP
+</button>
+
+</div>
+
+</div>
+
+
+<!-- BETSLIPS TAB -->
+<div class="tab-panel" id="tabBetslips">
 
 <!-- ADMIN PANEL -->
 <section id="adminPanel" class="admin-panel" style="display:none">
@@ -1528,10 +1776,10 @@ Your content library.
 
 <div>
 
-<h2>Create Content</h2>
+<h2>Publish Betslip</h2>
 
 <p>
-Publish premium content and set its price.
+Publish a premium betslip, set its price and validity time.
 </p>
 
 </div>
@@ -1550,7 +1798,7 @@ Publish premium content and set its price.
 <input
 id="postTitle"
 maxlength="160"
-placeholder="Enter content title">
+placeholder="Enter betslip title, e.g. Sat 15 Aug — 5 Odds Banker">
 
 </div>
 
@@ -1575,14 +1823,34 @@ placeholder="0">
 </div>
 
 
+<div class="field">
+
+<label>VALIDITY TIME (HOURS)</label>
+
+<div class="price-wrap">
+
+<input
+id="postValidity"
+type="number"
+min="1"
+step="1"
+placeholder="e.g. 24">
+
+<span>HRS</span>
+
+</div>
+
+</div>
+
+
 <div class="field full">
 
-<label>CONTENT</label>
+<label>BETSLIP / ANALYSIS</label>
 
 <textarea
 id="postContent"
 rows="8"
-placeholder="Write your content here..."></textarea>
+placeholder="Write your betting analysis or betslip codes here..."></textarea>
 
 </div>
 
@@ -1593,7 +1861,7 @@ placeholder="Write your content here..."></textarea>
 
 <i class="fa-solid fa-cloud-arrow-up"></i>
 &nbsp;
-PUBLISH CONTENT
+PUBLISH BETSLIP
 
 </button>
 
@@ -1607,10 +1875,10 @@ PUBLISH CONTENT
 
 <div class="section-title">
 
-<h2>Content</h2>
+<h2>All Betslips</h2>
 
 <span class="count-label">
-Premium library
+Betting tips &amp; analysis
 </span>
 
 </div>
@@ -1630,8 +1898,114 @@ REFRESH
 <div class="empty">
 <i class="fa-solid fa-spinner fa-spin"></i>
 <br><br>
-Loading content...
+Loading betslips...
 </div>
+
+</div>
+
+</div>
+
+
+<!-- MY BETSLIP TAB -->
+<div class="tab-panel" id="tabMyBetslip">
+
+<div class="section-header">
+
+<div class="section-title">
+
+<h2>My Betslip</h2>
+
+<span class="count-label">
+Betslips you've paid for
+</span>
+
+</div>
+
+</div>
+
+<div id="myBetslipPosts" class="posts">
+
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading your betslips...
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PROFILE TAB -->
+<div class="tab-panel" id="tabProfile">
+
+<div class="profile-card">
+
+<div class="profile-avatar" id="profileAvatar">--</div>
+
+<div class="profile-info">
+<h2 id="profileName">—</h2>
+<p id="profileEmail">—</p>
+<span class="badge" id="profileRoleBadge">MEMBER</span>
+</div>
+
+</div>
+
+<div class="profile-stats">
+
+<div class="stat-box">
+<span id="profileUnlockedCount">0</span>
+<small>Betslips Unlocked</small>
+</div>
+
+<div class="stat-box">
+<span id="profileMemberSince">—</span>
+<small>Member Since</small>
+</div>
+
+</div>
+
+<section class="admin-panel">
+
+<div class="admin-header">
+
+<div class="admin-title">
+
+<div class="admin-icon">
+<i class="fa-solid fa-user-pen"></i>
+</div>
+
+<div>
+
+<h2>Edit Profile</h2>
+
+<p>
+Update your display name.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="field">
+
+<label>FULL NAME</label>
+
+<input
+id="profileNameInput"
+placeholder="Your name">
+
+</div>
+
+<button class="submit" id="profileSaveBtn">
+SAVE CHANGES
+</button>
+
+<div class="msg" id="profileMsg"></div>
+
+</section>
 
 </div>
 
@@ -1656,12 +2030,12 @@ Loading content...
 </div>
 
 <h2 id="paymentTitle">
-Unlock Content
+Unlock Betslip
 </h2>
 
 <p class="modal-description">
 Complete the payment below. After PalmPesa confirms
-your payment, the content will automatically unlock.
+your payment, the betslip will automatically unlock.
 </p>
 
 <div class="payment-price" id="paymentPrice"></div>
@@ -1780,11 +2154,11 @@ Please try again.
 </div>
 
 <h3>
-Delete Content?
+Delete Betslip?
 </h3>
 
 <p>
-This content will be permanently removed from
+This betslip will be permanently removed from
 MIKEKA BOOM. This action cannot be undone.
 </p>
 
@@ -2026,6 +2400,263 @@ originalClass;
 };
 
 });
+
+}
+
+
+/* TAB NAVIGATION */
+const tabPanelMap={
+home:'tabHome',
+betslips:'tabBetslips',
+mybetslip:'tabMyBetslip',
+profile:'tabProfile'
+};
+
+function switchTab(tab){
+
+Object.values(tabPanelMap).forEach(panelId=>{
+
+const panel=$(panelId);
+
+if(panel){
+panel.classList.remove('active-panel');
+}
+
+});
+
+const targetPanel=
+$(tabPanelMap[tab]||tabPanelMap.home);
+
+if(targetPanel){
+targetPanel.classList.add('active-panel');
+}
+
+document
+.querySelectorAll('.tab-btn')
+.forEach(button=>{
+
+button.classList.toggle(
+'active',
+button.dataset.tab===tab
+);
+
+});
+
+window.scrollTo({top:0,behavior:'smooth'});
+
+}
+
+document
+.querySelectorAll('.tab-btn')
+.forEach(button=>{
+
+button.onclick=()=>{
+switchTab(button.dataset.tab);
+};
+
+});
+
+const goBetslipsBtn=$('goBetslips');
+
+if(goBetslipsBtn){
+
+goBetslipsBtn.onclick=()=>{
+switchTab('betslips');
+};
+
+}
+
+const goMyBetslipBtn=$('goMyBetslip');
+
+if(goMyBetslipBtn){
+
+goMyBetslipBtn.onclick=()=>{
+switchTab('mybetslip');
+};
+
+}
+
+
+/* VALIDITY COUNTDOWN */
+function formatRemaining(ms){
+
+if(ms<=0){
+return 'Expired';
+}
+
+const totalSeconds=
+Math.floor(ms/1000);
+
+const days=
+Math.floor(totalSeconds/86400);
+
+const hours=
+Math.floor((totalSeconds%86400)/3600);
+
+const minutes=
+Math.floor((totalSeconds%3600)/60);
+
+const seconds=
+totalSeconds%60;
+
+if(days>0){
+return days+'d '+hours+'h '+minutes+'m left';
+}
+
+if(hours>0){
+return hours+'h '+minutes+'m '+seconds+'s left';
+}
+
+if(minutes>0){
+return minutes+'m '+seconds+'s left';
+}
+
+return seconds+'s left';
+
+}
+
+function tickCountdowns(){
+
+document
+.querySelectorAll('.countdown[data-expires]')
+.forEach(el=>{
+
+const expiresAt=
+Number(el.dataset.expires);
+
+const remaining=
+expiresAt-Date.now();
+
+if(remaining<=0){
+
+const card=
+el.closest('.post-card');
+
+const postId=
+card?.dataset.postId;
+
+if(card){
+card.remove();
+}
+
+if(currentIsAdmin&&postId){
+
+deleteDoc(
+doc(db,'posts',postId)
+).catch(error=>{
+
+console.error(
+'Expired betslip delete failed:',
+error
+);
+
+});
+
+}
+
+return;
+
+}
+
+const textEl=
+el.querySelector('.countdown-text');
+
+if(textEl){
+
+textEl.textContent=
+formatRemaining(remaining);
+
+}
+
+el.classList.toggle(
+'urgent',
+remaining<3600000
+);
+
+});
+
+}
+
+setInterval(tickCountdowns,1000);
+
+
+/* PROFILE SAVE */
+const profileSaveBtn=$('profileSaveBtn');
+
+if(profileSaveBtn){
+
+profileSaveBtn.onclick=async()=>{
+
+if(!currentUser){
+return;
+}
+
+const newName=
+$('profileNameInput').value.trim();
+
+if(!newName){
+
+$('profileMsg').textContent=
+'Enter your name.';
+
+return;
+
+}
+
+profileSaveBtn.disabled=true;
+
+$('profileMsg').textContent=
+'Saving...';
+
+try{
+
+await updateProfile(
+currentUser,
+{displayName:newName}
+);
+
+await setDoc(
+doc(db,'people',currentUser.uid),
+{name:newName},
+{merge:true}
+);
+
+$('userName').textContent=
+newName;
+
+$('profileName').textContent=
+newName;
+
+const avatar=$('profileAvatar');
+
+if(avatar){
+
+avatar.textContent=
+newName
+.trim()
+.split(/\s+/)
+.map(part=>part[0])
+.slice(0,2)
+.join('')
+.toUpperCase()||'MB';
+
+}
+
+$('profileMsg').textContent=
+'Profile updated.';
+
+}catch(error){
+
+$('profileMsg').textContent=
+error.message;
+
+}finally{
+
+profileSaveBtn.disabled=false;
+
+}
+
+};
 
 }
 
@@ -2321,14 +2952,117 @@ admin?'block':'none';
 $('roleText').textContent=
 admin
 ?
-'Administrator — view, publish and manage all content.'
+'Administrator — view, publish and manage all betslips.'
 :
-'Member — unlock premium content after payment.';
+'Member — unlock premium betslips after payment.';
+
+const statRole=$('statRole');
+
+if(statRole){
+
+statRole.textContent=
+admin?'Admin':'Member';
+
+}
+
+
+populateProfile(user,data);
+
+switchTab('home');
 
 
 await loadPurchases();
 
 listenPosts();
+
+}
+
+
+/* PROFILE */
+function populateProfile(user,data){
+
+const displayName=
+user.displayName||
+data?.name||
+'Member';
+
+const initials=
+displayName
+.trim()
+.split(/\s+/)
+.map(part=>part[0])
+.slice(0,2)
+.join('')
+.toUpperCase()||'MB';
+
+const avatar=$('profileAvatar');
+
+if(avatar){
+avatar.textContent=initials;
+}
+
+const nameEl=$('profileName');
+
+if(nameEl){
+nameEl.textContent=displayName;
+}
+
+const emailEl=$('profileEmail');
+
+if(emailEl){
+emailEl.textContent=
+user.email||'';
+}
+
+const roleBadge=$('profileRoleBadge');
+
+if(roleBadge){
+
+roleBadge.className=
+currentIsAdmin
+?
+'badge admin'
+:
+'badge free';
+
+roleBadge.innerHTML=
+currentIsAdmin
+?
+'<i class="fa-solid fa-user-shield"></i> ADMIN'
+:
+'<i class="fa-solid fa-user"></i> MEMBER';
+
+}
+
+const memberSince=$('profileMemberSince');
+
+if(memberSince){
+
+memberSince.textContent=
+data?.createdAt?.toDate
+?
+data.createdAt.toDate().toLocaleDateString()
+:
+'—';
+
+}
+
+const nameInput=$('profileNameInput');
+
+if(nameInput){
+nameInput.value=displayName;
+}
+
+}
+
+
+function refreshProfileStats(){
+
+const unlockedCount=$('profileUnlockedCount');
+
+if(unlockedCount){
+unlockedCount.textContent=paidPosts.size;
+}
 
 }
 
@@ -2405,6 +3139,11 @@ Number(
 $('postPrice').value||0
 );
 
+const validityHours=
+Number(
+$('postValidity').value||0
+);
+
 if(!title){
 
 throw new Error(
@@ -2416,7 +3155,7 @@ throw new Error(
 if(!content){
 
 throw new Error(
-'Enter content.'
+'Enter the betslip / analysis.'
 );
 
 }
@@ -2432,12 +3171,31 @@ throw new Error(
 
 }
 
+if(
+!Number.isFinite(validityHours)||
+validityHours<=0
+){
+
+throw new Error(
+'Enter a valid validity time (in hours).'
+);
+
+}
+
+const expiresAt=
+new Date(
+Date.now()+
+(validityHours*3600000)
+);
+
 await addDoc(
 collection(db,'posts'),
 {
 title,
 content,
 price,
+validityHours,
+expiresAt,
 published:true,
 authorId:currentUser.uid,
 authorName:
@@ -2454,8 +3212,10 @@ $('postContent').value='';
 
 $('postPrice').value='';
 
+$('postValidity').value='';
+
 $('postMsg').textContent=
-'Content published successfully.';
+'Betslip published successfully.';
 
 }catch(error){
 
@@ -2492,12 +3252,73 @@ q,
 snapshot=>{
 
 const boxes=
-document.querySelectorAll('.posts');
+document.querySelectorAll('.posts:not(#myBetslipPosts)');
+
+const now=Date.now();
+
+function isExpired(post){
+
+if(!post.expiresAt){
+return false;
+}
+
+const millis=
+post.expiresAt.toMillis
+?
+post.expiresAt.toMillis()
+:
+new Date(post.expiresAt).getTime();
+
+return millis<=now;
+
+}
+
+const expiredDocs=
+snapshot.docs.filter(
+item=>isExpired(item.data())
+);
+
+/* BEST-EFFORT AUTO CLEANUP OF EXPIRED BETSLIPS */
+if(currentIsAdmin&&expiredDocs.length){
+
+expiredDocs.forEach(item=>{
+
+deleteDoc(
+doc(db,'posts',item.id)
+).catch(error=>{
+
+console.error(
+'Auto-delete expired betslip failed:',
+error
+);
+
+});
+
+});
+
+}
 
 const docs=
 snapshot.docs.filter(
-item=>item.data().published!==false
+item=>
+item.data().published!==false&&
+!isExpired(item.data())
 );
+
+/* HOME STATS */
+const statAvailable=$('statAvailable');
+
+if(statAvailable){
+statAvailable.textContent=docs.length;
+}
+
+const statUnlocked=$('statUnlocked');
+
+if(statUnlocked){
+statUnlocked.textContent=paidPosts.size;
+}
+
+refreshProfileStats();
 
 if(!docs.length){
 
@@ -2511,7 +3332,7 @@ box.innerHTML=`
 
 <br><br>
 
-No content has been published yet.
+No betslips have been published yet.
 
 </div>
 
@@ -2519,13 +3340,57 @@ No content has been published yet.
 
 });
 
+const myBox=$('myBetslipPosts');
+
+if(myBox){
+
+myBox.innerHTML=`
+
+<div class="empty">
+
+<i class="fa-regular fa-folder-open"></i>
+
+<br><br>
+
+Betslips you pay for will appear here.
+
+</div>
+
+`;
+
+}
+
 return;
 
 }
 
 
-const html=
-docs.map(item=>{
+function countdownMarkup(post){
+
+if(!post.expiresAt){
+return '';
+}
+
+const millis=
+post.expiresAt.toMillis
+?
+post.expiresAt.toMillis()
+:
+new Date(post.expiresAt).getTime();
+
+return `
+
+<div class="countdown" data-expires="${millis}">
+<i class="fa-regular fa-clock"></i>
+<span class="countdown-text">--</span>
+</div>
+
+`;
+
+}
+
+
+function renderCard(item){
 
 const post=item.data();
 
@@ -2539,8 +3404,11 @@ post.createdAt.toDate().toLocaleString()
 :
 'Just now';
 
+const countdown=
+countdownMarkup(post);
 
-/* FREE CONTENT */
+
+/* FREE TIP */
 if(price<=0){
 
 return `
@@ -2551,7 +3419,7 @@ return `
 
 <div class="category-icon">
 
-<i class="fa-regular fa-file-lines"></i>
+<i class="fa-solid fa-futbol"></i>
 
 </div>
 
@@ -2559,7 +3427,7 @@ return `
 
 <i class="fa-solid fa-unlock"></i>
 
-FREE
+FREE TIP
 
 </div>
 
@@ -2573,11 +3441,13 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${countdown}
+
 <div class="free-content">
 
 <div class="content-header">
 
-<span><i class="fa-solid fa-unlock"></i> FREE CONTENT</span>
+<span><i class="fa-solid fa-unlock"></i> FREE TIP</span>
 
 <button class="copy-btn" type="button" title="Copy content">
 <i class="fa-regular fa-copy"></i>
@@ -2599,7 +3469,7 @@ data-delete-id="${item.id}">
 
 <i class="fa-solid fa-trash"></i>
 
-DELETE CONTENT
+DELETE BETSLIP
 
 </button>
 
@@ -2647,11 +3517,13 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${countdown}
+
 <div class="unlocked-content admin-content">
 
 <div class="unlocked-header">
 
-<span><i class="fa-solid fa-circle-check"></i> ADMIN ACCESS — CONTENT VISIBLE</span>
+<span><i class="fa-solid fa-circle-check"></i> ADMIN ACCESS — BETSLIP VISIBLE</span>
 
 <button class="copy-btn" type="button" title="Copy content">
 <i class="fa-regular fa-copy"></i>
@@ -2671,7 +3543,7 @@ data-delete-id="${item.id}">
 
 <i class="fa-solid fa-trash"></i>
 
-DELETE CONTENT
+DELETE BETSLIP
 
 </button>
 
@@ -2717,11 +3589,13 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${countdown}
+
 <div class="unlocked-content">
 
 <div class="unlocked-header">
 
-<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</span>
+<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — BETSLIP UNLOCKED</span>
 
 <button class="copy-btn" type="button" title="Copy content">
 <i class="fa-regular fa-copy"></i>
@@ -2761,7 +3635,7 @@ data-post-id="${item.id}">
 
 <i class="fa-solid fa-crown"></i>
 
-PREMIUM
+VIP BETSLIP
 
 </div>
 
@@ -2775,6 +3649,8 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${countdown}
+
 <div class="locked-area">
 
 <div class="lock-circle">
@@ -2784,11 +3660,11 @@ ${esc(date)}
 </div>
 
 <strong>
-Premium content locked
+VIP betslip locked
 </strong>
 
 <p>
-Complete payment to unlock this content.
+Complete payment to unlock this betslip.
 </p>
 
 </div>
@@ -2813,12 +3689,55 @@ PAY & UNLOCK
 
 `;
 
-}).join('');
+}
+
+
+const html=
+docs.map(renderCard).join('');
+
+
+/* MY BETSLIP (PAID ONLY) */
+const myDocs=
+docs.filter(item=>
+Number(item.data().price||0)>0&&
+paidPosts.has(item.id)
+);
+
+const myBox=$('myBetslipPosts');
+
+if(myBox){
+
+myBox.innerHTML=
+myDocs.length
+?
+myDocs.map(renderCard).join('')
+:
+`
+
+<div class="empty">
+
+<i class="fa-regular fa-folder-open"></i>
+
+<br><br>
+
+Betslips you pay for will appear here.
+
+</div>
+
+`;
+
+attachCopyHandlers(myBox);
+
+tickCountdowns();
+
+}
 
 
 boxes.forEach(box=>{
 
 box.innerHTML=html;
+
+tickCountdowns();
 
 
 /* COPY BUTTONS */
@@ -2853,7 +3772,7 @@ if(!currentUser){
 
 promptSignIn(
 'Sign in to unlock "'+
-(selectedPost.title||'this content')+
+(selectedPost.title||'this betslip')+
 '".'
 );
 
@@ -2921,9 +3840,9 @@ box.innerHTML=`
 ${
 permissionIssue
 ?
-'Content is private right now. Update your Firestore security rules to allow public read access to the "posts" collection.'
+'Betslips are private right now. Update your Firestore security rules to allow public read access to the "posts" collection.'
 :
-'Unable to load content. ('+esc(error.code||error.message||'unknown error')+')'
+'Unable to load betslips. ('+esc(error.code||error.message||'unknown error')+')'
 }
 
 </div>
@@ -3028,7 +3947,7 @@ selectedPostId=postId;
 selectedPost=post;
 
 $('paymentTitle').textContent=
-post.title||'Unlock Content';
+post.title||'Unlock Betslip';
 
 $('paymentPrice').textContent=
 Number(post.price||0)
@@ -3472,7 +4391,7 @@ locked.outerHTML=`
 
 <div class="unlocked-header">
 
-<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — CONTENT UNLOCKED</span>
+<span><i class="fa-solid fa-circle-check"></i> PAYMENT COMPLETED — BETSLIP UNLOCKED</span>
 
 <button class="copy-btn" type="button" title="Copy content">
 <i class="fa-regular fa-copy"></i>
@@ -3532,6 +4451,9 @@ icon.innerHTML=
 attachCopyHandlers(card);
 
 });
+
+/* REFRESH MY BETSLIP TAB WITH THE NEWLY PAID BETSLIP */
+listenPosts();
 
 }
 
