@@ -141,8 +141,27 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .home-hero{
   position:relative;
   display:flex;
-  min-height:82vh;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
+  padding:26px 36px;
+  border-bottom:1px solid var(--panel-line);
+  overflow:hidden;
 }
+
+.home-hero-burst{
+  position:absolute;
+  right:-70px;
+  top:50%;
+  transform:translateY(-50%);
+  width:260px;
+  height:260px;
+  opacity:.05;
+  pointer-events:none;
+}
+
+.home-hero-burst svg{width:100%;height:100%}
 
 .home-content{
   background:var(--panel);
@@ -152,37 +171,15 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .home-content-inner{
   width:min(1140px,92vw);
   margin:auto;
-  padding:64px 0 84px;
+  padding:36px 0 84px;
 }
 
 .home-content .section-header{margin-bottom:24px}
 
-.brand{
-  position:relative;
-  width:42%;
-  background:var(--ink);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  overflow:hidden;
-}
-
-.brand b{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(64px,10.5vw,168px);
-  font-weight:700;
-  letter-spacing:-.05em;
+.intro{
+  flex:1 1 420px;
   position:relative;
   z-index:1;
-}
-
-.brand b span{color:var(--orange)}
-
-.intro{
-  flex:1;
-  display:flex;
-  align-items:center;
-  padding:8vw
 }
 
 .intro-inner{
@@ -199,7 +196,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-weight:600;
   letter-spacing:.16em;
   text-transform:uppercase;
-  margin-bottom:22px
+  margin-bottom:8px
 }
 
 .eyebrow-dot{
@@ -210,10 +207,10 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .intro h1{
-  font-size:clamp(46px,6.6vw,86px);
-  line-height:.96;
+  font-size:clamp(22px,3vw,34px);
+  line-height:1.12;
   margin:0;
-  letter-spacing:-.045em;
+  letter-spacing:-.03em;
   font-weight:700;
 }
 
@@ -221,20 +218,23 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
 .intro p{
   color:var(--ink-soft);
-  line-height:1.7;
-  max-width:540px;
-  margin:24px 0 32px;
-  font-size:16px;
+  line-height:1.5;
+  max-width:520px;
+  margin:8px 0 0;
+  font-size:13.5px;
 }
 
 .primary-btn{
+  position:relative;
+  z-index:1;
+  flex-shrink:0;
   border:0;
   background:var(--orange);
   color:#fff;
-  padding:16px 26px;
+  padding:14px 22px;
   border-radius:var(--radius-sm);
   font-weight:700;
-  font-size:15px;
+  font-size:13.5px;
   display:inline-flex;
   align-items:center;
   gap:11px;
@@ -1341,17 +1341,9 @@ textarea:focus-visible{
 
 @media(max-width:900px){
 
-  .home-hero{flex-direction:column;min-height:auto}
+  .home-hero{flex-wrap:wrap;padding:22px 24px}
 
-  .brand{
-    width:100%;
-    min-height:220px;
-    padding:44px 0;
-  }
-
-  .brand b{font-size:88px}
-
-  .intro{padding:48px 32px}
+  .intro{padding:0}
 
   .auth-card{grid-template-columns:1fr}
 
@@ -1387,7 +1379,7 @@ textarea:focus-visible{
 
   .profile-avatar{width:60px;height:60px;font-size:20px}
 
-  .home-content-inner{width:94vw;padding:40px 0 56px}
+  .home-content-inner{width:94vw;padding:28px 0 56px}
 
   .section-header{align-items:flex-start;flex-direction:column;gap:10px}
 
@@ -1407,11 +1399,9 @@ textarea:focus-visible{
 
 @media(max-width:480px){
 
-  .intro h1{font-size:36px}
+  .intro h1{font-size:22px}
 
-  .intro p{font-size:14.5px;margin:18px 0 24px}
-
-  .brand b{font-size:56px}
+  .intro p{font-size:13px;margin-top:6px}
 
   .primary-btn,
   .ghost-btn{width:100%;justify-content:center}
@@ -1457,9 +1447,7 @@ textarea:focus-visible{
 
 @media(max-width:360px){
 
-  .brand b{font-size:46px}
-
-  .intro h1{font-size:31px}
+  .intro h1{font-size:19px}
 
   .content{width:96vw}
 
@@ -1493,8 +1481,7 @@ SIGN IN
 
 <div class="home-hero">
 
-<div class="brand">
-<div class="burst" aria-hidden="true">
+<div class="home-hero-burst" aria-hidden="true">
 <svg viewBox="0 0 400 400"><g stroke="#ff6a00" stroke-width="2">
 <line x1="200" y1="0" x2="200" y2="400"/>
 <line x1="0" y1="200" x2="400" y2="200"/>
@@ -1505,8 +1492,6 @@ SIGN IN
 <line x1="200" y1="400" x2="60" y2="60"/>
 <line x1="200" y1="400" x2="340" y2="60"/>
 </g></svg>
-</div>
-<b>M<span>B</span></b>
 </div>
 
 <div class="intro">
@@ -1519,24 +1504,21 @@ MIKEKA BOOM
 </div>
 
 <h1>
-Winning<br>
-<span>Starts Here.</span>
+Winning <span>Starts Here.</span>
 </h1>
 
 <p>
-Welcome to MIKEKA BOOM — your premium betting analysis
-hub. Browse the free tips published below, then create
-an account to unlock premium betslips instantly.
+Premium betting analysis &amp; betslips — browse free tips below or unlock VIP picks instantly.
 </p>
+
+</div>
+
+</div>
 
 <button class="primary-btn" id="view">
 GET STARTED
 <i class="fa-solid fa-arrow-right"></i>
 </button>
-
-</div>
-
-</div>
 
 </div>
 
@@ -2125,7 +2107,7 @@ PAYMENT FAILED
 
 <br><br>
 
-Please try again.
+Wrong PIN, cancelled, or declined. Please try again.
 
 </div>
 
@@ -4109,6 +4091,23 @@ $('payButton').disabled=false;
 
 
 /* PAYMENT STATUS */
+function paymentFailureReason(result){
+
+const reason=
+result?.message||
+result?.data?.[0]?.message||
+result?.data?.data?.[0]?.message||
+result?.data?.data?.message||
+result?.reason||
+'';
+
+return reason?
+String(reason).trim()
+:
+'';
+
+}
+
 async function pollPaymentStatus(orderId){
 
 let delay=1200;
@@ -4267,6 +4266,41 @@ $('paymentForm').style.display='block';
 
 $('payButton').disabled=false;
 
+$('paymentMsg').textContent=
+paymentFailureReason(result);
+
+return;
+
+}
+
+
+/* SOME PROVIDERS RETURN A DIFFERENT WORD FOR A DECLINED/CANCELLED REQUEST */
+const failureStatuses=[
+'CANCELLED',
+'CANCELED',
+'REJECTED',
+'DECLINED',
+'ERROR',
+'EXPIRED',
+'TIMEOUT',
+'INSUFFICIENT_FUNDS'
+];
+
+if(failureStatuses.includes(status)){
+
+paymentPolling=false;
+
+$('paymentStatus').style.display='none';
+
+$('failedBox').style.display='block';
+
+$('paymentForm').style.display='block';
+
+$('payButton').disabled=false;
+
+$('paymentMsg').textContent=
+paymentFailureReason(result);
+
 return;
 
 }
@@ -4310,12 +4344,14 @@ paymentPolling=false;
 
 $('paymentStatus').style.display='none';
 
+$('failedBox').style.display='block';
+
 $('paymentForm').style.display='block';
 
 $('payButton').disabled=false;
 
 $('paymentMsg').textContent=
-'Payment could not be confirmed automatically. Please try again.';
+'Payment could not be confirmed automatically. If you completed it on your phone, wait a moment and try again — otherwise check your PIN and retry.';
 
 }
 
