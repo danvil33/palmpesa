@@ -2766,6 +2766,13 @@ return;
 
 $('submit').disabled=true;
 
+$('submit').innerHTML=
+signup
+?
+'<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; CREATING ACCOUNT...'
+:
+'<i class="fa-solid fa-spinner fa-spin"></i>&nbsp; SIGNING IN...';
+
 try{
 
 if(signup){
@@ -2845,6 +2852,13 @@ error.message
 }finally{
 
 $('submit').disabled=false;
+
+$('submit').innerHTML=
+signup
+?
+'<i class="fa-solid fa-user-plus"></i>&nbsp; CREATE ACCOUNT'
+:
+'<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; SIGN IN';
 
 }
 
