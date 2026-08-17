@@ -485,6 +485,18 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-size:13px;
 }
 
+.auth-switch{
+  text-align:center;
+  color:var(--ink-soft);
+  font-size:13.5px;
+  margin-top:24px;
+}
+
+.auth-switch .link{
+  font-size:13.5px;
+  margin-left:4px;
+}
+
 .msg{
   min-height:0;
   color:var(--danger);
@@ -1689,6 +1701,11 @@ Forgot password?
 SIGN IN
 </button>
 
+<p class="auth-switch" id="switch">
+Don't have an account?
+<button class="link" type="button">SIGN UP</button>
+</p>
+
 </main>
 
 </div>
@@ -2730,6 +2747,13 @@ signup
 :
 '<i class="fa-solid fa-arrow-right-to-bracket"></i>&nbsp; SIGN IN';
 
+$('switch').innerHTML=
+signup
+?
+'Already have an account? <button class="link" type="button">SIGN IN</button>'
+:
+'Don\'t have an account? <button class="link" type="button">SIGN UP</button>';
+
 }
 
 document
@@ -2741,6 +2765,10 @@ setAuthMode(button.dataset.mode==='signup');
 };
 
 });
+
+$('switch').onclick=()=>{
+setAuthMode(!signup);
+};
 
 
 /* LOGIN / SIGNUP */
