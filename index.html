@@ -1308,6 +1308,120 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   line-height:1.55
 }
 
+/* ---------- LEGAL MODALS ---------- */
+.legal-box{
+  width:min(680px,95vw);
+  max-height:85vh;
+}
+
+.legal-box h2{
+  margin:0;
+  font-size:22px;
+  font-weight:700;
+}
+
+.legal-content{
+  margin-top:18px;
+  font-size:13.5px;
+  line-height:1.7;
+  color:var(--ink-soft);
+}
+
+.legal-content h3{
+  font-size:14.5px;
+  color:var(--ink);
+  margin:22px 0 8px;
+  font-weight:700;
+}
+
+.legal-content h3:first-child{margin-top:0}
+
+.legal-content p{margin:0 0 10px}
+
+.legal-content ul{margin:0 0 10px 18px;padding:0}
+
+.legal-content li{margin-bottom:6px}
+
+/* ---------- SITE FOOTER ---------- */
+.site-footer{
+  background:var(--ink);
+  color:rgba(255,255,255,.7);
+  padding:36px 36px 24px;
+}
+
+.site-footer-inner{
+  width:min(1140px,92vw);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:16px;
+  padding-bottom:22px;
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+
+.site-footer-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.site-footer-logo{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
+}
+
+.site-footer-logo span{color:var(--orange)}
+
+.site-footer-brand p{
+  margin:0;
+  font-size:12.5px;
+  color:rgba(255,255,255,.5);
+}
+
+.site-footer-links{
+  display:flex;
+  gap:24px;
+  flex-wrap:wrap;
+}
+
+.footer-link{
+  border:0;
+  background:none;
+  color:rgba(255,255,255,.72);
+  font-size:12.5px;
+  font-weight:600;
+  padding:0;
+  transition:color .15s ease;
+}
+
+.footer-link:hover{color:var(--orange)}
+
+.site-footer-bottom{
+  width:min(1140px,92vw);
+  margin:16px auto 0;
+  font-size:11.5px;
+  color:rgba(255,255,255,.4);
+  line-height:1.6;
+}
+
+/* ---------- AUTH LEGAL LINE ---------- */
+.auth-legal{
+  text-align:center;
+  color:#8b8590;
+  font-size:11.5px;
+  line-height:1.6;
+  margin-top:14px;
+}
+
+.auth-legal .link{
+  font-size:11.5px;
+  padding:0 2px;
+}
+
 .confirm-actions{
   display:flex;
   gap:11px;
@@ -1567,6 +1681,39 @@ Loading content...
 
 </section>
 
+<footer class="site-footer">
+
+<div class="site-footer-inner">
+
+<div class="site-footer-brand">
+
+<span class="site-footer-logo">M<span>B</span></span>
+
+<p>Premium betting analysis &amp; betslips.</p>
+
+</div>
+
+<div class="site-footer-links">
+
+<button class="footer-link" id="openTerms" type="button">
+Terms &amp; Conditions
+</button>
+
+<button class="footer-link" id="openPrivacy" type="button">
+Privacy Policy
+</button>
+
+</div>
+
+</div>
+
+<div class="site-footer-bottom">
+&copy; <span id="footerYear"></span> MIKEKA BOOM. All rights reserved.
+Betting involves risk — please play responsibly. 18+.
+</div>
+
+</footer>
+
 </section>
 
 
@@ -1704,6 +1851,13 @@ SIGN IN
 <p class="auth-switch" id="switch">
 Don't have an account?
 <button class="link" type="button">SIGN UP</button>
+</p>
+
+<p class="auth-legal">
+By continuing, you agree to our
+<button class="link" id="openTermsAuth" type="button">Terms &amp; Conditions</button>
+and
+<button class="link" id="openPrivacyAuth" type="button">Privacy Policy</button>.
 </p>
 
 </main>
@@ -2174,6 +2328,199 @@ id="confirmDelete">
 DELETE
 
 </button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- TERMS & CONDITIONS -->
+<div class="modal" id="termsModal">
+
+<div class="modal-box legal-box">
+
+<button class="close-modal" id="closeTerms">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+<h2>Terms &amp; Conditions</h2>
+
+<p class="modal-description">Last updated: August 2026</p>
+
+<div class="legal-content">
+
+<h3>1. Acceptance of Terms</h3>
+<p>
+By creating an account or using MIKEKA BOOM ("we", "us", "the platform"),
+you agree to be bound by these Terms &amp; Conditions. If you do not agree,
+please do not use the platform.
+</p>
+
+<h3>2. Nature of the Service</h3>
+<p>
+MIKEKA BOOM publishes betting analysis, tips and betslips for informational
+purposes only. We are not a bookmaker, betting operator, or gambling
+company, and we do not place bets on your behalf. All betting decisions
+and any bets you place elsewhere are made entirely at your own discretion
+and risk.
+</p>
+
+<h3>3. Eligibility</h3>
+<p>
+You must be at least 18 years old to create an account or purchase any
+betslip on MIKEKA BOOM. You are responsible for ensuring that betting and
+the use of betting-related information is legal in your jurisdiction.
+</p>
+
+<h3>4. Your Account</h3>
+<p>
+You agree to provide accurate registration information and to keep your
+password confidential. You are responsible for all activity that happens
+under your account.
+</p>
+
+<h3>5. Payments &amp; Betslips</h3>
+<ul>
+<li>Prices are shown in Tanzanian Shillings (TSh) and paid via PalmPesa mobile money.</li>
+<li>Once payment is confirmed, the betslip unlocks instantly on your account.</li>
+<li>Some betslips carry a validity period shown on the card. After it expires the betslip is removed automatically and is no longer accessible, even if previously purchased.</li>
+</ul>
+
+<h3>6. No Refunds</h3>
+<p>
+Because betslips are digital content delivered instantly upon confirmed
+payment, purchases are generally non-refundable. Refunds may be considered
+only in cases of duplicate charges or a confirmed technical failure that
+prevented delivery of the content you paid for.
+</p>
+
+<h3>7. Prohibited Use</h3>
+<p>
+You agree not to share, resell, screenshot for redistribution, or
+publicly repost premium betslips, and not to attempt to access premium
+content without payment.
+</p>
+
+<h3>8. No Guarantee of Outcome</h3>
+<p>
+Betting analysis and tips reflect opinion and analysis, not certainty.
+We do not guarantee the accuracy of any tip or any betting outcome.
+Gambling carries financial risk, and you should never bet more than you
+can afford to lose.
+</p>
+
+<h3>9. Limitation of Liability</h3>
+<p>
+To the fullest extent permitted by law, MIKEKA BOOM is not liable for
+any losses arising from bets placed using information from this
+platform, or from service interruptions beyond our reasonable control.
+</p>
+
+<h3>10. Account Termination</h3>
+<p>
+We may suspend or terminate accounts that violate these Terms, including
+abuse, fraud, or attempts to bypass payment.
+</p>
+
+<h3>11. Changes to These Terms</h3>
+<p>
+We may update these Terms from time to time. Continued use of the
+platform after changes means you accept the updated Terms.
+</p>
+
+<h3>12. Contact</h3>
+<p>
+Questions about these Terms can be sent to support@mikekaboom.com.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- PRIVACY POLICY -->
+<div class="modal" id="privacyModal">
+
+<div class="modal-box legal-box">
+
+<button class="close-modal" id="closePrivacy">
+<i class="fa-solid fa-xmark"></i>
+</button>
+
+<h2>Privacy Policy</h2>
+
+<p class="modal-description">Last updated: August 2026</p>
+
+<div class="legal-content">
+
+<h3>1. Introduction</h3>
+<p>
+This Privacy Policy explains how MIKEKA BOOM collects, uses and protects
+your information when you use the platform.
+</p>
+
+<h3>2. Information We Collect</h3>
+<ul>
+<li>Account details you provide: name, email address and password.</li>
+<li>Payment details processed by PalmPesa when you pay for a betslip (we do not see or store your mobile money PIN).</li>
+<li>Basic usage information, such as which betslips you've unlocked.</li>
+</ul>
+
+<h3>3. How We Use Your Information</h3>
+<ul>
+<li>To create and manage your account.</li>
+<li>To process payments and deliver the betslips you purchase.</li>
+<li>To communicate with you about your account or purchases.</li>
+<li>To maintain and improve the platform.</li>
+</ul>
+
+<h3>4. Third-Party Services</h3>
+<p>
+We use Firebase (Google) for account authentication and data storage,
+and PalmPesa for mobile money payment processing. These providers handle
+your data under their own security and privacy practices.
+</p>
+
+<h3>5. Data Storage &amp; Security</h3>
+<p>
+Your data is stored on Firebase's infrastructure with reasonable
+technical safeguards. No online platform can guarantee absolute
+security, so we encourage you to use a strong, unique password.
+</p>
+
+<h3>6. Data Retention</h3>
+<p>
+We retain account and purchase information for as long as your account
+is active, or as needed to meet legal and accounting obligations.
+</p>
+
+<h3>7. Your Rights</h3>
+<p>
+You may request access to, correction of, or deletion of your personal
+information by contacting us. Deleting your account will remove your
+profile information, subject to any records we are required to keep.
+</p>
+
+<h3>8. Children's Privacy</h3>
+<p>
+MIKEKA BOOM is not intended for anyone under 18. We do not knowingly
+collect information from minors.
+</p>
+
+<h3>9. Changes to This Policy</h3>
+<p>
+We may update this Privacy Policy from time to time. Material changes
+will be reflected by an updated "Last updated" date above.
+</p>
+
+<h3>10. Contact</h3>
+<p>
+Questions about this Privacy Policy can be sent to support@mikekaboom.com.
+</p>
 
 </div>
 
@@ -3918,6 +4265,69 @@ deleteTargetId=null;
 
 $('deleteModal').style.display='none';
 
+}
+
+};
+
+
+/* LEGAL MODALS */
+$('footerYear').textContent=
+new Date().getFullYear();
+
+function openLegalModal(modalId){
+
+$(modalId).style.display='flex';
+
+}
+
+function closeLegalModal(modalId){
+
+$(modalId).style.display='none';
+
+}
+
+['openTerms','openTermsAuth'].forEach(id=>{
+
+const el=$(id);
+
+if(el){
+
+el.onclick=()=>openLegalModal('termsModal');
+
+}
+
+});
+
+['openPrivacy','openPrivacyAuth'].forEach(id=>{
+
+const el=$(id);
+
+if(el){
+
+el.onclick=()=>openLegalModal('privacyModal');
+
+}
+
+});
+
+$('closeTerms').onclick=()=>
+closeLegalModal('termsModal');
+
+$('closePrivacy').onclick=()=>
+closeLegalModal('privacyModal');
+
+$('termsModal').onclick=e=>{
+
+if(e.target===$('termsModal')){
+closeLegalModal('termsModal');
+}
+
+};
+
+$('privacyModal').onclick=e=>{
+
+if(e.target===$('privacyModal')){
+closeLegalModal('privacyModal');
 }
 
 };
