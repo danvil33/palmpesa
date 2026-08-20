@@ -559,21 +559,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   color:#5b5560;
 }
 
-.balance-pill{
-  display:inline-flex;
-  align-items:center;
-  gap:7px;
-  padding:8px 13px;
-  border-radius:20px;
-  background:var(--teal-tint);
-  color:var(--teal);
-  font-family:'IBM Plex Mono',monospace;
-  font-size:11.5px;
-  font-weight:700;
-  letter-spacing:.02em;
-  white-space:nowrap;
-}
-
 .logout{
   border:0;
   background:var(--ink);
@@ -984,14 +969,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   margin:19px 0 0
 }
 
-.pay-actions{
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-  margin-top:18px;
-}
-
 .pay-button{
+  margin-top:18px;
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
@@ -1008,30 +987,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .pay-button:hover{background:var(--orange-deep);transform:translateY(-1px)}
-
-.balance-pay-button{
-  width:100%;
-  border:1.5px solid var(--teal);
-  border-radius:var(--radius-sm);
-  padding:12.5px;
-  background:var(--teal-tint);
-  color:var(--teal);
-  font-weight:700;
-  font-size:13.5px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:9px;
-  transition:background .15s ease, transform .15s ease;
-}
-
-.balance-pay-button:hover{background:#d9f0ea;transform:translateY(-1px)}
-
-.balance-pay-button:disabled{
-  opacity:.55;
-  cursor:not-allowed;
-  transform:none;
-}
 
 .unlocked-content{
   flex:1;
@@ -1242,56 +1197,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-weight:700;
   color:var(--orange-deep);
   margin:23px 0
-}
-
-.balance-note{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  background:var(--teal-tint);
-  border:1px solid rgba(14,107,92,.18);
-  color:var(--teal);
-  border-radius:var(--radius-sm);
-  padding:13px 15px;
-  font-size:12.5px;
-  font-weight:600;
-  margin:-8px 0 20px;
-}
-
-.balance-note button{
-  flex-shrink:0;
-  border:0;
-  background:var(--teal);
-  color:#fff;
-  padding:9px 14px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:700;
-}
-
-.balance-note button:hover{background:#0a5347}
-
-.balance-note button:disabled{opacity:.6;cursor:not-allowed}
-
-.payment-divider{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  color:#a39da3;
-  font-family:'IBM Plex Mono',monospace;
-  font-size:10.5px;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  margin:2px 0 18px;
-}
-
-.payment-divider::before,
-.payment-divider::after{
-  content:"";
-  flex:1;
-  height:1px;
-  background:var(--panel-line);
 }
 
 .payment-status{
@@ -1587,8 +1492,6 @@ textarea:focus-visible{
   .home-nav .logo{font-size:18px}
 
   .user-name{display:none}
-
-  .balance-pill{font-size:10.5px;padding:7px 10px}
 
   .logout{padding:9px 13px;font-size:11px}
 
@@ -1975,11 +1878,6 @@ MIKEKA <span>BOOM</span>
 
 <div class="user-area">
 
-<span class="balance-pill" id="balancePill">
-<i class="fa-solid fa-wallet"></i>
-<span id="balanceAmount">0</span> TSh
-</span>
-
 <span class="user-name" id="userName"></span>
 
 <button class="logout" id="logout">
@@ -2204,11 +2102,6 @@ Loading your betslips...
 <div class="profile-stats">
 
 <div class="stat-box">
-<span id="profileBalance">0</span>
-<small>Balance (TSh)</small>
-</div>
-
-<div class="stat-box">
 <span id="profileUnlockedCount">0</span>
 <small>Betslips Unlocked</small>
 </div>
@@ -2295,22 +2188,6 @@ Complete the payment below. After your payment is confirmed
 
 <div class="payment-price" id="paymentPrice"></div>
 
-<div class="balance-note" id="balanceNote" style="display:none">
-
-<span id="balanceNoteText">
-<i class="fa-solid fa-wallet"></i>
-You have enough balance to pay instantly.
-</span>
-
-<button id="balancePayButton" type="button">
-PAY FROM BALANCE
-</button>
-
-</div>
-
-<div class="payment-divider" id="paymentDivider" style="display:none">
-OR PAY WITH MOBILE MONEY
-</div>
 
 <div id="paymentForm">
 
@@ -2506,7 +2383,7 @@ under your account.
 
 <h3>5. Payments &amp; Betslips</h3>
 <ul>
-<li>Prices are shown in Tanzanian Shillings (TSh) and paid via PalmPesa mobile money, or from your account balance where available.</li>
+<li>Prices are shown in Tanzanian Shillings (TSh) and paid via PalmPesa mobile money.</li>
 <li>Once payment is confirmed, the betslip unlocks instantly on your account.</li>
 <li>Some betslips carry a validity period shown on the card. After it expires the betslip is removed automatically and is no longer accessible, even if previously purchased.</li>
 </ul>
@@ -2590,7 +2467,7 @@ your information when you use the platform.
 <ul>
 <li>Account details you provide: name, email address and password.</li>
 <li>Payment details processed by PalmPesa when you pay for a betslip (we do not see or store your mobile money PIN).</li>
-<li>Basic usage information, such as which betslips you've unlocked and your account balance.</li>
+<li>Basic usage information, such as which betslips you've unlocked.</li>
 </ul>
 
 <h3>3. How We Use Your Information</h3>
@@ -2685,8 +2562,7 @@ deleteDoc,
 onSnapshot,
 query,
 orderBy,
-serverTimestamp,
-runTransaction
+serverTimestamp
 }
 from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
@@ -2724,8 +2600,6 @@ let currentUser=null;
 
 let currentIsAdmin=false;
 
-let currentBalance=0;
-
 let stopPosts=null;
 
 let selectedPost=null;
@@ -2733,8 +2607,6 @@ let selectedPost=null;
 let selectedPostId=null;
 
 let paymentPolling=false;
-
-let balancePayInProgress=false;
 
 let paidPosts=new Set();
 
@@ -2766,31 +2638,6 @@ character=>({
 "'":'&#039;'
 }[character])
 );
-
-}
-
-
-function formatBalance(value){
-
-return Number(value||0).toLocaleString();
-
-}
-
-
-/* UPDATE ALL BALANCE DISPLAYS */
-function renderBalance(){
-
-const amountEl=$('balanceAmount');
-
-if(amountEl){
-amountEl.textContent=formatBalance(currentBalance);
-}
-
-const profileBalanceEl=$('profileBalance');
-
-if(profileBalanceEl){
-profileBalanceEl.textContent=formatBalance(currentBalance);
-}
 
 }
 
@@ -3180,44 +3027,6 @@ error
 }
 
 
-/* LOAD / REFRESH USER BALANCE FROM FIRESTORE (admin-edited manually) */
-async function loadBalance(){
-
-currentBalance=0;
-
-if(!currentUser){
-renderBalance();
-return;
-}
-
-try{
-
-const snap=
-await getDoc(
-doc(db,'people',currentUser.uid)
-);
-
-currentBalance=
-snap.exists()
-?
-Number(snap.data().balance||0)
-:
-0;
-
-}catch(error){
-
-console.error(
-'Balance loading error:',
-error
-);
-
-}
-
-renderBalance();
-
-}
-
-
 /* HOME */
 function promptSignIn(text){
 
@@ -3382,7 +3191,6 @@ credential.user.uid
 name:name,
 email:email,
 role:'user',
-balance:0,
 createdAt:serverTimestamp()
 }
 );
@@ -3500,11 +3308,6 @@ data.role==='admin';
 
 currentIsAdmin=admin;
 
-currentBalance=
-Number(data.balance||0);
-
-renderBalance();
-
 
 $('adminPanel').style.display=
 admin?'block':'none';
@@ -3596,8 +3399,6 @@ if(nameInput){
 nameInput.value=displayName;
 }
 
-renderBalance();
-
 }
 
 
@@ -3608,8 +3409,6 @@ const unlockedCount=$('profileUnlockedCount');
 if(unlockedCount){
 unlockedCount.textContent=paidPosts.size;
 }
-
-renderBalance();
 
 }
 
@@ -3633,11 +3432,7 @@ currentUser=null;
 
 currentIsAdmin=false;
 
-currentBalance=0;
-
 paidPosts=new Set();
-
-renderBalance();
 
 $('app').style.display='none';
 
@@ -4213,26 +4008,6 @@ ${price.toLocaleString()} TSh
 
 </div>
 
-<div class="pay-actions">
-
-${
-currentUser&&currentBalance>=price
-?
-`
-<button
-class="balance-pay-button"
-data-balance-id="${item.id}">
-
-<i class="fa-solid fa-wallet"></i>
-
-PAY FROM BALANCE
-
-</button>
-`
-:
-''
-}
-
 <button
 class="pay-button"
 data-id="${item.id}">
@@ -4242,8 +4017,6 @@ data-id="${item.id}">
 PAY & UNLOCK
 
 </button>
-
-</div>
 
 </article>
 
@@ -4350,44 +4123,6 @@ selectedPost
 });
 
 
-/* PAY FROM BALANCE BUTTONS (ON CARD) */
-box
-.querySelectorAll('.balance-pay-button')
-.forEach(button=>{
-
-button.onclick=()=>{
-
-const postDoc=
-snapshot.docs.find(
-item=>item.id===
-button.dataset.balanceId
-);
-
-if(!postDoc){
-return;
-}
-
-if(!currentUser){
-
-promptSignIn(
-'Sign in to unlock this betslip.'
-);
-
-return;
-
-}
-
-payWithBalance(
-postDoc.id,
-postDoc.data(),
-button
-);
-
-};
-
-});
-
-
 /* DELETE BUTTONS */
 box
 .querySelectorAll('.delete-button')
@@ -4451,150 +4186,6 @@ permissionIssue
 
 }
 );
-
-}
-
-
-/* PAY FROM BALANCE — SHARED HELPER (used by card button & modal button) */
-async function payWithBalance(postId,post,triggerButton){
-
-if(!currentUser||balancePayInProgress){
-return;
-}
-
-const price=
-Number(post.price||0);
-
-if(!price||price<=0){
-return;
-}
-
-if(currentBalance<price){
-
-if(triggerButton){
-triggerButton.disabled=true;
-}
-
-return;
-
-}
-
-balancePayInProgress=true;
-
-const originalHTML=
-triggerButton?triggerButton.innerHTML:'';
-
-if(triggerButton){
-
-triggerButton.disabled=true;
-
-triggerButton.innerHTML=
-'<i class="fa-solid fa-spinner fa-spin"></i> PROCESSING...';
-
-}
-
-try{
-
-/* ATOMIC: DEDUCT BALANCE + RECORD PURCHASE TOGETHER */
-await runTransaction(db,async(transaction)=>{
-
-const userRef=
-doc(db,'people',currentUser.uid);
-
-const userSnap=
-await transaction.get(userRef);
-
-const liveBalance=
-Number(
-userSnap.exists()
-?
-userSnap.data().balance||0
-:
-0
-);
-
-if(liveBalance<price){
-
-throw new Error(
-'INSUFFICIENT_BALANCE'
-);
-
-}
-
-const purchaseRef=
-doc(
-db,
-'people',
-currentUser.uid,
-'purchases',
-postId
-);
-
-transaction.update(
-userRef,
-{balance:liveBalance-price}
-);
-
-transaction.set(
-purchaseRef,
-{
-postId:postId,
-title:post.title||'',
-amount:price,
-status:'COMPLETED',
-method:'BALANCE',
-paidAt:serverTimestamp()
-}
-);
-
-currentBalance=
-liveBalance-price;
-
-});
-
-paidPosts.add(postId);
-
-renderBalance();
-
-/* CLOSE PAYMENT MODAL IF THIS CAME FROM THERE */
-if($('paymentModal').style.display==='flex'){
-
-$('paymentModal').style.display='none';
-
-}
-
-unlockCard(postId,post);
-
-}catch(error){
-
-console.error(
-'Balance payment error:',
-error
-);
-
-if(triggerButton){
-
-triggerButton.disabled=false;
-
-triggerButton.innerHTML=
-originalHTML;
-
-}
-
-if(error.message==='INSUFFICIENT_BALANCE'){
-
-/* BALANCE CHANGED SINCE LAST SYNC — RE-SYNC AND RE-RENDER */
-await loadBalance();
-
-listenPosts();
-
-}
-
-}finally{
-
-balancePayInProgress=false;
-
-}
 
 }
 
@@ -4751,14 +4342,12 @@ selectedPostId=postId;
 
 selectedPost=post;
 
-const price=
-Number(post.price||0);
-
 $('paymentTitle').textContent=
 post.title||'Unlock Betslip';
 
 $('paymentPrice').textContent=
-price.toLocaleString()+
+Number(post.price||0)
+.toLocaleString()+
 ' TSh';
 
 $('payName').value=
@@ -4781,57 +4370,15 @@ $('paymentForm').style.display='block';
 
 $('payButton').disabled=false;
 
-
-/* SHOW "PAY FROM BALANCE" OPTION WHEN THE USER CAN AFFORD IT */
-const enoughBalance=
-currentUser&&currentBalance>=price&&price>0;
-
-$('balanceNote').style.display=
-enoughBalance?'flex':'none';
-
-$('paymentDivider').style.display=
-enoughBalance?'flex':'none';
-
-if(enoughBalance){
-
-$('balanceNoteText').innerHTML=
-'<i class="fa-solid fa-wallet"></i> Balance: '+
-formatBalance(currentBalance)+
-' TSh — enough to pay instantly.';
-
-const balanceBtn=$('balancePayButton');
-
-balanceBtn.disabled=false;
-
-balanceBtn.innerHTML='PAY FROM BALANCE';
-
-}
-
 $('paymentModal').style.display='flex';
 
 }
 
 
-/* PAY FROM BALANCE BUTTON INSIDE PAYMENT MODAL */
-$('balancePayButton').onclick=()=>{
-
-if(!selectedPostId||!selectedPost){
-return;
-}
-
-payWithBalance(
-selectedPostId,
-selectedPost,
-$('balancePayButton')
-);
-
-};
-
-
 /* CLOSE PAYMENT */
 $('closePayment').onclick=()=>{
 
-if(paymentPolling||balancePayInProgress){
+if(paymentPolling){
 
 return;
 
@@ -4971,10 +4518,6 @@ throw new Error(
 }
 
 $('paymentForm').style.display='none';
-
-$('balanceNote').style.display='none';
-
-$('paymentDivider').style.display='none';
 
 $('paymentStatus').style.display='block';
 
@@ -5117,8 +4660,6 @@ selectedPost.price||0
 ),
 
 status:'COMPLETED',
-
-method:'PALMPESA',
 
 paidAt:serverTimestamp()
 
@@ -5320,13 +4861,6 @@ ${esc(post.content||'')}
 
 }
 
-const payActions=
-card.querySelector('.pay-actions');
-
-if(payActions){
-payActions.remove();
-}
-
 const button=
 card.querySelector('.pay-button');
 
@@ -5383,8 +4917,6 @@ $('refreshPosts').querySelector('i');
 icon.classList.add('fa-spin');
 
 await loadPurchases();
-
-await loadBalance();
 
 listenPosts();
 
