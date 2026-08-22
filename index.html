@@ -1927,7 +1927,7 @@ SIGN OUT
 <h2>Publish Betslip</h2>
 
 <p>
-Publish a premium betslip, set its price and validity time.
+Publish a premium betslip, set its price and the bet start time — validity is calculated automatically.
 </p>
 
 </div>
@@ -1973,20 +1973,15 @@ placeholder="0">
 
 <div class="field">
 
-<label>VALIDITY TIME (HOURS)</label>
-
-<div class="price-wrap">
+<label>BET START TIME</label>
 
 <input
-id="postValidity"
-type="number"
-min="1"
-step="1"
-placeholder="e.g. 24">
+id="postStartTime"
+type="datetime-local">
 
-<span>HRS</span>
-
-</div>
+<small style="display:block;margin-top:8px;color:#8b8590;font-size:11.5px;line-height:1.5">
+Validity is calculated automatically — the betslip will expire and be removed at kickoff.
+</small>
 
 </div>
 
@@ -2634,8 +2629,8 @@ character=>({
 '&':'&amp;',
 '<':'&lt;',
 '>':'&gt;',
-'"':'&quot;',
-"'":'&#039;'
+"'":'&#039;',
+'"':'&quot;'
 }[character])
 );
 
@@ -3485,10 +3480,8 @@ Number(
 $('postPrice').value||0
 );
 
-const validityHours=
-Number(
-$('postValidity').value||0
-);
+const startTimeValue=
+$('postStartTime').value;
 
 if(!title){
 
@@ -3517,22 +3510,40 @@ throw new Error(
 
 }
 
-if(
-!Number.isFinite(validityHours)||
-validityHours<=0
-){
+if(!startTimeValue){
 
 throw new Error(
-'Enter a valid validity time (in hours).'
+'Enter the bet start time.'
 );
 
 }
 
 const expiresAt=
-new Date(
-Date.now()+
-(validityHours*3600000)
+new Date(startTimeValue);
+
+if(
+isNaN(expiresAt.getTime())
+){
+
+throw new Error(
+'Enter a valid bet start time.'
 );
+
+}
+
+if(
+expiresAt.getTime()<=Date.now()
+){
+
+throw new Error(
+'Bet start time must be in the future.'
+);
+
+}
+
+/* VALIDITY IS DERIVED AUTOMATICALLY FROM NOW UNTIL THE BET START TIME */
+const validityHours=
+(expiresAt.getTime()-Date.now())/3600000;
 
 await addDoc(
 collection(db,'posts'),
@@ -3540,6 +3551,7 @@ collection(db,'posts'),
 title,
 content,
 price,
+betStartTime:expiresAt,
 validityHours,
 expiresAt,
 published:true,
@@ -3558,7 +3570,7 @@ $('postContent').value='';
 
 $('postPrice').value='';
 
-$('postValidity').value='';
+$('postStartTime').value='';
 
 $('postMsg').textContent=
 'Betslip published successfully.';
