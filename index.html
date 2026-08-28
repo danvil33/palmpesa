@@ -423,7 +423,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .field input,
-.field textarea{
+.field textarea,
+.field select{
   width:100%;
   padding:14px 16px;
   border:1.5px solid var(--panel-line);
@@ -437,7 +438,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .input-wrap input{padding-left:44px}
 
 .field input:focus,
-.field textarea:focus{
+.field textarea:focus,
+.field select:focus{
   border-color:var(--orange);
   box-shadow:0 0 0 4px var(--orange-tint);
   background:var(--paper);
@@ -640,6 +642,27 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .countdown.urgent{
   background:#fff1f0;
   color:var(--danger);
+}
+
+/* ---------- PLATFORM LOGOS ---------- */
+.platform-logos{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin:0 0 14px;
+  flex-wrap:wrap;
+}
+
+.platform-logo{
+  height:24px;
+  width:auto;
+  max-width:110px;
+  object-fit:contain;
+  background:#fff;
+  border:1px solid var(--panel-line);
+  border-radius:7px;
+  padding:3px 7px;
+  display:block;
 }
 
 /* ---------- PROFILE ---------- */
@@ -1456,7 +1479,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 /* ---------- FOCUS ---------- */
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible{
+textarea:focus-visible,
+select:focus-visible{
   outline:3px solid var(--orange);
   outline-offset:2px;
 }
@@ -1927,7 +1951,7 @@ SIGN OUT
 <h2>Publish Betslip</h2>
 
 <p>
-Publish a premium betslip, set its price and the bet start time — validity is calculated automatically.
+Publish a premium betslip, set its price, platform and the bet start time — validity is calculated automatically.
 </p>
 
 </div>
@@ -1971,7 +1995,24 @@ placeholder="0">
 </div>
 
 
-<div class="field">
+<div class="field full">
+
+<label>PLATFORM</label>
+
+<select id="postPlatform">
+<option value="betpawa">BetPawa</option>
+<option value="sportybet">SportyBet</option>
+<option value="both">Both (BetPawa &amp; SportyBet)</option>
+</select>
+
+<small style="display:block;margin-top:8px;color:#8b8590;font-size:11.5px;line-height:1.5">
+Choose which platform this betslip is for — the matching logo(s) will show on the betslip card.
+</small>
+
+</div>
+
+
+<div class="field full">
 
 <label>BET START TIME</label>
 
@@ -2587,6 +2628,35 @@ const firebaseApp=initializeApp(firebaseConfig);
 const auth=getAuth(firebaseApp);
 
 const db=getFirestore(firebaseApp);
+
+
+/* PLATFORM LOGOS */
+const PLATFORM_LOGOS={
+betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
+sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_35_34%20AM.png'
+};
+
+function platformLogosMarkup(post){
+
+const platform=post.platform||'';
+
+let imgs='';
+
+if(platform==='betpawa'||platform==='both'){
+
+imgs+=`<img class="platform-logo" src="${PLATFORM_LOGOS.betpawa}" alt="BetPawa">`;
+
+}
+
+if(platform==='sportybet'||platform==='both'){
+
+imgs+=`<img class="platform-logo" src="${PLATFORM_LOGOS.sportybet}" alt="SportyBet">`;
+
+}
+
+return imgs?`<div class="platform-logos">${imgs}</div>`:'';
+
+}
 
 
 let signup=false;
@@ -3480,6 +3550,9 @@ Number(
 $('postPrice').value||0
 );
 
+const platform=
+$('postPlatform').value;
+
 const startTimeValue=
 $('postStartTime').value;
 
@@ -3506,6 +3579,16 @@ price<0
 
 throw new Error(
 'Enter a valid price.'
+);
+
+}
+
+if(
+!['betpawa','sportybet','both'].includes(platform)
+){
+
+throw new Error(
+'Choose a valid platform.'
 );
 
 }
@@ -3551,6 +3634,7 @@ collection(db,'posts'),
 title,
 content,
 price,
+platform,
 betStartTime:expiresAt,
 validityHours,
 expiresAt,
@@ -3569,6 +3653,8 @@ $('postTitle').value='';
 $('postContent').value='';
 
 $('postPrice').value='';
+
+$('postPlatform').value='betpawa';
 
 $('postStartTime').value='';
 
@@ -3752,6 +3838,9 @@ post.createdAt.toDate().toLocaleString()
 const countdown=
 countdownMarkup(post);
 
+const platformLogos=
+platformLogosMarkup(post);
+
 
 /* FREE TIP */
 if(price<=0){
@@ -3785,6 +3874,8 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
+
+${platformLogos}
 
 ${countdown}
 
@@ -3862,6 +3953,8 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${platformLogos}
+
 ${countdown}
 
 <div class="unlocked-content admin-content">
@@ -3934,6 +4027,8 @@ ${esc(post.title||'Untitled')}
 ${esc(date)}
 </div>
 
+${platformLogos}
+
 ${countdown}
 
 <div class="unlocked-content">
@@ -3993,6 +4088,8 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
+
+${platformLogos}
 
 ${countdown}
 
