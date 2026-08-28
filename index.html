@@ -635,8 +635,9 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-size:10.5px;
   font-weight:600;
   letter-spacing:.03em;
-  margin:-6px 0 16px;
+  margin:0;
   width:fit-content;
+  flex-shrink:0;
 }
 
 .countdown.urgent{
@@ -906,7 +907,9 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:19px
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:16px
 }
 
 .category-icon{
@@ -1011,19 +1014,39 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
-  padding:14px;
-  background:var(--orange);
+  padding:16px;
+  background:linear-gradient(135deg, var(--orange), var(--orange-deep));
   color:#fff;
-  font-weight:700;
-  font-size:13.5px;
+  font-weight:800;
+  font-size:14.5px;
+  letter-spacing:.01em;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:9px;
-  transition:background .15s ease, transform .15s ease;
+  box-shadow:0 14px 30px rgba(255,106,0,.3);
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease;
+  animation:payPulse 2.4s ease-in-out infinite;
 }
 
-.pay-button:hover{background:var(--orange-deep);transform:translateY(-1px)}
+.pay-button:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 18px 36px rgba(255,106,0,.36)}
+
+@keyframes payPulse{
+  0%,100%{box-shadow:0 14px 30px rgba(255,106,0,.3)}
+  50%{box-shadow:0 18px 42px rgba(255,106,0,.58)}
+}
+
+.trust-line{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  margin-top:11px;
+  color:#a39da3;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.02em;
+}
 
 .unlocked-content{
   flex:1;
@@ -3842,13 +3865,6 @@ const post=item.data();
 const price=
 Number(post.price||0);
 
-const date=
-post.createdAt?.toDate
-?
-post.createdAt.toDate().toLocaleString()
-:
-'Just now';
-
 const countdown=
 countdownMarkup(post);
 
@@ -3863,13 +3879,9 @@ return `
 
 <article class="post-card unlocked" data-post-id="${item.id}">
 
+${platformLogos}
+
 <div class="card-top">
-
-<div class="category-icon">
-
-<i class="fa-solid fa-futbol"></i>
-
-</div>
 
 <div class="badge free">
 
@@ -3879,19 +3891,13 @@ FREE TIP
 
 </div>
 
-</div>
+${countdown}
 
-${platformLogos}
+</div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
-
-<div class="date">
-${esc(date)}
-</div>
-
-${countdown}
 
 <div class="free-content">
 
@@ -3941,13 +3947,9 @@ return `
 class="post-card unlocked"
 data-post-id="${item.id}">
 
+${platformLogos}
+
 <div class="card-top">
-
-<div class="category-icon">
-
-<i class="fa-solid fa-shield-halved"></i>
-
-</div>
 
 <div class="badge admin">
 
@@ -3957,19 +3959,13 @@ ADMIN VIEW
 
 </div>
 
-</div>
+${countdown}
 
-${platformLogos}
+</div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
-
-<div class="date">
-${esc(date)}
-</div>
-
-${countdown}
 
 <div class="unlocked-content admin-content">
 
@@ -4015,13 +4011,9 @@ return `
 class="post-card unlocked"
 data-post-id="${item.id}">
 
+${platformLogos}
+
 <div class="card-top">
-
-<div class="category-icon">
-
-<i class="fa-solid fa-lock-open"></i>
-
-</div>
 
 <div class="badge free">
 
@@ -4031,19 +4023,13 @@ UNLOCKED
 
 </div>
 
-</div>
+${countdown}
 
-${platformLogos}
+</div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
-
-<div class="date">
-${esc(date)}
-</div>
-
-${countdown}
 
 <div class="unlocked-content">
 
@@ -4077,13 +4063,9 @@ return `
 class="post-card"
 data-post-id="${item.id}">
 
+${platformLogos}
+
 <div class="card-top">
-
-<div class="category-icon">
-
-<i class="fa-solid fa-lock"></i>
-
-</div>
 
 <div class="badge premium">
 
@@ -4093,19 +4075,13 @@ VIP BETSLIP
 
 </div>
 
-</div>
+${countdown}
 
-${platformLogos}
+</div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
-
-<div class="date">
-${esc(date)}
-</div>
-
-${countdown}
 
 <div class="locked-area">
 
@@ -4116,18 +4092,12 @@ ${countdown}
 </div>
 
 <strong>
-BETSLIP LOCKED
+Betslip Ready
 </strong>
 
 <p>
-Complete payment to unlock this betslip.
+Full analysis, odds &amp; betslip code — unlock instantly below.
 </p>
-
-</div>
-
-<div class="price">
-
-${price.toLocaleString()} TSh
 
 </div>
 
@@ -4135,11 +4105,16 @@ ${price.toLocaleString()} TSh
 class="pay-button"
 data-id="${item.id}">
 
-<i class="fa-solid fa-credit-card"></i>
+<i class="fa-solid fa-lock-open"></i>
 
-VIEW BETSLIP
+UNLOCK FOR ${price.toLocaleString('en-US')} TSH
 
 </button>
+
+<div class="trust-line">
+<i class="fa-solid fa-shield-halved"></i>
+Instant access · Secure payment
+</div>
 
 </article>
 
@@ -4470,7 +4445,7 @@ post.title||'Unlock Betslip';
 
 $('paymentPrice').textContent=
 Number(post.price||0)
-.toLocaleString()+
+.toLocaleString('en-US')+
 ' TSh';
 
 $('payName').value=
