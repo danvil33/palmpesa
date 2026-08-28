@@ -647,22 +647,28 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 /* ---------- PLATFORM LOGOS ---------- */
 .platform-logos{
   display:flex;
-  align-items:center;
-  gap:8px;
-  margin:0 0 14px;
-  flex-wrap:wrap;
+  align-items:stretch;
+  gap:10px;
+  margin:0 0 18px;
+  width:100%;
 }
 
 .platform-logo{
-  height:24px;
-  width:auto;
-  max-width:110px;
+  flex:1 1 0;
+  width:100%;
+  height:72px;
   object-fit:contain;
   background:#fff;
-  border:1px solid var(--panel-line);
-  border-radius:7px;
-  padding:3px 7px;
+  border:1.5px solid var(--panel-line);
+  border-radius:13px;
+  padding:10px;
   display:block;
+}
+
+@media(max-width:480px){
+
+  .platform-logo{height:58px;padding:8px}
+
 }
 
 /* ---------- PROFILE ---------- */
@@ -3867,6 +3873,8 @@ FREE TIP
 
 </div>
 
+${platformLogos}
+
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
@@ -3874,8 +3882,6 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
-
-${platformLogos}
 
 ${countdown}
 
@@ -3945,6 +3951,8 @@ ADMIN VIEW
 
 </div>
 
+${platformLogos}
+
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
@@ -3952,8 +3960,6 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
-
-${platformLogos}
 
 ${countdown}
 
@@ -4019,6 +4025,8 @@ UNLOCKED
 
 </div>
 
+${platformLogos}
+
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
@@ -4026,8 +4034,6 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
-
-${platformLogos}
 
 ${countdown}
 
@@ -4081,6 +4087,8 @@ VIP BETSLIP
 
 </div>
 
+${platformLogos}
+
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
@@ -4088,8 +4096,6 @@ ${esc(post.title||'Untitled')}
 <div class="date">
 ${esc(date)}
 </div>
-
-${platformLogos}
 
 ${countdown}
 
