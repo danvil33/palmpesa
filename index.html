@@ -710,12 +710,9 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .platform-logo{
   flex:1 1 0;
   width:100%;
-  height:72px;
+  height:32px;
   object-fit:contain;
-  background:#fff;
-  border:1.5px solid var(--panel-line);
   border-radius:13px;
-  padding:10px;
   display:block;
 }
 
@@ -723,13 +720,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
   .platform-logos{flex-direction:column}
 
-  .platform-logo{height:110px;width:100%}
+  .platform-logo{height:50px;width:100%}
 
 }
 
 @media(max-width:480px){
 
-  .platform-logo{height:96px;padding:10px}
+  .platform-logo{height:56px}
 
 }
 
@@ -1229,6 +1226,52 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:20px;
   color:#a39da3;
   font-size:14px;
+}
+
+/* ---------- SKELETON LOADING ---------- */
+.skeleton-card{
+  background:var(--paper);
+  border:1px solid var(--panel-line);
+  border-radius:20px;
+  padding:24px;
+  min-height:320px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.sk-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.sk{
+  border-radius:8px;
+  background:linear-gradient(100deg,#eeebe6 30%,#f7f5f2 50%,#eeebe6 70%);
+  background-size:220% 100%;
+  animation:skShimmer 1.4s ease-in-out infinite;
+}
+
+.sk-icon{width:44px;height:44px;border-radius:13px}
+
+.sk-badge{width:84px;height:26px;border-radius:20px}
+
+.sk-title{width:80%;height:21px;border-radius:6px}
+
+.sk-line{height:11px}
+
+.sk-block{flex:1;min-height:120px;border-radius:15px;margin-top:4px}
+
+@keyframes skShimmer{
+  0%{background-position:180% 0}
+  100%{background-position:-40% 0}
+}
+
+@media(prefers-reduced-motion:reduce){
+
+  .sk{animation:none;background:#eeebe6}
+
 }
 
 .empty i{font-size:22px;color:#c9c3c9}
@@ -1781,10 +1824,24 @@ Free tips open now — sign in to unlock premium betslips
 
 <div id="homePosts" class="posts">
 
-<div class="empty">
-<i class="fa-solid fa-spinner fa-spin"></i>
-<br><br>
-Loading content...
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
 </div>
 
 </div>
@@ -2176,10 +2233,24 @@ REFRESH
 
 <div id="posts" class="posts">
 
-<div class="empty">
-<i class="fa-solid fa-spinner fa-spin"></i>
-<br><br>
-Loading betslips...
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
 </div>
 
 </div>
@@ -2206,10 +2277,24 @@ Betslips you've paid for
 
 <div id="myBetslipPosts" class="posts">
 
-<div class="empty">
-<i class="fa-solid fa-spinner fa-spin"></i>
-<br><br>
-Loading your betslips...
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
+<div class="skeleton-card">
+<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
+<div class="sk sk-title"></div>
+<div class="sk sk-line" style="width:60%"></div>
+<div class="sk sk-block"></div>
+</div>
 </div>
 
 </div>
@@ -2734,7 +2819,7 @@ const db=getFirestore(firebaseApp);
 /* PLATFORM LOGOS */
 const PLATFORM_LOGOS={
 betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
-sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_35_34%20AM.png'
+sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/sportybet.png'
 };
 
 function platformLogosMarkup(post){
