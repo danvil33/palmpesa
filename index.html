@@ -2,18 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MIKEKA BOOM — Betting Analysis</title>
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20180%20180%27%3E%3Crect%20width%3D%27180%27%20height%3D%27180%27%20rx%3D%2740%27%20fill%3D%27%2315121a%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%27118%27%20font-family%3D%27Arial%2C%20Helvetica%2C%20sans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2792%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffffff%27%3EM%3Ctspan%20fill%3D%27%23ff6a00%27%3EB%3C/tspan%3E%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20180%20180%27%3E%3Crect%20width%3D%27180%27%20height%3D%27180%27%20rx%3D%2740%27%20fill%3D%27%2315121a%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%27118%27%20font-family%3D%27Arial%2C%20Helvetica%2C%20sans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2792%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffffff%27%3EM%3Ctspan%20fill%3D%27%23ff6a00%27%3EB%3C/tspan%3E%3C/text%3E%3C/svg%3E">
-
-<meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="MIKEKA BOOM">
-<meta name="format-detection" content="telephone=no">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +30,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   --radius-lg:22px;
   --radius-md:14px;
   --radius-sm:9px;
-  --shadow-soft:none;
-  --shadow-lift:none;
+  --shadow-soft:0 10px 34px rgba(21,18,26,.06);
+  --shadow-lift:0 22px 60px rgba(21,18,26,.14);
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
 
 html,body{
   margin:0;
@@ -139,10 +129,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:var(--radius-sm);
   font-weight:700;
   font-size:13px;
-  transition:border-color .15s ease, color .15s ease, background .15s ease, transform .12s ease;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
 }
-
-.ghost-btn:active{transform:scale(.97)}
 
 .ghost-btn:hover{
   border-color:var(--orange);
@@ -250,14 +238,15 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:inline-flex;
   align-items:center;
   gap:11px;
-  transition:background .18s ease, transform .12s ease;
+  box-shadow:0 10px 24px rgba(255,106,0,.28);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
 .primary-btn:hover{
   background:var(--orange-deep);
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(255,106,0,.34);
 }
-
-.primary-btn:active{transform:scale(.97)}
 
 /* ---------- AUTH ---------- */
 .auth{
@@ -290,7 +279,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   background:var(--paper);
   border-radius:28px;
   overflow:hidden;
-  border:1px solid var(--panel-line);
+  box-shadow:0 40px 100px rgba(0,0,0,.45), 0 2px 0 rgba(255,255,255,.06) inset;
+  border:1px solid rgba(255,255,255,.06);
 }
 
 .auth-side{
@@ -385,7 +375,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .auth-toggle-btn.active{
   background:var(--paper);
   color:var(--ink);
-  border:1px solid var(--panel-line);
+  box-shadow:0 4px 14px rgba(21,18,26,.12);
 }
 
 .auth-main h1{
@@ -433,8 +423,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .field input,
-.field textarea,
-.field select{
+.field textarea{
   width:100%;
   padding:14px 16px;
   border:1.5px solid var(--panel-line);
@@ -448,8 +437,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .input-wrap input{padding-left:44px}
 
 .field input:focus,
-.field textarea:focus,
-.field select:focus{
+.field textarea:focus{
   border-color:var(--orange);
   box-shadow:0 0 0 4px var(--orange-tint);
   background:var(--paper);
@@ -467,7 +455,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
-  background:var(--orange);
+  background:linear-gradient(135deg, var(--orange), var(--orange-deep));
   color:#fff;
   padding:16px;
   font-weight:700;
@@ -476,12 +464,11 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:background .15s ease, transform .12s ease;
+  box-shadow:0 14px 30px rgba(255,106,0,.3);
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 
-.submit:hover{background:var(--orange-deep)}
-
-.submit:active:not(:disabled){transform:scale(.98)}
+.submit:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 18px 36px rgba(255,106,0,.36)}
 
 .submit:disabled{
   opacity:.55;
@@ -541,11 +528,11 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   top:0;
   left:0;
   right:0;
-  height:calc(74px + env(safe-area-inset-top));
+  height:74px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:env(safe-area-inset-top) 36px 0;
+  padding:0 36px;
   background:var(--paper);
   border-bottom:1px solid var(--panel-line);
 }
@@ -592,45 +579,42 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 /* ---------- APP TABS ---------- */
 .app-tabs{
   position:fixed;
-  bottom:0;
+  top:74px;
   left:0;
   right:0;
   z-index:45;
   display:flex;
+  gap:8px;
+  padding:14px 36px;
   background:var(--paper);
-  border-top:1px solid var(--panel-line);
-  padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+  border-bottom:1px solid var(--panel-line);
+  overflow-x:auto;
 }
 
 .tab-btn{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#9a949a;
-  padding:7px 4px;
-  border-radius:12px;
+  border:1.5px solid var(--panel-line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  padding:10px 18px;
+  border-radius:var(--radius-sm);
   font-weight:700;
-  font-size:10.5px;
-  letter-spacing:.01em;
+  font-size:12.5px;
+  letter-spacing:.02em;
   display:flex;
-  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  gap:4px;
-  -webkit-tap-highlight-color:transparent;
-  transition:color .15s ease, transform .12s ease;
+  gap:8px;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
 }
 
-.tab-btn i{font-size:19px}
-
-.tab-btn:active{transform:scale(.92)}
-
-.tab-btn:hover{color:var(--orange-deep)}
+.tab-btn:hover{border-color:var(--orange);color:var(--orange-deep)}
 
 .tab-btn.active{
-  background:transparent;
-  border-color:transparent;
-  color:var(--orange);
+  background:var(--orange);
+  border-color:var(--orange);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(255,106,0,.28);
 }
 
 .tab-panel{display:none}
@@ -649,49 +633,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-size:10.5px;
   font-weight:600;
   letter-spacing:.03em;
-  margin:0;
+  margin:-6px 0 16px;
   width:fit-content;
-  flex-shrink:0;
 }
 
 .countdown.urgent{
   background:#fff1f0;
   color:var(--danger);
-}
-
-/* ---------- PLATFORM LOGOS ---------- */
-.platform-logos{
-  display:flex;
-  align-items:stretch;
-  gap:10px;
-  margin:0 0 18px;
-  width:100%;
-}
-
-.platform-logo{
-  flex:1 1 0;
-  width:100%;
-  height:72px;
-  object-fit:contain;
-  background:#fff;
-  border:1.5px solid var(--panel-line);
-  border-radius:13px;
-  padding:10px;
-  display:block;
-}
-
-@media(max-width:700px){
-
-  .platform-logos{flex-direction:column}
-
-  .platform-logo{height:110px;width:100%}
-
-}
-
-@media(max-width:480px){
-
-  .platform-logo{height:96px;padding:10px}
-
 }
 
 /* ---------- PROFILE ---------- */
@@ -770,7 +718,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .content{
   width:min(1140px,92vw);
   margin:auto;
-  padding:calc(74px + env(safe-area-inset-top) + 26px) 0 calc(94px + env(safe-area-inset-bottom))
+  padding:190px 0 70px
 }
 
 /* ---------- ADMIN ---------- */
@@ -904,11 +852,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   min-height:320px;
   display:flex;
   flex-direction:column;
-  transition:border-color .2s ease;
+  box-shadow:var(--shadow-soft);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
 .post-card:hover{
-  border-color:#d6d0ca;
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lift);
 }
 
 .post-card.unlocked{
@@ -919,9 +869,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:flex;
   justify-content:space-between;
   align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-bottom:16px
+  margin-bottom:19px
 }
 
 .category-icon{
@@ -950,7 +898,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .badge.premium{
-  background:var(--orange-tint);
+  background:linear-gradient(135deg,#ffe0c2,var(--orange-tint));
   color:var(--orange-deep)
 }
 
@@ -1026,40 +974,19 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
-  padding:16px;
+  padding:14px;
   background:var(--orange);
   color:#fff;
-  font-weight:800;
-  font-size:14.5px;
-  letter-spacing:.01em;
+  font-weight:700;
+  font-size:13.5px;
   display:flex;
   align-items:center;
   justify-content:center;
   gap:9px;
-  transition:background .15s ease, transform .12s ease;
-  animation:payPulse 2.4s ease-in-out infinite;
+  transition:background .15s ease, transform .15s ease;
 }
 
-.pay-button:hover{background:var(--orange-deep)}
-
-.pay-button:active{transform:scale(.97)}
-
-@keyframes payPulse{
-  0%,100%{background:var(--orange)}
-  50%{background:var(--orange-deep)}
-}
-
-.trust-line{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:6px;
-  margin-top:11px;
-  color:#a39da3;
-  font-size:11px;
-  font-weight:600;
-  letter-spacing:.02em;
-}
+.pay-button:hover{background:var(--orange-deep);transform:translateY(-1px)}
 
 .unlocked-content{
   flex:1;
@@ -1215,7 +1142,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:24px;
   padding:34px;
   position:relative;
-  border:1px solid var(--panel-line);
+  box-shadow:var(--shadow-lift);
 }
 
 .close-modal{
@@ -1248,6 +1175,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   place-items:center;
   font-size:24px;
   margin-bottom:19px;
+  box-shadow:0 12px 26px rgba(255,106,0,.28);
 }
 
 .modal-box h2{
@@ -1528,8 +1456,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 /* ---------- FOCUS ---------- */
 button:focus-visible,
 input:focus-visible,
-textarea:focus-visible,
-select:focus-visible{
+textarea:focus-visible{
   outline:3px solid var(--orange);
   outline-offset:2px;
 }
@@ -1558,7 +1485,7 @@ select:focus-visible{
 
 @media(max-width:700px){
 
-  .topbar{height:calc(64px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 14px 0}
+  .topbar{height:64px;padding:0 14px}
 
   .home-nav{padding:14px 18px;flex-wrap:wrap;gap:10px}
 
@@ -1568,11 +1495,11 @@ select:focus-visible{
 
   .logout{padding:9px 13px;font-size:11px}
 
-  .tab-btn{font-size:9.5px}
+  .app-tabs{top:64px;padding:10px 14px}
 
-  .tab-btn i{font-size:17px}
+  .tab-btn{padding:9px 14px;font-size:11.5px}
 
-  .content{width:94vw;padding:calc(64px + env(safe-area-inset-top) + 20px) 0 calc(86px + env(safe-area-inset-bottom))}
+  .content{width:94vw;padding-top:154px}
 
   .profile-card{padding:22px;gap:16px}
 
@@ -1965,15 +1892,15 @@ SIGN OUT
 <nav class="app-tabs" id="appTabs">
 
 <button class="tab-btn active" data-tab="betslips">
-<i class="fa-solid fa-list-check"></i><span>Betslips</span>
+<i class="fa-solid fa-list-check"></i> Betslips
 </button>
 
 <button class="tab-btn" data-tab="mybetslip">
-<i class="fa-solid fa-ticket"></i><span>My Betslip</span>
+<i class="fa-solid fa-ticket"></i> My Betslip
 </button>
 
 <button class="tab-btn" data-tab="profile">
-<i class="fa-solid fa-user"></i><span>Profile</span>
+<i class="fa-solid fa-user"></i> Profile
 </button>
 
 </nav>
@@ -2000,7 +1927,7 @@ SIGN OUT
 <h2>Publish Betslip</h2>
 
 <p>
-Publish a premium betslip, set its price, platform and the bet start time — validity is calculated automatically.
+Publish a premium betslip, set its price and the bet start time — validity is calculated automatically.
 </p>
 
 </div>
@@ -2044,24 +1971,7 @@ placeholder="0">
 </div>
 
 
-<div class="field full">
-
-<label>PLATFORM</label>
-
-<select id="postPlatform">
-<option value="betpawa">BetPawa</option>
-<option value="sportybet">SportyBet</option>
-<option value="both">Both (BetPawa &amp; SportyBet)</option>
-</select>
-
-<small style="display:block;margin-top:8px;color:#8b8590;font-size:11.5px;line-height:1.5">
-Choose which platform this betslip is for — the matching logo(s) will show on the betslip card.
-</small>
-
-</div>
-
-
-<div class="field full">
+<div class="field">
 
 <label>BET START TIME</label>
 
@@ -2677,35 +2587,6 @@ const firebaseApp=initializeApp(firebaseConfig);
 const auth=getAuth(firebaseApp);
 
 const db=getFirestore(firebaseApp);
-
-
-/* PLATFORM LOGOS */
-const PLATFORM_LOGOS={
-betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
-sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_35_34%20AM.png'
-};
-
-function platformLogosMarkup(post){
-
-const platform=post.platform||'';
-
-let imgs='';
-
-if(platform==='betpawa'||platform==='both'){
-
-imgs+=`<img class="platform-logo" src="${PLATFORM_LOGOS.betpawa}" alt="BetPawa">`;
-
-}
-
-if(platform==='sportybet'||platform==='both'){
-
-imgs+=`<img class="platform-logo" src="${PLATFORM_LOGOS.sportybet}" alt="SportyBet">`;
-
-}
-
-return imgs?`<div class="platform-logos">${imgs}</div>`:'';
-
-}
 
 
 let signup=false;
@@ -3599,9 +3480,6 @@ Number(
 $('postPrice').value||0
 );
 
-const platform=
-$('postPlatform').value;
-
 const startTimeValue=
 $('postStartTime').value;
 
@@ -3628,16 +3506,6 @@ price<0
 
 throw new Error(
 'Enter a valid price.'
-);
-
-}
-
-if(
-!['betpawa','sportybet','both'].includes(platform)
-){
-
-throw new Error(
-'Choose a valid platform.'
 );
 
 }
@@ -3683,7 +3551,6 @@ collection(db,'posts'),
 title,
 content,
 price,
-platform,
 betStartTime:expiresAt,
 validityHours,
 expiresAt,
@@ -3702,8 +3569,6 @@ $('postTitle').value='';
 $('postContent').value='';
 
 $('postPrice').value='';
-
-$('postPlatform').value='betpawa';
 
 $('postStartTime').value='';
 
@@ -3877,11 +3742,15 @@ const post=item.data();
 const price=
 Number(post.price||0);
 
+const date=
+post.createdAt?.toDate
+?
+post.createdAt.toDate().toLocaleString()
+:
+'Just now';
+
 const countdown=
 countdownMarkup(post);
-
-const platformLogos=
-platformLogosMarkup(post);
 
 
 /* FREE TIP */
@@ -3891,9 +3760,13 @@ return `
 
 <article class="post-card unlocked" data-post-id="${item.id}">
 
-${platformLogos}
-
 <div class="card-top">
+
+<div class="category-icon">
+
+<i class="fa-solid fa-futbol"></i>
+
+</div>
 
 <div class="badge free">
 
@@ -3903,13 +3776,17 @@ FREE TIP
 
 </div>
 
-${countdown}
-
 </div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+${countdown}
 
 <div class="free-content">
 
@@ -3959,9 +3836,13 @@ return `
 class="post-card unlocked"
 data-post-id="${item.id}">
 
-${platformLogos}
-
 <div class="card-top">
+
+<div class="category-icon">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+</div>
 
 <div class="badge admin">
 
@@ -3971,13 +3852,17 @@ ADMIN VIEW
 
 </div>
 
-${countdown}
-
 </div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+${countdown}
 
 <div class="unlocked-content admin-content">
 
@@ -4023,9 +3908,13 @@ return `
 class="post-card unlocked"
 data-post-id="${item.id}">
 
-${platformLogos}
-
 <div class="card-top">
+
+<div class="category-icon">
+
+<i class="fa-solid fa-lock-open"></i>
+
+</div>
 
 <div class="badge free">
 
@@ -4035,13 +3924,17 @@ UNLOCKED
 
 </div>
 
-${countdown}
-
 </div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+${countdown}
 
 <div class="unlocked-content">
 
@@ -4075,9 +3968,13 @@ return `
 class="post-card"
 data-post-id="${item.id}">
 
-${platformLogos}
-
 <div class="card-top">
+
+<div class="category-icon">
+
+<i class="fa-solid fa-lock"></i>
+
+</div>
 
 <div class="badge premium">
 
@@ -4087,13 +3984,17 @@ VIP BETSLIP
 
 </div>
 
-${countdown}
-
 </div>
 
 <h3>
 ${esc(post.title||'Untitled')}
 </h3>
+
+<div class="date">
+${esc(date)}
+</div>
+
+${countdown}
 
 <div class="locked-area">
 
@@ -4104,12 +4005,18 @@ ${esc(post.title||'Untitled')}
 </div>
 
 <strong>
-Betslip Ready
+BETSLIP LOCKED
 </strong>
 
 <p>
-Full analysis, odds &amp; betslip code — unlock instantly below.
+Complete payment to unlock this betslip.
 </p>
+
+</div>
+
+<div class="price">
+
+${price.toLocaleString()} TSh
 
 </div>
 
@@ -4117,16 +4024,11 @@ Full analysis, odds &amp; betslip code — unlock instantly below.
 class="pay-button"
 data-id="${item.id}">
 
-<i class="fa-solid fa-lock-open"></i>
+<i class="fa-solid fa-credit-card"></i>
 
-UNLOCK FOR ${price.toLocaleString('en-US')} TSH
+VIEW BETSLIP
 
 </button>
-
-<div class="trust-line">
-<i class="fa-solid fa-shield-halved"></i>
-Instant access · Secure payment
-</div>
 
 </article>
 
@@ -4457,7 +4359,7 @@ post.title||'Unlock Betslip';
 
 $('paymentPrice').textContent=
 Number(post.price||0)
-.toLocaleString('en-US')+
+.toLocaleString()+
 ' TSh';
 
 $('payName').value=
