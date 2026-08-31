@@ -2,18 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MIKEKA BOOM — Betting Analysis</title>
-
-<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20180%20180%27%3E%3Crect%20width%3D%27180%27%20height%3D%27180%27%20rx%3D%2740%27%20fill%3D%27%2315121a%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%27118%27%20font-family%3D%27Arial%2C%20Helvetica%2C%20sans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2792%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffffff%27%3EM%3Ctspan%20fill%3D%27%23ff6a00%27%3EB%3C/tspan%3E%3C/text%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20180%20180%27%3E%3Crect%20width%3D%27180%27%20height%3D%27180%27%20rx%3D%2740%27%20fill%3D%27%2315121a%27/%3E%3Ctext%20x%3D%2790%27%20y%3D%27118%27%20font-family%3D%27Arial%2C%20Helvetica%2C%20sans-serif%27%20font-weight%3D%27700%27%20font-size%3D%2792%27%20text-anchor%3D%27middle%27%20fill%3D%27%23ffffff%27%3EM%3Ctspan%20fill%3D%27%23ff6a00%27%3EB%3C/tspan%3E%3C/text%3E%3C/svg%3E">
-
-<meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="MIKEKA BOOM">
-<meta name="format-detection" content="telephone=no">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,11 +30,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
   --radius-lg:22px;
   --radius-md:14px;
   --radius-sm:9px;
-  --shadow-soft:none;
-  --shadow-lift:none;
+  --shadow-soft:0 10px 34px rgba(21,18,26,.06);
+  --shadow-lift:0 22px 60px rgba(21,18,26,.14);
 }
 
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{box-sizing:border-box}
 
 html,body{
   margin:0;
@@ -139,10 +129,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:var(--radius-sm);
   font-weight:700;
   font-size:13px;
-  transition:border-color .15s ease, color .15s ease, background .15s ease, transform .12s ease;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
 }
-
-.ghost-btn:active{transform:scale(.97)}
 
 .ghost-btn:hover{
   border-color:var(--orange);
@@ -250,14 +238,15 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:inline-flex;
   align-items:center;
   gap:11px;
-  transition:background .18s ease, transform .12s ease;
+  box-shadow:0 10px 24px rgba(255,106,0,.28);
+  transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
 }
 
 .primary-btn:hover{
   background:var(--orange-deep);
+  transform:translateY(-2px);
+  box-shadow:0 14px 30px rgba(255,106,0,.34);
 }
-
-.primary-btn:active{transform:scale(.97)}
 
 /* ---------- AUTH ---------- */
 .auth{
@@ -281,45 +270,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   z-index:0;
 }
 
-.auth-back{
-  position:absolute;
-  z-index:2;
-  top:calc(18px + env(safe-area-inset-top));
-  left:18px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  border:0;
-  background:rgba(255,255,255,.1);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:16px;
-  -webkit-tap-highlight-color:transparent;
-  transition:background .15s ease, transform .12s ease;
-}
-
-.auth-back:hover{background:rgba(255,255,255,.18)}
-
-.auth-back:active{transform:scale(.92)}
-
-.intent-banner{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--orange-tint);
-  color:var(--orange-deep);
-  border:1px solid rgba(255,106,0,.25);
-  border-radius:var(--radius-sm);
-  padding:12px 14px;
-  margin-bottom:18px;
-  font-size:12.5px;
-  font-weight:700;
-  line-height:1.4;
-}
-
-.intent-banner i{flex-shrink:0;font-size:15px}
-
 .auth-card{
   position:relative;
   z-index:1;
@@ -329,7 +279,8 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   background:var(--paper);
   border-radius:28px;
   overflow:hidden;
-  border:1px solid var(--panel-line);
+  box-shadow:0 40px 100px rgba(0,0,0,.45), 0 2px 0 rgba(255,255,255,.06) inset;
+  border:1px solid rgba(255,255,255,.06);
 }
 
 .auth-side{
@@ -424,7 +375,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .auth-toggle-btn.active{
   background:var(--paper);
   color:var(--ink);
-  border:1px solid var(--panel-line);
+  box-shadow:0 4px 14px rgba(21,18,26,.12);
 }
 
 .auth-main h1{
@@ -506,7 +457,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   width:100%;
   border:0;
   border-radius:var(--radius-sm);
-  background:var(--orange);
+  background:linear-gradient(135deg, var(--orange), var(--orange-deep));
   color:#fff;
   padding:16px;
   font-weight:700;
@@ -515,12 +466,11 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   display:flex;
   align-items:center;
   justify-content:center;
-  transition:background .15s ease, transform .12s ease;
+  box-shadow:0 14px 30px rgba(255,106,0,.3);
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease;
 }
 
-.submit:hover{background:var(--orange-deep)}
-
-.submit:active:not(:disabled){transform:scale(.98)}
+.submit:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 18px 36px rgba(255,106,0,.36)}
 
 .submit:disabled{
   opacity:.55;
@@ -580,11 +530,11 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   top:0;
   left:0;
   right:0;
-  height:calc(74px + env(safe-area-inset-top));
+  height:74px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:env(safe-area-inset-top) 36px 0;
+  padding:0 36px;
   background:var(--paper);
   border-bottom:1px solid var(--panel-line);
 }
@@ -631,45 +581,42 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 /* ---------- APP TABS ---------- */
 .app-tabs{
   position:fixed;
-  bottom:0;
+  top:74px;
   left:0;
   right:0;
   z-index:45;
   display:flex;
+  gap:8px;
+  padding:14px 36px;
   background:var(--paper);
-  border-top:1px solid var(--panel-line);
-  padding:8px 6px calc(8px + env(safe-area-inset-bottom));
+  border-bottom:1px solid var(--panel-line);
+  overflow-x:auto;
 }
 
 .tab-btn{
-  flex:1;
-  border:0;
-  background:transparent;
-  color:#9a949a;
-  padding:7px 4px;
-  border-radius:12px;
+  border:1.5px solid var(--panel-line);
+  background:var(--paper);
+  color:var(--ink-soft);
+  padding:10px 18px;
+  border-radius:var(--radius-sm);
   font-weight:700;
-  font-size:10.5px;
-  letter-spacing:.01em;
+  font-size:12.5px;
+  letter-spacing:.02em;
   display:flex;
-  flex-direction:column;
   align-items:center;
-  justify-content:center;
-  gap:4px;
-  -webkit-tap-highlight-color:transparent;
-  transition:color .15s ease, transform .12s ease;
+  gap:8px;
+  white-space:nowrap;
+  flex-shrink:0;
+  transition:border-color .15s ease, color .15s ease, background .15s ease;
 }
 
-.tab-btn i{font-size:19px}
-
-.tab-btn:active{transform:scale(.92)}
-
-.tab-btn:hover{color:var(--orange-deep)}
+.tab-btn:hover{border-color:var(--orange);color:var(--orange-deep)}
 
 .tab-btn.active{
-  background:transparent;
-  border-color:transparent;
-  color:var(--orange);
+  background:var(--orange);
+  border-color:var(--orange);
+  color:#fff;
+  box-shadow:0 8px 20px rgba(255,106,0,.28);
 }
 
 .tab-panel{display:none}
@@ -710,9 +657,12 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .platform-logo{
   flex:1 1 0;
   width:100%;
-  height:32px;
+  height:72px;
   object-fit:contain;
+  background:#fff;
+  border:1.5px solid var(--panel-line);
   border-radius:13px;
+  padding:10px;
   display:block;
 }
 
@@ -720,13 +670,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
   .platform-logos{flex-direction:column}
 
-  .platform-logo{height:50px;width:100%}
+  .platform-logo{height:110px;width:100%}
 
 }
 
 @media(max-width:480px){
 
-  .platform-logo{height:56px}
+  .platform-logo{height:96px;padding:10px}
 
 }
 
@@ -806,7 +756,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .content{
   width:min(1140px,92vw);
   margin:auto;
-  padding:calc(74px + env(safe-area-inset-top) + 26px) 0 calc(94px + env(safe-area-inset-bottom))
+  padding:190px 0 70px
 }
 
 /* ---------- ADMIN ---------- */
@@ -940,11 +890,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   min-height:320px;
   display:flex;
   flex-direction:column;
-  transition:border-color .2s ease;
+  box-shadow:var(--shadow-soft);
+  transition:transform .2s ease, box-shadow .2s ease;
 }
 
 .post-card:hover{
-  border-color:#d6d0ca;
+  transform:translateY(-4px);
+  box-shadow:var(--shadow-lift);
 }
 
 .post-card.unlocked{
@@ -986,7 +938,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 }
 
 .badge.premium{
-  background:var(--orange-tint);
+  background:linear-gradient(135deg,#ffe0c2,var(--orange-tint));
   color:var(--orange-deep)
 }
 
@@ -1063,7 +1015,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border:0;
   border-radius:var(--radius-sm);
   padding:16px;
-  background:var(--orange);
+  background:linear-gradient(135deg, var(--orange), var(--orange-deep));
   color:#fff;
   font-weight:800;
   font-size:14.5px;
@@ -1072,17 +1024,16 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   align-items:center;
   justify-content:center;
   gap:9px;
-  transition:background .15s ease, transform .12s ease;
+  box-shadow:0 14px 30px rgba(255,106,0,.3);
+  transition:filter .15s ease, transform .15s ease, box-shadow .15s ease;
   animation:payPulse 2.4s ease-in-out infinite;
 }
 
-.pay-button:hover{background:var(--orange-deep)}
-
-.pay-button:active{transform:scale(.97)}
+.pay-button:hover{filter:brightness(1.06);transform:translateY(-1px);box-shadow:0 18px 36px rgba(255,106,0,.36)}
 
 @keyframes payPulse{
-  0%,100%{background:var(--orange)}
-  50%{background:var(--orange-deep)}
+  0%,100%{box-shadow:0 14px 30px rgba(255,106,0,.3)}
+  50%{box-shadow:0 18px 42px rgba(255,106,0,.58)}
 }
 
 .trust-line{
@@ -1228,52 +1179,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   font-size:14px;
 }
 
-/* ---------- SKELETON LOADING ---------- */
-.skeleton-card{
-  background:var(--paper);
-  border:1px solid var(--panel-line);
-  border-radius:20px;
-  padding:24px;
-  min-height:320px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.sk-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.sk{
-  border-radius:8px;
-  background:linear-gradient(100deg,#eeebe6 30%,#f7f5f2 50%,#eeebe6 70%);
-  background-size:220% 100%;
-  animation:skShimmer 1.4s ease-in-out infinite;
-}
-
-.sk-icon{width:44px;height:44px;border-radius:13px}
-
-.sk-badge{width:84px;height:26px;border-radius:20px}
-
-.sk-title{width:80%;height:21px;border-radius:6px}
-
-.sk-line{height:11px}
-
-.sk-block{flex:1;min-height:120px;border-radius:15px;margin-top:4px}
-
-@keyframes skShimmer{
-  0%{background-position:180% 0}
-  100%{background-position:-40% 0}
-}
-
-@media(prefers-reduced-motion:reduce){
-
-  .sk{animation:none;background:#eeebe6}
-
-}
-
 .empty i{font-size:22px;color:#c9c3c9}
 
 /* ---------- PAYMENT MODAL ---------- */
@@ -1297,7 +1202,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:24px;
   padding:34px;
   position:relative;
-  border:1px solid var(--panel-line);
+  box-shadow:var(--shadow-lift);
 }
 
 .close-modal{
@@ -1330,6 +1235,7 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   place-items:center;
   font-size:24px;
   margin-bottom:19px;
+  box-shadow:0 12px 26px rgba(255,106,0,.28);
 }
 
 .modal-box h2{
@@ -1640,7 +1546,7 @@ select:focus-visible{
 
 @media(max-width:700px){
 
-  .topbar{height:calc(64px + env(safe-area-inset-top));padding:env(safe-area-inset-top) 14px 0}
+  .topbar{height:64px;padding:0 14px}
 
   .home-nav{padding:14px 18px;flex-wrap:wrap;gap:10px}
 
@@ -1650,11 +1556,11 @@ select:focus-visible{
 
   .logout{padding:9px 13px;font-size:11px}
 
-  .tab-btn{font-size:9.5px}
+  .app-tabs{top:64px;padding:10px 14px}
 
-  .tab-btn i{font-size:17px}
+  .tab-btn{padding:9px 14px;font-size:11.5px}
 
-  .content{width:94vw;padding:calc(64px + env(safe-area-inset-top) + 20px) 0 calc(86px + env(safe-area-inset-bottom))}
+  .content{width:94vw;padding-top:154px}
 
   .profile-card{padding:22px;gap:16px}
 
@@ -1824,24 +1730,10 @@ Free tips open now — sign in to unlock premium betslips
 
 <div id="homePosts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading content...
 </div>
 
 </div>
@@ -1890,10 +1782,6 @@ Betting involves risk — please play responsibly. 18+.
 <section class="auth" id="auth">
 
 <div class="auth-backdrop" aria-hidden="true"></div>
-
-<button class="auth-back" id="authBack" type="button" aria-label="Back">
-<i class="fa-solid fa-arrow-left"></i>
-</button>
 
 <div class="auth-card">
 
@@ -1951,11 +1839,6 @@ Welcome back.
 <p id="sub">
 Sign in to continue.
 </p>
-
-<div class="intent-banner" id="intentBanner" style="display:none">
-<i class="fa-solid fa-lock-open"></i>
-<span id="intentBannerText"></span>
-</div>
 
 <div class="msg" id="msg"></div>
 
@@ -2070,15 +1953,15 @@ SIGN OUT
 <nav class="app-tabs" id="appTabs">
 
 <button class="tab-btn active" data-tab="betslips">
-<i class="fa-solid fa-list-check"></i><span>Betslips</span>
+<i class="fa-solid fa-list-check"></i> Betslips
 </button>
 
 <button class="tab-btn" data-tab="mybetslip">
-<i class="fa-solid fa-ticket"></i><span>My Betslip</span>
+<i class="fa-solid fa-ticket"></i> My Betslip
 </button>
 
 <button class="tab-btn" data-tab="profile">
-<i class="fa-solid fa-user"></i><span>Profile</span>
+<i class="fa-solid fa-user"></i> Profile
 </button>
 
 </nav>
@@ -2233,24 +2116,10 @@ REFRESH
 
 <div id="posts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading betslips...
 </div>
 
 </div>
@@ -2277,24 +2146,10 @@ Betslips you've paid for
 
 <div id="myBetslipPosts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading your betslips...
 </div>
 
 </div>
@@ -2467,10 +2322,6 @@ Enter your PIN on your phone and complete the payment.
 <div class="status-text" id="statusText">
 Checking payment status...
 </div>
-
-<button class="link" id="cancelPolling" type="button" style="margin-top:16px">
-Cancel and try again
-</button>
 
 </div>
 
@@ -2819,7 +2670,7 @@ const db=getFirestore(firebaseApp);
 /* PLATFORM LOGOS */
 const PLATFORM_LOGOS={
 betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
-sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/sportybet.png'
+sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_35_34%20AM.png'
 };
 
 function platformLogosMarkup(post){
@@ -2862,12 +2713,6 @@ let paymentPolling=false;
 let paidPosts=new Set();
 
 let deleteTargetId=null;
-
-let pendingUnlock=null;
-
-let authStatePushed=false;
-
-let paymentStatePushed=false;
 
 
 const $=id=>document.getElementById(id);
@@ -3291,99 +3136,9 @@ $('home').style.display='none';
 
 $('auth').style.display='flex';
 
-msg('');
-
-const banner=$('intentBanner');
-
-const bannerText=$('intentBannerText');
-
-if(text){
-
-bannerText.textContent=text;
-
-banner.style.display='flex';
-
-}else{
-
-banner.style.display='none';
+msg(text||'');
 
 }
-
-if(!authStatePushed){
-
-try{
-
-history.pushState({mb:'auth'},'',location.href);
-
-}catch(error){
-
-console.log('History push failed:',error);
-
-}
-
-authStatePushed=true;
-
-}
-
-}
-
-function closeAuthScreen(){
-
-$('auth').style.display='none';
-
-$('home').style.display='block';
-
-pendingUnlock=null;
-
-if(authStatePushed){
-
-authStatePushed=false;
-
-history.back();
-
-}
-
-}
-
-$('authBack').onclick=()=>{
-
-closeAuthScreen();
-
-};
-
-window.addEventListener('popstate',()=>{
-
-if(paymentStatePushed&&$('paymentModal').style.display==='flex'){
-
-paymentPolling=false;
-
-paymentStatePushed=false;
-
-$('paymentModal').style.display='none';
-
-$('paymentForm').style.display='block';
-
-$('payButton').disabled=false;
-
-return;
-
-}
-
-if(authStatePushed&&$('auth').style.display==='flex'){
-
-authStatePushed=false;
-
-$('auth').style.display='none';
-
-$('home').style.display='block';
-
-pendingUnlock=null;
-
-return;
-
-}
-
-});
 
 $('view').onclick=()=>{
 
@@ -3463,30 +3218,6 @@ setAuthMode(button.dataset.mode==='signup');
 $('switch').onclick=()=>{
 setAuthMode(!signup);
 };
-
-
-/* ENTER KEY SUBMITS THE AUTH FORM */
-['name','email','password'].forEach(id=>{
-
-const field=$(id);
-
-if(field){
-
-field.addEventListener('keydown',e=>{
-
-if(e.key==='Enter'){
-
-e.preventDefault();
-
-$('submit').click();
-
-}
-
-});
-
-}
-
-});
 
 
 /* LOGIN / SIGNUP */
@@ -3649,8 +3380,6 @@ currentUser=user;
 
 $('auth').style.display='none';
 
-authStatePushed=false;
-
 $('home').style.display='none';
 
 $('app').style.display='block';
@@ -3693,22 +3422,6 @@ switchTab('betslips');
 await loadPurchases();
 
 listenPosts();
-
-
-/* RESUME A PURCHASE THAT WAS INTERRUPTED BY SIGN IN / SIGN UP */
-if(pendingUnlock&&!currentIsAdmin){
-
-const unlock=pendingUnlock;
-
-pendingUnlock=null;
-
-if(!paidPosts.has(unlock.id)){
-
-openPaymentModal(unlock.id,unlock.post);
-
-}
-
-}
 
 }
 
@@ -4488,15 +4201,10 @@ postDoc.data();
 /* MUST BE SIGNED IN TO PAY */
 if(!currentUser){
 
-pendingUnlock={
-id:postDoc.id,
-post:selectedPost
-};
-
 promptSignIn(
 'Sign in to unlock "'+
 (selectedPost.title||'this betslip')+
-'" — you\'ll come right back here.'
+'".'
 );
 
 return;
@@ -4762,22 +4470,6 @@ $('payButton').disabled=false;
 
 $('paymentModal').style.display='flex';
 
-if(!paymentStatePushed){
-
-try{
-
-history.pushState({mb:'pay'},'',location.href);
-
-}catch(error){
-
-console.log('History push failed:',error);
-
-}
-
-paymentStatePushed=true;
-
-}
-
 }
 
 
@@ -4792,55 +4484,10 @@ return;
 
 $('paymentModal').style.display='none';
 
-if(paymentStatePushed){
-
-paymentStatePushed=false;
-
-history.back();
-
-}
-
 };
 
 
 /* PAY */
-$('cancelPolling').onclick=()=>{
-
-paymentPolling=false;
-
-$('paymentStatus').style.display='none';
-
-$('paymentForm').style.display='block';
-
-$('payButton').disabled=false;
-
-$('paymentMsg').textContent=
-'Payment cancelled. You can try again below.';
-
-};
-
-['payName','payEmail','payPhone'].forEach(id=>{
-
-const field=$(id);
-
-if(field){
-
-field.addEventListener('keydown',e=>{
-
-if(e.key==='Enter'){
-
-e.preventDefault();
-
-$('payButton').click();
-
-}
-
-});
-
-}
-
-});
-
 $('payButton').onclick=async()=>{
 
 if(
@@ -4873,22 +4520,6 @@ if(
 
 $('paymentMsg').textContent=
 'Please complete all fields.';
-
-return;
-
-}
-
-const phoneDigits=
-phone.replace(/\D/g,'');
-
-const validPhone=
-/^0\d{9}$/.test(phoneDigits)||
-/^255\d{9}$/.test(phoneDigits);
-
-if(!validPhone){
-
-$('paymentMsg').textContent=
-'Enter a valid phone number, e.g. 0712345678.';
 
 return;
 
@@ -5154,14 +4785,6 @@ selectedPostId
 setTimeout(()=>{
 
 $('paymentModal').style.display='none';
-
-if(paymentStatePushed){
-
-paymentStatePushed=false;
-
-history.back();
-
-}
 
 $('successBox').style.display='none';
 
