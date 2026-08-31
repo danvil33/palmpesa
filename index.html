@@ -281,45 +281,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   z-index:0;
 }
 
-.auth-back{
-  position:absolute;
-  z-index:2;
-  top:calc(18px + env(safe-area-inset-top));
-  left:18px;
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  border:0;
-  background:rgba(255,255,255,.1);
-  color:#fff;
-  display:grid;
-  place-items:center;
-  font-size:16px;
-  -webkit-tap-highlight-color:transparent;
-  transition:background .15s ease, transform .12s ease;
-}
-
-.auth-back:hover{background:rgba(255,255,255,.18)}
-
-.auth-back:active{transform:scale(.92)}
-
-.intent-banner{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  background:var(--orange-tint);
-  color:var(--orange-deep);
-  border:1px solid rgba(255,106,0,.25);
-  border-radius:var(--radius-sm);
-  padding:12px 14px;
-  margin-bottom:18px;
-  font-size:12.5px;
-  font-weight:700;
-  line-height:1.4;
-}
-
-.intent-banner i{flex-shrink:0;font-size:15px}
-
 .auth-card{
   position:relative;
   z-index:1;
@@ -710,9 +671,12 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 .platform-logo{
   flex:1 1 0;
   width:100%;
-  height:32px;
+  height:72px;
   object-fit:contain;
+  background:#fff;
+  border:1.5px solid var(--panel-line);
   border-radius:13px;
+  padding:10px;
   display:block;
 }
 
@@ -720,13 +684,13 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
 
   .platform-logos{flex-direction:column}
 
-  .platform-logo{height:50px;width:100%}
+  .platform-logo{height:110px;width:100%}
 
 }
 
 @media(max-width:480px){
 
-  .platform-logo{height:56px}
+  .platform-logo{height:96px;padding:10px}
 
 }
 
@@ -1226,52 +1190,6 @@ h1,h2,h3{font-family:'Space Grotesk',Arial,sans-serif}
   border-radius:20px;
   color:#a39da3;
   font-size:14px;
-}
-
-/* ---------- SKELETON LOADING ---------- */
-.skeleton-card{
-  background:var(--paper);
-  border:1px solid var(--panel-line);
-  border-radius:20px;
-  padding:24px;
-  min-height:320px;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-}
-
-.sk-row{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.sk{
-  border-radius:8px;
-  background:linear-gradient(100deg,#eeebe6 30%,#f7f5f2 50%,#eeebe6 70%);
-  background-size:220% 100%;
-  animation:skShimmer 1.4s ease-in-out infinite;
-}
-
-.sk-icon{width:44px;height:44px;border-radius:13px}
-
-.sk-badge{width:84px;height:26px;border-radius:20px}
-
-.sk-title{width:80%;height:21px;border-radius:6px}
-
-.sk-line{height:11px}
-
-.sk-block{flex:1;min-height:120px;border-radius:15px;margin-top:4px}
-
-@keyframes skShimmer{
-  0%{background-position:180% 0}
-  100%{background-position:-40% 0}
-}
-
-@media(prefers-reduced-motion:reduce){
-
-  .sk{animation:none;background:#eeebe6}
-
 }
 
 .empty i{font-size:22px;color:#c9c3c9}
@@ -1824,24 +1742,10 @@ Free tips open now — sign in to unlock premium betslips
 
 <div id="homePosts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading content...
 </div>
 
 </div>
@@ -1890,10 +1794,6 @@ Betting involves risk — please play responsibly. 18+.
 <section class="auth" id="auth">
 
 <div class="auth-backdrop" aria-hidden="true"></div>
-
-<button class="auth-back" id="authBack" type="button" aria-label="Back">
-<i class="fa-solid fa-arrow-left"></i>
-</button>
 
 <div class="auth-card">
 
@@ -1951,11 +1851,6 @@ Welcome back.
 <p id="sub">
 Sign in to continue.
 </p>
-
-<div class="intent-banner" id="intentBanner" style="display:none">
-<i class="fa-solid fa-lock-open"></i>
-<span id="intentBannerText"></span>
-</div>
 
 <div class="msg" id="msg"></div>
 
@@ -2233,24 +2128,10 @@ REFRESH
 
 <div id="posts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading betslips...
 </div>
 
 </div>
@@ -2277,24 +2158,10 @@ Betslips you've paid for
 
 <div id="myBetslipPosts" class="posts">
 
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
-<div class="skeleton-card">
-<div class="sk-row"><div class="sk sk-icon"></div><div class="sk sk-badge"></div></div>
-<div class="sk sk-title"></div>
-<div class="sk sk-line" style="width:60%"></div>
-<div class="sk sk-block"></div>
-</div>
+<div class="empty">
+<i class="fa-solid fa-spinner fa-spin"></i>
+<br><br>
+Loading your betslips...
 </div>
 
 </div>
@@ -2467,10 +2334,6 @@ Enter your PIN on your phone and complete the payment.
 <div class="status-text" id="statusText">
 Checking payment status...
 </div>
-
-<button class="link" id="cancelPolling" type="button" style="margin-top:16px">
-Cancel and try again
-</button>
 
 </div>
 
@@ -2819,7 +2682,7 @@ const db=getFirestore(firebaseApp);
 /* PLATFORM LOGOS */
 const PLATFORM_LOGOS={
 betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
-sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/sportybet.png'
+sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_35_34%20AM.png'
 };
 
 function platformLogosMarkup(post){
@@ -2862,12 +2725,6 @@ let paymentPolling=false;
 let paidPosts=new Set();
 
 let deleteTargetId=null;
-
-let pendingUnlock=null;
-
-let authStatePushed=false;
-
-let paymentStatePushed=false;
 
 
 const $=id=>document.getElementById(id);
@@ -3291,99 +3148,9 @@ $('home').style.display='none';
 
 $('auth').style.display='flex';
 
-msg('');
-
-const banner=$('intentBanner');
-
-const bannerText=$('intentBannerText');
-
-if(text){
-
-bannerText.textContent=text;
-
-banner.style.display='flex';
-
-}else{
-
-banner.style.display='none';
+msg(text||'');
 
 }
-
-if(!authStatePushed){
-
-try{
-
-history.pushState({mb:'auth'},'',location.href);
-
-}catch(error){
-
-console.log('History push failed:',error);
-
-}
-
-authStatePushed=true;
-
-}
-
-}
-
-function closeAuthScreen(){
-
-$('auth').style.display='none';
-
-$('home').style.display='block';
-
-pendingUnlock=null;
-
-if(authStatePushed){
-
-authStatePushed=false;
-
-history.back();
-
-}
-
-}
-
-$('authBack').onclick=()=>{
-
-closeAuthScreen();
-
-};
-
-window.addEventListener('popstate',()=>{
-
-if(paymentStatePushed&&$('paymentModal').style.display==='flex'){
-
-paymentPolling=false;
-
-paymentStatePushed=false;
-
-$('paymentModal').style.display='none';
-
-$('paymentForm').style.display='block';
-
-$('payButton').disabled=false;
-
-return;
-
-}
-
-if(authStatePushed&&$('auth').style.display==='flex'){
-
-authStatePushed=false;
-
-$('auth').style.display='none';
-
-$('home').style.display='block';
-
-pendingUnlock=null;
-
-return;
-
-}
-
-});
 
 $('view').onclick=()=>{
 
@@ -3463,30 +3230,6 @@ setAuthMode(button.dataset.mode==='signup');
 $('switch').onclick=()=>{
 setAuthMode(!signup);
 };
-
-
-/* ENTER KEY SUBMITS THE AUTH FORM */
-['name','email','password'].forEach(id=>{
-
-const field=$(id);
-
-if(field){
-
-field.addEventListener('keydown',e=>{
-
-if(e.key==='Enter'){
-
-e.preventDefault();
-
-$('submit').click();
-
-}
-
-});
-
-}
-
-});
 
 
 /* LOGIN / SIGNUP */
@@ -3649,8 +3392,6 @@ currentUser=user;
 
 $('auth').style.display='none';
 
-authStatePushed=false;
-
 $('home').style.display='none';
 
 $('app').style.display='block';
@@ -3693,22 +3434,6 @@ switchTab('betslips');
 await loadPurchases();
 
 listenPosts();
-
-
-/* RESUME A PURCHASE THAT WAS INTERRUPTED BY SIGN IN / SIGN UP */
-if(pendingUnlock&&!currentIsAdmin){
-
-const unlock=pendingUnlock;
-
-pendingUnlock=null;
-
-if(!paidPosts.has(unlock.id)){
-
-openPaymentModal(unlock.id,unlock.post);
-
-}
-
-}
 
 }
 
@@ -4488,15 +4213,10 @@ postDoc.data();
 /* MUST BE SIGNED IN TO PAY */
 if(!currentUser){
 
-pendingUnlock={
-id:postDoc.id,
-post:selectedPost
-};
-
 promptSignIn(
 'Sign in to unlock "'+
 (selectedPost.title||'this betslip')+
-'" — you\'ll come right back here.'
+'".'
 );
 
 return;
@@ -4762,22 +4482,6 @@ $('payButton').disabled=false;
 
 $('paymentModal').style.display='flex';
 
-if(!paymentStatePushed){
-
-try{
-
-history.pushState({mb:'pay'},'',location.href);
-
-}catch(error){
-
-console.log('History push failed:',error);
-
-}
-
-paymentStatePushed=true;
-
-}
-
 }
 
 
@@ -4792,55 +4496,10 @@ return;
 
 $('paymentModal').style.display='none';
 
-if(paymentStatePushed){
-
-paymentStatePushed=false;
-
-history.back();
-
-}
-
 };
 
 
 /* PAY */
-$('cancelPolling').onclick=()=>{
-
-paymentPolling=false;
-
-$('paymentStatus').style.display='none';
-
-$('paymentForm').style.display='block';
-
-$('payButton').disabled=false;
-
-$('paymentMsg').textContent=
-'Payment cancelled. You can try again below.';
-
-};
-
-['payName','payEmail','payPhone'].forEach(id=>{
-
-const field=$(id);
-
-if(field){
-
-field.addEventListener('keydown',e=>{
-
-if(e.key==='Enter'){
-
-e.preventDefault();
-
-$('payButton').click();
-
-}
-
-});
-
-}
-
-});
-
 $('payButton').onclick=async()=>{
 
 if(
@@ -4873,22 +4532,6 @@ if(
 
 $('paymentMsg').textContent=
 'Please complete all fields.';
-
-return;
-
-}
-
-const phoneDigits=
-phone.replace(/\D/g,'');
-
-const validPhone=
-/^0\d{9}$/.test(phoneDigits)||
-/^255\d{9}$/.test(phoneDigits);
-
-if(!validPhone){
-
-$('paymentMsg').textContent=
-'Enter a valid phone number, e.g. 0712345678.';
 
 return;
 
@@ -5154,14 +4797,6 @@ selectedPostId
 setTimeout(()=>{
 
 $('paymentModal').style.display='none';
-
-if(paymentStatePushed){
-
-paymentStatePushed=false;
-
-history.back();
-
-}
 
 $('successBox').style.display='none';
 
