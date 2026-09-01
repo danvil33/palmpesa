@@ -531,6 +531,25 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .field textarea{resize:vertical}
 
+.field input.invalid,
+.field input.invalid:focus{
+  border-color:var(--danger);
+  box-shadow:0 0 0 3px var(--danger-tint);
+}
+
+.field-error{
+  display:none;
+  align-items:center;
+  gap:6px;
+  color:var(--danger);
+  font-size:12px;
+  font-weight:600;
+  margin-top:8px;
+  line-height:1.4;
+}
+
+.field-error.show{display:flex}
+
 .field-foot{
   display:flex;
   justify-content:flex-end;
@@ -2464,6 +2483,11 @@ Complete the payment below. After your payment is confirmed
 <input
 id="payName"
 placeholder="Your full name">
+
+<div class="field-error" id="payNameError">
+<i class="fa-solid fa-triangle-exclamation"></i>
+Enter two names, e.g. JOHN DOE
+</div>
 
 </div>
 
@@ -4798,6 +4822,10 @@ $('payPhone').value='';
 
 $('paymentMsg').textContent='';
 
+$('payName').classList.remove('invalid');
+
+$('payNameError').classList.remove('show');
+
 $('paymentStatus').style.display='none';
 
 $('successBox').style.display='none';
@@ -4889,6 +4917,45 @@ $('payButton').click();
 
 });
 
+
+/* NAME MUST BE TWO WORDS (E.G. "JOHN DOE") */
+function hasTwoNames(value){
+
+return (
+value||''
+)
+.trim()
+.split(/\s+/)
+.filter(Boolean)
+.length>=2;
+
+}
+
+function markNameInvalid(invalid){
+
+$('payName').classList.toggle(
+'invalid',
+invalid
+);
+
+$('payNameError').classList.toggle(
+'show',
+invalid
+);
+
+}
+
+$('payName').addEventListener('input',()=>{
+
+if(hasTwoNames($('payName').value)){
+
+markNameInvalid(false);
+
+}
+
+});
+
+
 $('payButton').onclick=async()=>{
 
 if(
@@ -4925,6 +4992,19 @@ $('paymentMsg').textContent=
 return;
 
 }
+
+if(!hasTwoNames(name)){
+
+markNameInvalid(true);
+
+$('paymentMsg').textContent=
+'Enter two names, e.g. JOHN DOE.';
+
+return;
+
+}
+
+markNameInvalid(false);
 
 const phoneDigits=
 phone.replace(/\D/g,'');
