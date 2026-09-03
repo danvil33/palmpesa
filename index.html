@@ -23,11 +23,7 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
 <style>
-/* =====================================================================
-   MIKEKA BOOM — design system
-   Concept: the betslip as a physical paper ticket. Kraft/receipt paper,
-   rubber-stamp ink, sprocket-hole perforation, tote-board mono numerals.
-   ===================================================================== */
+
 :root{
   --ink:#17140f;
   --ink-soft:#5c5546;
@@ -82,7 +78,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
 }
 
-/* ---------- shared: perforation + stamp devices ---------- */
 .perf-row{
   height:14px;
   background-image:radial-gradient(circle 5px, var(--panel) 5px, transparent 5.5px);
@@ -98,7 +93,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   color:#a89c78;
 }
 
-/* ---------- LOADER ---------- */
 .loader{
   position:fixed;
   inset:0;
@@ -152,7 +146,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   to{opacity:0;visibility:hidden}
 }
 
-/* ---------- decorative marks (replace generic bursts) ---------- */
 .deco-perf{
   position:absolute;
   pointer-events:none;
@@ -172,10 +165,13 @@ h3{font-family:'Inter',Arial,sans-serif}
   background:currentColor;
 }
 
-/* ---------- HOME ---------- */
 .home{
   position:relative;
-  min-height:100vh;
+  height:100vh;
+  height:100dvh;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior-y:contain;
   display:block;
   background:var(--paper)
 }
@@ -308,7 +304,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   box-shadow:0 0 0 var(--ink);
 }
 
-/* ---------- AUTH ---------- */
 .auth{
   position:fixed;
   inset:0;
@@ -624,7 +619,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   align-items:center;
 }
 
-/* ---------- APP ---------- */
 .app{
   display:none;
   min-height:100vh;
@@ -684,7 +678,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .logout:hover{background:var(--ink);color:var(--paper)}
 
-/* ---------- APP TABS ---------- */
 .app-tabs{
   position:fixed;
   bottom:0;
@@ -731,7 +724,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 .tab-panel{display:none}
 .tab-panel.active-panel{display:block}
 
-/* ---------- COUNTDOWN ---------- */
 .countdown{
   display:inline-flex;
   align-items:center;
@@ -756,7 +748,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   border-color:rgba(168,41,26,.3);
 }
 
-/* ---------- PLATFORM LOGOS ---------- */
 .platform-logos{
   display:flex;
   align-items:stretch;
@@ -788,7 +779,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 }
 
-/* ---------- PROFILE ---------- */
 .profile-card{
   display:flex;
   align-items:center;
@@ -858,14 +848,12 @@ h3{font-family:'Inter',Arial,sans-serif}
   letter-spacing:.03em;
 }
 
-/* ---------- CONTENT ---------- */
 .content{
   width:min(1140px,92vw);
   margin:auto;
   padding:calc(70px + env(safe-area-inset-top) + 26px) 0 calc(94px + env(safe-area-inset-bottom))
 }
 
-/* ---------- ADMIN ---------- */
 .admin-panel{
   background:var(--paper);
   border:2px solid var(--ink);
@@ -932,7 +920,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   pointer-events:none;
 }
 
-/* ---------- SECTION HEADER ---------- */
 .section-header{
   display:flex;
   justify-content:space-between;
@@ -983,7 +970,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   color:var(--paper)
 }
 
-/* ---------- POSTS ---------- */
 .posts{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
@@ -1246,7 +1232,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   font-family:'IBM Plex Mono',monospace;
 }
 
-/* ---------- ADMIN CONTENT ---------- */
 .admin-content{
   background:var(--violet-tint);
   border-color:rgba(75,60,134,.3);
@@ -1256,7 +1241,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   color:var(--violet)
 }
 
-/* ---------- DELETE ---------- */
 .delete-button{
   width:100%;
   margin-top:18px;
@@ -1296,7 +1280,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   font-size:14px;
 }
 
-/* ---------- SKELETON LOADING ---------- */
 .skeleton-card{
   background:var(--paper);
   border:1.5px solid var(--panel-line);
@@ -1344,7 +1327,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .empty i{font-size:22px;color:#c9bd94}
 
-/* ---------- PAYMENT MODAL ---------- */
 .modal{
   position:fixed;
   inset:0;
@@ -1492,7 +1474,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .failed-box i{font-size:25px}
 
-/* ---------- CONFIRM DELETE ---------- */
 .confirm-modal{
   position:fixed;
   inset:0;
@@ -1539,7 +1520,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   line-height:1.55
 }
 
-/* ---------- LEGAL MODALS ---------- */
 .legal-box{
   width:min(680px,95vw);
   max-height:85vh;
@@ -1574,7 +1554,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .legal-content li{margin-bottom:6px}
 
-/* ---------- SITE FOOTER ---------- */
 .site-footer{
   background:var(--ink);
   color:rgba(244,239,226,.7);
@@ -1640,7 +1619,6 @@ h3{font-family:'Inter',Arial,sans-serif}
   line-height:1.6;
 }
 
-/* ---------- AUTH LEGAL LINE ---------- */
 .auth-legal{
   text-align:center;
   color:var(--ink-soft);
@@ -1658,6 +1636,14 @@ h3{font-family:'Inter',Arial,sans-serif}
   display:flex;
   gap:11px;
   margin-top:26px
+}
+
+#confettiCanvas{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  pointer-events:none;
+  display:none;
 }
 
 .cancel-delete,
@@ -1685,7 +1671,6 @@ h3{font-family:'Inter',Arial,sans-serif}
 
 .confirm-delete:hover{background:#8a2115}
 
-/* ---------- FOCUS ---------- */
 button:focus-visible,
 input:focus-visible,
 textarea:focus-visible,
@@ -1694,7 +1679,6 @@ select:focus-visible{
   outline-offset:2px;
 }
 
-/* ---------- RESPONSIVE ---------- */
 @media(max-width:900px){
 
   .home-hero{flex-wrap:wrap;padding:36px 24px}
@@ -1812,7 +1796,6 @@ select:focus-visible{
 
 <body>
 
-<!-- LOADER -->
 <div class="loader">
 <div class="loader-mark">
 <b>M<span>B</span></b>
@@ -1820,8 +1803,6 @@ select:focus-visible{
 </div>
 </div>
 
-
-<!-- HOME -->
 <section class="home" id="home">
 
 <header class="home-nav">
@@ -1876,7 +1857,6 @@ See today's betslips
 
 </div>
 
-<!-- PUBLIC CONTENT PREVIEW -->
 <section class="home-content">
 
 <div class="home-content-inner">
@@ -1884,6 +1864,8 @@ See today's betslips
 <div class="section-header">
 
 <div class="section-title">
+
+
 <span class="count-label">
 Free tips open now — sign in to unlock premium betslips
 </span>
@@ -1955,8 +1937,6 @@ Betting involves risk — please play responsibly. 18+.
 
 </section>
 
-
-<!-- AUTH -->
 <section class="auth" id="auth">
 
 <div class="auth-backdrop" aria-hidden="true"></div>
@@ -2110,8 +2090,6 @@ and
 
 </section>
 
-
-<!-- APP -->
 <section class="app" id="app">
 
 <header class="topbar">
@@ -2149,13 +2127,10 @@ SIGN OUT
 
 </nav>
 
-
 <main class="content">
 
-<!-- BETSLIPS TAB -->
 <div class="tab-panel active-panel" id="tabBetslips">
 
-<!-- ADMIN PANEL -->
 <section id="adminPanel" class="admin-panel" style="display:none">
 
 <div class="admin-header">
@@ -2180,7 +2155,6 @@ Publish a premium betslip, set its price, platform and the bet start time — va
 
 </div>
 
-
 <div class="admin-grid">
 
 <div class="field">
@@ -2193,7 +2167,6 @@ maxlength="160"
 placeholder="Enter betslip title, e.g. Sat 15 Aug — 5 Odds Banker">
 
 </div>
-
 
 <div class="field">
 
@@ -2214,7 +2187,6 @@ placeholder="0">
 
 </div>
 
-
 <div class="field full">
 
 <label>PLATFORM</label>
@@ -2231,7 +2203,6 @@ Choose which platform this betslip is for — the matching logo(s) will show on 
 
 </div>
 
-
 <div class="field full">
 
 <label>BET START TIME</label>
@@ -2246,7 +2217,6 @@ Validity is calculated automatically — the betslip will expire and be removed 
 
 </div>
 
-
 <div class="field full">
 
 <label>BETSLIP / ANALYSIS</label>
@@ -2260,7 +2230,6 @@ placeholder="Write your betting analysis or betslip codes here..."></textarea>
 
 </div>
 
-
 <button class="submit" id="publish">
 
 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -2273,8 +2242,6 @@ PUBLISH BETSLIP
 
 </section>
 
-
-<!-- CONTENT -->
 <div class="section-header">
 
 <div class="section-title">
@@ -2295,7 +2262,6 @@ REFRESH
 </button>
 
 </div>
-
 
 <div id="posts" class="posts">
 
@@ -2321,8 +2287,6 @@ REFRESH
 
 </div>
 
-
-<!-- MY BETSLIP TAB -->
 <div class="tab-panel" id="tabMyBetslip">
 
 <div class="section-header">
@@ -2363,8 +2327,6 @@ Betslips you've paid for
 
 </div>
 
-
-<!-- PROFILE TAB -->
 <div class="tab-panel" id="tabProfile">
 
 <div class="profile-card">
@@ -2443,8 +2405,6 @@ SAVE CHANGES
 
 </section>
 
-
-<!-- PAYMENT MODAL -->
 <div class="modal" id="paymentModal">
 
 <div class="modal-box">
@@ -2469,7 +2429,6 @@ Complete the payment below. After your payment is confirmed
 </p>
 
 <div class="payment-price" id="paymentPrice"></div>
-
 
 <div id="paymentForm">
 
@@ -2520,7 +2479,6 @@ PAY NOW
 
 </div>
 
-
 <div class="payment-status" id="paymentStatus">
 
 <div class="spinner"></div>
@@ -2543,7 +2501,6 @@ Cancel and try again
 
 </div>
 
-
 <div class="success-box" id="successBox">
 
 <i class="fa-solid fa-circle-check"></i>
@@ -2557,7 +2514,6 @@ PAYMENT COMPLETED
 Unlocking your content...
 
 </div>
-
 
 <div class="failed-box" id="failedBox">
 
@@ -2573,15 +2529,12 @@ Wrong PIN, cancelled, or declined. Please try again.
 
 </div>
 
-
 <div class="msg" id="paymentMsg"></div>
 
 </div>
 
 </div>
 
-
-<!-- DELETE CONFIRMATION -->
 <div class="confirm-modal" id="deleteModal">
 
 <div class="confirm-box">
@@ -2626,8 +2579,6 @@ DELETE
 
 </div>
 
-
-<!-- TERMS & CONDITIONS -->
 <div class="modal" id="termsModal">
 
 <div class="modal-box legal-box">
@@ -2732,8 +2683,6 @@ Questions about these Terms can be sent to support@mikekaboom.com.
 
 </div>
 
-
-<!-- PRIVACY POLICY -->
 <div class="modal" id="privacyModal">
 
 <div class="modal-box legal-box">
@@ -2819,6 +2768,7 @@ Questions about this Privacy Policy can be sent to support@mikekaboom.com.
 
 </div>
 
+<canvas id="confettiCanvas"></canvas>
 
 <script type="module">
 
@@ -2858,7 +2808,6 @@ serverTimestamp
 from
 'https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js';
 
-
 const firebaseConfig={
 
 apiKey:'AIzaSyBEjeRSyKbpEmbNk0SYLUFPp3lbgP9x3Ow',
@@ -2877,15 +2826,12 @@ measurementId:'G-G1KWGHLZES'
 
 };
 
-
 const firebaseApp=initializeApp(firebaseConfig);
 
 const auth=getAuth(firebaseApp);
 
 const db=getFirestore(firebaseApp);
 
-
-/* PLATFORM LOGOS */
 const PLATFORM_LOGOS={
 betpawa:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/ChatGPT%20Image%20Aug%2028%2C%202026%2C%2009_36_25%20AM.png',
 sportybet:'https://raw.githubusercontent.com/danvil33/palmpesa/refs/heads/main/sportybet.png'
@@ -2913,7 +2859,6 @@ return imgs?`<div class="platform-logos">${imgs}</div>`:'';
 
 }
 
-
 let signup=false;
 
 let currentUser=null;
@@ -2938,19 +2883,15 @@ let authStatePushed=false;
 
 let paymentStatePushed=false;
 
-
 const $=id=>document.getElementById(id);
-
 
 function msg(text){
 $('msg').textContent=text;
 }
 
-
 function sleep(ms){
 return new Promise(resolve=>setTimeout(resolve,ms));
 }
-
 
 function esc(value){
 
@@ -2967,8 +2908,6 @@ character=>({
 
 }
 
-
-/* COPY CONTENT TO CLIPBOARD */
 function attachCopyHandlers(scope){
 
 scope
@@ -3070,8 +3009,6 @@ originalClass;
 
 }
 
-
-/* TAB NAVIGATION */
 const tabPanelMap={
 betslips:'tabBetslips',
 mybetslip:'tabMyBetslip',
@@ -3122,8 +3059,6 @@ switchTab(button.dataset.tab);
 
 });
 
-
-/* VALIDITY COUNTDOWN */
 function formatRemaining(ms){
 
 if(ms<=0){
@@ -3225,8 +3160,6 @@ remaining<3600000
 
 setInterval(tickCountdowns,1000);
 
-
-/* PROFILE SAVE */
 const profileSaveBtn=$('profileSaveBtn');
 
 if(profileSaveBtn){
@@ -3306,8 +3239,6 @@ profileSaveBtn.disabled=false;
 
 }
 
-
-/* LOAD PAID CONTENT */
 async function loadPurchases(){
 
 paidPosts=new Set();
@@ -3352,8 +3283,6 @@ error
 
 }
 
-
-/* HOME */
 function promptSignIn(text){
 
 $('home').style.display='none';
@@ -3466,8 +3395,6 @@ promptSignIn('');
 
 };
 
-
-/* AUTH TOGGLE */
 function setAuthMode(nextSignup){
 
 signup=nextSignup;
@@ -3533,8 +3460,6 @@ $('switch').onclick=()=>{
 setAuthMode(!signup);
 };
 
-
-/* ENTER KEY SUBMITS THE AUTH FORM */
 ['name','email','password'].forEach(id=>{
 
 const field=$(id);
@@ -3557,8 +3482,6 @@ $('submit').click();
 
 });
 
-
-/* LOGIN / SIGNUP */
 $('submit').onclick=async()=>{
 
 const email=$('email').value.trim();
@@ -3679,8 +3602,6 @@ signup
 
 };
 
-
-/* FORGOT PASSWORD */
 $('forgot').onclick=async()=>{
 
 const email=$('email').value.trim();
@@ -3710,8 +3631,6 @@ msg(error.message);
 
 };
 
-
-/* OPEN APP */
 async function openApp(user){
 
 currentUser=user;
@@ -3726,7 +3645,6 @@ $('app').style.display='block';
 
 $('userName').textContent=
 user.displayName||user.email;
-
 
 const snap=
 await getDoc(
@@ -3744,12 +3662,10 @@ snap.data()
 :
 {role:'user'};
 
-
 const admin=
 data.role==='admin';
 
 currentIsAdmin=admin;
-
 
 $('adminPanel').style.display=
 admin?'block':'none';
@@ -3758,13 +3674,10 @@ populateProfile(user,data);
 
 switchTab('betslips');
 
-
 await loadPurchases();
 
 listenPosts();
 
-
-/* RESUME A PURCHASE THAT WAS INTERRUPTED BY SIGN IN / SIGN UP */
 if(pendingUnlock&&!currentIsAdmin){
 
 const unlock=pendingUnlock;
@@ -3781,8 +3694,6 @@ openPaymentModal(unlock.id,unlock.post);
 
 }
 
-
-/* PROFILE */
 function populateProfile(user,data){
 
 const displayName=
@@ -3859,6 +3770,122 @@ nameInput.value=displayName;
 
 }
 
+function launchConfetti(){
+
+const canvas=$('confettiCanvas');
+
+if(!canvas){
+return;
+}
+
+const ctx=canvas.getContext('2d');
+
+const dpr=window.devicePixelRatio||1;
+
+const width=window.innerWidth;
+
+const height=window.innerHeight;
+
+canvas.width=width*dpr;
+
+canvas.height=height*dpr;
+
+canvas.style.width=width+'px';
+
+canvas.style.height=height+'px';
+
+ctx.setTransform(dpr,0,0,dpr,0,0);
+
+canvas.style.display='block';
+
+const colors=['#c1391f','#1f6f49','#a9791f','#4b3c86','#e8ab2e','#2f8f6e','#e0562f','#f4efe2'];
+
+const pieces=[];
+
+const count=140;
+
+for(let i=0;i<count;i++){
+
+pieces.push({
+x:width/2+(Math.random()-0.5)*180,
+y:height*0.4+(Math.random()-0.5)*80,
+vx:(Math.random()-0.5)*10,
+vy:-(7+Math.random()*10),
+rot:Math.random()*Math.PI*2,
+vr:(Math.random()-0.5)*0.4,
+w:6+Math.random()*6,
+h:14+Math.random()*16,
+color:colors[Math.floor(Math.random()*colors.length)],
+sway:Math.random()*Math.PI*2,
+swaySpeed:0.05+Math.random()*0.09,
+gravity:0.3+Math.random()*0.14,
+life:0,
+maxLife:120+Math.random()*70
+});
+
+}
+
+function tick(){
+
+ctx.clearRect(0,0,width,height);
+
+let alive=false;
+
+pieces.forEach(p=>{
+
+p.life++;
+
+if(p.life>p.maxLife){
+return;
+}
+
+alive=true;
+
+p.vy+=p.gravity*0.05;
+
+p.sway+=p.swaySpeed;
+
+p.x+=p.vx*0.5+Math.sin(p.sway)*1.6;
+
+p.y+=p.vy*0.5;
+
+p.rot+=p.vr;
+
+const fade=p.life>p.maxLife-30?Math.max(0,(p.maxLife-p.life)/30):1;
+
+ctx.save();
+
+ctx.globalAlpha=fade;
+
+ctx.translate(p.x,p.y);
+
+ctx.rotate(p.rot);
+
+ctx.fillStyle=p.color;
+
+ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);
+
+ctx.restore();
+
+});
+
+if(alive){
+
+requestAnimationFrame(tick);
+
+}else{
+
+canvas.style.display='none';
+
+ctx.clearRect(0,0,width,height);
+
+}
+
+}
+
+requestAnimationFrame(tick);
+
+}
 
 function refreshProfileStats(){
 
@@ -3870,8 +3897,6 @@ unlockedCount.textContent=paidPosts.size;
 
 }
 
-
-/* LOGOUT */
 $('logout').onclick=async()=>{
 
 paymentPolling=false;
@@ -3898,8 +3923,6 @@ $('home').style.display='block';
 
 };
 
-
-/* PUBLISH */
 $('publish').onclick=async()=>{
 
 if(!currentUser){
@@ -4017,7 +4040,6 @@ throw new Error(
 
 }
 
-/* VALIDITY IS DERIVED AUTOMATICALLY FROM NOW UNTIL THE BET START TIME */
 const validityHours=
 (expiresAt.getTime()-Date.now())/3600000;
 
@@ -4067,8 +4089,6 @@ $('publish').disabled=false;
 
 };
 
-
-/* LIST POSTS */
 function listenPosts(){
 
 if(stopPosts){
@@ -4115,7 +4135,6 @@ snapshot.docs.filter(
 item=>isExpired(item.data())
 );
 
-/* BEST-EFFORT AUTO CLEANUP OF EXPIRED BETSLIPS */
 if(currentIsAdmin&&expiredDocs.length){
 
 expiredDocs.forEach(item=>{
@@ -4188,7 +4207,6 @@ return;
 
 }
 
-
 function countdownMarkup(post){
 
 if(!post.expiresAt){
@@ -4213,7 +4231,6 @@ return `
 
 }
 
-
 function renderCard(item){
 
 const post=item.data();
@@ -4227,8 +4244,6 @@ countdownMarkup(post);
 const platformLogos=
 platformLogosMarkup(post);
 
-
-/* FREE TIP */
 if(price<=0){
 
 return `
@@ -4293,8 +4308,6 @@ DELETE BETSLIP
 
 }
 
-
-/* ADMIN ALWAYS GETS ACCESS */
 if(currentIsAdmin){
 
 return `
@@ -4357,8 +4370,6 @@ DELETE BETSLIP
 
 }
 
-
-/* PAID USER */
 if(paidPosts.has(item.id)){
 
 return `
@@ -4411,8 +4422,6 @@ ${esc(post.content||'')}
 
 }
 
-
-/* LOCKED USER */
 return `
 
 <article
@@ -4478,12 +4487,9 @@ Instant access · Secure payment
 
 }
 
-
 const html=
 docs.map(renderCard).join('');
 
-
-/* MY BETSLIP (PAID ONLY) */
 const myDocs=
 docs.filter(item=>
 Number(item.data().price||0)>0&&
@@ -4519,19 +4525,14 @@ tickCountdowns();
 
 }
 
-
 boxes.forEach(box=>{
 
 box.innerHTML=html;
 
 tickCountdowns();
 
-
-/* COPY BUTTONS */
 attachCopyHandlers(box);
 
-
-/* PAYMENT BUTTONS */
 box
 .querySelectorAll('.pay-button')
 .forEach(button=>{
@@ -4554,7 +4555,6 @@ postDoc.id;
 selectedPost=
 postDoc.data();
 
-/* MUST BE SIGNED IN TO PAY */
 if(!currentUser){
 
 pendingUnlock={
@@ -4581,8 +4581,6 @@ selectedPost
 
 });
 
-
-/* DELETE BUTTONS */
 box
 .querySelectorAll('.delete-button')
 .forEach(button=>{
@@ -4648,8 +4646,6 @@ permissionIssue
 
 }
 
-
-/* DELETE CANCEL */
 $('cancelDelete').onclick=()=>{
 
 deleteTargetId=null;
@@ -4658,8 +4654,6 @@ $('deleteModal').style.display='none';
 
 };
 
-
-/* DELETE CONFIRM */
 $('confirmDelete').onclick=async()=>{
 
 if(!currentIsAdmin||!deleteTargetId){
@@ -4714,8 +4708,6 @@ button.innerHTML=
 
 };
 
-
-/* CLOSE DELETE MODAL */
 $('deleteModal').onclick=e=>{
 
 if(e.target===$('deleteModal')){
@@ -4728,8 +4720,6 @@ $('deleteModal').style.display='none';
 
 };
 
-
-/* LEGAL MODALS */
 $('footerYear').textContent=
 new Date().getFullYear();
 
@@ -4791,8 +4781,6 @@ closeLegalModal('privacyModal');
 
 };
 
-
-/* PAYMENT MODAL */
 function openPaymentModal(postId,post){
 
 paymentPolling=false;
@@ -4853,8 +4841,6 @@ paymentStatePushed=true;
 
 }
 
-
-/* CLOSE PAYMENT */
 $('closePayment').onclick=()=>{
 
 if(paymentPolling){
@@ -4875,8 +4861,6 @@ history.back();
 
 };
 
-
-/* PAY */
 $('cancelPolling').onclick=()=>{
 
 paymentPolling=false;
@@ -4914,8 +4898,6 @@ $('payButton').click();
 
 });
 
-
-/* NAME MUST BE TWO WORDS (E.G. "JOHN DOE") */
 function hasTwoNames(value){
 
 return (
@@ -4951,7 +4933,6 @@ markNameInvalid(false);
 }
 
 });
-
 
 $('payButton').onclick=async()=>{
 
@@ -5133,8 +5114,6 @@ $('payButton').disabled=false;
 
 };
 
-
-/* PAYMENT STATUS */
 function paymentFailureReason(result){
 
 const reason=
@@ -5161,7 +5140,6 @@ const maxDelay=4000;
 let attempts=0;
 
 const maxAttempts=120;
-
 
 while(
 paymentPolling&&
@@ -5219,7 +5197,6 @@ result.data?.data?.payment_status||
 
 ).toUpperCase();
 
-
 if(status==='COMPLETED'){
 
 paymentPolling=false;
@@ -5228,6 +5205,7 @@ $('paymentStatus').style.display='none';
 
 $('successBox').style.display='block';
 
+launchConfetti();
 
 try{
 
@@ -5275,7 +5253,6 @@ selectedPostId
 
 }
 
-
 setTimeout(()=>{
 
 $('paymentModal').style.display='none';
@@ -5305,7 +5282,6 @@ return;
 
 }
 
-
 if(status==='FAILED'){
 
 paymentPolling=false;
@@ -5325,8 +5301,6 @@ return;
 
 }
 
-
-/* SOME PROVIDERS RETURN A DIFFERENT WORD FOR A DECLINED/CANCELLED REQUEST */
 const failureStatuses=[
 'CANCELLED',
 'CANCELED',
@@ -5356,7 +5330,6 @@ paymentFailureReason(result);
 return;
 
 }
-
 
 $('statusText').textContent=
 'Payment is still pending. Complete the PIN request on your phone.';
@@ -5391,7 +5364,6 @@ maxDelay
 
 }
 
-
 paymentPolling=false;
 
 $('paymentStatus').style.display='none';
@@ -5407,8 +5379,6 @@ $('paymentMsg').textContent=
 
 }
 
-
-/* UNLOCK CARD AFTER PAYMENT */
 function unlockCard(postId,post){
 
 const cards=
@@ -5502,13 +5472,10 @@ attachCopyHandlers(card);
 
 });
 
-/* REFRESH MY BETSLIP TAB WITH THE NEWLY PAID BETSLIP */
 listenPosts();
 
 }
 
-
-/* REFRESH */
 $('refreshPosts').onclick=async()=>{
 
 const icon=
@@ -5528,8 +5495,6 @@ icon.classList.remove('fa-spin');
 
 };
 
-
-/* AUTH STATE */
 onAuthStateChanged(
 auth,
 user=>{
@@ -5542,8 +5507,6 @@ openApp(user);
 
 });
 
-
-/* SHOW CONTENT EVEN WHEN SIGNED OUT */
 listenPosts();
 
 </script>
