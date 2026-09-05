@@ -12,6 +12,13 @@ export default async function handler(req, res) {
 
   try {
 
+    /* ===== TEMPORARY: payments disabled — remove this block to re-enable ===== */
+    return res.status(503).json({
+      success: false,
+      message: "Payments are temporarily unavailable. Please try again later."
+    });
+    /* =========================================================================== */
+
     /*
      * FRONTEND DATA
      */
